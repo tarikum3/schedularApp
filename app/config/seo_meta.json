@@ -1,0 +1,20 @@
+{
+  "title": "Modalinda | Clothing",
+  "titleTemplate": "%s - Modalinda Storefront",
+  "description": "Modalinda - clothing shopify storefront ",
+  "openGraph": {
+    "title": "Modalinda | Clothing",
+    "description": "Modalinda - clothing shopify storefront",
+    "type": "website",
+    "url": "https://modalinda-tarikum3.vercel.app/ ",
+    "site_name": "Modalinda",
+    "images": [
+      {
+        "url": "/card.png",
+        "width": "800",
+        "height": "600",
+        "alt": "Modalinda"
+      }
+    ]
+  }
+}

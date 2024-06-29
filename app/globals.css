@@ -3,31 +3,42 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary: #ffffff;
+  --primary-2: #f1f3f5;
+  --primary-3: #999999;
+  --secondary: #000000;
+  --secondary-2: #111;
+  --secondary-3: #333333;
+  --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue",
+    "Helvetica", sans-serif;
+  font-size: 10px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+[data-theme="dark"] {
+  --primary: #000000;
+  --primary-2: #111;
+  --primary-3: #333333;
+  --secondary: #ffffff;
+  --secondary-2: #f1f3f5;
+  --secondary-3: #999999;
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  height: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  background-color: var(--primary);
+  color: var(--secondary);
+  margin: 0;
+  position: relative;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
