@@ -46,7 +46,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
           <div className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
             <div className="absolute right-0 w-[80vw] md:w-[700px] h-screen bg-white rounded-md shadow-lg">
               {!cart || cart?.lineItems?.length < 1 ? (
-                <div className="flex-1 px-4 flex flex-col justify-center items-center h-full">
+                <div className=" px-4 flex flex-col justify-center items-center h-full">
                   {/* <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
                     <Bag />
                   </span> */}
@@ -55,9 +55,9 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                   </h2>
                 </div>
               ) : (
-                <>
-                  <div className="px-4 sm:px-6 flex-1">
-                    <h2 className="pt-1 pb-2 text-2xl font-bold tracking-wide cursor-pointer mb-2">
+                <div className="flex flex-col m-5 p-3  ">
+                  <div className=" ">
+                    <h2 className="text-4xl font-bold tracking-wide">
                       My Cart
                     </h2>
 
@@ -72,7 +72,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                     </ul>
                   </div>
 
-                  <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-primary border-t text-sm">
+                  <div className=" px-6 py-6 sm:px-6  z-20 bottom-0 w-full bg-primary border-t text-lg">
                     <ul className="pb-2">
                       <li className="flex justify-between py-1">
                         <span>Subtotal</span>
@@ -93,14 +93,14 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                     </div>
                     <div>
                       <a
-                        className="bg-secondary inline-flex items-center justify-center w-full max-h-[64px] text-primary p-5 text-sm"
+                        className="bg-secondary inline-flex items-center justify-center w-full  text-primary p-5 text-sm"
                         //href={checkoutUrl}
                       >
                         Proceed to Checkout
                       </a>
                     </div>
                   </div>
-                </>
+                </div>
               )}
             </div>
           </div>

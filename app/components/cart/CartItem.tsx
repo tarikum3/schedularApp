@@ -37,9 +37,8 @@ const CartItem = ({
     currencyCode,
   });
 
-  // TODO: Add a type for this
   const options = (item as any).options;
-
+  console.log("optionsoptions", options);
   useEffect(() => {
     // Reset the quantity state if the item quantity changes
     if (item.quantity !== Number(quantity)) {
@@ -55,7 +54,7 @@ const CartItem = ({
       {...rest}
     >
       <div className="flex flex-row space-x-4 py-4">
-        <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer">
+        <div className="w-16 h-16 bg-secondary relative overflow-hidden cursor-pointer">
           <Link href={`/product/${item.path}`}>
             <Image
               //onClick={() => closeSidebarIfPresent()}
@@ -77,31 +76,6 @@ const CartItem = ({
               {item.name}
             </span>
           </Link>
-          {options && options.length > 0 && (
-            <div className="flex items-center pb-1">
-              {options.map((option: ItemOption, i: number) => (
-                <div
-                  key={`${item.id}-${option.name}`}
-                  className="text-sm font-semibold text-secondary-3 inline-flex items-center justify-center"
-                >
-                  {option.name}
-                  {option.name === "Color" ? (
-                    <span
-                      className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-secondary inline-flex items-center justify-center overflow-hidden"
-                      style={{
-                        backgroundColor: `${option.value}`,
-                      }}
-                    ></span>
-                  ) : (
-                    <span className="mx-2 rounded-full bg-transparent border h-5 p-1 text-secondary inline-flex items-center justify-center overflow-hidden">
-                      {option.value}
-                    </span>
-                  )}
-                  {i === options.length - 1 ? "" : <span className="mr-3" />}
-                </div>
-              ))}
-            </div>
-          )}
 
           <div className="text-sm tracking-wider">{quantity}x</div>
         </div>
@@ -145,7 +119,7 @@ const CartItem = ({
         <button
           type="button"
           // onClick={() => increaseQuantity(1)}
-          className="flex p-1 border-primary-2 border items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
+          className="flex p-1  items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
           // className={cn(s.actions)}
           style={{ marginLeft: "-1px" }}
           disabled={quantity < 1 || quantity >= max}
