@@ -8,6 +8,7 @@ import Clickoutside from "@/app/components/common/Clickoutside";
 import { useUI } from "@/app/components/context";
 //import { signOut } from "@/auth";
 import { useSession } from "next-auth/react";
+
 import { logOut } from "@lib/actions/actions";
 // import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
@@ -35,7 +36,7 @@ const UserView: FC = () => {
         <button
           onClick={() => {
             handleDropdown("");
-            // isCustomerLoggedIn ? handleDropdown("user") : openModal();
+
             session?.user ? handleDropdown("user") : openModal();
           }}
           aria-label="Menu"

@@ -44,7 +44,7 @@ export function EditItemQuantityButton({
   const payload = {
     id: item?.id,
     //  productId: item?.merchandise.id,
-    quantity: type === "plus" ? item.quantity + 1 : item.quantity - 1,
+    quantity: type == "plus" ? item.quantity + 1 : item.quantity - 1,
   };
   const actionWithVariant = formAction.bind(null, payload);
 

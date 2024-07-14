@@ -214,7 +214,7 @@ export async function updateCart(
 
     variables: {
       checkoutId: cartId,
-      lineItemIds: [{ id: variables.id, quantity: variables.quantity }],
+      lineItems: [{ id: variables.id, quantity: variables.quantity }],
     },
     cache: "no-store",
   });

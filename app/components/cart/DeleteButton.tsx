@@ -4,7 +4,7 @@ import { removeItem } from "@lib/actions/actions";
 import type { LineItem } from "@lib/types";
 
 import { useFormState, useFormStatus } from "react-dom";
-
+import { Cross } from "@/app/components/icons";
 function SubmitButton() {
   const { pending } = useFormStatus();
 
@@ -16,9 +16,11 @@ function SubmitButton() {
       }}
       aria-label="Remove cart item"
       aria-disabled={pending}
-      className="flex p-1 border-primary-2 border items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
+      className="flex  border-primary-2 border rounded-full h-10 w-10 text-lg items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
       // className={cn(s.actions)}
-    ></button>
+    >
+      <Cross width={18} height={18} />
+    </button>
   );
 }
 

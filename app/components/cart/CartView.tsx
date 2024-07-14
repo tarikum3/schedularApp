@@ -5,7 +5,12 @@ import { Bag } from "@/app/components/icons";
 import usePrice from "@lib/hooks/use-price";
 import type { Cart } from "@lib/types";
 import Clickoutside from "@/app/components/common/Clickoutside";
+import { useSession } from "next-auth/react";
+import { useUI } from "@/app/components/context";
+
 const CartView = ({ cart }: { cart: Cart | undefined }) => {
+  const { openModal } = useUI();
+  const { data: session, status } = useSession();
   const [display, setDisplay] = useState(true);
   const [dropdown, setDropdown] = useState("");
   const { price: subTotal } = usePrice(
@@ -32,9 +37,16 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
   console.log("cartcart", cart);
   return (
     <div className="relative ">
-      <button onClick={() => handleDropdown("cart")} aria-label="Menu">
+      <button
+        onClick={() => {
+          handleDropdown("");
+
+          session?.user ? handleDropdown("cart") : openModal();
+        }}
+        aria-label="Menu"
+      >
         <Bag className="w-7 h-7" />
-        {cart && cart?.lineItems?.length > 0 && (
+        {session?.user && cart && cart?.lineItems?.length > 0 && (
           <span className="min-w-[1.25rem] min-h-[1.25rem] border border-primary-2 bg-secondary text-primary absolute rounded-full right-3 top-3 font-bold text-xs">
             {cart?.lineItems?.length}
           </span>
