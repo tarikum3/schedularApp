@@ -26,6 +26,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
   const [error, setError] = useState<null | Error>(null);
 
   const variant = product.variants[0];
+  console.log("variii", variant);
   const addToCart = async () => {
     setLoading(true);
     setError(null);
@@ -34,7 +35,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
       //   productId: String(product.id),
       //   variantId: String(variant ? variant.id : product.variants[0]?.id),
       // });
-      await addItem(null, product.id);
+      await addItem(null, variant ? variant.id : product.variants[0]?.id);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -68,40 +69,42 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           </div>
 
           <div className="mt-4 col-start-1   lg:mt-6 lg:col-start-1 lg:row-start-3 lg:row-end-4">
-            <h3 className={"py-4 px-6 bg-primary text-secondary font-bold"}>
-              <span
-                className={""}
-                style={{
-                  fontSize: `${32}px`,
-                  lineHeight: `${32}px`,
-                }}
-              >
-                {product.name}
-              </span>
-            </h3>
-            <div className="pt-2 px-6 pb-4 text-sm bg-primary text-secondary font-semibold inline-block tracking-wide">
-              {price}
-            </div>
-            <div>
-              {error && <ErrorMessage error={error} className="my-5" />}
+            <div className="flex flex-col space-y-2 m-1">
+              <h3 className={"py-4 px-6 bg-primary text-secondary font-bold"}>
+                <span
+                  className={""}
+                  style={{
+                    fontSize: `${32}px`,
+                    lineHeight: `${32}px`,
+                  }}
+                >
+                  {product.name}
+                </span>
+              </h3>
+              <div className="pt-2 px-6 pb-4 text-md bg-primary text-secondary font-semibold inline-block tracking-wide">
+                {price}
+              </div>
+              <div>
+                {error && <ErrorMessage error={error} className="my-5" />}
 
-              <Button
-                aria-label="Add to Cart"
-                type="button"
-                className={"w-5/6 py-2 px-6 rounded-lg"}
-                onClick={addToCart}
-                loading={loading}
-                disabled={variant?.availableForSale === false}
-              >
-                {variant?.availableForSale === false
-                  ? "Not Available"
-                  : "Add To Cart"}
-              </Button>
+                <Button
+                  aria-label="Add to Cart"
+                  type="button"
+                  className={"w-4/6 !text-xl"}
+                  onClick={addToCart}
+                  loading={loading}
+                  disabled={variant?.availableForSale === false}
+                >
+                  {variant?.availableForSale === false
+                    ? "Not Available"
+                    : "Add To Cart"}
+                </Button>
+              </div>
             </div>
+            <p className="mt-4 px-6  text-xl  col-start-1 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
+              {product.description}
+            </p>
           </div>
-          <p className="mt-4 px-6  text-xl  col-start-1 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-            {product.description}
-          </p>
         </div>
       </div>
 

@@ -45,7 +45,9 @@ const fetchGraphqlApi: <T = any, B = any>(
     });
 
     const { data, errors, status } = await res.json();
-
+    console.log("carttt", data);
+    console.log("carttterrors", errors);
+    console.log("carttterrors", variables);
     if (errors) {
       throw getError(errors, status);
     }

@@ -3,9 +3,6 @@ import { FC, useState } from "react";
 import CartItem from "./CartItem";
 import { Bag } from "@/app/components/icons";
 import usePrice from "@lib/hooks/use-price";
-//import { SHOPIFY_CHECKOUT_URL_COOKIE } from "@framework/const";
-//import Cookies from "js-cookie";
-//import { useGetCartQuery } from "@framework/services/cart";
 import type { Cart } from "@lib/types";
 import Clickoutside from "@/app/components/common/Clickoutside";
 const CartView = ({ cart }: { cart: Cart | undefined }) => {
@@ -31,9 +28,8 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
       setDisplay(true);
     }
   };
-  //const checkoutUrl = Cookies.get(SHOPIFY_CHECKOUT_URL_COOKIE);
-  // console.log("dropdown", dropdown);
-  // console.log("dropdowndisplay", display);
+
+  console.log("cartcart", cart);
   return (
     <div className="relative ">
       <button onClick={() => handleDropdown("cart")} aria-label="Menu">
@@ -49,18 +45,14 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
         <Clickoutside status={display} onClick={() => setDisplay(false)}>
           <div className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
             <div className="absolute right-0 w-[80vw] md:w-[700px] h-screen bg-white rounded-md shadow-lg">
-              {cart && cart?.lineItems?.length < 1 ? (
-                <div className="flex-1 px-4 flex flex-col justify-center items-center">
-                  <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
-                    <Bag className="absolute" />
-                  </span>
-                  <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
+              {!cart || cart?.lineItems?.length < 1 ? (
+                <div className="flex-1 px-4 flex flex-col justify-center items-center h-full">
+                  {/* <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
+                    <Bag />
+                  </span> */}
+                  <h2 className="pt-6 text-3xl font-bold tracking-wide text-center">
                     Your cart is empty
                   </h2>
-                  <p className="text-primary-3 px-10 text-center pt-2">
-                    Biscuit oat cake wafer icing ice cream tiramisu pudding
-                    cupcake.
-                  </p>
                 </div>
               ) : (
                 <>
