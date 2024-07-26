@@ -7,7 +7,7 @@ export default function Profile() {
   //  const { data } = useGetCustomerQuery();
   const { data: session, status } = useSession();
   return (
-    <div className="mx-auto max-w-7xl px-6 w-full pt-4">
+    <div className="mx-auto max-w-7xl px-6 w-full pt-4  ">
       <h1 className="pt-1 pb-4 text-2xl leading-7 font-bold tracking-wide">
         My Profile
       </h1>

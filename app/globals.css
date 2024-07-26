@@ -42,3 +42,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.fit {
+  min-height: calc(100vh - 188px);
+}

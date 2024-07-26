@@ -42,7 +42,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return user;
         }
 
-        console.log("Invalid credentials");
+        // console.log("Invalid credentials");
         return null;
       },
     }),
@@ -62,7 +62,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     async jwt({ token, user, session }) {
       // the processing of JWT occurs before handling sessions.
-      console.log("jwt callback ", { token, user, session });
+      // console.log("jwt callback ", { token, user, session });
 
       if (user) {
         token.accessToken = user.accessToken;
@@ -80,7 +80,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     //  The session receives the token from JWT
     async session({ session, token, user }) {
-      console.log("session callback ", { token, user, session });
+      //  console.log("session callback ", { token, user, session });
 
       return {
         ...session,

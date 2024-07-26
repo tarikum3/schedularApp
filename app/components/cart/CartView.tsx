@@ -34,7 +34,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
     }
   };
 
-  console.log("cartcart", cart);
+  //console.log("cartcart", cart);
   return (
     <div className="relative ">
       <button

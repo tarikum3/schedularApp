@@ -38,7 +38,7 @@ const CartItem = ({
   });
 
   const options = (item as any).options;
-  console.log("optionsoptions", options);
+  // console.log("optionsoptions", options);
   useEffect(() => {
     // Reset the quantity state if the item quantity changes
     if (item.quantity !== Number(quantity)) {

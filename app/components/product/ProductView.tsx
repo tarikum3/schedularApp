@@ -26,7 +26,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
   const [error, setError] = useState<null | Error>(null);
 
   const variant = product.variants[0];
-  console.log("variii", variant);
+  //console.log("variii", variant);
   const addToCart = async () => {
     setLoading(true);
     setError(null);

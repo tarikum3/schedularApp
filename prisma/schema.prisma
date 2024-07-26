@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+ 
+datasource db {
+  provider = "postgresql"
+  // Uses connection pooling
+  url = env("POSTGRES_PRISMA_URL")
+  // Uses direct connection, ⚠️ make sure to keep this to `POSTGRES_URL_NON_POOLING`
+  // or you'll have dangling databases from migrations
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+ 
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  image     String
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id             String          @id @default(uuid())
+  name           String
+  description    String
+  descriptionHtml String?
+  sku            String?
+  slug           String?
+  path           String?
+  images         Image[]
+  variants       ProductVariant[]
+  price          ProductPrice?
+  options        ProductOption[]
+  vendor         String?
+  tags           String[]
+  collections    ProductCollection[]
+  cartItems      CartItem[]
+  createdAt DateTime @default(now())
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  url       String
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model ProductVariant {
+  id        String   @id @default(uuid())
+  name      String
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model ProductPrice {
+  id        String   @id @default(uuid())
+  amount    Float
+  currency  String
+  productId String   @unique
+  product   Product? @relation(fields: [productId], references: [id])
+}
+
+model ProductOption {
+  id        String   @id @default(uuid())
+  name      String
+  values    String[]
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Collection {
+  id             String                @id @default(uuid())
+  title          String
+  description    String?
+  products       ProductCollection[]
+  rules          AutomaticCollectionRule[]
+}
+
+model ProductCollection {
+  productId    String
+  collectionId String
+  product      Product    @relation(fields: [productId], references: [id])
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  @@id([productId, collectionId])
+}
+
+model AutomaticCollectionRule {
+  id             String     @id @default(uuid())
+  field          String
+  condition      String
+  value          String
+  collectionId   String
+  collection     Collection @relation(fields: [collectionId], references: [id])
+}
+
+model Cart {
+  id         String      @id @default(uuid())
+  userId     String
+  items      CartItem[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model CartItem {
+  id         String      @id @default(uuid())
+  productId  String
+  product    Product     @relation(fields: [productId], references: [id])
+  quantity   Int
+  cartId     String
+  cart       Cart        @relation(fields: [cartId], references: [id])
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -29,7 +29,7 @@ const UserView: FC = () => {
     }
   };
 
-  console.log("dropdownsession", session);
+  //console.log("dropdownsession", session);
   return (
     <>
       <div className="relative ">
