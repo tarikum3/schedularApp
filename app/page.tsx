@@ -6,9 +6,10 @@ import { getAllProducts } from "@lib/services";
 //import { unstable_noStore as noStore } from 'next/cache';
 import Link from "next/link";
 import { ArrowRight } from "@/app/components/icons";
-import { promise } from "zod";
+
 //import { cache } from "react";
 import prisma from "@lib/prisma";
+import { fetchProducts } from "@lib/services/prismaServices";
 export const getHomeProducts = async () => {
   const productsPromise = getAllProducts({
     variables: { first: 8 },
@@ -32,15 +33,19 @@ export default async function Home() {
   // });
   // console.log("userprismaresult", result);
   // // res.json(result);
-  const user = await prisma.user.findMany({
-    orderBy: [
-      {
-        createdAt: "desc",
-      },
-    ],
-  });
+  // const user = await prisma.user.findMany({
+  //   orderBy: [
+  //     {
+  //       createdAt: "desc",
+  //     },
+  //   ],
+  // });
   // console.log("userprisma", user);
   // console.log("userprisma", prisma);
+
+  // const productsss = await fetchProducts({});
+  // console.log("productsss", productsss);
+
   //simulate delay
   //await new Promise((resolve) => setTimeout(resolve, 9000));
   return (

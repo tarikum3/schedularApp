@@ -20,12 +20,12 @@ const productData2 = {
   sku: "SKU123452",
   slug: "sample-product2",
   path: "/products/sample-product",
-  images: [
-    { url: "https://example.com/image12.jpg" },
-    { url: "https://example.com/image22.jpg" }
-  ],
+  // images: [
+  //   { url: "https://example.com/image12.jpg" },
+  //   { url: "https://example.com/image22.jpg" }
+  // ],
   vendor: "Sample Vendor2",
-  tags: ["tag12", "tag22"]
+  tags: ["tag12", "tag22"],
 };
 const productData = {
   name: "Sample Product",
@@ -34,12 +34,12 @@ const productData = {
   sku: "SKU12345",
   slug: "sample-product",
   path: "/products/sample-product",
-  images: [
-    { url: "https://example.com/image1.jpg" },
-    { url: "https://example.com/image2.jpg" }
-  ],
+  // images: [
+  //   { url: "https://example.com/image1.jpg" },
+  //   { url: "https://example.com/image2.jpg" }
+  // ],
   vendor: "Sample Vendor",
-  tags: ["tag1", "tag2"]
+  tags: ["tag1", "tag2"],
 };
 export async function fetchProducts(
   options: FetchProductsOptions
@@ -50,8 +50,8 @@ export async function fetchProducts(
     // Build the query
     const product = await createProduct(productData);
     const product2 = await createProduct(productData2);
-    console.log("productpp",product);
-    console.log("productpp",product2);
+    console.log("productpp", product);
+    console.log("productpp", product2);
     const whereClause: any = {};
 
     if (searchKey) {
@@ -303,8 +303,6 @@ interface FetchCollectionOptions {
   id?: string;
   title?: string;
 }
-
-
 
 export async function fetchCollection(
   options: FetchCollectionOptions
