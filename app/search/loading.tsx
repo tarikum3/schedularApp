@@ -28,12 +28,13 @@ export default function Loading({
         <div className="relative "></div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 mx-auto md:mx-24 lg:grid-cols-3">
+      {/* <div className="grid grid-cols-1 gap-4 mx-auto md:mx-24 lg:grid-cols-3">
         {Array(12)
           .fill(0)
           .map((_, index) => {
             return (
               <Image
+                key={index}
                 quality="85"
                 src={placeholderImg}
                 alt={"Product Image"}
@@ -45,7 +46,7 @@ export default function Loading({
               />
             );
           })}
-      </div>
+      </div> */}
     </>
   );
 }
