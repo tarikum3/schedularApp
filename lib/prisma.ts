@@ -1,4 +1,8 @@
-import { PrismaClient, Product as PrismaProduct } from "@prisma/client";
+import {
+  PrismaClient,
+  Product as PrismaProduct,
+  Collection as PrismaCollection,
+} from "@prisma/client";
 
 let prisma: PrismaClient;
 
@@ -14,3 +18,4 @@ if (process.env.NODE_ENV === "production") {
 export default prisma;
 
 export type Product = PrismaProduct;
+export type Collection = PrismaCollection;

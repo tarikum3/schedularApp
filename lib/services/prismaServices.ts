@@ -1,4 +1,4 @@
-import prisma, { Product } from "@lib/prisma";
+import prisma, { Product, Collection } from "@lib/prisma";
 import { applyCollectionRules } from "@lib/services/utils";
 interface FetchProductsOptions {
   searchKey?: string;
@@ -13,6 +13,34 @@ interface FetchProductsOptions {
   };
 }
 
+const productData2 = {
+  name: "Sample Product2",
+  description: "A high-quality product2",
+  descriptionHtml: "<p>A high-quality produc2t</p>",
+  sku: "SKU123452",
+  slug: "sample-product2",
+  path: "/products/sample-product",
+  images: [
+    { url: "https://example.com/image12.jpg" },
+    { url: "https://example.com/image22.jpg" }
+  ],
+  vendor: "Sample Vendor2",
+  tags: ["tag12", "tag22"]
+};
+const productData = {
+  name: "Sample Product",
+  description: "A high-quality product",
+  descriptionHtml: "<p>A high-quality product</p>",
+  sku: "SKU12345",
+  slug: "sample-product",
+  path: "/products/sample-product",
+  images: [
+    { url: "https://example.com/image1.jpg" },
+    { url: "https://example.com/image2.jpg" }
+  ],
+  vendor: "Sample Vendor",
+  tags: ["tag1", "tag2"]
+};
 export async function fetchProducts(
   options: FetchProductsOptions
 ): Promise<{ products: Product[]; total: number }> {
@@ -20,6 +48,10 @@ export async function fetchProducts(
 
   try {
     // Build the query
+    const product = await createProduct(productData);
+    const product2 = await createProduct(productData2);
+    console.log("productpp",product);
+    console.log("productpp",product2);
     const whereClause: any = {};
 
     if (searchKey) {
@@ -265,4 +297,41 @@ export async function removeProductFromCollection(
       productId,
     },
   });
+}
+
+interface FetchCollectionOptions {
+  id?: string;
+  title?: string;
+}
+
+
+
+export async function fetchCollection(
+  options: FetchCollectionOptions
+): Promise<(Collection & { products: Product[] }) | null> {
+  const { id, title } = options;
+
+  if (!id && !title) {
+    throw new Error("Either id or title must be provided.");
+  }
+
+  try {
+    const whereClause = id ? { id } : { title: title as string };
+
+    const collection = await prisma.collection.findFirst({
+      where: whereClause,
+      include: {
+        products: true,
+      },
+    });
+
+    if (!collection) {
+      throw new Error("Collection not found.");
+    }
+
+    return collection as any;
+  } catch (error) {
+    console.error("Error fetching collection:", error);
+    throw new Error("Unable to fetch collection.");
+  }
 }

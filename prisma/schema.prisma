@@ -101,6 +101,7 @@ model Cart {
   updatedAt  DateTime    @updatedAt
 }
 
+
 model CartItem {
   id         String      @id @default(uuid())
   productId  String
