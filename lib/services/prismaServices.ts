@@ -1,5 +1,9 @@
 import prisma, { Product, Collection } from "@lib/prisma";
 import { applyCollectionRules } from "@lib/services/utils";
+import { supabase } from "@lib/supabaseClient";
+import { v4 as uuidv4 } from "uuid";
+import path from "path";
+import fs from "fs";
 interface FetchProductsOptions {
   searchKey?: string;
   filter?: {
@@ -48,10 +52,29 @@ export async function fetchProducts(
 
   try {
     // Build the query
-    const product = await createProduct(productData);
-    const product2 = await createProduct(productData2);
-    console.log("productpp", product);
-    console.log("productpp", product2);
+    // const product = await createProduct(productData);
+    // const product2 = await createProduct(productData2);
+    // console.log("productpp", product);
+    // console.log("productpp", product2);
+    // const image = "t-shirt-1.png";
+    // const imagePath = path.resolve("./public/assets", image);
+    // console.log("imagePath", imagePath);
+    // const imageBuffer = fs.readFileSync(imagePath);
+    // const { data, error } = await supabase.storage
+    //   .from("images")
+    //   .upload(`public/${uuidv4()}-${image}`, imageBuffer);
+
+    // if (error) {
+    //   console.error("Error uploading image:", error);
+
+    //   throw new Error("Error uploading image.");
+    // }
+    // console.log("imagePathdata", data);
+    // const imageUrl = `${
+    //   supabase.storage.from("images").getPublicUrl(data.path).data.publicUrl
+    // }`;
+    // console.log("imageUrlimageUrl", imageUrl);
+
     const whereClause: any = {};
 
     if (searchKey) {
@@ -111,8 +134,35 @@ export async function fetchProductById(id: string) {
   });
 }
 
+// export async function createProduct(data: any) {
+//   return await prisma.product.create({ data });
+// }
+
 export async function createProduct(data: any) {
-  return await prisma.product.create({ data });
+  const { images, variants, price, options, ...productData } = data;
+
+  try {
+    const product = await prisma.product.create({
+      data: {
+        ...productData,
+        images: images ? { create: images } : undefined,
+        variants: variants ? { create: variants } : undefined,
+        price: price ? { create: price } : undefined,
+        options: options ? { create: options } : undefined,
+      },
+      include: {
+        images: true,
+        variants: true,
+        price: true,
+        options: true,
+      },
+    });
+
+    return product;
+  } catch (error) {
+    console.error("Error creating product:", error);
+    throw new Error("Failed to create product");
+  }
 }
 
 export async function updateProduct(id: string, data: any) {
