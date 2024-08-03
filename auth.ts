@@ -4,19 +4,34 @@ import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 
 import { authConfig } from "./auth.config";
-import { login, logout, getCustomer, signup } from "@lib/services";
+//import { login, logout, getCustomer, signup } from "@lib/services";
+import { getCustomer } from "@lib/services/prismaServices";
+import bcrypt from "bcrypt";
 async function getUser(
   email: string,
   password: string
 ): Promise<any | undefined> {
   try {
-    const data = await login({ email, password });
-    const token = data?.customerAccessToken?.accessToken;
-    if (token) {
-      const user = await getCustomer(token);
-      return { ...user, token };
+    // const data = await login({ email, password });
+    // const token = data?.customerAccessToken?.accessToken;
+    // if (token) {
+    // const user = await getCustomer(token);
+    // return { ...user, token };
+    // }
+    const user = await getCustomer({ email });
+    if (!user) {
+      throw new Error("Invalid email or password.");
     }
 
+    // Compare the provided password with the stored hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid email or password.");
+    }
+    if (user) {
+      return { ...user };
+    }
     return null;
   } catch (error) {
     console.error("Failed to fetch user:", error);

@@ -1,21 +1,22 @@
 "use server";
 
 import { TAGS } from "@lib/const";
-import {
-  //addCartItem,
-  // createCart,
-  // getCart,
-  // removeCartItem,
-  updateCart,
-} from "@lib/services";
+// import {
+//   addCartItem,
+//   createCart,
+//   getCart,
+//   removeCartItem,
+//   updateCart,
+// } from "@lib/services";
 import {
   upsertCartItem,
   createCart,
   getCart,
   deleteCartItem,
   // updateCart,
+  createCustomer,
 } from "@lib/services/prismaServices";
-import { login, logout, signup } from "@lib/services";
+//import { login, logout, signup } from "@lib/services";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { signIn, signOut } from "@/auth";
@@ -167,7 +168,8 @@ export async function register(
         message: "Missing Fields. ",
       };
     }
-    signup({ ...validatedFields.data });
+    await createCustomer({ ...validatedFields.data });
+    // await signup({ ...validatedFields.data });
     await signIn("credentials", formData);
   } catch (error) {
     if (error instanceof Error) {
@@ -179,7 +181,7 @@ export async function register(
 export async function logOut() {
   try {
     await signOut();
-    logout();
+    //logout();
   } catch (error) {
     if (error instanceof Error) {
       return "Something went wrong.";

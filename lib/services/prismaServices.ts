@@ -4,6 +4,7 @@ import { supabase } from "@lib/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import fs from "fs";
+import bcrypt from "bcrypt";
 interface FetchProductsOptions {
   searchKey?: string;
   filter?: {
@@ -464,15 +465,25 @@ interface CreateCustomerData {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
   phone?: string;
   image?: string;
 }
 
+// Function to create a new customer
 export async function createCustomer(data: CreateCustomerData) {
   try {
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
+    // Create the customer with the hashed password
     const customer = await prisma.customer.create({
-      data,
+      data: {
+        ...data,
+        password: hashedPassword,
+      },
     });
+
     return customer;
   } catch (error) {
     console.error("Error creating customer:", error);
@@ -523,5 +534,63 @@ export async function getCustomer(identifier: { id?: number; email?: string }) {
   } catch (error) {
     console.error("Error fetching customer:", error);
     throw new Error("Unable to fetch customer.");
+  }
+}
+type UpdateCustomerData = Partial<CreateCustomerData>;
+
+export async function updateCustomer(id: number, data: UpdateCustomerData) {
+  try {
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10);
+    }
+
+    const customer = await prisma.customer.update({
+      where: { id },
+      data,
+    });
+    return customer;
+  } catch (error) {
+    console.error("Error updating customer:", error);
+    throw new Error("Unable to update customer.");
+  }
+}
+
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+export async function login(data: LoginData) {
+  const { email, password } = data;
+
+  try {
+    // Fetch the user by email
+    const user = await prisma.customer.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new Error("Invalid email or password.");
+    }
+
+    // Compare the provided password with the stored hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid email or password.");
+    }
+
+    // Return user data or a JWT token, etc.
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone,
+      image: user.image,
+    };
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw new Error("Unable to log in.");
   }
 }

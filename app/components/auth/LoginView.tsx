@@ -9,13 +9,6 @@ import { authenticate } from "@lib/actions/actions";
 import { useFormState, useFormStatus } from "react-dom";
 
 const LoginView: React.FC = () => {
-  // Form State
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [loading, setLoading] = useState(false);
-  // const [message, setMessage] = useState("");
-  // const [dirty, setDirty] = useState(false);
-  // const [disabled, setDisabled] = useState(false);
   const { setModalView, closeModal } = useUI();
   //const data=  login({ email:"tarikum3@gmail.com", password:"9427230912" });
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);

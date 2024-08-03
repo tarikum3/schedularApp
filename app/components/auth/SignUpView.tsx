@@ -5,26 +5,10 @@ import { Info } from "@/app/components/icons";
 import { useUI } from "@/app/components/context";
 import { Logo, Button, Input } from "@/app/components";
 
-// import {
-//   useLoginMutation,
-//   useSignupMutation,
-// } from "@framework/services/customer";
-// import { setCustomerToken } from "@framework/utils";
-//const [login]=useLoginMutation();
 import { register } from "@lib/actions/actions";
 
 import { useFormState, useFormStatus } from "react-dom";
 const SignUpView: FC = () => {
-  // Form State
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [loading, setLoading] = useState(false);
-  // const [message, setMessage] = useState("");
-  // const [dirty, setDirty] = useState(false);
-  // const [disabled, setDisabled] = useState(false);
-
   const { setModalView, closeModal } = useUI();
 
   const [errorMessage, dispatch] = useFormState(register, {} as any);
