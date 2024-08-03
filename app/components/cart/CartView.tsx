@@ -7,7 +7,7 @@ import type { Cart } from "@lib/types";
 import Clickoutside from "@/app/components/common/Clickoutside";
 import { useSession } from "next-auth/react";
 import { useUI } from "@/app/components/context";
-
+import { formatPrice } from "@/lib/utils/helper";
 const CartView = ({ cart }: { cart: Cart | undefined }) => {
   const { openModal } = useUI();
   const { data: session, status } = useSession();

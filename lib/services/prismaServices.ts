@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import fs from "fs";
 import bcrypt from "bcrypt";
+
 interface FetchProductsOptions {
   searchKey?: string;
   filter?: {
@@ -195,50 +196,6 @@ export async function deleteProduct(id: string) {
   });
 }
 
-// export async function fetchCollections() {
-//   return await prisma.collection.findMany({
-//     include: {
-//       products: true,
-//       rules: true,
-//     },
-//   });
-// }
-
-// export async function fetchCollectionById(id: string) {
-//   return await prisma.collection.findUnique({
-//     where: { id },
-//     include: {
-//       products: true,
-//       rules: true,
-//     },
-//   });
-// }
-
-// export async function createCollection(data: any) {
-//   return await prisma.collection.create({ data });
-// }
-
-// export async function updateCollection(id: string, data: any) {
-//   return await prisma.collection.update({
-//     where: { id },
-//     data,
-//   });
-// }
-
-// export async function deleteCollection(id: string) {
-//   return await prisma.collection.delete({
-//     where: { id },
-//   });
-// }
-
-export async function fetchCart(customerId: string) {
-  return await prisma.cart.findMany({
-    where: { customerId },
-    include: {
-      items: true,
-    },
-  });
-}
 export async function getCart(cartId: string) {
   try {
     const cart = await prisma.cart.findUnique({
@@ -246,7 +203,14 @@ export async function getCart(cartId: string) {
       include: {
         items: {
           include: {
-            product: true,
+            product: {
+              include: {
+                images: true,
+                variants: true,
+                price: true,
+                options: true,
+              },
+            },
           },
         },
       },
@@ -439,7 +403,14 @@ export async function fetchCollection(
       include: {
         products: {
           include: {
-            product: true, // Include the full product details
+            product: {
+              include: {
+                images: true,
+                variants: true,
+                price: true,
+                options: true,
+              },
+            }, // Include the full product details
           },
         },
       },

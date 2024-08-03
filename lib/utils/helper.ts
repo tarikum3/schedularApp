@@ -223,3 +223,19 @@ export function rangeMap(n: number, fn: (i: number) => any) {
   }
   return arr;
 }
+export function formatPrice({
+  amount,
+  currencyCode,
+  locale,
+}: {
+  amount: number;
+  currencyCode: string;
+  locale: string;
+}) {
+  const formatCurrency = new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currencyCode,
+  });
+
+  return formatCurrency.format(amount);
+}
