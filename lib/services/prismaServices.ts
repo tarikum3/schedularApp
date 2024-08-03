@@ -15,6 +15,10 @@ interface FetchProductsOptions {
     page?: number;
     pageSize?: number;
   };
+  sort?: {
+    field: "name" | "createdAt" | "price";
+    order: "asc" | "desc";
+  };
 }
 
 const productData2 = {
@@ -48,7 +52,7 @@ const productData = {
 export async function fetchProducts(
   options: FetchProductsOptions
 ): Promise<{ products: Product[]; total: number }> {
-  const { searchKey, filter, pagination } = options;
+  const { searchKey, filter, pagination, sort } = options;
 
   try {
     // Build the query
@@ -78,7 +82,11 @@ export async function fetchProducts(
     const whereClause: any = {};
 
     if (searchKey) {
-      whereClause.name = { contains: searchKey, mode: "insensitive" };
+      whereClause.OR = [
+        { name: { contains: searchKey, mode: "insensitive" } },
+        { description: { contains: searchKey, mode: "insensitive" } },
+        { category: { contains: searchKey, mode: "insensitive" } },
+      ];
     }
 
     if (filter) {
@@ -96,6 +104,9 @@ export async function fetchProducts(
           : { lte: filter.maxPrice };
       }
     }
+    const orderBy = sort
+      ? { [sort.field]: sort.order }
+      : ({ createdAt: "desc" } as const);
 
     // Handle pagination
     let products: Product[];
@@ -111,13 +122,13 @@ export async function fetchProducts(
         where: whereClause,
         skip,
         take,
-        orderBy: { createdAt: "desc" },
+        orderBy: orderBy,
       });
     } else {
       // If no pagination is provided, fetch all products
       products = await prisma.product.findMany({
         where: whereClause,
-        orderBy: { createdAt: "desc" },
+        orderBy: orderBy,
       });
     }
 
@@ -133,7 +144,12 @@ export async function fetchProductById(id: string) {
     where: { id },
   });
 }
-
+export async function fetchProductBySlug(slug: string) {
+  const product = await prisma.product.findUnique({
+    where: { slug },
+  });
+  return product;
+}
 // export async function createProduct(data: any) {
 //   return await prisma.product.create({ data });
 // }
@@ -214,22 +230,49 @@ export async function deleteProduct(id: string) {
 //   });
 // }
 
-export async function fetchCart(userId: string) {
+export async function fetchCart(customerId: string) {
   return await prisma.cart.findMany({
-    where: { userId },
+    where: { customerId },
     include: {
       items: true,
     },
   });
 }
 export async function getCart(cartId: string) {
-  return await prisma.cart.findUnique({
-    where: { id: cartId },
-    include: { items: { include: { product: true } } },
-  });
+  try {
+    const cart = await prisma.cart.findUnique({
+      where: { id: cartId },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+
+    if (!cart) {
+      throw new Error("Cart not found.");
+    }
+
+    return cart;
+  } catch (error) {
+    console.error("Error fetching cart:", error);
+    throw new Error("Unable to fetch cart.");
+  }
 }
-export async function createCart(data: any) {
-  return await prisma.cart.create({ data });
+export async function createCart(customerId?: string) {
+  try {
+    const newCart = await prisma.cart.create({
+      data: {
+        customerId: customerId ?? "",
+      },
+    });
+    return newCart;
+  } catch (error) {
+    console.error("Error creating cart:", error);
+    throw new Error("Unable to create cart.");
+  }
 }
 
 export async function updateCart(id: string, data: any) {
@@ -244,27 +287,51 @@ export async function deleteCart(id: string) {
     where: { id },
   });
 }
-export async function addItemToCart(
-  cartId: string,
-  productId: string,
-  quantity: number
-) {
-  return await prisma.cartItem.create({
-    data: {
-      cartId,
-      productId,
-      quantity,
-    },
-  });
+export async function deleteCartItem(cartItemId: string) {
+  try {
+    await prisma.cartItem.delete({
+      where: { id: cartItemId },
+    });
+  } catch (error) {
+    console.error("Error deleting cart item:", error);
+    throw new Error("Unable to delete cart item.");
+  }
 }
 
-export async function removeCartItem(cartId: string, productId: string) {
-  return await prisma.cartItem.deleteMany({
-    where: {
-      cartId,
-      productId,
-    },
-  });
+// Add or update a cart item
+export async function upsertCartItem(
+  cartId: string,
+  productId: string,
+  quantity: number = 1
+) {
+  try {
+    const existingCartItem = await prisma.cartItem.findFirst({
+      where: {
+        cartId,
+        productId,
+      },
+    });
+
+    if (existingCartItem) {
+      const updatedCartItem = await prisma.cartItem.update({
+        where: { id: existingCartItem.id },
+        data: { quantity },
+      });
+      return updatedCartItem;
+    } else {
+      const newCartItem = await prisma.cartItem.create({
+        data: {
+          cartId,
+          productId,
+          quantity,
+        },
+      });
+      return newCartItem;
+    }
+  } catch (error) {
+    console.error("Error updating cart item:", error);
+    throw new Error("Unable to update cart item.");
+  }
 }
 
 export async function fetchCollections() {
@@ -356,7 +423,7 @@ interface FetchCollectionOptions {
 
 export async function fetchCollection(
   options: FetchCollectionOptions
-): Promise<(Collection & { products: Product[] }) | null> {
+): Promise<Collection & { products: Product[] }> {
   const { id, title } = options;
 
   if (!id && !title) {
@@ -369,7 +436,11 @@ export async function fetchCollection(
     const collection = await prisma.collection.findFirst({
       where: whereClause,
       include: {
-        products: true,
+        products: {
+          include: {
+            product: true, // Include the full product details
+          },
+        },
       },
     });
 
@@ -377,9 +448,80 @@ export async function fetchCollection(
       throw new Error("Collection not found.");
     }
 
-    return collection as any;
+    // Transform the result to include products array directly in the collection
+    const fullCollection = {
+      ...collection,
+      products: collection.products.map((pc) => pc.product),
+    };
+
+    return fullCollection;
   } catch (error) {
     console.error("Error fetching collection:", error);
     throw new Error("Unable to fetch collection.");
+  }
+}
+interface CreateCustomerData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  image?: string;
+}
+
+export async function createCustomer(data: CreateCustomerData) {
+  try {
+    const customer = await prisma.customer.create({
+      data,
+    });
+    return customer;
+  } catch (error) {
+    console.error("Error creating customer:", error);
+    throw new Error("Unable to create customer.");
+  }
+}
+export async function deleteCustomer(id: number) {
+  try {
+    const customer = await prisma.customer.delete({
+      where: { id },
+    });
+    return customer;
+  } catch (error) {
+    console.error("Error deleting customer:", error);
+    throw new Error("Unable to delete customer.");
+  }
+}
+export async function getCustomers() {
+  try {
+    const customers = await prisma.customer.findMany();
+    return customers;
+  } catch (error) {
+    console.error("Error fetching customers:", error);
+    throw new Error("Unable to fetch customers.");
+  }
+}
+export async function getCustomer(identifier: { id?: number; email?: string }) {
+  const { id, email } = identifier;
+
+  if (!id && !email) {
+    throw new Error("Either id or email must be provided.");
+  }
+
+  try {
+    const whereClause = id ? { id } : { email: email as string };
+
+    const customer = await prisma.customer.findUnique({
+      where: whereClause,
+    });
+
+    if (!customer) {
+      throw new Error(
+        `Customer not found with ${id ? `ID ${id}` : `email ${email}`}.`
+      );
+    }
+
+    return customer;
+  } catch (error) {
+    console.error("Error fetching customer:", error);
+    throw new Error("Unable to fetch customer.");
   }
 }

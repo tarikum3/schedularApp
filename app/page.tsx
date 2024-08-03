@@ -2,7 +2,7 @@
 import { ProductCard } from "@/app/components/product";
 
 //import getAllProducts from "@lib/operations/getAllProducts";
-import { getAllProducts } from "@lib/services";
+//import { getAllProducts } from "@lib/services";
 //import { unstable_noStore as noStore } from 'next/cache';
 import Link from "next/link";
 import { ArrowRight } from "@/app/components/icons";
@@ -11,10 +11,11 @@ import { ArrowRight } from "@/app/components/icons";
 import prisma from "@lib/prisma";
 import { fetchProducts } from "@lib/services/prismaServices";
 export const getHomeProducts = async () => {
-  const productsPromise = getAllProducts({
-    variables: { first: 8 },
-    //cache: "no-store",
-  });
+  // const productsPromise = getAllProducts({
+  //   variables: { first: 8 },
+  //   //cache: "no-store",
+  // });
+  const productsPromise = await fetchProducts({});
   return productsPromise;
 };
 

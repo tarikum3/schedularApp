@@ -1,21 +1,21 @@
 import { ProductCard } from "@/app/components/product";
+import { unstable_noStore as noStore } from "next/cache";
+//import { getAllProducts } from "@lib/services";
+import { fetchProducts } from "@lib/services/prismaServices";
 
-//import { unstable_noStore as noStore } from "next/cache";
-//import getAllProducts from "@lib/operations/getAllProducts";
-import { getAllProducts } from "@lib/services";
 export async function getSearchProducts(q: string) {
-  // noStore();
-  let search = "";
+  noStore();
+  // let search = "";
 
-  if (q) {
-    search += `(product_type:${q}) OR (title:${q}) OR (tag:${q}) `;
-  }
-  const { products } = await getAllProducts({
-    variables: { first: 8, query: search },
-    cache: "no-cache",
-  });
+  // if (q) {
+  //   search += `(product_type:${q}) OR (title:${q}) OR (tag:${q}) `;
+  // }
+  // const { products } = await getAllProducts({
+  //   variables: { first: 8, query: search },
+  //   cache: "no-cache",
+  // });
+  const { products } = await fetchProducts({ searchKey: q });
 
-  //const { products } = await productsPromise
   return {
     products,
     found: !!products?.length,

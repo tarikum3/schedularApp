@@ -2,12 +2,19 @@
 
 import { TAGS } from "@lib/const";
 import {
-  addCartItem,
-  createCart,
-  getCart,
-  removeCartItem,
+  //addCartItem,
+  // createCart,
+  // getCart,
+  // removeCartItem,
   updateCart,
 } from "@lib/services";
+import {
+  upsertCartItem,
+  createCart,
+  getCart,
+  deleteCartItem,
+  // updateCart,
+} from "@lib/services/prismaServices";
 import { login, logout, signup } from "@lib/services";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -49,7 +56,8 @@ export async function addItem(
   }
 
   try {
-    await addCartItem(cartId, { variantId: selectedVariantId });
+    // await addCartItem(cartId, { variantId: selectedVariantId });
+    await upsertCartItem(cartId, selectedVariantId);
     revalidateTag(TAGS.cart);
   } catch (e) {
     return "Error adding item to cart";
@@ -64,7 +72,8 @@ export async function removeItem(prevState: any, id: string) {
   }
 
   try {
-    await removeCartItem(cartId, { id });
+    // await removeCartItem(cartId, { id });
+    await deleteCartItem(id);
     revalidateTag(TAGS.cart);
   } catch (e) {
     return "Error removing item from cart";
@@ -89,16 +98,18 @@ export async function updateCartItem(
 
   try {
     if (quantity === 0) {
-      await removeCartItem(cartId, { id });
+      // await removeCartItem(cartId, { id });
+      await deleteCartItem(id!);
       revalidateTag(TAGS.cart);
       return;
     }
 
-    await updateCart(cartId, {
-      id: id,
-      productId: productId,
-      quantity,
-    });
+    // await updateCart(cartId, {
+    //   id: id,
+    //   productId: productId,
+    //   quantity,
+    // });
+    await upsertCartItem(cartId, productId!, quantity);
     revalidateTag(TAGS.cart);
   } catch (e) {
     return "Error updating item quantity";
