@@ -1,13 +1,13 @@
 "use client";
 import { FC } from "react";
 import Link from "next/link";
-import type { Product } from "@lib/types";
+//import type { Product } from "@lib/types";
 import Image from "next/image";
 import usePrice from "@lib/hooks/use-price";
-
+import { Product } from "@lib/prisma";
 interface Props {
   //product: Product;
-  product: any;
+  product: Product;
 }
 
 const placeholderImg = "/product-img-placeholder.svg";
@@ -17,13 +17,13 @@ const ProductCard: FC<Props> = ({ product }) => {
     // amount: product.price.value,
     // baseAmount: product.price.retailPrice,
     // currencyCode: product.price.currencyCode!,
-    amount: product.price.amount,
-    currencyCode: product.price.currency!,
+    amount: product.price!.amount,
+    currencyCode: product.price!.currency!,
   });
 
   return (
     <Link
-      href={`/product/${product.slug}`}
+      href={`/product/${product.name}`}
       className="relative max-h-full w-full box-border overflow-hidden
       bg-no-repeat bg-center bg-cover transition-transform
       ease-linear cursor-pointer inline-block bg-white"
