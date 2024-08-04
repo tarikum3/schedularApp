@@ -23,7 +23,7 @@ const ProductCard: FC<Props> = ({ product }) => {
 
   return (
     <Link
-      href={`/product/${product.name}`}
+      href={`/product/${product.name.trim()}`}
       className="relative max-h-full w-full box-border overflow-hidden
       bg-no-repeat bg-center bg-cover transition-transform
       ease-linear cursor-pointer inline-block bg-white"
