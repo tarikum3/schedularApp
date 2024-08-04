@@ -22,35 +22,91 @@ interface FetchProductsOptions {
     order: "asc" | "desc";
   };
 }
-
-const productData2 = {
-  name: "Sample Product2",
-  description: "A high-quality product2",
-  descriptionHtml: "<p>A high-quality produc2t</p>",
-  sku: "SKU123452",
-  slug: "sample-product2",
-  path: "/products/sample-product",
-  // images: [
-  //   { url: "https://example.com/image12.jpg" },
-  //   { url: "https://example.com/image22.jpg" }
-  // ],
-  vendor: "Sample Vendor2",
-  tags: ["tag12", "tag22"],
-};
 const productData = {
-  name: "Sample Product",
-  description: "A high-quality product",
-  descriptionHtml: "<p>A high-quality product</p>",
-  sku: "SKU12345",
-  slug: "sample-product",
-  path: "/products/sample-product",
-  // images: [
-  //   { url: "https://example.com/image1.jpg" },
-  //   { url: "https://example.com/image2.jpg" }
-  // ],
-  vendor: "Sample Vendor",
-  tags: ["tag1", "tag2"],
+  name: "White T-shirt",
+  description: "A comfortable and stylish white T-shirt.",
+  //descriptionHtml: "<p>A comfortable and stylish white T-shirt.</p>",
+  sku: "TSHIRT-White",
+  category: "Top",
+  //slug: "white-t-shirt",
+  //path: "/white-t-shirt",
+  //vendor: "Fashion Co.",
+  tags: ["clothing", "t-shirt", "white", "women"],
+  images: [
+    {
+      url: "https://qvkdnhfbjppmzromhdae.supabase.co/storage/v1/object/public/images/public/t-shirt-3.png",
+    },
+    // { url: "https://example.com/images/white-tshirt-back.jpg" },
+  ],
+  variants: [
+    {
+      name: "White T-shirt - Small",
+      // sku: "TSHIRT-White-S",
+      price: 19.99,
+      quantity: 2,
+    },
+    {
+      name: "White T-shirt - Medium",
+      //sku: "TSHIRT-White-M",
+      price: 19.99,
+      quantity: 3,
+    },
+    {
+      name: "White T-shirt - Large",
+      //sku: "TSHIRT-White-L",
+      price: 19.99,
+      quantity: 1,
+    },
+  ],
+  price: {
+    amount: 19.99,
+    currency: "ETB",
+  },
+  options: [{ name: "Size", values: ["S", "M", "L"] }],
 };
+const productData2 = {
+  name: "Black T-shirt",
+  description: "A comfortable and stylish black T-shirt.",
+  //descriptionHtml: "<p>A comfortable and stylish black T-shirt.</p>",
+  sku: "TSHIRT-black",
+  category: "Top",
+  //slug: "black-t-shirt",
+  //path: "/black-t-shirt",
+  //vendor: "Fashion Co.",
+  tags: ["clothing", "t-shirt", "black", "men"],
+  images: [
+    {
+      url: "https://qvkdnhfbjppmzromhdae.supabase.co/storage/v1/object/public/images/public/0d6ae87c-5049-4a31-a279-55f4bad71e5e-t-shirt-1.png",
+    },
+    // { url: "https://example.com/images/black-tshirt-back.jpg" },
+  ],
+  variants: [
+    {
+      name: "Black T-shirt - Small",
+      // sku: "TSHIRT-Black-S",
+      price: 19.99,
+      quantity: 2,
+    },
+    {
+      name: "Black T-shirt - Medium",
+      // sku: "TSHIRT-Black-M",
+      price: 19.99,
+      quantity: 3,
+    },
+    {
+      name: "Black T-shirt - Large",
+      // sku: "TSHIRT-Black-L",
+      price: 19.99,
+      quantity: 1,
+    },
+  ],
+  price: {
+    amount: 19.99,
+    currency: "ETB",
+  },
+  options: [{ name: "Size", values: ["S", "M", "L"] }],
+};
+
 export async function fetchProducts(
   options: FetchProductsOptions
 ): Promise<{ products: Product[]; total: number }> {
@@ -60,8 +116,8 @@ export async function fetchProducts(
     // Build the query
     // const product = await createProduct(productData);
     // const product2 = await createProduct(productData2);
-    // console.log("productpp", product);
-    // console.log("productpp", product2);
+    // console.log("productpp1", product);
+    // console.log("productpp2", product2);
     // const image = "t-shirt-1.png";
     // const imagePath = path.resolve("./public/assets", image);
     // console.log("imagePath", imagePath);
@@ -125,12 +181,24 @@ export async function fetchProducts(
         skip,
         take,
         orderBy: orderBy,
+        include: {
+          images: true,
+          variants: true,
+          price: true,
+          options: true,
+        },
       });
     } else {
       // If no pagination is provided, fetch all products
       products = await prisma.product.findMany({
         where: whereClause,
         orderBy: orderBy,
+        include: {
+          images: true,
+          variants: true,
+          price: true,
+          options: true,
+        },
       });
     }
 
@@ -144,23 +212,32 @@ export async function fetchProducts(
 export async function fetchProductById(id: string) {
   return await prisma.product.findUnique({
     where: { id },
+    include: {
+      images: true,
+      variants: true,
+      price: true,
+      options: true,
+    },
   });
 }
 export async function fetchProductBySlug(slug: string) {
-  const product = await prisma.product.findUnique({
-    where: { slug },
+  const product = await prisma.product.findFirst({
+    where: { name: slug },
+    include: {
+      images: true,
+      variants: true,
+      price: true,
+      options: true,
+    },
   });
   return product;
 }
-// export async function createProduct(data: any) {
-//   return await prisma.product.create({ data });
-// }
 
 export async function createProduct(data: any) {
   const { images, variants, price, options, ...productData } = data;
 
   try {
-    const product = await prisma.product.create({
+    const newProduct = await prisma.product.create({
       data: {
         ...productData,
         images: images ? { create: images } : undefined,
@@ -176,7 +253,7 @@ export async function createProduct(data: any) {
       },
     });
 
-    return product;
+    return newProduct;
   } catch (error) {
     console.error("Error creating product:", error);
     throw new Error("Failed to create product");
@@ -302,7 +379,18 @@ export async function upsertCartItem(
 export async function fetchCollections() {
   return await prisma.collection.findMany({
     include: {
-      products: { include: { product: true } },
+      products: {
+        include: {
+          product: {
+            include: {
+              images: true,
+              variants: true,
+              price: true,
+              options: true,
+            },
+          },
+        },
+      },
       rules: true,
     },
   });

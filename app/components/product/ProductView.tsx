@@ -1,13 +1,16 @@
 "use client";
 import Image from "next/image";
 import { FC, useState } from "react";
-import type { Product } from "@lib/types";
+// import type { Product } from "@lib/types";
 import usePrice from "@lib/hooks/use-price";
 import { SEO } from "@/app/components/common";
 import { Button, ErrorMessage } from "@/app/components";
 import { addItem } from "@lib/actions/actions";
+import { Product } from "@lib/prisma";
 //import { useAddCartMutation } from "@framework/services/cart";
 interface ProductViewProps {
+  // product: Product;
+  // relatedProducts: Product[];
   product: Product;
   relatedProducts: Product[];
 }
@@ -16,9 +19,9 @@ const placeholderImg = "/product-img-placeholder.svg";
 
 const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
   const { price } = usePrice({
-    amount: product.price.value,
-    baseAmount: product.price.retailPrice,
-    currencyCode: product.price.currencyCode!,
+    amount: product.price!.amount,
+    // baseAmount: product.price.retailPrice,
+    currencyCode: product.price!.currency!,
   });
 
   // const [addCart] = useAddCartMutation();
@@ -93,11 +96,11 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                   className={"w-4/6 !text-xl"}
                   onClick={addToCart}
                   loading={loading}
-                  disabled={variant?.availableForSale === false}
+                  // disabled={variant?.availableForSale === false}
+                  disabled={variant?.quantity === 0}
                 >
-                  {variant?.availableForSale === false
-                    ? "Not Available"
-                    : "Add To Cart"}
+                  {/* {variant?.availableForSale === false */}
+                  {variant?.quantity === 0 ? "Not Available" : "Add To Cart"}
                 </Button>
               </div>
             </div>

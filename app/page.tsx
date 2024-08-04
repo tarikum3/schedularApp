@@ -16,6 +16,7 @@ export const getHomeProducts = async () => {
   //   //cache: "no-store",
   // });
   const productsPromise = await fetchProducts({});
+  console.log("productsss", productsPromise);
   return productsPromise;
 };
 
@@ -25,24 +26,6 @@ export default async function Home() {
   const productsPromise = await getHomeProducts();
 
   const { products } = productsPromise;
-  // const result = await prisma.user.create({
-  //   data: {
-  //     name: "tariku",
-  //     email: "tarikjj@gmail.com",
-  //     image: "http",
-  //   },
-  // });
-  // console.log("userprismaresult", result);
-  // // res.json(result);
-  // const user = await prisma.user.findMany({
-  //   orderBy: [
-  //     {
-  //       createdAt: "desc",
-  //     },
-  //   ],
-  // });
-  // console.log("userprisma", user);
-  // console.log("userprisma", prisma);
 
   // const productsss = await fetchProducts({});
   // console.log("productsss", productsss);

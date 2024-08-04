@@ -33,7 +33,7 @@ const CartItem = ({
 
   const { price } = usePrice({
     amount: item.variant.price?.value ?? 1 * item.quantity,
-    baseAmount: item.variant.price?.retailPrice ?? 1 * item.quantity,
+    //  baseAmount: item.variant.price?.retailPrice ?? 1 * item.quantity,
     currencyCode,
   });
 

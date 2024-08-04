@@ -6,16 +6,19 @@ import Image from "next/image";
 import usePrice from "@lib/hooks/use-price";
 
 interface Props {
-  product: Product;
+  //product: Product;
+  product: any;
 }
 
 const placeholderImg = "/product-img-placeholder.svg";
 
 const ProductCard: FC<Props> = ({ product }) => {
   const { price } = usePrice({
-    amount: product.price.value,
-    baseAmount: product.price.retailPrice,
-    currencyCode: product.price.currencyCode!,
+    // amount: product.price.value,
+    // baseAmount: product.price.retailPrice,
+    // currencyCode: product.price.currencyCode!,
+    amount: product.price.amount,
+    currencyCode: product.price.currency!,
   });
 
   return (
@@ -45,7 +48,7 @@ const ProductCard: FC<Props> = ({ product }) => {
           <h3 className=" max-w-full w-full text-sm leading-extra-loose py-4 px-6 bg-primary md:text-2xl text-secondary font-bold">
             <span>{product.name}</span>
           </h3>
-          <div className="pt-2 px-6 pb-4 text-sm bg-primary text-secondary font-semibold inline-block tracking-wide md:text-md">{`${price} ${product.price?.currencyCode}`}</div>
+          <div className="pt-2 px-6 pb-4 text-sm bg-primary text-secondary font-semibold inline-block tracking-wide md:text-md">{`${price} ${product.price?.currency}`}</div>
         </div>
       </>
       {/* )} */}
