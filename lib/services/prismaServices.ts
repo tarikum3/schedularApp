@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import fs from "fs";
 import bcrypt from "bcrypt";
-
+import { convertToSlug } from "@lib/utils";
 interface FetchProductsOptions {
   searchKey?: string;
   filter?: {
@@ -220,9 +220,11 @@ export async function fetchProductById(id: string) {
     },
   });
 }
+
 export async function fetchProductBySlug(slug: string) {
+  console.log("slug", slug);
   const product = await prisma.product.findFirst({
-    where: { name: slug },
+    where: { slug: slug },
     include: {
       images: true,
       variants: true,
@@ -230,16 +232,18 @@ export async function fetchProductBySlug(slug: string) {
       options: true,
     },
   });
+  console.log("slug", product);
   return product;
 }
 
 export async function createProduct(data: any) {
   const { images, variants, price, options, ...productData } = data;
-
+  const slug = convertToSlug(data.name);
   try {
     const newProduct = await prisma.product.create({
       data: {
         ...productData,
+        slug,
         images: images ? { create: images } : undefined,
         variants: variants ? { create: variants } : undefined,
         price: price ? { create: price } : undefined,
@@ -280,14 +284,7 @@ export async function getCart(cartId: string) {
       include: {
         items: {
           include: {
-            product: {
-              include: {
-                images: true,
-                variants: true,
-                price: true,
-                options: true,
-              },
-            },
+            variant: true,
           },
         },
       },
@@ -343,14 +340,14 @@ export async function deleteCartItem(cartItemId: string) {
 // Add or update a cart item
 export async function upsertCartItem(
   cartId: string,
-  productId: string,
+  variantId: string,
   quantity: number = 1
 ) {
   try {
     const existingCartItem = await prisma.cartItem.findFirst({
       where: {
         cartId,
-        productId,
+        variantId,
       },
     });
 
@@ -364,7 +361,7 @@ export async function upsertCartItem(
       const newCartItem = await prisma.cartItem.create({
         data: {
           cartId,
-          productId,
+          variantId,
           quantity,
         },
       });

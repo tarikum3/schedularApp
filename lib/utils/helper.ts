@@ -239,3 +239,17 @@ export function formatPrice({
 
   return formatCurrency.format(amount);
 }
+
+export function encodeProductName(productName: string): string {
+  return encodeURIComponent(productName.replace(/\s+/g, "-").toLowerCase());
+}
+
+export function decodeProductName(urlParam: string): string {
+  return decodeURIComponent(urlParam.replace(/-/g, " ")).toLowerCase();
+}
+export function convertToSlug(input: string): string {
+  return input
+    .replace(/[^a-zA-Z0-9\s]/g, "") // Remove non-alphanumeric characters except spaces
+    .replace(/\s+/g, "-") // Replace spaces with dashes
+    .toLowerCase(); // Convert to lowercase
+}

@@ -26,6 +26,7 @@ model Product {
   id             String          @id @default(uuid())
   name           String
   description    String
+  slug           String
   sku            String?
   category       String?
   images         Image[]
@@ -35,7 +36,7 @@ model Product {
   vendor         String?
   tags           String[]
   collections    ProductCollection[]
-  cartItems      CartItem[]
+  
   createdAt DateTime @default(now())
 }
 
@@ -48,6 +49,7 @@ model ProductVariant {
   price    Float
   productId String
   product   Product  @relation(fields: [productId], references: [id])
+  cartItems      CartItem[]
 }
 
 
@@ -108,8 +110,8 @@ model Cart {
 
 model CartItem {
   id         String      @id @default(uuid())
-  productId  String
-  product    Product     @relation(fields: [productId], references: [id])
+  variantId  String
+  variant    ProductVariant     @relation(fields: [variantId], references: [id])
   quantity   Int
   cartId     String
   cart       Cart        @relation(fields: [cartId], references: [id])

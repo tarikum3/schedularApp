@@ -6,6 +6,7 @@ import usePrice from "@lib/hooks/use-price";
 import { SEO } from "@/app/components/common";
 import { Button, ErrorMessage } from "@/app/components";
 import { addItem } from "@lib/actions/actions";
+
 import { Product } from "@lib/prisma";
 //import { useAddCartMutation } from "@framework/services/cart";
 interface ProductViewProps {
@@ -18,6 +19,7 @@ interface ProductViewProps {
 const placeholderImg = "/product-img-placeholder.svg";
 
 const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
+  console.log("productsssproduct", product);
   const { price } = usePrice({
     amount: product.price!.amount,
     // baseAmount: product.price.retailPrice,

@@ -11,7 +11,7 @@ const getCartItem = unstable_cache(
   },
   [],
   {
-    revalidate: 60, // Cache for 60 seconds
+    //  revalidate: 60, // Cache for 60 seconds
     tags: [TAGS.cart],
   }
 );
@@ -19,9 +19,9 @@ export default async function CartWrapper() {
   const cartId = cookies().get("cartId")?.value;
   let cart;
 
-  if (cartId) {
-    cart = await getCartItem(cartId);
-  }
+  // if (cartId) {
+  //   cart = await getCartItem(cartId);
+  // }
 
   return <CartView cart={cart as any} />;
 }

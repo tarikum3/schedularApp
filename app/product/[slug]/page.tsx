@@ -5,6 +5,7 @@ import {
   fetchProducts,
   fetchProductBySlug,
 } from "@lib/services/prismaServices";
+import { decodeProductName } from "@lib/utils";
 //import { unstable_noStore as noStore } from "next/cache";
 
 export async function getProductPage(params: { slug: string }) {
@@ -13,6 +14,7 @@ export async function getProductPage(params: { slug: string }) {
   // const productPromise = getProduct({
   //   variables: { slug: params!.slug },
   // });
+  //const slugDe = decodeProductName(params!.slug);
   const product = await fetchProductBySlug(params!.slug);
   const { products: relatedProducts } = await fetchProducts({});
   // const allProductsPromise = getAllProducts({

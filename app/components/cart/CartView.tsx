@@ -7,8 +7,9 @@ import type { Cart } from "@lib/types";
 import Clickoutside from "@/app/components/common/Clickoutside";
 import { useSession } from "next-auth/react";
 import { useUI } from "@/app/components/context";
-import { formatPrice } from "@/lib/utils/helper";
+
 const CartView = ({ cart }: { cart: Cart | undefined }) => {
+  console.log("cartcart", cart);
   const { openModal } = useUI();
   const { data: session, status } = useSession();
   const [display, setDisplay] = useState(true);
@@ -34,7 +35,6 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
     }
   };
 
-  //console.log("cartcart", cart);
   return (
     <div className="relative ">
       <button

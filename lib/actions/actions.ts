@@ -58,7 +58,8 @@ export async function addItem(
 
   try {
     // await addCartItem(cartId, { variantId: selectedVariantId });
-    await upsertCartItem(cartId, selectedVariantId);
+    const cartitem = await upsertCartItem(cartId, selectedVariantId);
+    console.log("cartitem", cartitem);
     revalidateTag(TAGS.cart);
   } catch (e) {
     return "Error adding item to cart";

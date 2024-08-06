@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import usePrice from "@lib/hooks/use-price";
 import { Product } from "@lib/prisma";
+import { encodeProductName } from "@lib/utils";
 interface Props {
   //product: Product;
   product: Product;
@@ -23,7 +24,8 @@ const ProductCard: FC<Props> = ({ product }) => {
 
   return (
     <Link
-      href={`/product/${product.name.trim()}`}
+      //href={`/product/${encodeProductName(product.name)}`}
+      href={`/product/${product.slug}`}
       className="relative max-h-full w-full box-border overflow-hidden
       bg-no-repeat bg-center bg-cover transition-transform
       ease-linear cursor-pointer inline-block bg-white"
