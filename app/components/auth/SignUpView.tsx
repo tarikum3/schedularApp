@@ -22,7 +22,7 @@ const SignUpView: FC = () => {
         <Logo width="64px" height="64px" />
       </div>
       <div className="flex flex-col space-y-4">
-        {errorMessage && (
+        {errorMessage?.message && (
           // <div className="text-red border border-red p-3">{errorMessage}</div>
           <div className="text-red border border-red p-3">
             {errorMessage?.message ?? "something went wrong"}

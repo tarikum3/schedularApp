@@ -19,7 +19,7 @@ interface ProductViewProps {
 const placeholderImg = "/product-img-placeholder.svg";
 
 const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
-  console.log("productsssproduct", product);
+  // console.log("productsssproduct", product);
   const { price } = usePrice({
     amount: product.price!.amount,
     // baseAmount: product.price.retailPrice,

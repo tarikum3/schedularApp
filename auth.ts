@@ -7,6 +7,7 @@ import { authConfig } from "./auth.config";
 //import { login, logout, getCustomer, signup } from "@lib/services";
 import { getCustomer } from "@lib/services/prismaServices";
 import bcrypt from "bcrypt";
+
 async function getUser(
   email: string,
   password: string
@@ -44,20 +45,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
       async authorize(credentials) {
+        // console.log("Invalid credentialssd", credentials);
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(8) })
           .safeParse(credentials);
 
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-
+          //  console.log("emailpassword", parsedCredentials.data);
           const user = await getUser(email, password);
+          //const user = await getUser('tarikm3@gmail.com', '9427230912');
+          //console.log("emailpassword", user);
           if (!user) return null;
 
           return user;
         }
 
-        // console.log("Invalid credentials");
+        // console.log("Invalid credentialss", parsedCredentials);
         return null;
       },
     }),
@@ -66,6 +70,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnProfile = nextUrl.pathname.startsWith("/profile");
+      //  console.log("isLoggedInuser", auth?.user);
       if (isOnProfile) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to home page

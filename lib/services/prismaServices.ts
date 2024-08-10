@@ -284,7 +284,15 @@ export async function getCart(cartId: string) {
       include: {
         items: {
           include: {
-            variant: true,
+            variant: {
+              include: {
+                product: {
+                  include: {
+                    images: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
@@ -475,12 +483,44 @@ export async function fetchCollection(
   options: FetchCollectionOptions
 ): Promise<Collection & { products: Product[] }> {
   const { id, title } = options;
+  const collectionData = {
+    title: "women",
+    description: "women collection.",
+    rules: [
+      {
+        field: "description",
+        condition: "contains",
+        value: "black",
+      },
+    ],
+  };
+  const collectionData2 = {
+    title: "men",
+    description: "men collection.",
+    rules: [
+      {
+        field: "description",
+        condition: "contains",
+        value: "white",
+      },
+      // {
+      //   field: "price",
+      //   condition: "greater_than",
+      //   value: "20",
+      // },
+    ],
+  };
 
+  //createCollection(collectionData);
   if (!id && !title) {
     throw new Error("Either id or title must be provided.");
   }
 
   try {
+    // const collection1 = await createCollection(collectionData);
+    // const collection2 = await createCollection(collectionData2);
+    // console.log("collection1", collection1);
+    // console.log("collection2", collection2);
     const whereClause = id ? { id } : { title: title as string };
 
     const collection = await prisma.collection.findFirst({
@@ -504,7 +544,8 @@ export async function fetchCollection(
     if (!collection) {
       throw new Error("Collection not found.");
     }
-
+    // console.log("collectionnn", collection);
+    // await applyCollectionRules(collection.id);
     // Transform the result to include products array directly in the collection
     const fullCollection = {
       ...collection,

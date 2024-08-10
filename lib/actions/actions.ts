@@ -59,7 +59,7 @@ export async function addItem(
   try {
     // await addCartItem(cartId, { variantId: selectedVariantId });
     const cartitem = await upsertCartItem(cartId, selectedVariantId);
-    console.log("cartitem", cartitem);
+    // console.log("cartitem", cartitem);
     revalidateTag(TAGS.cart);
   } catch (e) {
     return "Error adding item to cart";
@@ -111,7 +111,8 @@ export async function updateCartItem(
     //   productId: productId,
     //   quantity,
     // });
-    await upsertCartItem(cartId, productId!, quantity);
+    const update = await upsertCartItem(cartId, productId!, quantity);
+    console.log("cartitemupdate", update);
     revalidateTag(TAGS.cart);
   } catch (e) {
     return "Error updating item quantity";
@@ -123,6 +124,7 @@ export async function authenticate(
 ) {
   try {
     await signIn("credentials", formData);
+    console.log("customerrfrom", "from");
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -169,12 +171,18 @@ export async function register(
         message: "Missing Fields. ",
       };
     }
-    await createCustomer({ ...validatedFields.data });
+    const customerr = await createCustomer({ ...validatedFields.data });
     // await signup({ ...validatedFields.data });
+
     await signIn("credentials", formData);
   } catch (error) {
-    if (error instanceof Error) {
-      return "Something went wrong.";
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
     }
     throw error;
   }

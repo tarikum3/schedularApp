@@ -16,7 +16,7 @@ export const getHomeProducts = async () => {
   //   //cache: "no-store",
   // });
   const productsPromise = await fetchProducts({});
-  console.log("productsss", productsPromise);
+  // console.log("productsss", productsPromise);
   return productsPromise;
 };
 

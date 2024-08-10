@@ -55,25 +55,28 @@ const CartItem = ({
     >
       <div className="flex flex-row space-x-4 py-4">
         <div className="w-30 h-30 bg-secondary relative overflow-hidden cursor-pointer">
-          <Link href={`/product/${item.path}`}>
+          <Link href={`/product/${(item as any).path}`}>
             <Image
               //onClick={() => closeSidebarIfPresent()}
               // className={s.productImage}
               className="w-full h-full object-cover"
               width={64}
               height={64}
-              src={item.variant.image?.url || placeholderImg}
+              // src={item.variant.image?.url || placeholderImg}
+              src={
+                (item as any).variant?.product?.images[0]?.url || placeholderImg
+              }
               alt={item.variant.image?.alt || "Product Image"}
             />
           </Link>
         </div>
         <div className="flex-1 flex flex-col text-secondary">
-          <Link href={`/product/${item.path}`}>
+          <Link href={`/product/${(item as any).path}`}>
             <span
               // className={s.productName}
               className="font-medium cursor-pointer pb-1 mt-[-4px]"
             >
-              {item.name}
+              {(item as any).name}
             </span>
           </Link>
 

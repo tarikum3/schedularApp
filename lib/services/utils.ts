@@ -1,17 +1,5 @@
-import prisma from "@lib/prisma";
+import prisma, { Product, Collection } from "@lib/prisma";
 
-export type Product = {
-  id: string;
-  name: string;
-  description: string;
-  descriptionHtml: string | null;
-  sku: string | null;
-  slug: string | null;
-  path: string | null;
-  vendor: string | null;
-  tags: string[];
-  createdAt: Date;
-};
 interface Rule {
   field: string;
   condition: string;
@@ -22,10 +10,10 @@ function isValidField(field: string): field is ProductFields {
   return [
     "name",
     "description",
-    "descriptionHtml",
+    // "descriptionHtml",
     "sku",
     "slug",
-    "path",
+    //"path",
     "vendor",
     "tags",
   ].includes(field);
@@ -42,7 +30,7 @@ export async function applyCollectionRules(collectionId: string) {
 
   const products = await prisma.product.findMany();
 
-  const matchingProducts = products.filter((product) => {
+  const matchingProducts = products.filter((product: any) => {
     return collection.rules.every((rule) => {
       if (!isValidField(rule.field)) {
         console.warn(`Field ${rule.field} is not valid on the product.`);

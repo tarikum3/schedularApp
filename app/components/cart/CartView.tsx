@@ -17,13 +17,15 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
   const { price: subTotal } = usePrice(
     cart && {
       amount: Number(cart.subtotalPrice),
-      currencyCode: cart.currency.code,
+      // currencyCode: cart.currency.code,
+      currencyCode: (cart as any).currency,
     }
   );
   const { price: total } = usePrice(
     cart && {
       amount: Number(cart.totalPrice),
-      currencyCode: cart.currency.code,
+      // currencyCode: cart.currency.code,
+      currencyCode: (cart as any).currency,
     }
   );
   const handleDropdown = (current: string = "") => {
@@ -34,7 +36,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
       setDisplay(true);
     }
   };
-
+  console.log("subTotal", subTotal);
   return (
     <div className="relative ">
       <button
@@ -46,18 +48,19 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
         aria-label="Menu"
       >
         <Bag className="w-7 h-7" />
-        {session?.user && cart && cart?.lineItems?.length > 0 && (
+        {/* {session?.user && cart && cart?.lineItems?.length > 0 && ( */}
+        {session?.user && cart && (cart as any)?.items?.length > 0 && (
           <span className="min-w-[1.25rem] min-h-[1.25rem] border border-primary-2 bg-secondary text-primary absolute rounded-full right-3 top-3 font-bold text-xs">
-            {cart?.lineItems?.length}
+            {(cart as any)?.items?.length}
           </span>
         )}
       </button>
 
       {dropdown == "cart" && (
         <Clickoutside status={display} onClick={() => setDisplay(false)}>
-          <div className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+          <div className=" absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
             <div className="absolute right-0 w-[80vw] md:w-[700px] h-screen bg-white rounded-md shadow-lg">
-              {!cart || cart?.lineItems?.length < 1 ? (
+              {!cart || (cart as any)?.items?.length < 1 ? (
                 <div className=" px-4 flex flex-col justify-center items-center h-full">
                   {/* <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
                     <Bag />
@@ -74,11 +77,12 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                     </h2>
 
                     <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-primary-2 border-primary-2">
-                      {cart?.lineItems?.map((item: any) => (
+                      {(cart as any)?.items?.map((item: any) => (
                         <CartItem
                           key={item.id}
                           item={item}
-                          currencyCode={cart!.currency.code}
+                          // currencyCode={cart!.currency.code}
+                          currencyCode={cart!.currency as any}
                         />
                       ))}
                     </ul>
@@ -92,7 +96,8 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                       </li>
                       <li className="flex justify-between py-1">
                         <span>Taxes</span>
-                        <span>Calculated at checkout</span>
+                        {/* <span>Calculated at checkout</span> */}
+                        <span>15%</span>
                       </li>
                       <li className="flex justify-between py-1">
                         <span>Shipping</span>

@@ -10,7 +10,7 @@ import { useFormState, useFormStatus } from "react-dom";
 
 const LoginView: React.FC = () => {
   const { setModalView, closeModal } = useUI();
-  //const data=  login({ email:"tarikum3@gmail.com", password:"9427230912" });
+
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
   return (
