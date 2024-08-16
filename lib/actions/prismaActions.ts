@@ -2,10 +2,10 @@
 
 import { TAGS } from "@lib/const";
 import {
-  addItemToCart,
+  // addItemToCart,
   createCart,
   getCart,
-  removeCartItem,
+  // removeCartItem,
   updateCart,
 } from "@lib/services/prismaServices";
 
@@ -15,86 +15,86 @@ import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { z } from "zod";
 
-export async function addItem(
-  prevState: any,
-  selectedVariantId: string | undefined
-) {
-  let cartId = cookies().get("cartId")?.value;
-  let cart;
+// export async function addItem(
+//   prevState: any,
+//   selectedVariantId: string | undefined
+// ) {
+//   let cartId = cookies().get("cartId")?.value;
+//   let cart;
 
-  if (cartId) {
-    cart = await getCart(cartId);
-  }
+//   if (cartId) {
+//     cart = await getCart(cartId);
+//   }
 
-  if (!cartId || !cart) {
-    cart = await createCart({ selectedVariantId });
-    if (!cart?.id) {
-      return "Missing Cart ID";
-    }
-    cartId = cart.id;
-    cookies().set("cartId", cartId);
-  }
+//   if (!cartId || !cart) {
+//     cart = await createCart({ selectedVariantId });
+//     if (!cart?.id) {
+//       return "Missing Cart ID";
+//     }
+//     cartId = cart.id;
+//     cookies().set("cartId", cartId);
+//   }
 
-  if (!selectedVariantId) {
-    return "Missing product variant ID";
-  }
+//   if (!selectedVariantId) {
+//     return "Missing product variant ID";
+//   }
 
-  try {
-    await addItemToCart(cartId, selectedVariantId, 1);
-    revalidateTag(TAGS.cart);
-  } catch (e) {
-    return "Error adding item to cart";
-  }
-}
+//   try {
+//     await addItemToCart(cartId, selectedVariantId, 1);
+//     revalidateTag(TAGS.cart);
+//   } catch (e) {
+//     return "Error adding item to cart";
+//   }
+// }
 
-export async function removeItem(prevState: any, id: string) {
-  const cartId = cookies().get("cartId")?.value;
+// export async function removeItem(prevState: any, id: string) {
+//   const cartId = cookies().get("cartId")?.value;
 
-  if (!cartId) {
-    return "Missing cart ID";
-  }
+//   if (!cartId) {
+//     return "Missing cart ID";
+//   }
 
-  try {
-    await removeCartItem(cartId, id);
-    revalidateTag(TAGS.cart);
-  } catch (e) {
-    return "Error removing item from cart";
-  }
-}
+//   try {
+//     await removeCartItem(cartId, id);
+//     revalidateTag(TAGS.cart);
+//   } catch (e) {
+//     return "Error removing item from cart";
+//   }
+// }
 
-export async function updateCartItem(
-  prevState: any,
-  payload: {
-    id?: string;
-    productId?: string;
-    quantity?: number;
-  }
-) {
-  const cartId = cookies().get("cartId")?.value;
+// export async function updateCartItem(
+//   prevState: any,
+//   payload: {
+//     id?: string;
+//     productId?: string;
+//     quantity?: number;
+//   }
+// ) {
+//   const cartId = cookies().get("cartId")?.value;
 
-  if (!cartId) {
-    return "Missing cart ID";
-  }
+//   if (!cartId) {
+//     return "Missing cart ID";
+//   }
 
-  const { id, productId, quantity } = payload;
+//   const { id, productId, quantity } = payload;
 
-  try {
-    if (quantity === 0) {
-      await removeCartItem(cartId, id!);
-      revalidateTag(TAGS.cart);
-      return;
-    }
+//   try {
+//     if (quantity === 0) {
+//       await removeCartItem(cartId, id!);
+//       revalidateTag(TAGS.cart);
+//       return;
+//     }
 
-    await updateCart(cartId, {
-      id: id,
-      productId: productId,
-      quantity,
-    });
-    revalidateTag(TAGS.cart);
-  } catch (e) {
-    return "Error updating item quantity";
-  }
-}
+//     await updateCart(cartId, {
+//       id: id,
+//       productId: productId,
+//       quantity,
+//     });
+//     revalidateTag(TAGS.cart);
+//   } catch (e) {
+//     return "Error updating item quantity";
+//   }
+// }
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData

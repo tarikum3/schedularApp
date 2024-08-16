@@ -107,6 +107,28 @@ model Cart {
   updatedAt  DateTime    @updatedAt
 }
 
+// model Cart {
+//   id                String      @id @default(uuid())
+//   customerId        String
+//   items             CartItem[]
+//   name              String
+//   email             String
+//   companyName       String
+//   vatNumber         String
+//   phone             String
+//   country           String
+//   city              String
+//   billingName       String
+//   billingEmail      String
+//   billingCompanyName String
+//   billingVatNumber  String
+//   paymentMethod     String
+//   deliveryMethod    String
+//   createdAt         DateTime    @default(now())
+//   updatedAt         DateTime    @updatedAt
+// }
+
+
 
 model CartItem {
   id         String      @id @default(uuid())

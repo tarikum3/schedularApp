@@ -41,11 +41,11 @@ import { fetchCollection } from "@lib/services/prismaServices";
 // }
 export async function getCollection(params: { name: string }) {
   const { products } = await fetchCollection({ title: params!.name });
-  if (!products) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!products) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
   return {
     products,
     found: !!products?.length,

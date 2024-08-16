@@ -13,7 +13,7 @@ import {
   createCart,
   getCart,
   deleteCartItem,
-  // updateCart,
+  updateCart,
   createCustomer,
 } from "@lib/services/prismaServices";
 //import { login, logout, signup } from "@lib/services";
@@ -187,6 +187,85 @@ export async function register(
     throw error;
   }
 }
+
+interface UpdateCartParams {
+  id: string;
+  name: string;
+  email: string;
+  companyName: string;
+  vatNumber: string;
+  phone: string;
+  country: string;
+  city: string;
+  billingName: string;
+  billingEmail: string;
+  billingCompanyName: string;
+  billingVatNumber: string;
+  paymentMethod: string;
+  deliveryMethod: string;
+}
+const CartSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  email: z.string().email(),
+  companyName: z.string().optional(),
+  vatNumber: z.string().optional(),
+  phone: z.string().optional(),
+  country: z.string().optional(),
+  city: z.string().optional(),
+  billingName: z.string().optional(),
+  billingEmail: z.string().optional(),
+  billingCompanyName: z.string().optional(),
+  billingVatNumber: z.string().optional(),
+  paymentMethod: z.string().min(1),
+  deliveryMethod: z.string().min(1),
+});
+
+export async function updateCartAction(
+  prevState: UpdateCartParams | undefined,
+  formData: FormData
+) {
+  try {
+    // Extract fields from formData
+    const cartData = {
+      id: formData.get("id"),
+      name: formData.get("name"),
+      email: formData.get("email"),
+      companyName: formData.get("companyName"),
+      vatNumber: formData.get("vatNumber"),
+      phone: formData.get("phone"),
+      country: formData.get("country"),
+      city: formData.get("city"),
+      billingName: formData.get("billingName"),
+      billingEmail: formData.get("billingEmail"),
+      billingCompanyName: formData.get("billingCompanyName"),
+      billingVatNumber: formData.get("billingVatNumber"),
+      paymentMethod: formData.get("paymentMethod"),
+      deliveryMethod: formData.get("deliveryMethod"),
+    };
+
+    // Validate fields with FormSchema
+    const validatedFields = CartSchema.safeParse(cartData);
+
+    if (!validatedFields.success) {
+      return {
+        errors: validatedFields.error.flatten().fieldErrors,
+        message: "Validation failed.",
+      };
+    }
+
+    const cart = await updateCart(validatedFields.data.id, {
+      ...validatedFields.data,
+    });
+  } catch (error) {
+    console.error(error);
+    return {
+      errors: { general: ["An error occurred while updating the cart."] },
+      message: "An error occurred.",
+    };
+  }
+}
+
 export async function logOut() {
   try {
     await signOut();

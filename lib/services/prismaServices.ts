@@ -327,6 +327,17 @@ export async function updateCart(id: string, data: any) {
     where: { id },
     data,
   });
+
+  // try {
+  //   const updatedCart = await prisma.cart.update({
+  //     where: { id },
+  //     data,
+  //   });
+  //   return updatedCart;
+  // } catch (error) {
+  //   console.error("Error updating cart:", error);
+  //   throw new Error("Unable to updating  cart.");
+  // }
 }
 
 export async function deleteCart(id: string) {

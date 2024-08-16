@@ -24,11 +24,11 @@ export async function getProductPage(params: { slug: string }) {
   // const { product } = await productPromise;
   //  const { products: relatedProducts } = await allProductsPromise;
 
-  if (!product) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!product) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
   return {
     product: product as any,
