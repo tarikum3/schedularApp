@@ -7,7 +7,7 @@ import type { Cart } from "@lib/types";
 import Clickoutside from "@/app/components/common/Clickoutside";
 import { useSession } from "next-auth/react";
 import { useUI } from "@/app/components/context";
-
+import Link from "next/link";
 const CartView = ({ cart }: { cart: Cart | undefined }) => {
   console.log("cartcart", cart);
   const { openModal } = useUI();
@@ -99,22 +99,33 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                         {/* <span>Calculated at checkout</span> */}
                         <span>15%</span>
                       </li>
-                      <li className="flex justify-between py-1">
+                      {/* { (cart as any)?.deliveryMethod  && ( <li className="flex justify-between py-1">
                         <span>Shipping</span>
                         <span className="font-bold tracking-wide">FREE</span>
-                      </li>
+                      </li>)} */}
                     </ul>
                     <div className="flex justify-between border-t border-primary-2 py-3 font-bold mb-2">
                       <span>Total</span>
                       <span>{total}</span>
                     </div>
                     <div>
-                      <a
-                        className="bg-secondary inline-flex items-center justify-center w-full  text-primary p-5 text-sm"
-                        //href={checkoutUrl}
+                      {/* <a
+                        className="bg-secondary rounded-md inline-flex items-center justify-center w-full  text-primary p-5 text-sm"
+                       
+                        onClick={() => router.push("/checkout")}
                       >
                         Proceed to Checkout
-                      </a>
+                      </a> */}
+                      <Link
+                        href={"/checkout"}
+                        // className={s.link}
+                        onClick={() => {
+                          handleDropdown("");
+                        }}
+                        className="bg-secondary rounded-md inline-flex items-center justify-center w-full  text-primary p-5 text-sm"
+                      >
+                        {" Proceed to Checkout"}
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -3,22 +3,28 @@
 import React, { useState } from "react";
 import PhoneInput from "@/app/components/PhoneInput";
 import Select from "@/app/components/Select";
+import { updateCartAction } from "@lib/actions/actions";
 
-const Delivery: React.FC = () => {
+import { useFormState, useFormStatus } from "react-dom";
+import { Button, Input } from "@/app/components";
+import prisma, { Cart } from "@lib/prisma";
+const Delivery = ({ cart }: { cart: Cart | undefined }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    companyName: "",
-    vatNumber: "",
-    phone: "",
-    country: "",
-    city: "",
-    paymentMethod: "",
-    deliveryMethod: "",
-    billingName: "",
-    billingEmail: "",
-    billingCompanyName: "",
-    billingVatNumber: "",
+    firstName: cart?.firstName ?? "",
+    lastName: cart?.lastName ?? "",
+    postalCode: cart?.postalCode ?? "",
+    email: cart?.email ?? "",
+    companyName: cart?.companyName ?? "",
+    address: cart?.address ?? "",
+    phone: cart?.phone ?? "",
+    country: cart?.country ?? "",
+    city: cart?.city ?? "",
+    paymentMethod: cart?.paymentMethod ?? "",
+    deliveryMethod: cart?.deliveryMethod ?? "",
+    billingName: cart?.billingName ?? "",
+    billingEmail: cart?.billingEmail ?? "",
+    billingCompanyName: cart?.billingCompanyName ?? "",
+    billingAddress: cart?.billingAddress ?? "",
   });
 
   const [isBillingSame, setIsBillingSame] = useState(true);
@@ -52,9 +58,11 @@ const Delivery: React.FC = () => {
     { value: "TO", label: "Toronto" },
     { value: "BE", label: "Berlin" },
   ];
-
+  const [errorMessage, dispatch] = useFormState(updateCartAction, {} as any);
+  console.log("checkouterrorMessage", errorMessage);
+  console.log("checkoutformData", formData);
   return (
-    <form>
+    <form action={dispatch}>
       <div className="space-y-4">
         <h2 className="text-lg font-semibold text-gray-800">
           Delivery Details
@@ -62,17 +70,36 @@ const Delivery: React.FC = () => {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label
-              htmlFor="name"
+              htmlFor="firstName"
               className="mb-2 block text-sm font-medium text-gray-800"
             >
-              Your name
+              First Name
             </label>
-            <input
+            <Input
               type="text"
-              id="name"
-              className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-              placeholder="Bonnie Green"
-              value={formData.name}
+              id="firstName"
+              name="firstName"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // placeholder="Bonnie Green"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="lastName"
+              className="mb-2 block text-sm font-medium text-gray-800"
+            >
+              Last Name
+            </label>
+            <Input
+              type="text"
+              id="lastName"
+              name="lastName"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // placeholder="Bonnie Green"
+              value={formData.lastName}
               onChange={handleChange}
               required
             />
@@ -82,14 +109,33 @@ const Delivery: React.FC = () => {
               htmlFor="email"
               className="mb-2 block text-sm font-medium text-gray-800"
             >
-              Your email
+              email
             </label>
-            <input
+            <Input
               type="email"
               id="email"
-              className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-              placeholder="name@flowbite.com"
+              name="email"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+
               value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="postalCode"
+              className="mb-2 block text-sm font-medium text-gray-800"
+            >
+              Postal Code
+            </label>
+            <Input
+              type="text"
+              id="postalCode"
+              name="postalCode"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+
+              value={formData.postalCode}
               onChange={handleChange}
               required
             />
@@ -101,11 +147,12 @@ const Delivery: React.FC = () => {
             >
               Company name
             </label>
-            <input
+            <Input
               type="text"
               id="companyName"
-              className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-              placeholder="Flowbite LLC"
+              name="companyName"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // placeholder="Flowbite LLC"
               value={formData.companyName}
               onChange={handleChange}
               required
@@ -113,44 +160,78 @@ const Delivery: React.FC = () => {
           </div>
           <div>
             <label
-              htmlFor="vatNumber"
+              htmlFor="address"
               className="mb-2 block text-sm font-medium text-gray-800"
             >
-              VAT number
+              Address
             </label>
-            <input
+            <Input
               type="text"
-              id="vatNumber"
-              className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-              placeholder="DE42313253"
-              value={formData.vatNumber}
+              id="address"
+              name="address"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // placeholder="DE42313253"
+              value={formData.address}
               onChange={handleChange}
               required
             />
           </div>
-          <div className="sm:col-span-2">
-            <PhoneInput
+          <div>
+            {/* <PhoneInput
               phoneCodes={[
                 { code: "+1", countryName: "United States" },
                 { code: "+49", countryName: "Germany" },
                 { code: "+44", countryName: "United Kingdom" },
               ]}
               label="Phone Number"
+              name="phone"
               onSelect={(code) => handleSelectChange("phone", code)}
-            />
+            /> */}
+            <div>
+              <label
+                htmlFor="phone"
+                className="mb-2 block text-sm font-medium text-gray-800"
+              >
+                Phone
+              </label>
+              <Input
+                type="text"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           <div>
             <Select
               label="Country"
+              name="country"
               options={countries}
+              defaultValue={cart?.country ?? ""}
               onSelect={(value) => handleSelectChange("country", value)}
             />
           </div>
           <div>
-            <Select
+            {/* <Select
               label="City"
               options={cities}
               onSelect={(value) => handleSelectChange("city", value)}
+            /> */}
+            <label
+              htmlFor="city"
+              className="mb-2 block text-sm font-medium text-gray-800"
+            >
+              City
+            </label>
+            <Input
+              type="text"
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              required
             />
           </div>
         </div>
@@ -159,18 +240,21 @@ const Delivery: React.FC = () => {
       <div className="space-y-4 mt-4">
         <h2 className="text-lg font-semibold text-gray-800">Billing Address</h2>
         <div className="flex items-center">
-          <input
+          <Input
             type="checkbox"
             id="sameAsDelivery"
+            name="sameAsDelivery"
             checked={isBillingSame}
-            onChange={handleBillingSameChange}
+            onChange={(e) => {
+              handleBillingSameChange(e);
+            }}
             className="mr-2 h-4 w-4"
           />
           <label
             htmlFor="sameAsDelivery"
             className="text-sm font-medium text-gray-800"
           >
-            Same as Delivery Address
+            Same as Delivery Addresssss
           </label>
         </div>
 
@@ -182,13 +266,14 @@ const Delivery: React.FC = () => {
                   htmlFor="billingName"
                   className="mb-2 block text-sm font-medium text-gray-800"
                 >
-                  Your name
+                  First name
                 </label>
-                <input
+                <Input
                   type="text"
                   id="billingName"
-                  className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-                  placeholder="Bonnie Green"
+                  name="billingName"
+                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+                  // placeholder="Bonnie Green"
                   value={formData.billingName}
                   onChange={handleChange}
                 />
@@ -201,11 +286,12 @@ const Delivery: React.FC = () => {
                 >
                   Your email
                 </label>
-                <input
+                <Input
                   type="email"
                   id="billingEmail"
-                  className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-                  placeholder="name@flowbite.com"
+                  name="billingEmail"
+                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+
                   value={formData.billingEmail}
                   onChange={handleChange}
                 />
@@ -218,11 +304,12 @@ const Delivery: React.FC = () => {
                 >
                   Company name
                 </label>
-                <input
+                <Input
                   type="text"
                   id="billingCompanyName"
-                  className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-                  placeholder="Flowbite LLC"
+                  name="billingCompanyName"
+                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+                  // placeholder="Flowbite LLC"
                   value={formData.billingCompanyName}
                   onChange={handleChange}
                 />
@@ -230,17 +317,18 @@ const Delivery: React.FC = () => {
 
               <div>
                 <label
-                  htmlFor="billingVatNumber"
+                  htmlFor="billingAddress"
                   className="mb-2 block text-sm font-medium text-gray-800"
                 >
-                  VAT number
+                  Address
                 </label>
-                <input
+                <Input
                   type="text"
-                  id="billingVatNumber"
-                  className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-                  placeholder="DE42313253"
-                  value={formData.billingVatNumber}
+                  id="billingAddress"
+                  name="billingAddress"
+                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+                  // placeholder="DE42313253"
+                  value={formData.billingAddress}
                   onChange={handleChange}
                 />
               </div>
@@ -270,11 +358,8 @@ const Delivery: React.FC = () => {
               </div>
               <div className="ml-4 text-sm">
                 <label htmlFor="dhl" className="font-medium text-gray-800">
-                  $15 - DHL Fast Delivery
+                  $15 - DHL
                 </label>
-                <p id="dhl-text" className="mt-1 text-xs text-gray-500">
-                  Get it by Tomorrow
-                </p>
               </div>
             </div>
           </div>
@@ -295,11 +380,8 @@ const Delivery: React.FC = () => {
               </div>
               <div className="ml-4 text-sm">
                 <label htmlFor="fedex" className="font-medium text-gray-800">
-                  $10 - FedEx Ground Delivery
+                  $10 - FedEx
                 </label>
-                <p id="fedex-text" className="mt-1 text-xs text-gray-500">
-                  Get it by Friday
-                </p>
               </div>
             </div>
           </div>
@@ -330,9 +412,9 @@ const Delivery: React.FC = () => {
                 >
                   Credit Card
                 </label>
-                <p id="creditCard-text" className="mt-1 text-xs text-gray-500">
+                {/* <p id="creditCard-text" className="mt-1 text-xs text-gray-500">
                   Pay securely using your credit card.
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
@@ -355,16 +437,30 @@ const Delivery: React.FC = () => {
                 <label htmlFor="paypal" className="font-medium text-gray-800">
                   PayPal
                 </label>
-                <p id="paypal-text" className="mt-1 text-xs text-gray-500">
+                {/* <p id="paypal-text" className="mt-1 text-xs text-gray-500">
                   Pay easily and securely via PayPal.
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="flex items-center justify-end my-4 ">
+        <SubmitButton />
       </div>
     </form>
   );
 };
 
 export default Delivery;
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type="submit" loading={pending} disabled={pending}>
+      Submit
+    </Button>
+  );
+}

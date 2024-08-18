@@ -189,61 +189,94 @@ export async function register(
 }
 
 interface UpdateCartParams {
-  id: string;
-  name: string;
+  //id: string;
+  firstName: string;
+  lastName: string;
+  postalCode: string;
   email: string;
   companyName: string;
-  vatNumber: string;
+  address: string;
   phone: string;
   country: string;
   city: string;
   billingName: string;
   billingEmail: string;
   billingCompanyName: string;
-  billingVatNumber: string;
+  billingAddress: string;
   paymentMethod: string;
   deliveryMethod: string;
 }
-const CartSchema = z.object({
-  id: z.string().uuid(),
-  name: z.string().min(1),
-  email: z.string().email(),
-  companyName: z.string().optional(),
-  vatNumber: z.string().optional(),
-  phone: z.string().optional(),
-  country: z.string().optional(),
-  city: z.string().optional(),
-  billingName: z.string().optional(),
-  billingEmail: z.string().optional(),
-  billingCompanyName: z.string().optional(),
-  billingVatNumber: z.string().optional(),
-  paymentMethod: z.string().min(1),
-  deliveryMethod: z.string().min(1),
-});
+const CartSchema = z
+  .object({
+    //id: z.string().uuid(),
+    firstName: z.string().min(1),
+    lastName: z.string().min(1),
+    postalCode: z.string().min(1),
+    email: z.string().email(),
+    companyName: z.string(),
+    address: z.string(),
+    phone: z.string(),
+    country: z.string(),
+    city: z.string(),
+    billingName: z.string().optional(),
+    billingEmail: z.string().email().optional(),
+    billingCompanyName: z.string().optional(),
+    billingAddress: z.string().optional(),
+    paymentMethod: z.string().min(1),
+    deliveryMethod: z.string().min(1),
+    sameAsDelivery: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      if (!data.sameAsDelivery) {
+        return (
+          data.billingName &&
+          data.billingEmail &&
+          data.billingCompanyName &&
+          data.billingAddress
+        );
+      }
+      return true;
+    },
+    {
+      message: "Billing fields are required if sameAsDelivery is false",
+      path: [
+        "billingName",
+        "billingEmail",
+        "billingCompanyName",
+        "billingAddress",
+      ], // this will add the error to all these fields
+    }
+  );
 
 export async function updateCartAction(
-  prevState: UpdateCartParams | undefined,
+  prevState: any | undefined,
   formData: FormData
 ) {
   try {
     // Extract fields from formData
+    console.log("formDataformDatah", formData);
+
     const cartData = {
-      id: formData.get("id"),
-      name: formData.get("name"),
+      // id: formData.get("id"),
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      postalCode: formData.get("postalCode"),
       email: formData.get("email"),
       companyName: formData.get("companyName"),
-      vatNumber: formData.get("vatNumber"),
+      address: formData.get("address"),
       phone: formData.get("phone"),
       country: formData.get("country"),
       city: formData.get("city"),
-      billingName: formData.get("billingName"),
-      billingEmail: formData.get("billingEmail"),
-      billingCompanyName: formData.get("billingCompanyName"),
-      billingVatNumber: formData.get("billingVatNumber"),
+      billingName: formData.get("billingName") ?? undefined,
+      billingEmail: formData.get("billingEmail") ?? undefined,
+      billingCompanyName: formData.get("billingCompanyName") ?? undefined,
+      billingAddress: formData.get("billingAddress") ?? undefined,
       paymentMethod: formData.get("paymentMethod"),
       deliveryMethod: formData.get("deliveryMethod"),
+      sameAsDelivery: formData.get("sameAsDelivery") ?? "",
     };
-
+    console.log("formDataformDatahcartData", cartData);
     // Validate fields with FormSchema
     const validatedFields = CartSchema.safeParse(cartData);
 
@@ -253,10 +286,12 @@ export async function updateCartAction(
         message: "Validation failed.",
       };
     }
-
-    const cart = await updateCart(validatedFields.data.id, {
+    let cartId = cookies().get("cartId")?.value;
+    const cart = await updateCart(cartId!, {
       ...validatedFields.data,
+      sameAsDelivery: undefined,
     });
+    revalidateTag(TAGS.cart);
   } catch (error) {
     console.error(error);
     return {

@@ -1,5 +1,10 @@
 import prisma, { Product, Collection } from "@lib/prisma";
+import { cookies } from "next/headers";
 
+//import { getCart } from "@lib/services";
+import { getCart } from "@lib/services/prismaServices";
+import { unstable_cache } from "next/cache";
+import { TAGS } from "@lib/const";
 interface Rule {
   field: string;
   condition: string;
@@ -67,4 +72,49 @@ export async function applyCollectionRules(collectionId: string) {
       collectionId,
     })),
   });
+}
+
+const getCartItem = unstable_cache(
+  async (id) => {
+    const cart = await getCart(id);
+    // const subtotalPrice = cart.items.reduce((total, item) => {
+    //   return (total += item.variant.price);
+    // }, 0);
+    // const totalPrice = subtotalPrice + (subtotalPrice * 15) / 100;
+    let cartC = addComputedCartPrices(cart);
+    // return { ...cart, subtotalPrice, totalPrice, currency: "ETB" };
+    return cartC;
+  },
+  [],
+  {
+    tags: [TAGS.cart],
+  }
+);
+
+export async function getCartByIdUtil() {
+  const cartId = cookies().get("cartId")?.value;
+  let cart;
+
+  if (cartId) {
+    cart = await getCartItem(cartId);
+  }
+  return cart;
+}
+export function addComputedCartPrices(cart: any) {
+  const subtotalPrice = cart?.items?.reduce((total: any, item: any) => {
+    return (total += item.variant.price);
+  }, 0);
+  const delivery =
+    cart?.deliveryMethod == "fedex"
+      ? 10
+      : cart?.deliveryMethod == "dhl"
+      ? 15
+      : 0;
+  const totalPrice = subtotalPrice + (subtotalPrice * 15) / 100 + delivery;
+  return {
+    ...cart,
+    subtotalPrice,
+    totalPrice,
+    currency: cart.currency ?? "ETB",
+  };
 }

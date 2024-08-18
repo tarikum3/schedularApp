@@ -30,4 +30,9 @@ export type Product = Prisma.ProductGetPayload<{
     options: true;
   };
 }>;
+export type Cart = Prisma.CartGetPayload<{
+  include: {
+    items: true;
+  };
+}>;
 export type Collection = PrismaCollection;

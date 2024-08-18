@@ -4,10 +4,11 @@ import PhoneInput from "@/app/components/PhoneInput";
 import Select from "@/app/components/Select";
 interface DeliveryAddressProps {
   formData: {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     companyName: string;
-    vatNumber: string;
+    address: string;
     phone: string;
     country: string;
     city: string;
@@ -39,22 +40,36 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label
-            htmlFor="name"
+            htmlFor="firstName"
             className="mb-2 block text-sm font-medium text-gray-800"
           >
-            Your name
+            First Name
           </label>
           <input
             type="text"
-            id="name"
+            id="firstName"
             className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-            placeholder="Bonnie Green"
-            value={formData.name}
+            value={formData.firstName}
             onChange={handleChange}
             required
           />
         </div>
-
+        <div>
+          <label
+            htmlFor="lastName"
+            className="mb-2 block text-sm font-medium text-gray-800"
+          >
+            Last Name
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div>
           <label
             htmlFor="email"
@@ -66,7 +81,6 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({
             type="email"
             id="email"
             className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
-            placeholder="name@flowbite.com"
             value={formData.email}
             onChange={handleChange}
             required
@@ -93,17 +107,17 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({
 
         <div>
           <label
-            htmlFor="vatNumber"
+            htmlFor="address"
             className="mb-2 block text-sm font-medium text-gray-800"
           >
-            VAT number
+            Address
           </label>
           <input
             type="text"
-            id="vatNumber"
+            id="address"
             className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
             placeholder="DE42313253"
-            value={formData.vatNumber}
+            value={formData.address}
             onChange={handleChange}
             required
           />

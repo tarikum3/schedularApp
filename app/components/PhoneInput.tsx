@@ -1,3 +1,4 @@
+"use client";
 // import React, { useState } from "react";
 
 // interface PhoneCode {
@@ -67,7 +68,7 @@
 // };
 
 // export default PhoneInput;
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface PhoneCode {
   code: string;
@@ -77,35 +78,50 @@ interface PhoneCode {
 interface PhoneInputProps {
   phoneCodes: PhoneCode[];
   label: string;
+  name: string;
   onSelect?: (selectedCode: string) => void;
+  defaultValue?: string;
 }
 
 const PhoneInput: React.FC<PhoneInputProps> = ({
   phoneCodes,
   label,
+  name,
   onSelect,
 }) => {
   const [selectedCode, setSelectedCode] = useState<string>(phoneCodes[0].code);
-
-  const handleSelect = (code: string) => {
-    setSelectedCode(code);
+  const [phoneNumber, setphoneNumber] = useState<string>("");
+  // const handleSelect = (code: string) => {
+  //   setSelectedCode(code);
+  //   if (onSelect) {
+  //     onSelect(code + "" + phoneNumber);
+  //   }
+  // };
+  // const handlePhone = (code: string) => {
+  //   setphoneNumber(code);
+  //   if (onSelect) {
+  //     onSelect(selectedCode + "" + phoneNumber);
+  //   }
+  // };
+  useEffect(() => {
     if (onSelect) {
-      onSelect(code);
+      onSelect(selectedCode + "" + phoneNumber);
     }
-  };
-
+  }, [selectedCode, phoneNumber]);
   return (
     <div>
       <label
-        htmlFor="phone-input-3"
+        htmlFor="phone-input"
         className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
       >
         {label}
       </label>
-      <div className="flex items-center bg-gray-50 rounded-lg">
+      <div className="flex items-center">
         <div className="relative">
           <select
-            onChange={(e) => handleSelect(e.target.value)}
+            onChange={(e) => setSelectedCode(e.target.value)}
+            value={selectedCode + "" + phoneNumber}
+            name={name}
             className="block h-full min-w-[80px] max-w-[120px] bg-gray-100 border border-gray-300 text-sm text-gray-900 rounded-l-lg p-2.5 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
             {phoneCodes.map(({ code, countryName }) => (
@@ -116,11 +132,11 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
           </select>
         </div>
         <input
-          type="text"
+          type="tel"
           id="phone-input"
           className="block h-full w-full max-w-[200px] min-w-[150px] bg-gray-100 border border-gray-300 text-sm text-gray-900 rounded-r-lg p-2.5 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-          placeholder="123-456-7890"
+          //pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          onChange={(e) => setphoneNumber(e.target.value)}
           required
         />
       </div>

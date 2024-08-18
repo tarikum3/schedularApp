@@ -18,7 +18,10 @@ const BillingAddress: React.FC<BillingAddressProps> = ({
       <h2 className="text-xl font-semibold text-gray-800">Billing Address</h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="billingName" className="mb-2 block text-sm font-medium text-gray-800">
+          <label
+            htmlFor="billingName"
+            className="mb-2 block text-sm font-medium text-gray-800"
+          >
             Your name
           </label>
           <input
@@ -32,7 +35,10 @@ const BillingAddress: React.FC<BillingAddressProps> = ({
         </div>
 
         <div>
-          <label htmlFor="billingEmail" className="mb-2 block text-sm font-medium text-gray-800">
+          <label
+            htmlFor="billingEmail"
+            className="mb-2 block text-sm font-medium text-gray-800"
+          >
             Your email
           </label>
           <input
@@ -46,7 +52,10 @@ const BillingAddress: React.FC<BillingAddressProps> = ({
         </div>
 
         <div>
-          <label htmlFor="billingCompanyName" className="mb-2 block text-sm font-medium text-gray-800">
+          <label
+            htmlFor="billingCompanyName"
+            className="mb-2 block text-sm font-medium text-gray-800"
+          >
             Company name
           </label>
           <input
@@ -60,15 +69,18 @@ const BillingAddress: React.FC<BillingAddressProps> = ({
         </div>
 
         <div>
-          <label htmlFor="billingVatNumber" className="mb-2 block text-sm font-medium text-gray-800">
-            VAT number
+          <label
+            htmlFor="billingAddress"
+            className="mb-2 block text-sm font-medium text-gray-800"
+          >
+            Address
           </label>
           <input
             type="text"
-            id="billingVatNumber"
+            id="billingAddress"
             className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-800 focus:outline-none"
             placeholder="DE42313253"
-            value={formData.billingVatNumber}
+            value={formData.billingAddress}
             onChange={handleChange}
           />
         </div>
