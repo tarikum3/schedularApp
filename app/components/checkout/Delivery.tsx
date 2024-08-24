@@ -85,6 +85,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               onChange={handleChange}
               required
             />
+            {errorMessage?.errors?.["firstName"] && (
+              <div className="text-red-800 ">
+                {errorMessage?.errors?.["firstName"][0]}
+              </div>
+            )}
           </div>
           <div>
             <label
@@ -103,6 +108,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               onChange={handleChange}
               required
             />
+            {errorMessage?.errors?.["lastName"] && (
+              <div className="text-red-800">
+                {errorMessage?.errors?.["lastName"][0]}
+              </div>
+            )}
           </div>
           <div>
             <label
@@ -121,6 +131,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               onChange={handleChange}
               required
             />
+            {errorMessage?.errors?.["email"] && (
+              <div className="text-red-800">
+                {errorMessage?.errors?.["email"][0]}
+              </div>
+            )}
           </div>
           <div>
             <label
@@ -139,6 +154,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               onChange={handleChange}
               required
             />
+            {errorMessage?.errors?.["postalCode"] && (
+              <div className="text-red-800">
+                {errorMessage?.errors?.["postalCode"][0]}
+              </div>
+            )}
           </div>
           <div>
             <label
@@ -157,6 +177,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               onChange={handleChange}
               required
             />
+            {errorMessage?.errors?.["companyName"] && (
+              <div className="text-red-800">
+                {errorMessage?.errors?.["companyName"][0]}
+              </div>
+            )}
           </div>
           <div>
             <label
@@ -175,6 +200,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               onChange={handleChange}
               required
             />
+            {errorMessage?.errors?.["address"] && (
+              <div className="text-red-800">
+                {errorMessage?.errors?.["address"][0]}
+              </div>
+            )}
           </div>
           <div>
             {/* <PhoneInput
@@ -202,6 +232,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                 onChange={handleChange}
                 required
               />
+              {errorMessage?.errors?.["phone"] && (
+                <div className="text-red-800">
+                  {errorMessage?.errors?.["phone"][0]}
+                </div>
+              )}
             </div>
           </div>
           <div>
@@ -212,6 +247,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               defaultValue={cart?.country ?? ""}
               onSelect={(value) => handleSelectChange("country", value)}
             />
+            {errorMessage?.errors?.["country"] && (
+              <div className="text-red-800">
+                {errorMessage?.errors?.["country"][0]}
+              </div>
+            )}
           </div>
           <div>
             {/* <Select
@@ -233,6 +273,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               onChange={handleChange}
               required
             />
+            {errorMessage?.errors?.["city"] && (
+              <div className="text-red-800">
+                {errorMessage?.errors?.["city"][0]}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -266,7 +311,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   htmlFor="billingName"
                   className="mb-2 block text-sm font-medium text-gray-800"
                 >
-                  First name
+                  Name
                 </label>
                 <Input
                   type="text"
@@ -277,6 +322,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   value={formData.billingName}
                   onChange={handleChange}
                 />
+                {errorMessage?.errors?.["billingName"] && (
+                  <div className="text-red-800">
+                    {errorMessage?.errors?.["billingName"][0]}
+                  </div>
+                )}
               </div>
 
               <div>
@@ -295,6 +345,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   value={formData.billingEmail}
                   onChange={handleChange}
                 />
+                {errorMessage?.errors?.["billingEmail"] && (
+                  <div className="text-red-800">
+                    {errorMessage?.errors?.["billingEmail"][0]}
+                  </div>
+                )}
               </div>
 
               <div>
@@ -313,6 +368,12 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   value={formData.billingCompanyName}
                   onChange={handleChange}
                 />
+
+                {errorMessage?.errors?.["billingCompanyName"] && (
+                  <div className="text-red-800">
+                    {errorMessage?.errors?.["billingCompanyName"][0]}
+                  </div>
+                )}
               </div>
 
               <div>
@@ -331,6 +392,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   value={formData.billingAddress}
                   onChange={handleChange}
                 />
+                {errorMessage?.errors?.["billingAddress"] && (
+                  <div className="text-red-800">
+                    {errorMessage?.errors?.["billingAddress"][0]}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -386,6 +452,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
             </div>
           </div>
         </div>
+        {errorMessage?.errors?.["deliveryMethod"] && (
+          <div className="text-red-800">
+            {errorMessage?.errors?.["deliveryMethod"][0]}
+          </div>
+        )}
       </div>
 
       <div className="space-y-4 mt-4">
@@ -444,6 +515,11 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
             </div>
           </div>
         </div>
+        {errorMessage?.errors?.["paymentMethod"] && (
+          <div className="text-red-800">
+            {errorMessage?.errors?.["paymentMethod"][0]}
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-end my-4 ">

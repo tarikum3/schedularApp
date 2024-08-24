@@ -22,9 +22,7 @@ const LoginView: React.FC = () => {
         <Logo width="64px" height="64px" />
       </div>
       <div className="flex flex-col space-y-3">
-        {errorMessage && (
-          <div className="text-red border border-red p-3">{errorMessage}</div>
-        )}
+        {errorMessage && <div className="text-red-800">{errorMessage}</div>}
         {/* <Input type="email" placeholder="Email" onChange={setEmail} />
         <Input type="password" placeholder="Password" onChange={setPassword} /> */}
 

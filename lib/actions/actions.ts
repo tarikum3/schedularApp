@@ -206,48 +206,54 @@ interface UpdateCartParams {
   paymentMethod: string;
   deliveryMethod: string;
 }
-const CartSchema = z
-  .object({
-    //id: z.string().uuid(),
-    firstName: z.string().min(1),
-    lastName: z.string().min(1),
-    postalCode: z.string().min(1),
-    email: z.string().email(),
-    companyName: z.string(),
-    address: z.string(),
-    phone: z.string(),
-    country: z.string(),
-    city: z.string(),
-    billingName: z.string().optional(),
-    billingEmail: z.string().email().optional(),
-    billingCompanyName: z.string().optional(),
-    billingAddress: z.string().optional(),
-    paymentMethod: z.string().min(1),
-    deliveryMethod: z.string().min(1),
-    sameAsDelivery: z.string().optional(),
-  })
-  .refine(
-    (data) => {
-      if (!data.sameAsDelivery) {
-        return (
-          data.billingName &&
-          data.billingEmail &&
-          data.billingCompanyName &&
-          data.billingAddress
-        );
-      }
-      return true;
-    },
-    {
-      message: "Billing fields are required if sameAsDelivery is false",
-      path: [
-        "billingName",
-        "billingEmail",
-        "billingCompanyName",
-        "billingAddress",
-      ], // this will add the error to all these fields
-    }
-  );
+const CartSchema = z.object({
+  //id: z.string().uuid({ message: "Invalid ID format." }),
+  firstName: z.string().min(1, { message: "First name is required." }),
+  lastName: z.string().min(1, { message: "Last name is required." }),
+  postalCode: z.string().min(1, { message: "Postal code is required." }),
+  email: z.string().email({ message: "Invalid email address." }),
+  companyName: z.string().min(1, { message: "Company name is required." }),
+  address: z.string().min(1, { message: "Address is required." }),
+  phone: z.string().min(1, { message: "Phone number is required." }),
+  country: z.string().min(1, { message: "Country is required." }),
+  city: z.string().min(1, { message: "City is required." }),
+  billingName: z.string().min(1, { message: "Billing name is required." }),
+  billingEmail: z.string().email({ message: "Invalid billing email address." }),
+  billingCompanyName: z
+    .string()
+    .min(1, { message: "Billing company name is required." }),
+  billingAddress: z
+    .string()
+    .min(1, { message: "Billing address is required." }),
+  paymentMethod: z.string().min(1, { message: "Payment method is required." }),
+  deliveryMethod: z
+    .string()
+    .min(1, { message: "Delivery method is required." }),
+  //sameAsDelivery: z.string().optional(), // You can add a custom message here if needed
+});
+
+// .refine(
+//   (data) => {
+//     if (!data.sameAsDelivery) {
+//       return (
+//         data.billingName &&
+//         data.billingEmail &&
+//         data.billingCompanyName &&
+//         data.billingAddress
+//       );
+//     }
+//     return true;
+//   },
+//   {
+//     message: "Billing fields are required if sameAsDelivery is false",
+//     path: [
+//       "billingName",
+//       "billingEmail",
+//       "billingCompanyName",
+//       "billingAddress",
+//     ], // this will add the error to all these fields
+//   }
+// );
 
 export async function updateCartAction(
   prevState: any | undefined,
@@ -268,13 +274,21 @@ export async function updateCartAction(
       phone: formData.get("phone"),
       country: formData.get("country"),
       city: formData.get("city"),
-      billingName: formData.get("billingName") ?? undefined,
-      billingEmail: formData.get("billingEmail") ?? undefined,
-      billingCompanyName: formData.get("billingCompanyName") ?? undefined,
-      billingAddress: formData.get("billingAddress") ?? undefined,
+      billingName: formData.get("sameAsDelivery")
+        ? formData.get("firstName")
+        : formData.get("billingName"),
+      billingEmail: formData.get("sameAsDelivery")
+        ? formData.get("email")
+        : formData.get("billingEmail"),
+      billingCompanyName: formData.get("sameAsDelivery")
+        ? formData.get("companyName")
+        : formData.get("billingCompanyName"),
+      billingAddress: formData.get("sameAsDelivery")
+        ? formData.get("address")
+        : formData.get("billingAddress"),
       paymentMethod: formData.get("paymentMethod"),
       deliveryMethod: formData.get("deliveryMethod"),
-      sameAsDelivery: formData.get("sameAsDelivery") ?? "",
+      // sameAsDelivery: formData.get("sameAsDelivery") ?? "",
     };
     console.log("formDataformDatahcartData", cartData);
     // Validate fields with FormSchema
