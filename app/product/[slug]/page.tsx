@@ -5,10 +5,10 @@ import {
   fetchProducts,
   fetchProductBySlug,
 } from "@lib/services/prismaServices";
-import { decodeProductName } from "@lib/utils";
+import { decodeProductName } from "@/lib/helper";
 //import { unstable_noStore as noStore } from "next/cache";
 
-export async function getProductPage(params: { slug: string }) {
+async function getProductPage(params: { slug: string }) {
   //noStore();
 
   // const productPromise = getProduct({

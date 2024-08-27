@@ -10,7 +10,7 @@ import { ArrowRight } from "@/app/components/icons";
 //import { cache } from "react";
 import prisma from "@lib/prisma";
 import { fetchProducts } from "@lib/services/prismaServices";
-export const getHomeProducts = async () => {
+const getHomeProducts = async () => {
   // const productsPromise = getAllProducts({
   //   variables: { first: 8 },
   //   //cache: "no-store",

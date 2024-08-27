@@ -3,7 +3,7 @@ import { unstable_noStore as noStore } from "next/cache";
 //import { getAllProducts } from "@lib/services";
 import { fetchProducts } from "@lib/services/prismaServices";
 
-export async function getSearchProducts(q: string) {
+async function getSearchProducts(q: string) {
   noStore();
   // let search = "";
 

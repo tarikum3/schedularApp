@@ -2,7 +2,7 @@
 import { FC, useState } from "react";
 import CartItem from "./CartItem";
 import { Bag } from "@/app/components/icons";
-import usePrice from "@lib/hooks/use-price";
+import usePrice from "@/lib/use-price";
 import type { Cart } from "@lib/types";
 import Clickoutside from "@/app/components/common/Clickoutside";
 import { useSession } from "next-auth/react";

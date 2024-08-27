@@ -4,7 +4,7 @@ import CartView from "./CartView";
 import { getCart } from "@lib/services/prismaServices";
 import { unstable_cache } from "next/cache";
 import { TAGS } from "@lib/const";
-import { getCartByIdUtil } from "@lib/services/utils";
+import { getCartByIdUtil } from "@/lib/helper";
 // const getCartItem = unstable_cache(
 //   async (id) => {
 //     const cart = await getCart(id);

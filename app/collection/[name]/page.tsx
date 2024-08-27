@@ -4,7 +4,7 @@ import { fetchCollection } from "@lib/services/prismaServices";
 // import { getCategories } from "@lib/services";
 // import { CollectionEdge, Product as ShopifyProduct } from "@lib/schemas/schema";
 
-// import { getCollectionProductsQuery, normalizeProduct } from "@lib/utils";
+// import { getCollectionProductsQuery, normalizeProduct } from "@lib/utils/helper";
 
 // import fetcher from "@lib/fetcher";
 
@@ -39,7 +39,7 @@ import { fetchCollection } from "@lib/services/prismaServices";
 //     collection: params!.name,
 //   };
 // }
-export async function getCollection(params: { name: string }) {
+async function getCollection(params: { name: string }) {
   const { products } = await fetchCollection({ title: params!.name });
   // if (!products) {
   //   return {

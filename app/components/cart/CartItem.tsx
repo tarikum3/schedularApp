@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { LineItem } from "@lib/types";
-import usePrice from "@lib/hooks/use-price";
+import usePrice from "@/lib/use-price";
 
 import { EditItemQuantityButton } from "./EditCart";
 import { DeleteItemButton } from "./DeleteButton";

@@ -1,7 +1,7 @@
 import React from "react";
 import Delivery from "@/app/components/checkout/Delivery";
 import Summary from "@/app/components/checkout/Summary";
-import { getCartByIdUtil } from "@lib/services/utils";
+import { getCartByIdUtil } from "@/lib/helper";
 
 export default async function CheckoutWrapper() {
   let cart = await getCartByIdUtil();

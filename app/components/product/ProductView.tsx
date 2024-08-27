@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { FC, useState } from "react";
 // import type { Product } from "@lib/types";
-import usePrice from "@lib/hooks/use-price";
+import usePrice from "@/lib/use-price";
 import { SEO } from "@/app/components/common";
 import { Button, ErrorMessage } from "@/app/components";
 import { addItem } from "@lib/actions/actions";

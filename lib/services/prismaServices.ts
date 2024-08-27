@@ -1,11 +1,11 @@
 import prisma, { Product, Collection } from "@lib/prisma";
-import { applyCollectionRules } from "@lib/services/utils";
+import { applyCollectionRules } from "@/lib/helper";
 import { supabase } from "@lib/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import fs from "fs";
 import bcrypt from "bcrypt";
-import { convertToSlug } from "@lib/utils";
+import { convertToSlug } from "@/lib/helper";
 interface FetchProductsOptions {
   searchKey?: string;
   filter?: {
