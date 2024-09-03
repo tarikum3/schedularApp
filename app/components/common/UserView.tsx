@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, UserIcon } from "@/app/components/icons";
 
@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 
 import { logOut } from "@lib/actions/actions";
 // import { useRouter } from "next/router";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 const UserView: FC = () => {
   // const [logout] = useLogoutMutation();
   const { theme, setTheme } = useTheme();
@@ -19,6 +19,7 @@ const UserView: FC = () => {
   const { openModal } = useUI();
   const [dropdown, setDropdown] = useState("");
   const { data: session, status } = useSession();
+  const { notRegistered } = useParams();
   const router = useRouter();
   const handleDropdown = (current: string = "") => {
     if (dropdown == current) {
@@ -28,7 +29,11 @@ const UserView: FC = () => {
       setDisplay(true);
     }
   };
-
+  useEffect(() => {
+    if (notRegistered) {
+      openModal();
+    }
+  }, [notRegistered]);
   console.log("dropdownsession", session);
   return (
     <>

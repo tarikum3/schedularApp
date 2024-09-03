@@ -1,11 +1,11 @@
 import prisma, { Product, Collection } from "@lib/prisma";
-import { applyCollectionRules } from "@/lib/helper";
+import { applyCollectionRules, convertToSlug } from "@/lib/helper";
 import { supabase } from "@lib/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import fs from "fs";
 import bcrypt from "bcrypt";
-import { convertToSlug } from "@/lib/helper";
+
 interface FetchProductsOptions {
   searchKey?: string;
   filter?: {
@@ -308,11 +308,11 @@ export async function getCart(cartId: string) {
     throw new Error("Unable to fetch cart.");
   }
 }
-export async function createCart(customerId?: string) {
+export async function createCart(userId?: string) {
   try {
     const newCart = await prisma.cart.create({
       data: {
-        customerId: customerId ?? "",
+        userId: userId ?? "",
       },
     });
     return newCart;
@@ -585,7 +585,7 @@ export async function createCustomer(data: CreateCustomerData) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
     // Create the customer with the hashed password
-    const customer = await prisma.customer.create({
+    const customer = await prisma.user.create({
       data: {
         ...data,
         password: hashedPassword,
@@ -598,9 +598,9 @@ export async function createCustomer(data: CreateCustomerData) {
     throw new Error("Unable to create customer.");
   }
 }
-export async function deleteCustomer(id: number) {
+export async function deleteCustomer(id: string) {
   try {
-    const customer = await prisma.customer.delete({
+    const customer = await prisma.user.delete({
       where: { id },
     });
     return customer;
@@ -611,14 +611,14 @@ export async function deleteCustomer(id: number) {
 }
 export async function getCustomers() {
   try {
-    const customers = await prisma.customer.findMany();
+    const customers = await prisma.user.findMany();
     return customers;
   } catch (error) {
     console.error("Error fetching customers:", error);
     throw new Error("Unable to fetch customers.");
   }
 }
-export async function getCustomer(identifier: { id?: number; email?: string }) {
+export async function getCustomer(identifier: { id?: string; email?: string }) {
   const { id, email } = identifier;
 
   if (!id && !email) {
@@ -628,7 +628,7 @@ export async function getCustomer(identifier: { id?: number; email?: string }) {
   try {
     const whereClause = id ? { id } : { email: email as string };
 
-    const customer = await prisma.customer.findUnique({
+    const customer = await prisma.user.findUnique({
       where: whereClause,
     });
 
@@ -646,13 +646,13 @@ export async function getCustomer(identifier: { id?: number; email?: string }) {
 }
 type UpdateCustomerData = Partial<CreateCustomerData>;
 
-export async function updateCustomer(id: number, data: UpdateCustomerData) {
+export async function updateCustomer(id: string, data: UpdateCustomerData) {
   try {
     if (data.password) {
       data.password = await bcrypt.hash(data.password, 10);
     }
 
-    const customer = await prisma.customer.update({
+    const customer = await prisma.user.update({
       where: { id },
       data,
     });
@@ -673,7 +673,7 @@ export async function login(data: LoginData) {
 
   try {
     // Fetch the user by email
-    const user = await prisma.customer.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email },
     });
 

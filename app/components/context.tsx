@@ -30,7 +30,12 @@ type Action =
       type: "SET_DROPDOWN_VIEW";
       view: string;
     };
-type UI_VIEWS = "SIGNUP_VIEW" | "LOGIN_VIEW" | "FORGOT_VIEW" | "DROPDOWN_VIEW";
+type UI_VIEWS =
+  | "SIGNUP_VIEW"
+  | "LOGIN_VIEW"
+  | "FORGOT_VIEW"
+  | "RESET_VIEW"
+  | "DROPDOWN_VIEW";
 
 export const UIContext = React.createContext<State | any>(initialState);
 

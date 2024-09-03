@@ -64,14 +64,14 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
   return (
     <form action={dispatch}>
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-gray-800">
+        <h2 className="text-lg font-semibold text-secondary">
           Delivery Details
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label
               htmlFor="firstName"
-              className="mb-2 block text-sm font-medium text-gray-800"
+              className="mb-2 block text-sm font-medium text-secondary"
             >
               First Name
             </label>
@@ -79,7 +79,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               type="text"
               id="firstName"
               name="firstName"
-              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
               // placeholder="Bonnie Green"
               value={formData.firstName}
               onChange={handleChange}
@@ -94,7 +94,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
           <div>
             <label
               htmlFor="lastName"
-              className="mb-2 block text-sm font-medium text-gray-800"
+              className="mb-2 block text-sm font-medium text-secondary"
             >
               Last Name
             </label>
@@ -102,7 +102,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               type="text"
               id="lastName"
               name="lastName"
-              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
               // placeholder="Bonnie Green"
               value={formData.lastName}
               onChange={handleChange}
@@ -117,7 +117,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
           <div>
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium text-gray-800"
+              className="mb-2 block text-sm font-medium text-secondary"
             >
               email
             </label>
@@ -125,7 +125,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               type="email"
               id="email"
               name="email"
-              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
 
               value={formData.email}
               onChange={handleChange}
@@ -140,7 +140,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
           <div>
             <label
               htmlFor="postalCode"
-              className="mb-2 block text-sm font-medium text-gray-800"
+              className="mb-2 block text-sm font-medium text-secondary"
             >
               Postal Code
             </label>
@@ -148,7 +148,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               type="text"
               id="postalCode"
               name="postalCode"
-              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
 
               value={formData.postalCode}
               onChange={handleChange}
@@ -163,7 +163,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
           <div>
             <label
               htmlFor="companyName"
-              className="mb-2 block text-sm font-medium text-gray-800"
+              className="mb-2 block text-sm font-medium text-secondary"
             >
               Company name
             </label>
@@ -171,7 +171,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               type="text"
               id="companyName"
               name="companyName"
-              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
               // placeholder="Flowbite LLC"
               value={formData.companyName}
               onChange={handleChange}
@@ -186,7 +186,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
           <div>
             <label
               htmlFor="address"
-              className="mb-2 block text-sm font-medium text-gray-800"
+              className="mb-2 block text-sm font-medium text-secondary"
             >
               Address
             </label>
@@ -194,7 +194,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               type="text"
               id="address"
               name="address"
-              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+              // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
               // placeholder="DE42313253"
               value={formData.address}
               onChange={handleChange}
@@ -220,7 +220,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
             <div>
               <label
                 htmlFor="phone"
-                className="mb-2 block text-sm font-medium text-gray-800"
+                className="mb-2 block text-sm font-medium text-secondary"
               >
                 Phone
               </label>
@@ -261,7 +261,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
             /> */}
             <label
               htmlFor="city"
-              className="mb-2 block text-sm font-medium text-gray-800"
+              className="mb-2 block text-sm font-medium text-secondary"
             >
               City
             </label>
@@ -283,7 +283,9 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
       </div>
 
       <div className="space-y-4 mt-4">
-        <h2 className="text-lg font-semibold text-gray-800">Billing Address</h2>
+        <h2 className="text-lg font-semibold text-secondary">
+          Billing Address
+        </h2>
         <div className="flex items-center">
           <Input
             type="checkbox"
@@ -297,7 +299,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
           />
           <label
             htmlFor="sameAsDelivery"
-            className="text-sm font-medium text-gray-800"
+            className="text-sm font-medium text-secondary"
           >
             Same as Delivery Addresssss
           </label>
@@ -309,7 +311,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               <div>
                 <label
                   htmlFor="billingName"
-                  className="mb-2 block text-sm font-medium text-gray-800"
+                  className="mb-2 block text-sm font-medium text-secondary"
                 >
                   Name
                 </label>
@@ -317,7 +319,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="text"
                   id="billingName"
                   name="billingName"
-                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
                   // placeholder="Bonnie Green"
                   value={formData.billingName}
                   onChange={handleChange}
@@ -332,7 +334,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               <div>
                 <label
                   htmlFor="billingEmail"
-                  className="mb-2 block text-sm font-medium text-gray-800"
+                  className="mb-2 block text-sm font-medium text-secondary"
                 >
                   Your email
                 </label>
@@ -340,7 +342,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="email"
                   id="billingEmail"
                   name="billingEmail"
-                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
 
                   value={formData.billingEmail}
                   onChange={handleChange}
@@ -355,7 +357,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               <div>
                 <label
                   htmlFor="billingCompanyName"
-                  className="mb-2 block text-sm font-medium text-gray-800"
+                  className="mb-2 block text-sm font-medium text-secondary"
                 >
                   Company name
                 </label>
@@ -363,7 +365,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="text"
                   id="billingCompanyName"
                   name="billingCompanyName"
-                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
                   // placeholder="Flowbite LLC"
                   value={formData.billingCompanyName}
                   onChange={handleChange}
@@ -379,7 +381,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               <div>
                 <label
                   htmlFor="billingAddress"
-                  className="mb-2 block text-sm font-medium text-gray-800"
+                  className="mb-2 block text-sm font-medium text-secondary"
                 >
                   Address
                 </label>
@@ -387,7 +389,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="text"
                   id="billingAddress"
                   name="billingAddress"
-                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800"
+                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-secondary"
                   // placeholder="DE42313253"
                   value={formData.billingAddress}
                   onChange={handleChange}
@@ -404,7 +406,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
       </div>
 
       <div className="space-y-4 mt-4">
-        <h3 className="text-lg font-semibold text-gray-800">
+        <h3 className="text-lg font-semibold text-secondary">
           Delivery Methods
         </h3>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -423,7 +425,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                 />
               </div>
               <div className="ml-4 text-sm">
-                <label htmlFor="dhl" className="font-medium text-gray-800">
+                <label htmlFor="dhl" className="font-medium text-secondary">
                   $15 - DHL
                 </label>
               </div>
@@ -445,7 +447,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                 />
               </div>
               <div className="ml-4 text-sm">
-                <label htmlFor="fedex" className="font-medium text-gray-800">
+                <label htmlFor="fedex" className="font-medium text-secondary">
                   $10 - FedEx
                 </label>
               </div>
@@ -460,7 +462,9 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
       </div>
 
       <div className="space-y-4 mt-4">
-        <h3 className="text-lg font-semibold text-gray-800">Payment Methods</h3>
+        <h3 className="text-lg font-semibold text-secondary">
+          Payment Methods
+        </h3>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="rounded border border-gray-200 bg-gray-50 p-4">
             <div className="flex items-start">
@@ -479,7 +483,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
               <div className="ml-4 text-sm">
                 <label
                   htmlFor="creditCard"
-                  className="font-medium text-gray-800"
+                  className="font-medium text-secondary"
                 >
                   Credit Card
                 </label>
@@ -505,7 +509,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                 />
               </div>
               <div className="ml-4 text-sm">
-                <label htmlFor="paypal" className="font-medium text-gray-800">
+                <label htmlFor="paypal" className="font-medium text-secondary">
                   PayPal
                 </label>
                 {/* <p id="paypal-text" className="mt-1 text-xs text-gray-500">
