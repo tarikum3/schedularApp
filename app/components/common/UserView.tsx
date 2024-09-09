@@ -11,15 +11,17 @@ import { useSession } from "next-auth/react";
 
 import { logOut } from "@lib/actions/actions";
 // import { useRouter } from "next/router";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 const UserView: FC = () => {
   // const [logout] = useLogoutMutation();
   const { theme, setTheme } = useTheme();
   const [display, setDisplay] = useState(true);
-  const { openModal } = useUI();
+  const { openModal, setModalView } = useUI();
   const [dropdown, setDropdown] = useState("");
   const { data: session, status } = useSession();
-  const { notRegistered } = useParams();
+  //const { notRegistered, reset } = useParams();
+  const searchParam = useSearchParams();
+
   const router = useRouter();
   const handleDropdown = (current: string = "") => {
     if (dropdown == current) {
@@ -30,11 +32,20 @@ const UserView: FC = () => {
     }
   };
   useEffect(() => {
+    const reset = searchParam.get("reset");
+    const notRegistered = searchParam.get("notRegistered");
     if (notRegistered) {
       openModal();
+      setModalView("SIGNUP_VIEW");
     }
-  }, [notRegistered]);
+    if (reset) {
+      openModal();
+      setModalView("RESET_VIEW");
+    }
+  }, [searchParam]);
   console.log("dropdownsession", session);
+  // console.log("notRegistered", notRegistered);
+  console.log("resetreset", searchParam.get("reset"));
   return (
     <>
       <div className="relative ">
@@ -42,7 +53,9 @@ const UserView: FC = () => {
           onClick={() => {
             handleDropdown("");
 
-            session?.user ? handleDropdown("user") : openModal();
+            session?.user
+              ? handleDropdown("user")
+              : openModal() || setModalView("LOGIN_VIEW");
           }}
           aria-label="Menu"
         >

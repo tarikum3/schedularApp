@@ -6,8 +6,8 @@ import { z } from "zod";
 import { authConfig } from "./auth.config";
 //import { login, logout, getCustomer, signup } from "@lib/services";
 import { getCustomer } from "@lib/services/prismaServices";
-import bcrypt from "bcrypt";
-
+import bcrypt from "bcryptjs";
+import Google from "next-auth/providers/google";
 async function getUser(
   email: string,
   password: string
@@ -43,9 +43,14 @@ async function getUser(
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
+    Google,
+    // google({
+    //   clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+    // }),
     Credentials({
       async authorize(credentials) {
-        // console.log("Invalid credentialssd", credentials);
+        console.log("Invalid credentialssd", credentials);
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(8) })
           .safeParse(credentials);
@@ -68,6 +73,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
+      console.log("isLoggedInuser", auth?.user);
       const isLoggedIn = !!auth?.user;
       const isOnProfile = nextUrl.pathname.startsWith("/profile");
       //  console.log("isLoggedInuser", auth?.user);
@@ -80,6 +86,38 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // }
       return true;
     },
+    async signIn({ user, account, profile }) {
+      // Here you have access to the user's information
+      console.log("isLoggedInuseremail", "email");
+      const { name, email } = user;
+      console.log("isLoggedInuseremail", email);
+      if (email) {
+        try {
+          const isuser = await getCustomer({ email });
+          // if (!isuser) {
+          //   //'/login?origin=login'
+          //   return "/?notRegistered=notRegistered";
+          //   //return true;
+          // }
+          if (isuser) {
+            return true;
+          }
+        } catch (error) {
+          return "/?notRegistered=notRegistered";
+          // return true;
+        }
+      }
+      // Return true to continue with the sign-in process
+      return true;
+    },
+    // async redirect({ url, baseUrl }) {
+    //   // Allows relative callback URLs
+    //   if (url.startsWith("/")) return `${baseUrl}${url}`;
+    //   // Allows callback URLs on the same origin
+    //   else if (new URL(url).origin === baseUrl) return url;
+    //   return baseUrl;
+    // },
+
     async jwt({ token, user, session }) {
       // the processing of JWT occurs before handling sessions.
       // console.log("jwt callback ", { token, user, session });

@@ -3,21 +3,26 @@ import { Logo, Button, Input } from "@/app/components";
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-
+  //  console.log("emailemail", email);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage("loading");
-    const res = await fetch("/api/auth/forgot-password", {
+    const res = await fetch("/api/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email: email }),
     });
 
-    const data = await res.json();
+    //const data = await res.json();
     //setMessage(data.message);
-    setMessage("");
+    if (res.status == 200) {
+      setMessage("success");
+    } else {
+      // console.log("emailemaildata", data);
+      setMessage("error sending link");
+    }
   };
 
   return (
@@ -25,31 +30,42 @@ export default function ForgotPassword() {
       <form
         //  action={dispatch}
         onSubmit={handleSubmit}
-        className="w-80 flex flex-col justify-between p-3 border rounded-lg"
+        className="w-80 flex flex-col justify-between p-3  rounded-lg"
       >
         <div className="flex justify-center pb-12 ">
           <Logo width="64px" height="64px" />
         </div>
+
         <div className="flex flex-col space-y-3">
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          {message != "success" && (
+            <>
+              <Input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-          <Button
-            type="submit"
-            loading={message == "loading"}
-            disabled={message == "loading"}
-          >
-            Send Reset Link
-          </Button>
-
-          {message && message != "loading" && (
+              <Button
+                type="submit"
+                loading={message == "loading"}
+                disabled={message == "loading"}
+              >
+                Send Reset Link
+              </Button>
+            </>
+          )}
+          {message && message != "success" && message != "loading" && (
             <div className="text-red-800">{message}</div>
+          )}
+          {message && message == "success" && (
+            <div className="text-secondary">
+              {
+                "email sent successfully!. check your email to reset your password"
+              }
+            </div>
           )}
         </div>
       </form>

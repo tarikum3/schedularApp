@@ -1,10 +1,12 @@
 import prisma, { Product, Collection } from "@lib/prisma";
-import { cookies } from "next/headers";
+//import { cookies } from "next/headers";
 
 //import { getCart } from "@lib/services";
-import { getCart } from "@lib/services/prismaServices";
-import { unstable_cache } from "next/cache";
+//import { getCart } from "@lib/services/prismaServices";
+//import { unstable_cache } from "next/cache";
 import { TAGS } from "@lib/const";
+import { getCartItem, getCartByIdUtil } from "@lib/actions/actions";
+export { getCartItem, getCartByIdUtil };
 interface Rule {
   field: string;
   condition: string;
@@ -74,32 +76,32 @@ export async function applyCollectionRules(collectionId: string) {
   });
 }
 
-const getCartItem = unstable_cache(
-  async (id) => {
-    const cart = await getCart(id);
-    // const subtotalPrice = cart.items.reduce((total, item) => {
-    //   return (total += item.variant.price);
-    // }, 0);
-    // const totalPrice = subtotalPrice + (subtotalPrice * 15) / 100;
-    let cartC = addComputedCartPrices(cart);
-    // return { ...cart, subtotalPrice, totalPrice, currency: "ETB" };
-    return cartC;
-  },
-  [],
-  {
-    tags: [TAGS.cart],
-  }
-);
+// const getCartItem = unstable_cache(
+//   async (id) => {
+//     const cart = await getCart(id);
+//     // const subtotalPrice = cart.items.reduce((total, item) => {
+//     //   return (total += item.variant.price);
+//     // }, 0);
+//     // const totalPrice = subtotalPrice + (subtotalPrice * 15) / 100;
+//     let cartC = addComputedCartPrices(cart);
+//     // return { ...cart, subtotalPrice, totalPrice, currency: "ETB" };
+//     return cartC;
+//   },
+//   [],
+//   {
+//     tags: [TAGS.cart],
+//   }
+// );
 
-export async function getCartByIdUtil() {
-  const cartId = cookies().get("cartId")?.value;
-  let cart;
+// export async function getCartByIdUtil() {
+//   const cartId = cookies().get("cartId")?.value;
+//   let cart;
 
-  if (cartId) {
-    cart = await getCartItem(cartId);
-  }
-  return cart;
-}
+//   if (cartId) {
+//     cart = await getCartItem(cartId);
+//   }
+//   return cart;
+// }
 export function addComputedCartPrices(cart: any) {
   const subtotalPrice = cart?.items?.reduce((total: any, item: any) => {
     return (total += item.variant.price);

@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { addItem } from "@lib/actions/actions";
 //import LoadingDots from '@components/loading-dots';
 //import { ProductVariant } from '@lib/shopify/types';
-import { useSearchParams } from "next/navigation";
+//import { useSearchParams } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 import type { Product } from "@lib/types";
 import { Button, ErrorMessage } from "@/app/components";

@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { Info } from "@/app/components/icons";
 import { useUI } from "@/app/components/context";
@@ -8,19 +8,27 @@ import { Logo, Button, Input } from "@/app/components";
 import { register } from "@lib/actions/actions";
 
 import { useFormState, useFormStatus } from "react-dom";
+import { useParams, useSearchParams } from "next/navigation";
 const SignUpView: FC = () => {
   const { setModalView, closeModal } = useUI();
-
+  const searchParam = useSearchParams();
+  // const { notRegistered } = useParams();
   const [errorMessage, dispatch] = useFormState(register, {} as any);
   // const { pending } = useFormStatus();
+
   return (
     <form
       action={dispatch}
-      className="w-80 flex flex-col justify-between p-3 border rounded-lg"
+      className="w-80 flex flex-col justify-between p-3  rounded-lg"
     >
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
+      {searchParam.get("notRegistered") && (
+        <span className="text-secondary-2 text-lg">
+          You are not registered !
+        </span>
+      )}
       <div className="flex flex-col space-y-4">
         {errorMessage?.message && (
           // <div className="text-red-800">{errorMessage}</div>

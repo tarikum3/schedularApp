@@ -22,7 +22,8 @@ import { cookies } from "next/headers";
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { z } from "zod";
-
+import { unstable_cache } from "next/cache";
+import { addComputedCartPrices } from "@/lib/helper";
 // export type State = {
 //   errors?: {
 //     customerId?: string[];
@@ -32,6 +33,32 @@ import { z } from "zod";
 //   message?: string | null;
 // };
 
+export async function getCartByIdUtil() {
+  const cartId = cookies().get("cartId")?.value;
+  let cart;
+
+  if (cartId) {
+    cart = await getCartItem(cartId);
+  }
+  return cart;
+}
+const getCartItem = unstable_cache(
+  async (id) => {
+    const cart = await getCart(id);
+    // const subtotalPrice = cart.items.reduce((total, item) => {
+    //   return (total += item.variant.price);
+    // }, 0);
+    // const totalPrice = subtotalPrice + (subtotalPrice * 15) / 100;
+    let cartC = addComputedCartPrices(cart);
+    // return { ...cart, subtotalPrice, totalPrice, currency: "ETB" };
+    return cartC;
+  },
+  [],
+  {
+    tags: [TAGS.cart],
+  }
+);
+export { getCartItem };
 export async function addItem(
   prevState: any,
   selectedVariantId: string | undefined
@@ -154,6 +181,25 @@ type RegisterState = {
   };
   message?: string | null;
 };
+
+export async function signInWithGoogle() {
+  try {
+    // const resultt = await signIn("google", {
+    //   // callbackUrl: "http://localhost:3000/",
+    // });
+    console.log("resultt", "uuresultt");
+    const resultt = await signIn("google");
+    //logout();
+    console.log("resultt", resultt);
+  } catch (error) {
+    //  console.log("errorgggg", error);
+    if (error instanceof Error) {
+      return "Something went wrong.";
+    }
+    throw error;
+  }
+}
+
 export async function register(
   prevState: RegisterState | undefined,
   formData: FormData

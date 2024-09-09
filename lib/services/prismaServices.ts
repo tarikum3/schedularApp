@@ -4,7 +4,7 @@ import { supabase } from "@lib/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import fs from "fs";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 interface FetchProductsOptions {
   searchKey?: string;
