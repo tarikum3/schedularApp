@@ -26,23 +26,20 @@ const Searchbar: FC = () => {
   };
 
   return (
-    <div className="relative flex justify-between border border-primary-2 rounded-xl items-center text-2xl bg-primary text-secondary w-full transition-colors duration-150 ">
+    <div className="relative pr-3 flex  justify-between border border-primary-2 rounded-xl items-center text-2xl bg-primary text-secondary w-full transition-colors duration-150 ">
       <label className="hidden" htmlFor="search">
         Search
       </label>
       <input
         id="search"
-        className="placeholder-primary-3 bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out pr-10  focus:outline-none "
+        className="placeholder-primary-3 text-sm bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out pr-10  focus:outline-none "
         placeholder="Search for products..."
         defaultValue={searchParams.get("q")?.toString()}
         onKeyUp={handleKeyUp}
       />
-      {/* <div 
-     
-      className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
-      > */}
+
       <svg
-        className="h-10 w-10 text-primary-3 "
+        className="size-5 text-primary-3 "
         fill="currentColor"
         viewBox="0 0 20 20"
       >

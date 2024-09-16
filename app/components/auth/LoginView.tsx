@@ -7,7 +7,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { useState } from "react";
 //import { signIn } from "@/auth";
 import { signIn } from "next-auth/react";
-
+import { Google } from "@/app/components/icons";
 const LoginView: React.FC = () => {
   const { setModalView, closeModal } = useUI();
 
@@ -108,13 +108,15 @@ const LoginView: React.FC = () => {
 
           <Button
             type="button"
-            className="w-full"
+            className="w-full bg-blue-800"
             onClick={(event) => {
               event.stopPropagation();
               signIn("google");
             }}
           >
-            Sign in with Google
+            <span className="flex justify-evenly items-center  w-full">
+              <Google /> Sign in with Google
+            </span>
           </Button>
 
           {message && <div className="text-red-800">{message}</div>}

@@ -47,7 +47,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
         }}
         aria-label="Menu"
       >
-        <Bag className="w-7 h-7" />
+        <Bag className="size-6" />
         {/* {session?.user && cart && cart?.lineItems?.length > 0 && ( */}
         {session?.user && cart && (cart as any)?.items?.length > 0 && (
           <span className="min-w-[1.25rem] min-h-[1.25rem] border border-primary-2 bg-secondary text-primary absolute rounded-full right-3 top-3 font-bold text-xs">

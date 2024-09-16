@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import "@assets/main.css";
-// import "@assets/chrome-bug.css";
+
 import Layout from "@/app/components/common/Layout";
-//import { SessionProvider } from "next-auth/react";
+
 import { Suspense } from "react";
-//import { getSession } from "@/auth"
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -3,24 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --primary: #ffffff;
-  --primary-2: #f1f3f5;
-  --primary-3: #999999;
-  --secondary: #000000;
-  --secondary-2: #111;
-  --secondary-3: #333333;
+  --tw-bg-opacity: 1;
+  /* --primary: #ffffff; */
+  --primary: rgb(255 255 255 / var(--tw-bg-opacity)) /* #ffffff */;
+  /* --primary-2: #f1f3f5; */
+  --primary-2: rgb(249 250 251 / var(--tw-bg-opacity));
+  /* --primary-3: #999999; */
+  --primary-3: rgb(156 163 175 / var(--tw-bg-opacity)) /* #e5e7eb */;
+  /* --secondary: #000000; */
+  --secondary: rgb(0 0 0 / var(--tw-bg-opacity)) /* #000000 */;
+  /* --secondary-2: #111;  */
+  --secondary-2: rgb(17 24 39 / var(--tw-bg-opacity)) /* #111827 */;
+  /* --secondary-3: #333333; */
+  --secondary-3: rgb(107 114 128 / var(--tw-bg-opacity)) /* #6b7280 */;
   --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue",
     "Helvetica", sans-serif;
   font-size: 16px;
 }
 
 [data-theme="dark"] {
-  --primary: #000000;
-  --primary-2: #111;
-  --primary-3: #333333;
-  --secondary: #ffffff;
-  --secondary-2: #f1f3f5;
-  --secondary-3: #999999;
+  --tw-bg-opacity: 1;
+  --primary: rgb(0 0 0 / var(--tw-bg-opacity)) /* #000000 */;
+  --primary-2: rgb(31 41 55 / var(--tw-bg-opacity)) /* #1f2937 */;
+  --primary-3: rgb(107 114 128 / var(--tw-bg-opacity)) /* #6b7280 */;
+  --secondary: rgb(255 255 255 / var(--tw-bg-opacity)) /* #ffffff */;
+  --secondary-2: rgb(249 250 251 / var(--tw-bg-opacity)) /* #f9fafb */;
+  --secondary-3: rgb(156 163 175 / var(--tw-bg-opacity)) /* #e5e7eb */;
 }
 
 *,

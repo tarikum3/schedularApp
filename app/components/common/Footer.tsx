@@ -28,11 +28,11 @@ const Footer: FC = () => {
       //className={rootClassName}
       className="border-t border-primary-2 bg-gray-100 p-4 h-min-[50vh] "
     >
-      <div className="flex flex-wrap flex-grow  md:text-left h-full  ">
-        <div className="w-full lg:w-1/4 md:w-1/2 p-4 ">
+      <div className="  grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 md:text-left h-full  ">
+        <div className="  p-4 flex flex-col justify-center ">
           <Link
             href="/"
-            className="flex flex-initial items-center justify-center  font-bold h-full "
+            className="  flex flex-initial items-center justify-center  font-bold  "
           >
             <span className="rounded-full border border-secondary-3 mr-2">
               <Logo />
@@ -41,8 +41,8 @@ const Footer: FC = () => {
           </Link>
         </div>
 
-        <div className="flex flex-col flex-initial items-center md:items-start w-full px-4 lg:w-1/4 md:w-1/2  mt-20  ">
-          <span className="font-bold tracking-widest uppercase text-secondary text-2xl">
+        <div className="flex flex-col flex-initial items-center md:items-start  px-4  mt-20  ">
+          <span className="font-semibold tracking-widest uppercase text-secondary text-xs ">
             platform
           </span>
           {/* {[...links, ...sitePages].map((page) => ( */}
@@ -50,7 +50,7 @@ const Footer: FC = () => {
             <span key={page.url} className="mt-5 ">
               <Link
                 href={page.url!}
-                className="font-medium tracking-widest  text-secondary-3 text-2xl hover:text-secondary-3 transition ease-in-out duration-150"
+                className="font-medium tracking-widest  text-secondary-3 text-xs hover:text-secondary-3 transition ease-in-out duration-150"
               >
                 {page.name}
               </Link>
@@ -58,17 +58,17 @@ const Footer: FC = () => {
           ))}
         </div>
 
-        <div className="flex flex-col flex-initial items-center md:items-start w-full px-4 mt-20 lg:w-1/4 md:w-1/2  ">
-          <span className="font-bold tracking-widest uppercase text-secondary text-2xl">
+        <div className="flex flex-col flex-initial items-center md:items-start px-4 mt-20   ">
+          <span className="font-bold tracking-widest uppercase text-secondary text-xs">
             contact
           </span>
 
-          <span className="font-medium  text-secondary-3 mt-5 text-2xl ">
+          <span className="font-medium  text-secondary-3 mt-5 text-xs ">
             gmail: tarikum3@gmail.com
           </span>
         </div>
-        <div className="flex flex-col flex-initial items-center md:items-start w-full px-4 mt-20 lg:w-1/4 md:w-1/2  ">
-          <span className="font-bold tracking-widest uppercase text-secondary text-2xl">
+        <div className="flex flex-col flex-initial items-center md:items-start  px-4 mt-20   ">
+          <span className="font-bold tracking-widest uppercase text-secondary text-xs">
             support
           </span>
           <a
@@ -76,7 +76,7 @@ const Footer: FC = () => {
             aria-label="Github Repository"
             href="https://github.com/tarikum3/Shopify-typescript-tailwind.git"
           >
-            <span className="font-medium  text-secondary-3 pr-2 text-2xl ">
+            <span className="font-medium  text-secondary-3 pr-2 text-xs ">
               source code:
             </span>
             <Github />

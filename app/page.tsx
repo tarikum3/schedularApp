@@ -3,7 +3,6 @@ import { ProductCard } from "@/app/components/product";
 import Link from "next/link";
 import { ArrowRight } from "@/app/components/icons";
 
-import prisma from "@lib/prisma";
 import { fetchProducts } from "@lib/services/prismaServices";
 const getHomeProducts = async () => {
   const productsPromise = await fetchProducts({});
@@ -18,34 +17,30 @@ export default async function Home() {
 
   const { products } = productsPromise;
 
-  // const productsss = await fetchProducts({});
-  // console.log("productsss", productsss);
-
   //simulate delay
   //await new Promise((resolve) => setTimeout(resolve, 9000));
   return (
     <>
       <div className=" relative flex flex-col items-center justify-center bg-secondary-2 m-28 mx-auto w-4/5 h-[80vh] rounded-xl">
-        {/* <div className="animate-ping bg-gray-500 z-0 absolute  h-1/2 w-1/2  "></div> */}
-        <h2 className="text-5xl text-center text-primary font-bold m-8 relative md:text-7xl ">
+        <h2 className="text-2xl text-center text-primary font-bold font-serif m-1 relative md:text-4xl ">
           New arrivals
         </h2>
 
-        <p className="text-2xl text-center text-primary-2 leading-relaxed relative lg:text-4xl">
-          explore new and stylish clothes in our shop
+        <p className="text-lg text-center text-primary-2 font-light leading-relaxed relative lg:text-xl">
+          explore new and stylish clothes in our shop .
         </p>
 
         <Link
           href={"/collection/new-arrivals"}
           // className={s.link}
-          className="bg-primary text-2xl text-secondary-2 font-bold py-2 px-10 rounded m-8 relative cursor-pointer "
+          className="bg-primary text-lg text-secondary-2 font-bold py-2 px-10 rounded m-8 relative cursor-pointer "
         >
           {" explore"}
         </Link>
       </div>
 
       <div className=" m-10 ">
-        <p className="text-lg text-secondary font-bold m-5 mx-auto md:mx-24 md:text-xl lg:text-5xl ">
+        <p className="text-lg text-secondary font-bold m-5 mx-auto md:mx-24  lg:text-xl ">
           {" "}
           Explore Products{" "}
         </p>

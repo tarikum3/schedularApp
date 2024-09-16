@@ -59,7 +59,7 @@ const UserView: FC = () => {
           }}
           aria-label="Menu"
         >
-          <UserIcon className="w-7 h-7" />
+          <UserIcon className="size-6" />
         </button>
 
         {/* {dropdown == "user" && isCustomerLoggedIn && ( */}
