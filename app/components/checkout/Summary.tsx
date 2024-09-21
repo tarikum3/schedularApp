@@ -54,7 +54,7 @@ const Summary = ({ cart }: { cart: Cart | undefined }) => {
         <Link
           href={"/checkout"}
           // className={s.link}
-          className="bg-secondary rounded-md inline-flex items-center justify-center w-full  text-primary p-5 text-sm"
+          className="bg-primary-900  rounded-md inline-flex items-center justify-center w-full  text-primary-100 p-5 text-sm"
         >
           {" Proceed to Payment"}
         </Link>

@@ -75,7 +75,11 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
 
           <div className="mt-4 col-start-1   lg:mt-6 lg:col-start-1 lg:row-start-3 lg:row-end-4">
             <div className="flex flex-col space-y-2 m-1">
-              <h3 className={"py-4 px-6 bg-primary text-secondary font-bold"}>
+              <h3
+                className={
+                  "py-4 px-6 bg-primary-100 text-primary-900  font-bold"
+                }
+              >
                 <span
                   className={""}
                   style={{
@@ -86,7 +90,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                   {product.name}
                 </span>
               </h3>
-              <div className="pt-2 px-6 pb-4 text-md bg-primary text-secondary font-semibold inline-block tracking-wide">
+              <div className="pt-2 px-6 pb-4 text-md bg-primary-100 text-primary-900  font-semibold inline-block tracking-wide">
                 {price}
               </div>
               <div>

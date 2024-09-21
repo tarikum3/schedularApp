@@ -61,7 +61,7 @@ export default function ForgotPassword() {
             <div className="text-red-800">{message}</div>
           )}
           {message && message == "success" && (
-            <div className="text-secondary">
+            <div className="text-primary-900 ">
               {
                 "email sent successfully!. check your email to reset your password"
               }

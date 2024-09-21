@@ -63,7 +63,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
     <div
       className={`${
         hasScrolled ? "shadow-magical " : ""
-      }sticky  top-0 min-h-[74px] bg-primary  z-40 transition-all duration-150  px-6`}
+      }sticky  top-0 min-h-[74px] bg-primary-100  z-40 transition-all duration-150  px-6`}
     >
       <div className="relative flex flex-row items-center  justify-between py-4 md:py-4">
         <div className="flex items-center flex-auto ">
@@ -85,7 +85,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
                 href={l.url}
                 key={l.url}
                 // className={s.link}
-                className="inline-flex items-center text-sm text-secondary font-semibold transition ease-in-out duration-75 cursor-pointer  hover:text-secondary"
+                className="inline-flex items-center text-sm text-primary-900  font-semibold transition ease-in-out duration-75 cursor-pointer  hover:text-primary-900 "
               >
                 {l.name}
               </Link>
@@ -98,7 +98,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
                 href={l.url}
                 key={l.url}
                 // className={s.link}
-                className="inline-flex items-center text-sm text-secondary font-semibold transition ease-in-out duration-75 cursor-pointer  hover:text-secondary"
+                className="inline-flex items-center text-sm text-primary-900  font-semibold transition ease-in-out duration-75 cursor-pointer  hover:text-primary-900 "
               >
                 {l.name}
               </Link>

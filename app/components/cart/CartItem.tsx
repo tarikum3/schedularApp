@@ -54,7 +54,7 @@ const CartItem = ({
       {...rest}
     >
       <div className="flex flex-row space-x-4 py-4">
-        <div className="w-30 h-30 bg-secondary relative overflow-hidden cursor-pointer">
+        <div className="w-30 h-30 bg-primary-900  relative overflow-hidden cursor-pointer">
           <Link href={`/product/${(item as any).path}`}>
             <Image
               //onClick={() => closeSidebarIfPresent()}
@@ -70,7 +70,7 @@ const CartItem = ({
             />
           </Link>
         </div>
-        <div className="flex-1 flex flex-col text-secondary">
+        <div className="flex-1 flex flex-col text-primary-900 ">
           <Link href={`/product/${(item as any).path}`}>
             <span
               // className={s.productName}
@@ -92,7 +92,7 @@ const CartItem = ({
           <button
             type="button"
             // onClick={() => increaseQuantity(-1)}
-            className="flex p-1  items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
+            className="flex p-1  items-center justify-center hover:bg-primary-300 disabled:cursor-not-allowed"
             // className={s.actions}
             // style={{ marginLeft: "-1px" }}
             disabled={quantity <= 1}
@@ -106,7 +106,7 @@ const CartItem = ({
           <button
             type="button"
             // onClick={() => increaseQuantity(1)}
-            className="flex p-1  items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
+            className="flex p-1  items-center justify-center hover:bg-primary-300 disabled:cursor-not-allowed"
             // className={cn(s.actions)}
             style={{ marginLeft: "-1px" }}
             disabled={quantity < 1 || quantity >= max}
@@ -116,7 +116,7 @@ const CartItem = ({
         </div>
         <button
           //className={s.actions}
-          className="flex  items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
+          className="flex  items-center justify-center hover:bg-primary-300 disabled:cursor-not-allowed"
           // onClick={handleRemove}
         >
           <DeleteItemButton item={item} />

@@ -13,9 +13,9 @@ export default function Profile() {
       </h1>
       <div className="grid grid-cols-4">
         {session?.user && (
-          <div className="flex flex-col divide-primary-2 divide-y">
+          <div className="flex flex-col divide-primary-300 divide-y">
             <div className="flex flex-row items-center space-x-4 py-4">
-              <span className="text-lg font-medium text-secondary-300 flex-1">
+              <span className="text-lg font-medium text-primary-300 flex-1">
                 Full Name
               </span>
               <span>
@@ -24,7 +24,7 @@ export default function Profile() {
               </span>
             </div>
             <div className="flex flex-row items-center space-x-4 py-4">
-              <span className="text-lg font-medium text-secondary-300 flex-1">
+              <span className="text-lg font-medium text-primary-300 flex-1">
                 Email
               </span>
               <span>{(session?.user as any)?.email}</span>

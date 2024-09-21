@@ -20,9 +20,11 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
   return (
     <button
       aria-pressed={active}
-      className={` inline-flex items-center justify-center min-h-[44px] max-h-[64px] text-primary p-3 text-xs rounded-xl
+      className={` inline-flex items-center justify-center min-h-[44px] max-h-[64px] text-primary-100 p-3 text-xs rounded-xl
       ${className} ${
-        disabled || loading ? "bg-primary-2 cursor-not-allowed" : "bg-secondary"
+        disabled || loading
+          ? "bg-primary-300 cursor-not-allowed"
+          : "bg-primary-900 "
       } `}
       disabled={disabled}
       {...rest}

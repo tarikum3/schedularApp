@@ -14,7 +14,7 @@ const Layout: React.FC<Props> = ({ children }) => {
     //  <Provider store={store}>
     <SessionProvider>
       <ManagedUIContext>
-        <div className="h-full max-w-[2460px] bg-primary mx-auto transition-colors duration-150">
+        <div className="h-full max-w-[2460px] bg-primary-100 mx-auto transition-colors duration-150">
           <Navbar />
           <main className="fit">{children}</main>
 

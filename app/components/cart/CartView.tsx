@@ -50,7 +50,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
         <Bag className="size-6" />
         {/* {session?.user && cart && cart?.lineItems?.length > 0 && ( */}
         {session?.user && cart && (cart as any)?.items?.length > 0 && (
-          <span className="min-w-[1.25rem] min-h-[1.25rem] border border-primary-2 bg-secondary text-primary absolute rounded-full right-3 top-3 font-bold text-xs">
+          <span className="min-w-[1.25rem] min-h-[1.25rem] border border-primary-300 bg-primary-900  text-primary-100 absolute rounded-full right-3 top-3 font-bold text-xs">
             {(cart as any)?.items?.length}
           </span>
         )}
@@ -62,7 +62,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
             <div className="absolute right-0 w-[80vw] md:w-[700px] h-screen bg-white rounded-md shadow-lg">
               {!cart || (cart as any)?.items?.length < 1 ? (
                 <div className=" px-4 flex flex-col justify-center items-center h-full">
-                  {/* <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
+                  {/* <span className="border border-dashed border-primary-100 rounded-full flex items-center justify-center w-16 h-16 p-12 bg-primary-900  text-primary-900 ">
                     <Bag />
                   </span> */}
                   <h2 className="pt-6 text-3xl font-bold tracking-wide text-center">
@@ -76,7 +76,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                       My Cart
                     </h2>
 
-                    <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-primary-2 border-primary-2">
+                    <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-primary-300 border-primary-300">
                       {(cart as any)?.items?.map((item: any) => (
                         <CartItem
                           key={item.id}
@@ -88,7 +88,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                     </ul>
                   </div>
 
-                  <div className=" px-6 py-6 sm:px-6  z-20 bottom-0 w-full bg-primary border-t text-lg">
+                  <div className=" px-6 py-6 sm:px-6  z-20 bottom-0 w-full bg-primary-100 border-t text-lg">
                     <ul className="pb-2">
                       <li className="flex justify-between py-1">
                         <span>Subtotal</span>
@@ -104,13 +104,13 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                         <span className="font-bold tracking-wide">FREE</span>
                       </li>)} */}
                     </ul>
-                    <div className="flex justify-between border-t border-primary-2 py-3 font-bold mb-2">
+                    <div className="flex justify-between border-t border-primary-300 py-3 font-bold mb-2">
                       <span>Total</span>
                       <span>{total}</span>
                     </div>
                     <div>
                       {/* <a
-                        className="bg-secondary rounded-md inline-flex items-center justify-center w-full  text-primary p-5 text-sm"
+                        className="bg-primary-900  rounded-md inline-flex items-center justify-center w-full  text-primary-100 p-5 text-sm"
                        
                         onClick={() => router.push("/checkout")}
                       >
@@ -122,7 +122,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                         onClick={() => {
                           handleDropdown("");
                         }}
-                        className="bg-secondary rounded-md inline-flex items-center justify-center w-full  text-primary p-5 text-sm"
+                        className="bg-primary-900  rounded-md inline-flex items-center justify-center w-full  text-primary-100 p-5 text-sm"
                       >
                         {" Proceed to Checkout"}
                       </Link>

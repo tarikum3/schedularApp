@@ -16,7 +16,7 @@ function SubmitButton() {
       }}
       aria-label="Remove cart item"
       aria-disabled={pending}
-      className="flex  border-primary-2 border rounded-full h-10 w-10 text-lg items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
+      className="flex  border-primary-300 border rounded-full h-10 w-10 text-lg items-center justify-center hover:bg-primary-300 disabled:cursor-not-allowed"
       // className={cn(s.actions)}
     >
       <Cross width={18} height={18} />

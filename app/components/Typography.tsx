@@ -76,16 +76,16 @@ interface TypographyProps {
 const baseStyles = "font-sans";
 
 const variants: Record<string, string> = {
-  h1: "text-4xl  text-secondary",
-  h2: "text-3xl text-primary ",
-  h3: "text-2xl text-secondary",
-  h4: "text-xl  text-secondary",
-  h5: "text-lg text-secondary",
-  h6: "text-base  text-secondary",
-  p: "text-base text-secondary",
-  body: "text-base text-secondary",
-  small: "text-sm text-secondary",
-  caption: "text-xs text-secondary",
+  h1: "text-4xl  text-primary-900 ",
+  h2: "text-3xl text-primary-100 ",
+  h3: "text-2xl text-primary-900 ",
+  h4: "text-xl  text-primary-900 ",
+  h5: "text-lg text-primary-900 ",
+  h6: "text-base  text-primary-900 ",
+  p: "text-base text-primary-900 ",
+  body: "text-base text-primary-900 ",
+  small: "text-sm text-primary-900 ",
+  caption: "text-xs text-primary-900 ",
 };
 
 const Typography: React.FC<TypographyProps> = ({

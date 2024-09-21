@@ -51,7 +51,7 @@ function SubmitButton() {
       }}
       aria-label="Add cart item"
       aria-disabled={pending}
-      className="flex p-1 border-primary-2 border items-center justify-center hover:bg-primary-2 disabled:cursor-not-allowed"
+      className="flex p-1 border-primary-300 border items-center justify-center hover:bg-primary-300 disabled:cursor-not-allowed"
       // className={cn(s.actions)}
     ></button>
   );

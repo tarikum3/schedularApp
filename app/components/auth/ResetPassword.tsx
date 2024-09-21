@@ -51,12 +51,12 @@ export default function ResetPassword() {
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
-      <h2 className="mb-4 text-secondary text-center text-xl font-bold">
+      <h2 className="mb-4 text-primary-900  text-center text-xl font-bold">
         Reset Password
       </h2>
       <div className="flex flex-col space-y-3">
         {/* <Input type="email" id="email" name="email" placeholder="Email" /> */}
-        {/* <h2 className="mb-4 text-secondary text-xl font-bold">
+        {/* <h2 className="mb-4 text-primary-900  text-xl font-bold">
           Reset Password
         </h2> */}
         <Input
@@ -91,7 +91,7 @@ export default function ResetPassword() {
             {message}
 
             <a
-              className="text-secondary font-bold hover:underline cursor-pointer"
+              className="text-primary-900  font-bold hover:underline cursor-pointer"
               onClick={() => setModalView("FORGOT_VIEW")}
             >
               {" "}
@@ -100,7 +100,7 @@ export default function ResetPassword() {
           </div>
         )}
         {message && message == "success" && (
-          <div className="text-secondary">
+          <div className="text-primary-900 ">
             {"password resetted successfully"}
           </div>
         )}

@@ -21,26 +21,26 @@ export default async function Home() {
   //await new Promise((resolve) => setTimeout(resolve, 9000));
   return (
     <>
-      <div className=" relative flex flex-col items-center justify-center bg-secondary-2 m-28 mx-auto w-4/5 h-[80vh] rounded-xl">
-        <h2 className="text-2xl text-center text-primary font-bold font-serif m-1 relative md:text-4xl ">
+      <div className=" relative flex flex-col items-center justify-center bg-primary-700 m-28 mx-auto w-4/5 h-[80vh] rounded-xl">
+        <h2 className="text-2xl text-center text-primary-100 font-bold font-serif m-1 relative md:text-4xl ">
           New arrivals
         </h2>
 
-        <p className="text-lg text-center text-primary-2 font-light leading-relaxed relative lg:text-xl">
+        <p className="text-lg text-center text-primary-300 font-light leading-relaxed relative lg:text-xl">
           explore new and stylish clothes in our shop .
         </p>
 
         <Link
           href={"/collection/new-arrivals"}
           // className={s.link}
-          className="bg-primary text-lg text-secondary-2 font-bold py-2 px-10 rounded m-8 relative cursor-pointer "
+          className="bg-primary-100 text-lg text-primary-700 font-bold py-2 px-10 rounded m-8 relative cursor-pointer "
         >
           {" explore"}
         </Link>
       </div>
 
       <div className=" m-10 ">
-        <p className="text-lg text-secondary font-bold m-5 mx-auto md:mx-24  lg:text-xl ">
+        <p className="text-lg text-primary-900  font-bold m-5 mx-auto md:mx-24  lg:text-xl ">
           {" "}
           Explore Products{" "}
         </p>

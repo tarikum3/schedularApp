@@ -49,14 +49,14 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
   return (
     <div className="fixed bg-black bg-opacity-40 flex items-center inset-0 z-50 justify-center">
       <div
-        className="bg-primary p-12 border border-primary-2 relative focus:outline-none"
+        className="bg-primary-100 p-12 border border-primary-300 relative focus:outline-none"
         role="dialog"
         ref={ref}
       >
         <button
           onClick={() => onClose()}
           aria-label="Close panel"
-          className="hover:text-primary-3 transition ease-in-out duration-150 focus:outline-none absolute right-0 top-0 m-6"
+          className="hover:text-primary-500 transition ease-in-out duration-150 focus:outline-none absolute right-0 top-0 m-6"
         >
           <Cross className="h-6 w-6" />
         </button>

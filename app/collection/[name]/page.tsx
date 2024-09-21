@@ -62,7 +62,7 @@ export default async function Collection({
   const { products, collection } = await getCollection(params);
   return (
     <div className=" m-10 ">
-      <p className="capitalize text-5xl text-secondary text-center font-bold p-10 pb-24">
+      <p className="capitalize text-5xl text-primary-900  text-center font-bold p-10 pb-24">
         {" "}
         {collection}{" "}
       </p>

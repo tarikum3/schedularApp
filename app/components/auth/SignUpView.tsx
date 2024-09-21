@@ -25,7 +25,7 @@ const SignUpView: FC = () => {
         <Logo width="64px" height="64px" />
       </div>
       {searchParam.get("notRegistered") && (
-        <span className="text-secondary-2 text-lg">
+        <span className="text-primary-700 text-lg">
           You are not registered !
         </span>
       )}
@@ -45,7 +45,7 @@ const SignUpView: FC = () => {
           name="password"
           placeholder="Password"
         />
-        <span className="text-secondary-2">
+        <span className="text-primary-700">
           <span className="inline-block align-middle ">
             <Info width="15" height="15" />
           </span>{" "}
@@ -62,10 +62,10 @@ const SignUpView: FC = () => {
         </div>
 
         <span className="pt-1 text-center text-sm">
-          <span className="text-secondary-3">Do you have an account?</span>
+          <span className="text-primary-500">Do you have an account?</span>
           {` `}
           <a
-            className="text-secondary font-bold hover:underline cursor-pointer"
+            className="text-primary-900  font-bold hover:underline cursor-pointer"
             onClick={() => setModalView("LOGIN_VIEW")}
           >
             Log In
