@@ -8,6 +8,7 @@ import { useState } from "react";
 //import { signIn } from "@/auth";
 import { signIn } from "next-auth/react";
 import { Google } from "@/app/components/icons";
+
 const LoginView: React.FC = () => {
   const { setModalView, closeModal } = useUI();
 
@@ -15,132 +16,73 @@ const LoginView: React.FC = () => {
   const [message, setMessage] = useState("");
 
   return (
-    <>
-      {/* <form
-        action={dispatch}
-        className="w-80 flex flex-col justify-between p-3  rounded-lg"
-      >
-        <div className="flex justify-center pb-12 ">
-          <Logo width="64px" height="64px" />
-        </div>
-        <div className="flex flex-col space-y-3">
-          {errorMessage && <div className="text-red-800">{errorMessage}</div>}
-          <Input type="email" id="email" name="email" placeholder="Email" />
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
+    <form
+      action={dispatch}
+      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg bg-white"
+    >
+      <div className="flex justify-center pb-8">
+        <Logo width="64px" height="64px" />
+      </div>
+
+      <div className="flex flex-col space-y-4">
+        {errorMessage && (
+          <div className="text-red-600 text-sm">{errorMessage}</div>
+        )}
+
+        <Input type="email" id="email" name="email" placeholder="Email" />
+        <Input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+        />
+
+        <div className="flex justify-center pt-4">
+          <LoginButton
+          // className="w-full bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-md"
           />
-          <LoginButton />
-          <div className="relative my-4">
-            <hr className="border-gray-300" />
-            <span className="absolute inset-x-0 top-2/4 transform -translate-y-1/2 bg-white px-2 text-gray-500">
-              or
-            </span>
-          </div>
-          <Button
-            // onClick={async () => {
-            //   // "use server";
-            //   await signIn("google");
-            // }}
-            type="button"
-            className="w-full"
-            onClick={(event) => {
-              event.stopPropagation();
-             
-              signIn("google");
-            }}
+        </div>
+
+        <div className="flex items-center my-6">
+          <hr className="w-full border-gray-300" />
+          <span className="px-3 text-gray-500 bg-white">or</span>
+          <hr className="w-full border-gray-300" />
+        </div>
+
+        <Button
+          type="button"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md"
+          onClick={(event) => {
+            event.stopPropagation();
+            signIn("google");
+          }}
+        >
+          <span className="flex justify-center items-center space-x-2">
+            <Google className="w-5 h-5" />
+            <span>Sign in with Google</span>
+          </span>
+        </Button>
+
+        {message && <div className="text-red-600 text-sm">{message}</div>}
+
+        <div className="pt-2 text-center text-sm">
+          <span className="text-primary-500">Don't have an account?</span>
+          <a
+            className="text-primary-900 font-bold hover:underline cursor-pointer"
+            onClick={() => setModalView("SIGNUP_VIEW")}
           >
-            Sign in with Google
-          </Button>
-          {message && <div className="text-red-800">{message}</div>}
-          <div className="pt-1 text-center text-sm">
-            <span className="text-primary-500">Don't have an account?</span>
-            {` `}
-            <a
-              className="text-primary-900  font-bold hover:underline cursor-pointer"
-              onClick={() => setModalView("SIGNUP_VIEW")}
-            >
-              Sign Up.
-            </a>
-            {` `}
-            <a
-              className="text-primary-900  font-bold hover:underline cursor-pointer"
-              onClick={() => setModalView("FORGOT_VIEW")}
-            >
-              forgot password ?
-            </a>
-          </div>
-        </div>
-      </form> */}
-
-      <form
-        action={dispatch}
-        className="w-80 flex flex-col justify-between p-3 rounded-lg"
-      >
-        <div className="flex justify-center pb-12 ">
-          <Logo width="64px" height="64px" />
-        </div>
-        <div className="flex flex-col space-y-3">
-          {errorMessage && <div className="text-red-800">{errorMessage}</div>}
-          <Input type="email" id="email" name="email" placeholder="Email" />
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-          />
-          <LoginButton />
-
-          {/* Updated divider with "or" */}
-          <div className="flex items-center my-4">
-            <hr className="w-full border-gray-300" />
-            <span className="px-2 text-gray-500 bg-white">or</span>
-            <hr className="w-full border-gray-300" />
-          </div>
-          {/* Updated divider with "or" */}
-          {/* <div className="flex items-center my-4">
-  <hr className="w-full border-t border-gray-300" />
-  <span className="px-4 text-sm text-gray-500 font-medium bg-white">or</span>
-  <hr className="w-full border-t border-gray-300" />
-</div> */}
-
-          <Button
-            type="button"
-            className="w-full bg-blue-800"
-            onClick={(event) => {
-              event.stopPropagation();
-              signIn("google");
-            }}
+            Sign Up
+          </a>
+          {` or `}
+          <a
+            className="text-primary-900 font-bold hover:underline cursor-pointer"
+            onClick={() => setModalView("FORGOT_VIEW")}
           >
-            <span className="flex justify-evenly items-center  w-full">
-              <Google /> Sign in with Google
-            </span>
-          </Button>
-
-          {message && <div className="text-red-800">{message}</div>}
-
-          <div className="pt-1 text-center text-sm">
-            <span className="text-primary-500">Don't have an account?</span>
-            {` `}
-            <a
-              className="text-primary-900  font-bold hover:underline cursor-pointer"
-              onClick={() => setModalView("SIGNUP_VIEW")}
-            >
-              Sign Up.
-            </a>
-            {` `}
-            <a
-              className="text-primary-900  font-bold hover:underline cursor-pointer"
-              onClick={() => setModalView("FORGOT_VIEW")}
-            >
-              forgot password?
-            </a>
-          </div>
+            Forgot password?
+          </a>
         </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 };
 
@@ -148,7 +90,13 @@ function LoginButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" loading={pending} disabled={pending}>
+    <Button
+      // className="w-full bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
+      className="w-full bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-md"
+      type="submit"
+      loading={pending}
+      disabled={pending}
+    >
       Log In
     </Button>
   );

@@ -29,53 +29,107 @@ const SORT = {
   price: " Low to high",
 };
 
+// export default async function Page({
+//   searchParams,
+// }: {
+//   searchParams?: {
+//     query?: string;
+//     //  page?: string;
+//   };
+// }) {
+//   const query = searchParams?.query || "";
+//   const { products, found, q } = await getSearchProducts(query);
+//   //console.log('usepro',dataaa);
+
+//   const perPage = 2;
+//   const maxPage = (products?.length - (products?.length % perPage)) / perPage;
+
+//   // if (error) {
+//   //   return <ErrorMessage error={error} />
+//   // }
+
+//   return (
+//     <>
+//       <div className="m-12 text-xl text-transition ease-in duration-75 mx-auto md:mx-24">
+//         <>
+//           <span className={!found ? "hidden" : ""}>
+//             Showing {products?.length} results{" "}
+//             {q && (
+//               <>
+//                 for "<strong>{q}</strong>"
+//               </>
+//             )}
+//           </span>
+//           <span className={found ? "hidden" : ""}>
+//             <>
+//               There are no products that match "<strong>{q}</strong>"
+//             </>
+//           </span>
+//         </>
+//       </div>
+
+//       <div className="flex justify-end items-end   mx-auto md:mx-24">
+//         <div className="relative "></div>
+//       </div>
+
+//       <div className="grid grid-cols-1 gap-4 mx-auto md:mx-24 lg:grid-cols-3">
+//         {products?.map((product: any, i: number) => (
+//           <ProductCard key={product.id} product={product} />
+//         ))}
+//       </div>
+//     </>
+//   );
+// }
+
 export default async function Page({
   searchParams,
 }: {
   searchParams?: {
     query?: string;
-    //  page?: string;
   };
 }) {
   const query = searchParams?.query || "";
   const { products, found, q } = await getSearchProducts(query);
-  //console.log('usepro',dataaa);
 
   const perPage = 2;
-  const maxPage = (products?.length - (products?.length % perPage)) / perPage;
-
-  // if (error) {
-  //   return <ErrorMessage error={error} />
-  // }
+  const maxPage = Math.ceil(products?.length / perPage);
 
   return (
     <>
-      <div className="m-12 text-xl text-transition ease-in duration-75 mx-auto md:mx-24">
-        <>
-          <span className={!found ? "hidden" : ""}>
+      <div className="m-12 text-xl text-gray-800 transition ease-in duration-75 mx-auto md:mx-24">
+        {found ? (
+          <span>
             Showing {products?.length} results{" "}
             {q && (
-              <>
-                for "<strong>{q}</strong>"
-              </>
+              <strong>
+                for "<span className="font-semibold">{q}</span>"
+              </strong>
             )}
           </span>
-          <span className={found ? "hidden" : ""}>
-            <>
-              There are no products that match "<strong>{q}</strong>"
-            </>
+        ) : (
+          <span>
+            There are no products that match{" "}
+            <strong>
+              "<span className="font-semibold">{q}</span>"
+            </strong>
           </span>
-        </>
+        )}
       </div>
 
-      <div className="flex justify-end items-end   mx-auto md:mx-24">
-        <div className="relative "></div>
+      <div className="flex justify-end items-end mx-auto md:mx-24 mb-6">
+        <div className="relative">
+          {/* Additional controls can be added here */}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 mx-auto md:mx-24 lg:grid-cols-3">
-        {products?.map((product: any, i: number) => (
+      <div className="grid grid-cols-1 gap-8 mx-auto md:mx-24 lg:grid-cols-3">
+        {products?.map((product: any) => (
           <ProductCard key={product.id} product={product} />
         ))}
+      </div>
+
+      <div className="mt-8 mb-12 text-center">
+        {/* Optional pagination or load more button can go here */}
       </div>
     </>
   );

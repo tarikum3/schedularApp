@@ -8,129 +8,91 @@ import Clickoutside from "@/app/components/common/Clickoutside";
 import { useSession } from "next-auth/react";
 import { useUI } from "@/app/components/context";
 import Link from "next/link";
+
 const CartView = ({ cart }: { cart: Cart | undefined }) => {
-  console.log("cartcart", cart);
   const { openModal } = useUI();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [display, setDisplay] = useState(true);
   const [dropdown, setDropdown] = useState("");
   const { price: subTotal } = usePrice(
     cart && {
       amount: Number(cart.subtotalPrice),
-      // currencyCode: cart.currency.code,
       currencyCode: (cart as any).currency,
     }
   );
   const { price: total } = usePrice(
     cart && {
       amount: Number(cart.totalPrice),
-      // currencyCode: cart.currency.code,
       currencyCode: (cart as any).currency,
     }
   );
+
   const handleDropdown = (current: string = "") => {
-    if (dropdown == current) {
-      setDropdown("");
-    } else {
-      setDropdown(current);
-      setDisplay(true);
-    }
+    setDropdown(dropdown === current ? "" : current);
+    setDisplay(true);
   };
-  console.log("subTotal", subTotal);
+
   return (
-    <div className="relative ">
+    <div className="relative">
       <button
         onClick={() => {
-          handleDropdown("");
-
           session?.user ? handleDropdown("cart") : openModal();
         }}
         aria-label="Menu"
+        className="relative"
       >
-        <Bag className="size-6" />
-        {/* {session?.user && cart && cart?.lineItems?.length > 0 && ( */}
+        <Bag className="w-6 h-6" />
         {session?.user && cart && (cart as any)?.items?.length > 0 && (
-          <span className="min-w-[1.25rem] min-h-[1.25rem] border border-primary-300 bg-primary-900  text-primary-100 absolute rounded-full right-3 top-3 font-bold text-xs">
+          <span className="absolute right-2 top-2 min-w-[1.25rem] min-h-[1.25rem] bg-primary-900 text-white rounded-full flex items-center justify-center text-xs font-bold">
             {(cart as any)?.items?.length}
           </span>
         )}
       </button>
 
-      {dropdown == "cart" && (
+      {dropdown === "cart" && (
         <Clickoutside status={display} onClick={() => setDisplay(false)}>
-          <div className=" absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
-            <div className="absolute right-0 w-[80vw] md:w-[700px] h-screen bg-white rounded-md shadow-lg">
-              {!cart || (cart as any)?.items?.length < 1 ? (
-                <div className=" px-4 flex flex-col justify-center items-center h-full">
-                  {/* <span className="border border-dashed border-primary-100 rounded-full flex items-center justify-center w-16 h-16 p-12 bg-primary-900  text-primary-900 ">
-                    <Bag />
-                  </span> */}
-                  <h2 className="pt-6 text-3xl font-bold tracking-wide text-center">
-                    Your cart is empty
-                  </h2>
-                </div>
-              ) : (
-                <div className="flex flex-col m-5 p-3  ">
-                  <div className=" ">
-                    <h2 className="text-4xl font-bold tracking-wide">
-                      My Cart
-                    </h2>
-
-                    <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-primary-300 border-primary-300">
-                      {(cart as any)?.items?.map((item: any) => (
-                        <CartItem
-                          key={item.id}
-                          item={item}
-                          // currencyCode={cart!.currency.code}
-                          currencyCode={cart!.currency as any}
-                        />
-                      ))}
-                    </ul>
+          <div className="absolute right-0 w-full mt-2 md:w-[700px] max-w-[80vw] h-screen bg-white rounded-lg shadow-lg z-50">
+            {!cart || (cart as any)?.items?.length < 1 ? (
+              <div className="flex flex-col items-center justify-center h-full px-4">
+                <h2 className="text-2xl font-bold">Your cart is empty</h2>
+              </div>
+            ) : (
+              <div className="flex flex-col p-6 space-y-6">
+                <h2 className="text-3xl font-bold">My Cart</h2>
+                <ul className="space-y-6 divide-y divide-primary-300">
+                  {(cart as any)?.items?.map((item: any) => (
+                    <CartItem
+                      key={item.id}
+                      item={item}
+                      currencyCode={(cart as any).currency}
+                    />
+                  ))}
+                </ul>
+                <div className="bg-primary-100 px-6 py-4 border-t border-primary-300">
+                  <ul className="space-y-2">
+                    <li className="flex justify-between text-lg">
+                      <span>Subtotal</span>
+                      <span>{subTotal}</span>
+                    </li>
+                    <li className="flex justify-between text-lg">
+                      <span>Taxes</span>
+                      <span>15%</span>
+                    </li>
+                  </ul>
+                  <div className="flex justify-between border-t border-primary-300 py-3 font-bold">
+                    <span>Total</span>
+                    <span>{total}</span>
                   </div>
-
-                  <div className=" px-6 py-6 sm:px-6  z-20 bottom-0 w-full bg-primary-100 border-t text-lg">
-                    <ul className="pb-2">
-                      <li className="flex justify-between py-1">
-                        <span>Subtotal</span>
-                        <span>{subTotal}</span>
-                      </li>
-                      <li className="flex justify-between py-1">
-                        <span>Taxes</span>
-                        {/* <span>Calculated at checkout</span> */}
-                        <span>15%</span>
-                      </li>
-                      {/* { (cart as any)?.deliveryMethod  && ( <li className="flex justify-between py-1">
-                        <span>Shipping</span>
-                        <span className="font-bold tracking-wide">FREE</span>
-                      </li>)} */}
-                    </ul>
-                    <div className="flex justify-between border-t border-primary-300 py-3 font-bold mb-2">
-                      <span>Total</span>
-                      <span>{total}</span>
-                    </div>
-                    <div>
-                      {/* <a
-                        className="bg-primary-900  rounded-md inline-flex items-center justify-center w-full  text-primary-100 p-5 text-sm"
-                       
-                        onClick={() => router.push("/checkout")}
-                      >
-                        Proceed to Checkout
-                      </a> */}
-                      <Link
-                        href={"/checkout"}
-                        // className={s.link}
-                        onClick={() => {
-                          handleDropdown("");
-                        }}
-                        className="bg-primary-900  rounded-md inline-flex items-center justify-center w-full  text-primary-100 p-5 text-sm"
-                      >
-                        {" Proceed to Checkout"}
-                      </Link>
-                    </div>
-                  </div>
+                  <Link
+                    href="/checkout"
+                    onClick={() => handleDropdown("")}
+                    className="w-full bg-primary-900 text-white text-sm py-4 rounded-md flex justify-center items-center"
+                  >
+                    Proceed to Checkout
+                  </Link>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </Clickoutside>
       )}

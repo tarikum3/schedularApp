@@ -20,7 +20,6 @@ const placeholderImg = "/product-img-placeholder.svg";
 
 const CartItem = ({
   item,
-
   currencyCode,
   ...rest
 }: {
@@ -33,14 +32,12 @@ const CartItem = ({
 
   const { price } = usePrice({
     amount: item.variant.price?.value ?? 1 * item.quantity,
-    //  baseAmount: item.variant.price?.retailPrice ?? 1 * item.quantity,
     currencyCode,
   });
 
   const options = (item as any).options;
-  // console.log("optionsoptions", options);
+
   useEffect(() => {
-    // Reset the quantity state if the item quantity changes
     if (item.quantity !== Number(quantity)) {
       setQuantity(item.quantity);
     }
@@ -48,21 +45,18 @@ const CartItem = ({
 
   return (
     <li
-      className={`flex flex-col  md:flex-row md:items-center md:justify-between  py-4 ${
+      className={`flex flex-col md:flex-row md:items-center md:justify-between py-4 ${
         removing ? "opacity-50 pointer-events-none" : ""
       }`}
       {...rest}
     >
-      <div className="flex flex-row space-x-4 py-4">
-        <div className="w-30 h-30 bg-primary-900  relative overflow-hidden cursor-pointer">
+      <div className="flex space-x-4 py-4">
+        <div className="w-[80px] h-[80px] bg-primary-200 rounded-lg overflow-hidden cursor-pointer">
           <Link href={`/product/${(item as any).path}`}>
             <Image
-              //onClick={() => closeSidebarIfPresent()}
-              // className={s.productImage}
               className="w-full h-full object-cover"
-              width={64}
-              height={64}
-              // src={item.variant.image?.url || placeholderImg}
+              width={80}
+              height={80}
               src={
                 (item as any).variant?.product?.images[0]?.url || placeholderImg
               }
@@ -70,53 +64,40 @@ const CartItem = ({
             />
           </Link>
         </div>
-        <div className="flex-1 flex flex-col text-primary-900 ">
+        <div className="flex-1 flex flex-col justify-between">
           <Link href={`/product/${(item as any).path}`}>
-            <span
-              // className={s.productName}
-              className="font-medium cursor-pointer pb-1 mt-[-4px]"
-            >
+            <span className="font-medium text-primary-900 cursor-pointer hover:underline">
               {(item as any).name}
             </span>
           </Link>
-
-          <div className="text-sm tracking-wider">{quantity}x</div>
+          <div className="text-sm text-gray-600">{quantity}x</div>
         </div>
-        <div className="flex flex-col justify-between space-y-2 text-sm">
-          <span>{price}</span>
-        </div>
+        <div className="text-sm font-medium text-primary-900">{price}</div>
       </div>
 
-      <div className="flex flex-row h-9 space-x-4">
-        <div className="flex items-center justify-center">
+      <div className="flex items-center space-x-4 mt-4 md:mt-0">
+        <div className="flex items-center space-x-2">
           <button
             type="button"
-            // onClick={() => increaseQuantity(-1)}
-            className="flex p-1  items-center justify-center hover:bg-primary-300 disabled:cursor-not-allowed"
-            // className={s.actions}
-            // style={{ marginLeft: "-1px" }}
+            className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 disabled:bg-gray-100"
             disabled={quantity <= 1}
+            // onClick={() => increaseQuantity(-1)}
           >
             <EditItemQuantityButton item={item} type="minus" />
           </button>
-          <span className="px-4 flex justify-center items-center  m-2">
-            {quantity}
-          </span>
-
+          <span className="px-3 text-sm font-medium">{quantity}</span>
           <button
             type="button"
+            className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 disabled:bg-gray-100"
+            disabled={quantity >= max}
             // onClick={() => increaseQuantity(1)}
-            className="flex p-1  items-center justify-center hover:bg-primary-300 disabled:cursor-not-allowed"
-            // className={cn(s.actions)}
-            style={{ marginLeft: "-1px" }}
-            disabled={quantity < 1 || quantity >= max}
           >
             <EditItemQuantityButton item={item} type="plus" />
           </button>
         </div>
+
         <button
-          //className={s.actions}
-          className="flex  items-center justify-center hover:bg-primary-300 disabled:cursor-not-allowed"
+          className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:bg-gray-100"
           // onClick={handleRemove}
         >
           <DeleteItemButton item={item} />

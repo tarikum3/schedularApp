@@ -19,27 +19,19 @@ interface ProductViewProps {
 const placeholderImg = "/product-img-placeholder.svg";
 
 const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
-  // console.log("productsssproduct", product);
   const { price } = usePrice({
     amount: product.price!.amount,
-    // baseAmount: product.price.retailPrice,
     currencyCode: product.price!.currency!,
   });
 
-  // const [addCart] = useAddCartMutation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | Error>(null);
 
   const variant = product.variants[0];
-  //console.log("variii", variant);
   const addToCart = async () => {
     setLoading(true);
     setError(null);
     try {
-      // await addCart({
-      //   productId: String(product.id),
-      //   variantId: String(variant ? variant.id : product.variants[0]?.id),
-      // });
       await addItem(null, variant ? variant.id : product.variants[0]?.id);
       setLoading(false);
     } catch (err) {
@@ -56,63 +48,51 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
 
   return (
     <>
-      <div className="py-6 px-4 sm:p-6 md:py-10 md:px-8">
-        <div className=" min-h-[500px]  mx-auto grid grid-cols-1  lg:gap-x-20 lg:grid-cols-2">
-          <div className="  col-start-1  row-start-1 sm:mb-6  lg:gap-6 lg:col-start-2 lg:row-end-6 lg:row-span-6 ">
+      <div className="py-8 px-6 md:py-12 md:px-10 bg-white">
+        <div className="mx-auto grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:gap-x-16 min-h-[500px]">
+          {/* Product Image */}
+          <div className="flex justify-center lg:order-2 lg:row-span-6">
             {product?.images && (
               <Image
                 quality="85"
                 src={product.images[0]?.url || placeholderImg}
                 alt={product.name || "Product Image"}
-                height={320}
-                width={320}
-                className={
-                  "w-full  object-cover rounded-lg  sm:col-span-2 lg:col-span-full"
-                }
+                height={400}
+                width={400}
+                className="object-cover rounded-lg shadow-lg"
               />
             )}
           </div>
 
-          <div className="mt-4 col-start-1   lg:mt-6 lg:col-start-1 lg:row-start-3 lg:row-end-4">
-            <div className="flex flex-col space-y-2 m-1">
-              <h3
-                className={
-                  "py-4 px-6 bg-primary-100 text-primary-900  font-bold"
-                }
-              >
-                <span
-                  className={""}
-                  style={{
-                    fontSize: `${32}px`,
-                    lineHeight: `${32}px`,
-                  }}
-                >
-                  {product.name}
-                </span>
-              </h3>
-              <div className="pt-2 px-6 pb-4 text-md bg-primary-100 text-primary-900  font-semibold inline-block tracking-wide">
-                {price}
-              </div>
-              <div>
-                {error && <ErrorMessage error={error} className="my-5" />}
+          {/* Product Details */}
+          <div className="lg:order-1 lg:mt-0 space-y-6">
+            {/* Product Name */}
+            <h1 className="text-4xl font-bold text-primary-900">
+              {product.name}
+            </h1>
 
-                <Button
-                  aria-label="Add to Cart"
-                  type="button"
-                  className={"w-4/6 !text-xl"}
-                  onClick={addToCart}
-                  loading={loading}
-                  // disabled={variant?.availableForSale === false}
-                  disabled={variant?.quantity === 0}
-                >
-                  {/* {variant?.availableForSale === false */}
-                  {variant?.quantity === 0 ? "Not Available" : "Add To Cart"}
-                </Button>
-              </div>
+            {/* Price */}
+            <div className="text-2xl font-semibold text-primary-800">
+              {price}
             </div>
-            <p className="mt-4 px-6  text-xl  col-start-1 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-              {product.description}
-            </p>
+
+            {/* Add to Cart Button */}
+            <div>
+              {error && <ErrorMessage error={error} className="my-4" />}
+              <Button
+                aria-label="Add to Cart"
+                type="button"
+                className="w-full md:w-2/3 py-3 text-xl font-medium bg-primary-700 text-white rounded-md hover:bg-primary-600 transition-colors"
+                onClick={addToCart}
+                loading={loading}
+                disabled={variant?.quantity === 0}
+              >
+                {variant?.quantity === 0 ? "Not Available" : "Add To Cart"}
+              </Button>
+            </div>
+
+            {/* Product Description */}
+            <p className="text-lg text-gray-600">{product.description}</p>
           </div>
         </div>
       </div>

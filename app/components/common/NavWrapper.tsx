@@ -9,11 +9,6 @@ import { Bag, Search as SearchIcon } from "@/app/components/icons";
 
 import React from "react";
 
-// const CartView = dynamic(() => import("@components/cart/CartView"), {
-//   loading: Loading,
-//   ssr: false,
-// });
-
 const links = [
   {
     name: "Home",

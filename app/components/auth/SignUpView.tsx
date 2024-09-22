@@ -9,6 +9,7 @@ import { register } from "@lib/actions/actions";
 
 import { useFormState, useFormStatus } from "react-dom";
 import { useParams, useSearchParams } from "next/navigation";
+
 const SignUpView: FC = () => {
   const { setModalView, closeModal } = useUI();
   const searchParam = useSearchParams();
@@ -55,9 +56,6 @@ const SignUpView: FC = () => {
           </span>
         </span>
         <div className="pt-2 w-full flex flex-col">
-          {/* <Button type="submit" loading={pending} disabled={pending}>
-            Sign Up
-          </Button> */}
           <SignupButton />
         </div>
 

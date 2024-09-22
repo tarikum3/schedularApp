@@ -12,54 +12,106 @@ const getHomeProducts = async () => {
 
 //export const revalidate = 3600;
 export const dynamic = "force-dynamic";
+
+// export default async function Home() {
+//   const productsPromise = await getHomeProducts();
+
+//   const { products } = productsPromise;
+
+//   //simulate delay
+//   //await new Promise((resolve) => setTimeout(resolve, 9000));
+//   return (
+//     <>
+//       <div className=" relative flex flex-col items-center justify-center bg-primary-700 m-28 mx-auto w-4/5 h-[80vh] rounded-xl">
+//         <h2 className="text-2xl text-center text-primary-100 font-bold font-serif m-1 relative md:text-4xl ">
+//           New arrivals
+//         </h2>
+
+//         <p className="text-lg text-center text-primary-300 font-light leading-relaxed relative lg:text-xl">
+//           explore new and stylish clothes in our shop .
+//         </p>
+
+//         <Link
+//           href={"/collection/new-arrivals"}
+//           // className={s.link}
+//           className="bg-primary-100 text-lg text-primary-700 font-bold py-2 px-10 rounded m-8 relative cursor-pointer "
+//         >
+//           {" explore"}
+//         </Link>
+//       </div>
+
+//       <div className=" m-10 ">
+//         <p className="text-lg text-primary-900  font-bold m-5 mx-auto md:mx-24  lg:text-xl ">
+//           {" "}
+//           Explore Products{" "}
+//         </p>
+
+//         <div className="grid grid-cols-1 gap-4 mx-auto md:mx-24 lg:grid-cols-3">
+//           {products.slice(0, 9).map((product: any, i: number) => (
+//             <ProductCard key={product.id} product={product} />
+//           ))}
+//         </div>
+
+//         <div className=" mx-auto md:mx-24 ">
+//           <Link
+//             href="/search"
+//             className="flex flex-initial items-center justify-end font-bold    "
+//           >
+//             <span className=" mr-2">more</span>
+//             <span className=" mr-2">
+//               <ArrowRight />
+//             </span>
+//           </Link>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
 export default async function Home() {
   const productsPromise = await getHomeProducts();
-
   const { products } = productsPromise;
 
-  //simulate delay
-  //await new Promise((resolve) => setTimeout(resolve, 9000));
   return (
     <>
-      <div className=" relative flex flex-col items-center justify-center bg-primary-700 m-28 mx-auto w-4/5 h-[80vh] rounded-xl">
-        <h2 className="text-2xl text-center text-primary-100 font-bold font-serif m-1 relative md:text-4xl ">
-          New arrivals
+      {/* Hero Section */}
+      <div className="relative flex flex-col items-center justify-center bg-primary-700 py-16 px-8 w-4/5 mx-auto h-[70vh] rounded-xl mt-20 mb-12 shadow-lg">
+        <h2 className="text-3xl text-center text-primary-100 font-bold tracking-tight font-serif mb-4 md:text-5xl">
+          New Arrivals
         </h2>
 
-        <p className="text-lg text-center text-primary-300 font-light leading-relaxed relative lg:text-xl">
-          explore new and stylish clothes in our shop .
+        <p className="text-base text-center text-primary-300 font-light leading-relaxed lg:text-lg max-w-lg">
+          Explore the latest trends in fashion and discover stylish new clothing
+          in our shop.
         </p>
 
         <Link
-          href={"/collection/new-arrivals"}
-          // className={s.link}
-          className="bg-primary-100 text-lg text-primary-700 font-bold py-2 px-10 rounded m-8 relative cursor-pointer "
+          href="/collection/new-arrivals"
+          className="bg-primary-100 text-primary-700 text-lg font-semibold py-3 px-8 rounded-lg mt-8 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out"
         >
-          {" explore"}
+          Explore
         </Link>
       </div>
 
-      <div className=" m-10 ">
-        <p className="text-lg text-primary-900  font-bold m-5 mx-auto md:mx-24  lg:text-xl ">
-          {" "}
-          Explore Products{" "}
+      {/* Product Grid Section */}
+      <div className="w-4/5 mx-auto mb-12">
+        <p className="text-xl text-primary-900 font-semibold mb-8 md:mx-24 lg:text-2xl">
+          Explore Products
         </p>
 
-        <div className="grid grid-cols-1 gap-4 mx-auto md:mx-24 lg:grid-cols-3">
-          {products.slice(0, 9).map((product: any, i: number) => (
+        <div className="grid grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">
+          {products.slice(0, 9).map((product: any) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
-        <div className=" mx-auto md:mx-24 ">
+        <div className="flex justify-end mt-6">
           <Link
             href="/search"
-            className="flex flex-initial items-center justify-end font-bold    "
+            className="flex items-center text-primary-700 font-semibold hover:text-primary-900 transition-colors duration-300 ease-in-out"
           >
-            <span className=" mr-2">more</span>
-            <span className=" mr-2">
-              <ArrowRight />
-            </span>
+            <span className="mr-2">More</span>
+            <ArrowRight className="text-primary-700" />
           </Link>
         </div>
       </div>

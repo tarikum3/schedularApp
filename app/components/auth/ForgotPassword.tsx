@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Logo, Button, Input } from "@/app/components";
+
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  //  console.log("emailemail", email);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage("loading");
@@ -15,12 +16,9 @@ export default function ForgotPassword() {
       body: JSON.stringify({ email: email }),
     });
 
-    //const data = await res.json();
-    //setMessage(data.message);
     if (res.status == 200) {
       setMessage("success");
     } else {
-      // console.log("emailemaildata", data);
       setMessage("error sending link");
     }
   };
@@ -28,16 +26,15 @@ export default function ForgotPassword() {
   return (
     <>
       <form
-        //  action={dispatch}
         onSubmit={handleSubmit}
-        className="w-80 flex flex-col justify-between p-3  rounded-lg"
+        className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg bg-white"
       >
-        <div className="flex justify-center pb-12 ">
+        <div className="flex justify-center pb-8">
           <Logo width="64px" height="64px" />
         </div>
 
-        <div className="flex flex-col space-y-3">
-          {message != "success" && (
+        <div className="flex flex-col space-y-4">
+          {message !== "success" && (
             <>
               <Input
                 type="email"
@@ -46,53 +43,31 @@ export default function ForgotPassword() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="p-2 border border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
               />
 
               <Button
                 type="submit"
-                loading={message == "loading"}
-                disabled={message == "loading"}
+                loading={message === "loading"}
+                disabled={message === "loading"}
+                className="w-full bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-md transition-colors duration-150"
               >
                 Send Reset Link
               </Button>
             </>
           )}
-          {message && message != "success" && message != "loading" && (
-            <div className="text-red-800">{message}</div>
+
+          {message && message !== "success" && message !== "loading" && (
+            <div className="text-red-600 text-sm">{message}</div>
           )}
-          {message && message == "success" && (
-            <div className="text-primary-900 ">
-              {
-                "email sent successfully!. check your email to reset your password"
-              }
+
+          {message === "success" && (
+            <div className="text-primary-700 text-center">
+              Email sent successfully! Check your email to reset your password.
             </div>
           )}
         </div>
       </form>
-
-      {/* <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form
-        onSubmit={handleSubmit}
-        className="p-6 bg-white rounded-lg shadow-md"
-      >
-        <h2 className="mb-4 text-xl font-bold">Forgot Password</h2>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border rounded-lg"
-          placeholder="Enter your email"
-          required
-        />
-        <button
-          type="submit"
-          className="w-full p-2 text-white bg-blue-500 rounded-lg"
-        >
-          Send Reset Link
-        </button>
-        {message && <p className="mt-4 text-green-500">{message}</p>}
-      </form>
-    </div> */}
     </>
   );
 }

@@ -6,7 +6,9 @@
   --tw-bg-opacity: 1;
   --primary-900: rgb(17 24 39 / var(--tw-bg-opacity));
   --primary-700: rgb(55 65 81 / var(--tw-bg-opacity));
+  --primary-600: rgb(75 85 99 / var(--tw-bg-opacity));
   --primary-500: rgb(107 114 128 / var(--tw-bg-opacity));
+  --primary-400: rgb(156 163 175 / var(--tw-bg-opacity));
   --primary-300: rgb(209 213 219 / var(--tw-bg-opacity));
   --primary-100: rgb(255 255 255 / var(--tw-bg-opacity));
 
@@ -19,7 +21,9 @@
   --tw-bg-opacity: 1;
   --primary-100: rgb(17 24 39 / var(--tw-bg-opacity));
   --primary-300: rgb(55 65 81 / var(--tw-bg-opacity));
+  --primary-600: rgb(156 163 175 / var(--tw-bg-opacity));
   --primary-500: rgb(107 114 128 / var(--tw-bg-opacity));
+  --primary-400: rgb(75 85 99 / var(--tw-bg-opacity));
   --primary-700: rgb(209 213 219 / var(--tw-bg-opacity));
   --primary-900: rgb(255 255 255 / var(--tw-bg-opacity));
 }

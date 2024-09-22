@@ -15,45 +15,40 @@ const placeholderImg = "/product-img-placeholder.svg";
 
 const ProductCard: FC<Props> = ({ product }) => {
   const { price } = usePrice({
-    // amount: product.price.value,
-    // baseAmount: product.price.retailPrice,
-    // currencyCode: product.price.currencyCode!,
     amount: product.price!.amount,
     currencyCode: product.price!.currency!,
   });
 
   return (
     <Link
-      //href={`/product/${encodeProductName(product.name)}`}
       href={`/product/${product.slug}`}
-      className="relative max-h-full w-full box-border overflow-hidden
-      bg-no-repeat bg-center bg-cover transition-transform
-      ease-linear cursor-pointer inline-block bg-white"
+      className="relative w-full max-w-sm bg-white rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out overflow-hidden cursor-pointer"
       aria-label={product.name}
     >
-      <>
-        <div
-          //className={s.imageContainer}
-          className="overflow-hidden rounded-[10px] w-full "
-        >
-          <Image
-            alt={product.name || "Product Image"}
-            src={product.images[0]?.url}
-            width={540}
-            height={540}
-            quality="85"
-            // {...imgProps}
-          />
-        </div>
+      {/* Image Section */}
+      <div className="overflow-hidden rounded-t-lg">
+        <Image
+          alt={product.name || "Product Image"}
+          src={product.images[0]?.url}
+          width={540}
+          height={540}
+          quality="85"
+          className="w-full h-auto object-cover transition-transform transform hover:scale-105 duration-500"
+        />
+      </div>
 
-        <div className="transition-colors ease-in-out duration-500">
-          <h3 className=" max-w-full w-full text-sm leading-extra-loose py-4 px-6 bg-primary-100 md:text-2xl text-primary-900  font-bold">
-            <span>{product.name}</span>
-          </h3>
-          <div className="pt-2 px-6 pb-4 text-sm bg-primary-100 text-primary-900  font-semibold inline-block tracking-wide md:text-md">{`${price} ${product.price?.currency}`}</div>
+      {/* Content Section */}
+      <div className="p-5 bg-primary-100 rounded-b-lg">
+        {/* Product Name */}
+        <h3 className="text-primary-900 text-base md:text-lg font-medium mb-1 leading-tight line-clamp-1">
+          {product.name}
+        </h3>
+
+        {/* Price */}
+        <div className="text-primary-600 text-sm md:text-md font-semibold mt-2">
+          {`${price} ${product.price?.currency}`}
         </div>
-      </>
-      {/* )} */}
+      </div>
     </Link>
   );
 };

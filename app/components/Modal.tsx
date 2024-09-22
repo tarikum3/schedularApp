@@ -21,15 +21,6 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
     },
     [onClose]
   );
-  // const scrollTop = () =>{
-  //   //const scrolled = document.body.scrollTop;
-  //   window.scrollTo({
-  //     top: scrolled,
-  //     behavior: 'auto'
-
-  //   });
-
-  // };
 
   useEffect(() => {
     const modal = ref.current;
@@ -37,28 +28,26 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
     if (modal) {
       disableBodyScroll(modal, { reserveScrollBarGap: true });
       window.addEventListener("keydown", handleKey);
-      // window.addEventListener('scroll', scrollTop);
     }
     return () => {
       clearAllBodyScrollLocks();
       window.removeEventListener("keydown", handleKey);
-      // window.removeEventListener('scroll', scrollTop);
     };
   }, [handleKey]);
 
   return (
-    <div className="fixed bg-black bg-opacity-40 flex items-center inset-0 z-50 justify-center">
+    <div className="fixed bg-black bg-opacity-50 flex items-center justify-center inset-0 z-50">
       <div
-        className="bg-primary-100 p-12 border border-primary-300 relative focus:outline-none"
+        className="bg-white p-8 md:p-12 rounded-lg shadow-lg relative border border-gray-200 focus:outline-none"
         role="dialog"
         ref={ref}
       >
         <button
-          onClick={() => onClose()}
+          onClick={onClose}
           aria-label="Close panel"
-          className="hover:text-primary-500 transition ease-in-out duration-150 focus:outline-none absolute right-0 top-0 m-6"
+          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700 transition ease-in-out duration-150 focus:outline-none"
         >
-          <Cross className="h-6 w-6" />
+          <Cross className="w-6 h-6" />
         </button>
 
         {children}

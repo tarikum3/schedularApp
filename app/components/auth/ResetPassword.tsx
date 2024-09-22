@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { Logo, Button, Input } from "@/app/components";
 import { useUI } from "@/app/components/context";
+
 export default function ResetPassword() {
-  //const { reset } = useParams();
   const searchParam = useSearchParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const { setModalView, closeModal } = useUI();
+  const { setModalView } = useUI();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -16,6 +17,7 @@ export default function ResetPassword() {
       setMessage("Passwords do not match");
       return;
     }
+
     setMessage("loading");
     const res = await fetch("/api/reset-password", {
       method: "POST",
@@ -25,40 +27,31 @@ export default function ResetPassword() {
       body: JSON.stringify({ token: searchParam.get("reset"), password }),
     });
 
-    //const data = await res.json();
-    console.log("resetpassres", res);
-    //setMessage(data.message);
-    if (res.status == 200) {
+    if (res.status === 200) {
       setMessage("success");
       setModalView("LOGIN_VIEW");
     } else {
-      // console.log("emailemaildata", data);
-      if (res.status == 400) {
+      if (res.status === 400) {
         setMessage("Token is invalid or has expired");
       }
-      if (res.status == 401) {
-        setMessage("error resetting password");
+      if (res.status === 401) {
+        setMessage("Error resetting password");
       }
     }
   };
 
   return (
     <form
-      //  action={dispatch}
       onSubmit={handleSubmit}
-      className="w-80 flex flex-col justify-between p-3  rounded-lg"
+      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg bg-white"
     >
-      <div className="flex justify-center pb-12 ">
+      <div className="flex justify-center pb-8">
         <Logo width="64px" height="64px" />
       </div>
-      <h2 className="mb-4 text-primary-900  text-center text-xl font-bold">
+      <h2 className="mb-4 text-primary-900 text-center text-xl font-bold">
         Reset Password
       </h2>
-      <div className="flex flex-col space-y-3">
-        {/* <Input type="email" id="email" name="email" placeholder="Email" /> */}
-        {/* <h2 className="mb-4 text-primary-900  text-xl font-bold">
-          Reset Password
-        </h2> */}
+      <div className="flex flex-col space-y-4">
         <Input
           type="password"
           id="password"
@@ -67,41 +60,42 @@ export default function ResetPassword() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter new password"
           required
+          className="p-2 border border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
         />
         <Input
           type="password"
-          id="Confirmpassword"
-          name="Confirmpassword"
+          id="confirmPassword"
+          name="confirmPassword"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm new password"
           required
+          className="p-2 border border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
         />
 
         <Button
           type="submit"
-          loading={message == "loading"}
-          disabled={message == "loading"}
+          loading={message === "loading"}
+          disabled={message === "loading"}
+          className="w-full bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-md transition-colors duration-150"
         >
           Reset Password
         </Button>
 
-        {message && message != "success" && message != "loading" && (
-          <div className="text-red-800">
+        {message && message !== "success" && message !== "loading" && (
+          <div className="text-red-600 text-sm">
             {message}
-
             <a
-              className="text-primary-900  font-bold hover:underline cursor-pointer"
+              className="text-primary-900 font-bold hover:underline cursor-pointer ml-1"
               onClick={() => setModalView("FORGOT_VIEW")}
             >
-              {" "}
-              {" resend link "}
+              resend link
             </a>
           </div>
         )}
-        {message && message == "success" && (
-          <div className="text-primary-900 ">
-            {"password resetted successfully"}
+        {message === "success" && (
+          <div className="text-primary-700 text-center">
+            Password reset successfully!
           </div>
         )}
       </div>
