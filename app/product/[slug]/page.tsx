@@ -5,30 +5,48 @@ import {
   fetchProducts,
   fetchProductBySlug,
 } from "@lib/services/prismaServices";
-import { decodeProductName } from "@/lib/helper";
-//import { unstable_noStore as noStore } from "next/cache";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  //const product = await getProduct(params.handle);
+  const product = await fetchProductBySlug(params!.slug);
+  if (!product) return notFound();
+
+  const { url } = product.images[0] || {};
+
+  return {
+    title: product.name,
+    description: product.description,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
+    },
+    openGraph: url
+      ? {
+          images: [
+            {
+              url,
+              // width,
+              // height,
+              // alt
+            },
+          ],
+        }
+      : null,
+  };
+}
 async function getProductPage(params: { slug: string }) {
-  //noStore();
-
-  // const productPromise = getProduct({
-  //   variables: { slug: params!.slug },
-  // });
-  //const slugDe = decodeProductName(params!.slug);
   const product = await fetchProductBySlug(params!.slug);
   const { products: relatedProducts } = await fetchProducts({});
-  // const allProductsPromise = getAllProducts({
-  //   variables: { first: 4 },
-  // });
-
-  // const { product } = await productPromise;
-  //  const { products: relatedProducts } = await allProductsPromise;
-
-  // if (!product) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
 
   return {
     product: product as any,

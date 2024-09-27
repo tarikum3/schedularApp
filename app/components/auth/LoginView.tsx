@@ -49,7 +49,7 @@ const LoginView: React.FC = () => {
           <hr className="w-full border-gray-300" />
         </div>
 
-        <Button
+        <button
           type="button"
           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md"
           onClick={(event) => {
@@ -61,7 +61,7 @@ const LoginView: React.FC = () => {
             <Google className="w-5 h-5" />
             <span>Sign in with Google</span>
           </span>
-        </Button>
+        </button>
 
         {message && <div className="text-red-600 text-sm">{message}</div>}
 

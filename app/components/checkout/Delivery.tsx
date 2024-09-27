@@ -389,8 +389,6 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="text"
                   id="billingAddress"
                   name="billingAddress"
-                  // className="block w-full rounded border border-gray-300 bg-gray-50 p-2 text-sm text-primary-900 "
-                  // placeholder="DE42313253"
                   value={formData.billingAddress}
                   onChange={handleChange}
                 />
@@ -490,9 +488,6 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                 >
                   Credit Card
                 </label>
-                {/* <p id="creditCard-text" className="mt-1 text-xs text-gray-500">
-                  Pay securely using your credit card.
-                </p> */}
               </div>
             </div>
           </div>
@@ -518,9 +513,6 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                 >
                   PayPal
                 </label>
-                {/* <p id="paypal-text" className="mt-1 text-xs text-gray-500">
-                  Pay easily and securely via PayPal.
-                </p> */}
               </div>
             </div>
           </div>

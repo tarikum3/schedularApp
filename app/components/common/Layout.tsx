@@ -1,29 +1,32 @@
 import { Footer } from "@/app/components/common";
 import Navbar from "@/app/components/common/NavbarNew";
 import ModalUI from "@/app/components/common/ModalUI";
-//import { Provider } from "react-redux";
-//import { store } from "@framework/store/store";
+
 import { ManagedUIContext } from "@/app/components/context";
 import { SessionProvider } from "next-auth/react";
+import { Suspense } from "react";
 interface Props {
   children?: React.ReactNode;
 }
 
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<Props> = async ({ children }) => {
   return (
-    //  <Provider store={store}>
     <SessionProvider>
       <ManagedUIContext>
         <div className="h-full max-w-[2460px] bg-primary-100 mx-auto transition-colors duration-150">
           <Navbar />
-          <main className="fit">{children}</main>
 
-          <Footer />
+          <Suspense>
+            <main className="fit">{children}</main>
+            <Suspense>
+              <Footer />
+            </Suspense>
+          </Suspense>
+
           <ModalUI />
         </div>
       </ManagedUIContext>
     </SessionProvider>
-    // </Provider>
   );
 };
 

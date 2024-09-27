@@ -5,7 +5,7 @@ import { getCart } from "@lib/services/prismaServices";
 import { unstable_cache } from "next/cache";
 import { TAGS } from "@lib/const";
 import { getCartByIdUtil } from "@/lib/helper";
-// const getCartItem = unstable_cache(
+
 //   async (id) => {
 //     const cart = await getCart(id);
 //     const subtotalPrice = cart.items.reduce((total, item) => {
@@ -21,13 +21,8 @@ import { getCartByIdUtil } from "@/lib/helper";
 //     tags: [TAGS.cart],
 //   }
 // );
-export default async function CartWrapper() {
-  // const cartId = cookies().get("cartId")?.value;
-  // let cart;
 
-  // if (cartId) {
-  //   cart = await getCartItem(cartId);
-  // }
+export default async function CartWrapper() {
   let cart = await getCartByIdUtil();
   return <CartView cart={cart as any} />;
 }
