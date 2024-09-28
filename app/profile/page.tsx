@@ -1,12 +1,10 @@
 "use client";
 
-//import { Layout } from "@components/common";
-//import { useGetCustomerQuery } from "@framework/services/customer";
 import { useSession } from "next-auth/react";
-
+import { notFound } from "next/navigation";
 export default function Profile() {
   const { data: session, status } = useSession();
-
+  if (!session?.user) return notFound();
   return (
     <div className="mx-auto max-w-7xl px-6 w-full pt-8">
       <h1 className="pb-6 text-3xl font-bold tracking-tight text-primary-900">
@@ -42,5 +40,3 @@ export default function Profile() {
     </div>
   );
 }
-
-//Profile.Layout = Layout;

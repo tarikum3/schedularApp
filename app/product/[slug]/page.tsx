@@ -13,7 +13,6 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  //const product = await getProduct(params.handle);
   const product = await fetchProductBySlug(params!.slug);
   if (!product) return notFound();
 
@@ -46,6 +45,7 @@ export async function generateMetadata({
 }
 async function getProductPage(params: { slug: string }) {
   const product = await fetchProductBySlug(params!.slug);
+  if (!product) return notFound();
   const { products: relatedProducts } = await fetchProducts({});
 
   return {

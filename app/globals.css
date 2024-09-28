@@ -44,8 +44,8 @@ body {
   margin: 0;
   position: relative;
   min-height: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
 }
 .fit {
   min-height: calc(100vh - 188px);

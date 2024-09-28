@@ -22,8 +22,9 @@ const Layout: React.FC<Props> = async ({ children }) => {
               <Footer />
             </Suspense>
           </Suspense>
-
-          <ModalUI />
+          <Suspense>
+            <ModalUI />
+          </Suspense>
         </div>
       </ManagedUIContext>
     </SessionProvider>

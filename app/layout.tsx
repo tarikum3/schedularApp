@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+//import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Layout from "@/app/components/common/Layout";
 
-//import { Suspense } from "react";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 const { SITE_NAME } = process.env;
@@ -32,11 +32,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Layout>
-          {/* <Suspense
-        
-          > */}
-          <main>{children}</main>
-          {/* </Suspense> */}
+          <Suspense>{children}</Suspense>
         </Layout>
       </body>
     </html>

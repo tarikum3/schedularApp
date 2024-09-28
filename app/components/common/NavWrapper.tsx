@@ -31,7 +31,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [itemsCount, setItemsCount] = useState(0);
   const [searchExtend, setSearchExtend] = useState(false);
-  console.log("navwrapper", hasScrolled);
+  // console.log("navwrapper", hasScrolled);
   useEffect(() => {
     const handleScroll = async () => {
       const throttle = (await import("lodash.throttle")).default;
@@ -127,4 +127,5 @@ const NavWrapper: FC<Props> = ({ children }) => {
     </div>
   );
 };
+
 export default NavWrapper;

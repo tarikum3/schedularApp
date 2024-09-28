@@ -6,19 +6,19 @@ import { Logo } from "@/app/components";
 const links = [
   {
     name: "Privacy Policy",
-    url: `${process.env.NEXT_PUBLIC_VERCEL_URL}en-US/privacy-policy`,
+    url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/privacy-policy`,
   },
   {
     name: "About",
-    url: `${process.env.NEXT_PUBLIC_VERCEL_URL}en-US/about`,
+    url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/about`,
   },
   {
     name: "Terms of use",
-    url: `${process.env.NEXT_PUBLIC_VERCEL_URL}en-US/terms-of-use`,
+    url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/terms-of-use`,
   },
   {
     name: "shipping ",
-    url: `${process.env.NEXT_PUBLIC_VERCEL_URL}en-US/shipping`,
+    url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/shipping`,
   },
 ];
 

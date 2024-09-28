@@ -14,21 +14,16 @@ const getHomeProducts = async () => {
 
 //export const revalidate = 3600;
 export const dynamic = "force-dynamic";
-export const runtime = 'edge';
 
 export const metadata = {
-  description: 'Modalinda shop .',
+  description: "Modalinda shop .",
   openGraph: {
-    type: 'website'
-  }
+    type: "website",
+  },
 };
 export default async function Home() {
-  const productsPromise = await getHomeProducts();
-  const { products } = productsPromise;
-
   return (
     <>
-      {/* Hero Section */}
       <div className="relative flex flex-col items-center justify-center bg-primary-700 py-16 px-8 w-4/5 mx-auto h-[70vh] rounded-xl mt-20 mb-12 shadow-lg">
         <h2 className="text-3xl text-center text-primary-100 font-bold tracking-tight font-serif mb-4 md:text-5xl">
           New Arrivals
@@ -49,10 +44,6 @@ export default async function Home() {
 
       {/* Product Grid Section */}
       <div className="w-4/5 mx-auto mb-12">
-        <p className="text-xl text-primary-900 font-semibold mb-8 md:mx-24 lg:text-2xl">
-          Explore Products
-        </p>
-
         {/* <div className="grid grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">
           {products.slice(0, 9).map((product: any) => (
             <ProductCard key={product.id} product={product} />
@@ -69,18 +60,23 @@ export default async function Home() {
           </Link>
         </div> */}
         <Suspense>
-          <ExploreProducts products={products} />
+          <ExploreProducts />
         </Suspense>
       </div>
     </>
   );
 }
 
-async function ExploreProducts({ products }: { products: Product[] }) {
+async function ExploreProducts() {
+  const productsPromise = await getHomeProducts();
+  const { products } = productsPromise;
   if (!products.length) return null;
-
+  //await new Promise((resolve) => setTimeout(resolve, 9000)); //  seconds delay
   return (
     <>
+      <p className="text-xl text-primary-900 font-semibold mb-8 md:mx-24 lg:text-2xl">
+        Explore Products
+      </p>
       <div className="grid grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">
         {products.slice(0, 9).map((product: any) => (
           <ProductCard key={product.id} product={product} />
