@@ -12,7 +12,7 @@ const Searchbar: FC = () => {
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
 
     if (e.key === "Enter") {
       const q = e.currentTarget.value;
@@ -39,7 +39,7 @@ const Searchbar: FC = () => {
       />
 
       <svg
-        className="size-5 text-primary-500 "
+        className="size-5 text-primary-500 hidden sm:block"
         fill="currentColor"
         viewBox="0 0 20 20"
       >

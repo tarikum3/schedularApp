@@ -60,7 +60,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
         hasScrolled ? "shadow-magical " : ""
       }sticky  top-0 min-h-[74px] bg-primary-100  z-40 transition-all duration-150  px-6`}
     >
-      <div className="relative flex flex-row items-center  justify-between py-4 md:py-4">
+      <div className="relative flex flex-row items-center gap-1 justify-between py-4 md:py-4">
         <div className="flex items-center flex-auto ">
           <Link
             href="/"
@@ -101,15 +101,15 @@ const NavWrapper: FC<Props> = ({ children }) => {
           </nav>
         </div>
 
+        <div className={` hidden sm:block flex-auto `}>
+          <Searchbar />
+        </div>
         <div
           className={` ${searchExtend ? "" : "hidden"} sm:hidden flex-auto `}
           onClick={() => {
             setSearchExtend(true);
           }}
         >
-          <Searchbar />
-        </div>
-        <div className={` hidden sm:block flex-auto `}>
           <Searchbar />
         </div>
         <div className=" flex items-center justify-end flex-auto space-x-8">
@@ -119,7 +119,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
               setSearchExtend(true);
             }}
           >
-            <SearchIcon />
+            <SearchIcon className="size-6" />
           </button>
           {children}
         </div>

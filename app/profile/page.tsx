@@ -1,10 +1,10 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { notFound } from "next/navigation";
+//import { notFound } from "next/navigation";
 export default function Profile() {
   const { data: session, status } = useSession();
-  if (!session?.user) return notFound();
+  // if (!session?.user) return notFound();
   return (
     <div className="mx-auto max-w-7xl px-6 w-full pt-8">
       <h1 className="pb-6 text-3xl font-bold tracking-tight text-primary-900">

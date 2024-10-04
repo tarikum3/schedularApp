@@ -39,19 +39,19 @@ const LoginView: React.FC = () => {
 
         <div className="flex justify-center pt-4">
           <LoginButton
-          // className="w-full bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-md"
+          // className="w-full bg-primary-700 hover:bg-primary-800 text-primary-100 py-2 rounded-md"
           />
         </div>
 
         <div className="flex items-center my-6">
           <hr className="w-full border-gray-300" />
-          <span className="px-3 text-gray-500 bg-white">or</span>
+          <span className="px-3 text-primary-500 bg-white">or</span>
           <hr className="w-full border-gray-300" />
         </div>
 
         <button
           type="button"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-primary-100 py-2 rounded-md"
           onClick={(event) => {
             event.stopPropagation();
             signIn("google");
@@ -91,8 +91,8 @@ function LoginButton() {
 
   return (
     <Button
-      // className="w-full bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
-      className="w-full bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-md"
+      // className="w-full bg-primary-600 text-primary-100 py-2 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
+      className="w-full bg-primary-700 hover:bg-primary-800 text-primary-100 py-2 rounded-md"
       type="submit"
       loading={pending}
       disabled={pending}

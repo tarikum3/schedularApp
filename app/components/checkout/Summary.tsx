@@ -11,19 +11,19 @@ const Summary = ({ cart }: { cart: Cart | undefined }) => {
       <div className="">
         <div className="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
           <dl className="flex items-center justify-between gap-4 py-3">
-            <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+            <dt className="text-base font-normal text-primary-500 dark:text-primary-400">
               Subtotal
             </dt>
-            <dd className="text-base font-medium text-gray-900 dark:text-white">
+            <dd className="text-base font-medium text-primary-900 dark:text-primary-100">
               {cart?.subtotalPrice}
             </dd>
           </dl>
 
           <dl className="flex items-center justify-between gap-4 py-3">
-            <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+            <dt className="text-base font-normal text-primary-500 dark:text-primary-400">
               Shipping
             </dt>
-            <dd className="text-base font-medium text-gray-900 dark:text-white">
+            <dd className="text-base font-medium text-primary-900 dark:text-primary-100">
               {cart?.deliveryMethod == "fedex"
                 ? 10
                 : cart?.deliveryMethod == "dhl"
@@ -33,19 +33,19 @@ const Summary = ({ cart }: { cart: Cart | undefined }) => {
           </dl>
 
           <dl className="flex items-center justify-between gap-4 py-3">
-            <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+            <dt className="text-base font-normal text-primary-500 dark:text-primary-400">
               Tax
             </dt>
-            <dd className="text-base font-medium text-gray-900 dark:text-white">
+            <dd className="text-base font-medium text-primary-900 dark:text-primary-100">
               15%
             </dd>
           </dl>
 
           <dl className="flex items-center justify-between gap-4 py-3">
-            <dt className="text-base font-bold text-gray-900 dark:text-white">
+            <dt className="text-base font-bold text-primary-900 dark:text-primary-100">
               Total
             </dt>
-            <dd className="text-base font-bold text-gray-900 dark:text-white">
+            <dd className="text-base font-bold text-primary-900 dark:text-primary-100">
               {cart?.totalPrice}
             </dd>
           </dl>

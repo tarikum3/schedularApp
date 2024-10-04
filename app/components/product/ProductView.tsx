@@ -82,7 +82,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
               <Button
                 aria-label="Add to Cart"
                 type="button"
-                className="w-full md:w-2/3 py-3 text-xl font-medium bg-primary-700 text-white rounded-md hover:bg-primary-600 transition-colors"
+                className="w-full md:w-2/3 py-3 text-xl font-medium bg-primary-700 text-primary-100 rounded-md hover:bg-primary-600 transition-colors"
                 onClick={addToCart}
                 loading={loading}
                 disabled={variant?.quantity === 0}
@@ -92,7 +92,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
             </div>
 
             {/* Product Description */}
-            <p className="text-lg text-gray-600">{product.description}</p>
+            <p className="text-lg text-primary-600">{product.description}</p>
           </div>
         </div>
       </div>

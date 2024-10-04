@@ -3,18 +3,20 @@ import { fetchCollection } from "@lib/services/prismaServices";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-export const runtime = "edge";
+//export const runtime = "edge";
 
-export async function generateMetadata(params: {
-  name: string;
+export async function generateMetadata({
+  params,
+}: {
+  params: { name: string };
 }): Promise<Metadata> {
   const { products } = await fetchCollection({ title: params!.name });
 
   if (!products) return notFound();
 
   return {
-    title: params!.name,
-    description: `${params!.name} products`,
+    title: params!.name ?? "",
+    description: `${params!.name ?? ""} products`,
   };
 }
 

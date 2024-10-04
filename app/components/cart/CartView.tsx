@@ -43,7 +43,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
       >
         <Bag className="w-6 h-6" />
         {session?.user && cart && (cart as any)?.items?.length > 0 && (
-          <span className="absolute right-2 top-2 min-w-[1.25rem] min-h-[1.25rem] bg-primary-900 text-white rounded-full flex items-center justify-center text-xs font-bold">
+          <span className="absolute right-2 top-2 min-w-[1.25rem] min-h-[1.25rem] bg-primary-900 text-primary-100 rounded-full flex items-center justify-center text-xs font-bold">
             {(cart as any)?.items?.length}
           </span>
         )}
@@ -51,7 +51,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
 
       {dropdown === "cart" && (
         <Clickoutside status={display} onClick={() => setDisplay(false)}>
-          <div className="absolute right-0 w-full mt-2 md:w-[700px] max-w-[80vw] h-screen bg-white rounded-lg shadow-lg z-50">
+          <div className="absolute right-0 w-[80vw] mt-2 md:w-[700px] max-w-[80vw] h-[80vh] bg-primary-100 rounded-md shadow-xl  z-50">
             {!cart || (cart as any)?.items?.length < 1 ? (
               <div className="flex flex-col items-center justify-center h-full px-4">
                 <h2 className="text-2xl font-bold">Your cart is empty</h2>
@@ -86,7 +86,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
                   <Link
                     href="/checkout"
                     onClick={() => handleDropdown("")}
-                    className="w-full bg-primary-900 text-white text-sm py-4 rounded-md flex justify-center items-center"
+                    className="w-full bg-primary-900 text-primary-100 text-sm py-4 rounded-md flex justify-center items-center"
                   >
                     Proceed to Checkout
                   </Link>

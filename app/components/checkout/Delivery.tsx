@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import PhoneInput from "@/app/components/PhoneInput";
+
 import Select from "@/app/components/Select";
 import { updateCartAction } from "@lib/actions/actions";
 

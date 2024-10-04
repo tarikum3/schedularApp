@@ -43,9 +43,9 @@ const UserView: FC = () => {
       setModalView("RESET_VIEW");
     }
   }, [searchParam]);
-  console.log("dropdownsession", session);
+  //console.log("dropdownsession", session);
   // console.log("notRegistered", notRegistered);
-  console.log("resetreset", searchParam.get("reset"));
+  //console.log("resetreset", searchParam.get("reset"));
   return (
     <>
       <div className="relative ">
@@ -65,10 +65,10 @@ const UserView: FC = () => {
         {/* {dropdown == "user" && isCustomerLoggedIn && ( */}
         {dropdown == "user" && session?.user && (
           <Clickoutside status={display} onClick={() => setDisplay(false)}>
-            <div className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+            <div className="absolute right-0 w-48 mt-2 origin-top-right rounded-md shadow-lg ">
               <div className="px-2 py-2 bg-white rounded-md shadow absolute right-0 ">
-                <a
-                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                <button
+                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                   // onClick={async (e) => {
                   //   const { useRouter } = await import("next/router");
                   //   const router = useRouter();
@@ -77,26 +77,26 @@ const UserView: FC = () => {
                   onClick={() => router.push("/profile")}
                 >
                   {"My profile"}
-                </a>
+                </button>
 
-                <a
-                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                <button
+                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                   onClick={() => {
                     setTheme(theme === "dark" ? "light" : "dark");
                   }}
                 >
-                  <span className="flex">
+                  <span className="flex items-center gap-1">
                     Theme:{" "}
                     {theme == "dark" ? (
-                      <Moon className="w-2 h-2" />
+                      <Moon className="size-3" />
                     ) : (
-                      <Sun className="w-2 h-2" />
+                      <Sun className="size-3" />
                     )}
                   </span>
-                </a>
+                </button>
 
-                <a
-                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                <button
+                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                   onClick={async () => {
                     // "use server";
                     // await logout();
@@ -105,7 +105,7 @@ const UserView: FC = () => {
                   }}
                 >
                   Logout
-                </a>
+                </button>
               </div>
             </div>
           </Clickoutside>

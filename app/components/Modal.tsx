@@ -45,7 +45,7 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
         <button
           onClick={onClose}
           aria-label="Close panel"
-          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700 transition ease-in-out duration-150 focus:outline-none"
+          className="absolute right-4 top-4 text-primary-500 hover:text-primary-700 transition ease-in-out duration-150 focus:outline-none"
         >
           <Cross className="w-6 h-6" />
         </button>

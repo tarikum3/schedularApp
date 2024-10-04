@@ -70,7 +70,7 @@ const CartItem = ({
               {(item as any).name}
             </span>
           </Link>
-          <div className="text-sm text-gray-600">{quantity}x</div>
+          <div className="text-sm text-primary-600">{quantity}x</div>
         </div>
         <div className="text-sm font-medium text-primary-900">{price}</div>
       </div>
@@ -97,7 +97,7 @@ const CartItem = ({
         </div>
 
         <button
-          className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:bg-gray-100"
+          className="p-2 bg-red-500 text-primary-100 rounded-md hover:bg-red-600 disabled:bg-gray-100"
           // onClick={handleRemove}
         >
           <DeleteItemButton item={item} />

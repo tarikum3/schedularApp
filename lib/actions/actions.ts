@@ -24,6 +24,7 @@ import { AuthError } from "next-auth";
 import { z } from "zod";
 import { unstable_cache } from "next/cache";
 import { addComputedCartPrices } from "@/lib/helper";
+import { redirect, RedirectType } from "next/navigation";
 // export type State = {
 //   errors?: {
 //     customerId?: string[];
@@ -366,9 +367,10 @@ export async function logOut() {
     await signOut();
     //logout();
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof AuthError) {
       return "Something went wrong.";
     }
     throw error;
   }
+  redirect("/?refresh=true", RedirectType.replace);
 }

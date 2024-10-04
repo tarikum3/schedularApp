@@ -77,7 +77,7 @@ export default function ResetPassword() {
           type="submit"
           loading={message === "loading"}
           disabled={message === "loading"}
-          className="w-full bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-md transition-colors duration-150"
+          className="w-full bg-primary-700 hover:bg-primary-800 text-primary-100 py-2 rounded-md transition-colors duration-150"
         >
           Reset Password
         </Button>
