@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Logo } from "@/app/components";
 import { Searchbar } from "@/app/components/common";
 
-import { Bag, Search as SearchIcon } from "@/app/components/icons";
+import { Search as SearchIcon } from "@/app/components/icons";
 
 import React from "react";
 

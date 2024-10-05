@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Cart } from "@lib/prisma";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components";
 const Summary = ({ cart }: { cart: Cart | undefined }) => {

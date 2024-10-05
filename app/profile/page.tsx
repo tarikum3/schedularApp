@@ -1,11 +1,7 @@
-// "use client";
-
-// import { useSession } from "next-auth/react";
 import { notFound } from "next/navigation";
 import { auth } from "@/auth";
+export const dynamic = "force-dynamic";
 export default async function Profile() {
-  // const { data: session, status } = useSession();
-  // if (!session?.user) return notFound();
   const session = await auth();
   console.log("sessionserver", session);
   if (!session?.user) return notFound();

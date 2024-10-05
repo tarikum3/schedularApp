@@ -1,13 +1,7 @@
 "use server";
 
 import { TAGS } from "@lib/const";
-// import {
-//   addCartItem,
-//   createCart,
-//   getCart,
-//   removeCartItem,
-//   updateCart,
-// } from "@lib/services";
+
 import {
   upsertCartItem,
   createCart,
@@ -16,7 +10,6 @@ import {
   updateCart,
   createCustomer,
 } from "@lib/services/prismaServices";
-//import { login, logout, signup } from "@lib/services";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { signIn, signOut } from "@/auth";
@@ -25,14 +18,6 @@ import { z } from "zod";
 import { unstable_cache } from "next/cache";
 import { addComputedCartPrices } from "@/lib/helper";
 import { redirect, RedirectType } from "next/navigation";
-// export type State = {
-//   errors?: {
-//     customerId?: string[];
-//     amount?: string[];
-//     status?: string[];
-//   };
-//   message?: string | null;
-// };
 
 export async function getCartByIdUtil() {
   const cartId = cookies().get("cartId")?.value;

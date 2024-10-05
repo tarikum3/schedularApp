@@ -1,8 +1,8 @@
 import { ProductCard } from "@/app/components/product";
 import { unstable_noStore as noStore } from "next/cache";
-//import { getAllProducts } from "@lib/services";
-import { fetchProducts } from "@lib/services/prismaServices";
 
+import { fetchProducts } from "@lib/services/prismaServices";
+export const dynamic = "force-dynamic";
 async function getSearchProducts(q: string) {
   noStore();
 
@@ -15,12 +15,6 @@ async function getSearchProducts(q: string) {
   };
 }
 
-const SORT = {
-  Name: "Trending",
-  latest: "Latest arrivals",
-  price: " Low to high",
-};
-export const dynamic = "force-dynamic";
 export default async function Page({
   searchParams,
 }: {

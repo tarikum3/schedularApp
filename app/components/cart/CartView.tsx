@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { useState } from "react";
 import CartItem from "./CartItem";
 import { Bag } from "@/app/components/icons";
 import usePrice from "@/lib/use-price";

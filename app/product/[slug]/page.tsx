@@ -1,13 +1,11 @@
 import { ProductView } from "@/app/components/product";
-
-//import { getAllProducts, getProduct } from "@lib/services";
 import {
   fetchProducts,
   fetchProductBySlug,
 } from "@lib/services/prismaServices";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-
+export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {

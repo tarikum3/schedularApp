@@ -1,11 +1,10 @@
 "use client";
 import { FC } from "react";
 import Link from "next/link";
-//import type { Product } from "@lib/types";
 import Image from "next/image";
 import usePrice from "@/lib/use-price";
 import { Product } from "@lib/prisma";
-import { encodeProductName } from "@/lib/helper";
+
 interface Props {
   //product: Product;
   product: Product;

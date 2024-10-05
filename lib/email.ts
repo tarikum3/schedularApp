@@ -12,9 +12,6 @@ export const sendPasswordResetEmail = async (to: string, token: string) => {
     logger: true, // Enable detailed logging
   });
 
-  // console.log("EMAIL_FROM", process.env.EMAIL_FROM);
-  // console.log("EMAIL_PASSWORD", process.env.EMAIL_PASSWORD);
-
   const baseUrl =
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_VERCEL_URL

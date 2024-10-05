@@ -1,17 +1,15 @@
 "use client";
 import Image from "next/image";
 import { FC, useState } from "react";
-// import type { Product } from "@lib/types";
+
 import usePrice from "@/lib/use-price";
 import { SEO } from "@/app/components/common";
 import { Button, ErrorMessage } from "@/app/components";
 import { addItem } from "@lib/actions/actions";
 
 import { Product } from "@lib/prisma";
-//import { useAddCartMutation } from "@framework/services/cart";
+
 interface ProductViewProps {
-  // product: Product;
-  // relatedProducts: Product[];
   product: Product;
   relatedProducts: Product[];
 }

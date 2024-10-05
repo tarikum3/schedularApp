@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { Info } from "@/app/components/icons";
 import { useUI } from "@/app/components/context";
@@ -8,7 +8,7 @@ import { Logo, Button, Input } from "@/app/components";
 import { register } from "@lib/actions/actions";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const SignUpView: FC = () => {
   const { setModalView, closeModal } = useUI();

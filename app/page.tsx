@@ -5,7 +5,7 @@ import { ArrowRight } from "@/app/components/icons";
 import { Product } from "@lib/prisma";
 import { fetchProducts } from "@lib/services/prismaServices";
 import { Suspense } from "react";
-
+export const dynamic = "force-dynamic";
 const getHomeProducts = async () => {
   const productsPromise = await fetchProducts({});
 
@@ -13,10 +13,9 @@ const getHomeProducts = async () => {
 };
 
 //export const revalidate = 3600;
-export const dynamic = "force-dynamic";
 
 export const metadata = {
-  description: "Modalinda shop .",
+  description: "Modalinda shop.",
   openGraph: {
     type: "website",
   },
@@ -44,21 +43,6 @@ export default async function Home() {
 
       {/* Product Grid Section */}
       <div className="w-4/5 mx-auto mb-12">
-        {/* <div className="grid grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">
-          {products.slice(0, 9).map((product: any) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
-        <div className="flex justify-end mt-6">
-          <Link
-            href="/search"
-            className="flex items-center text-primary-700 font-semibold hover:text-primary-900 transition-colors duration-300 ease-in-out"
-          >
-            <span className="mr-2">More</span>
-            <ArrowRight className="text-primary-700" />
-          </Link>
-        </div> */}
         <Suspense>
           <ExploreProducts />
         </Suspense>

@@ -1,7 +1,7 @@
 import { Product } from "@lib/prisma";
 import { fetchProducts, fetchCollections } from "@lib/services/prismaServices";
 import { MetadataRoute } from "next";
-
+export const dynamic = "force-dynamic";
 type Route = {
   url: string;
   lastModified: string;

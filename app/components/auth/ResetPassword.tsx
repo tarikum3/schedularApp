@@ -1,5 +1,6 @@
+"use client";
 import { useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Logo, Button, Input } from "@/app/components";
 import { useUI } from "@/app/components/context";
 

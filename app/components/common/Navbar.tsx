@@ -8,19 +8,12 @@ import UserView from "@/app/components/common/UserView";
 const Navbar: FC = async () => {
   return (
     <NavWrapper>
-      <Suspense
-      // fallback={<div className="text-red-300 font-bold">cartLOaing</div>}
-      >
+      <Suspense>
         <CartWrapper />
       </Suspense>
-      <Suspense
-      // fallback={<div className="text-red-300 font-bold">userLOaing</div>}
-      >
+      <Suspense>
         <UserView />
       </Suspense>
-
-      {/* <CartWrapper />
-      <UserView /> */}
     </NavWrapper>
   );
 };

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getCartByIdUtil } from "@/lib/helper";
 //export const runtime = "edge";
 import { cookies } from "next/headers";
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Payment",
   robots: {

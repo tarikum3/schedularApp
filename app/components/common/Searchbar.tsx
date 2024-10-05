@@ -1,6 +1,6 @@
 "use client";
 import { FC, memo, useEffect } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Searchbar: FC = () => {
   const router = useRouter();

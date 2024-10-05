@@ -2,7 +2,7 @@ import CheckoutWrapper from "@/app/components/checkout/CheckoutWrapper";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Checkout",
   robots: {

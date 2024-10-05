@@ -13,12 +13,6 @@ async function getUser(
   password: string
 ): Promise<any | undefined> {
   try {
-    // const data = await login({ email, password });
-    // const token = data?.customerAccessToken?.accessToken;
-    // if (token) {
-    // const user = await getCustomer(token);
-    // return { ...user, token };
-    // }
     const user = await getCustomer({ email });
     if (!user) {
       throw new Error("Invalid email or password.");
@@ -44,10 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Google,
-    // google({
-    //   clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-    // }),
+
     Credentials({
       async authorize(credentials) {
         console.log("Invalid credentialssd", credentials);
@@ -59,8 +50,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           //  console.log("emailpassword", parsedCredentials.data);
           const user = await getUser(email, password);
-          //const user = await getUser('tarikm3@gmail.com', '9427230912');
-          //console.log("emailpassword", user);
           if (!user) return null;
 
           return user;
@@ -94,11 +83,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (email) {
         try {
           const isuser = await getCustomer({ email });
-          // if (!isuser) {
-          //   //'/login?origin=login'
-          //   return "/?notRegistered=notRegistered";
-          //   //return true;
-          // }
+
           if (isuser) {
             return true;
           }
@@ -110,13 +95,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Return true to continue with the sign-in process
       return true;
     },
-    // async redirect({ url, baseUrl }) {
-    //   // Allows relative callback URLs
-    //   if (url.startsWith("/")) return `${baseUrl}${url}`;
-    //   // Allows callback URLs on the same origin
-    //   else if (new URL(url).origin === baseUrl) return url;
-    //   return baseUrl;
-    // },
 
     async jwt({ token, user, session }) {
       // the processing of JWT occurs before handling sessions.
