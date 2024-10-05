@@ -3,6 +3,7 @@ import React from "react";
 import { Cart } from "@lib/prisma";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Button } from "@/app/components";
 const Summary = ({ cart }: { cart: Cart | undefined }) => {
   const router = useRouter();
   return (
@@ -53,14 +54,14 @@ const Summary = ({ cart }: { cart: Cart | undefined }) => {
       </div>
 
       <div className="space-y-3">
-        <button
+        <Button
           // className={s.link}
           disabled={cart?.step != "payment"}
           onClick={() => router.push("/payment")}
-          className="bg-primary-900  rounded-md inline-flex items-center justify-center w-full  text-primary-100 p-5 text-sm"
+          className=" rounded-md inline-flex items-center justify-center w-full  text-primary-100 p-5 text-sm"
         >
           {" Proceed to Payment"}
-        </button>
+        </Button>
       </div>
       {/* </div> */}
     </div>

@@ -66,7 +66,7 @@ export async function addItem(
 ) {
   let cartId = cookies().get("cartId")?.value;
   let cart;
-
+  console.log("cartId", cartId);
   if (cartId) {
     cart = await getCart(cartId);
   }
@@ -350,6 +350,7 @@ export async function updateCartAction(
     let cartId = cookies().get("cartId")?.value;
     const cart = await updateCart(cartId!, {
       ...validatedFields.data,
+      step: "payment",
       sameAsDelivery: undefined,
     });
     revalidateTag(TAGS.cart);

@@ -222,7 +222,7 @@ export async function fetchProductById(id: string) {
 }
 
 export async function fetchProductBySlug(slug: string) {
-  console.log("slug", slug);
+  //console.log("slug", slug);
   const product = await prisma.product.findFirst({
     where: { slug: slug },
     include: {
@@ -232,7 +232,7 @@ export async function fetchProductBySlug(slug: string) {
       options: true,
     },
   });
-  console.log("slug", product);
+  ///console.log("slug", product);
   return product;
 }
 

@@ -7,7 +7,7 @@ import { updateCartAction } from "@lib/actions/actions";
 
 import { useFormState, useFormStatus } from "react-dom";
 import { Button, Input } from "@/app/components";
-import prisma, { Cart } from "@lib/prisma";
+import { Cart } from "@lib/prisma";
 const Delivery = ({ cart }: { cart: Cart | undefined }) => {
   const [formData, setFormData] = useState({
     firstName: cart?.firstName ?? "",
