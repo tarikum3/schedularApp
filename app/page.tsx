@@ -54,6 +54,7 @@ export default async function Home() {
 async function ExploreProducts() {
   const productsPromise = await getHomeProducts();
   const { products } = productsPromise;
+  // console.log("proooo", products);
   if (!products.length) return null;
   //await new Promise((resolve) => setTimeout(resolve, 9000)); //  seconds delay
   return (

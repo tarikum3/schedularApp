@@ -25,14 +25,18 @@ const ProductCard: FC<Props> = ({ product }) => {
       aria-label={product.name}
     >
       {/* Image Section */}
-      <div className="overflow-hidden rounded-t-lg">
+      <div className="relative block overflow-hidden rounded-t-lg min-h-[400px]">
         <Image
           alt={product.name || "Product Image"}
           src={product.images[0]?.url}
-          width={540}
-          height={540}
+          // width={540}
+          // height={540}
           quality="85"
-          className="w-full h-auto object-cover transition-transform transform hover:scale-105 duration-500"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{
+            objectFit: "cover", // cover, contain, none
+          }}
         />
       </div>
 

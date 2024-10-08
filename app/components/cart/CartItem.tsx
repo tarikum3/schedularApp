@@ -51,12 +51,18 @@ const CartItem = ({
       {...rest}
     >
       <div className="flex space-x-4 py-4">
-        <div className="w-[80px] h-[80px] bg-primary-200 rounded-lg overflow-hidden cursor-pointer">
-          <Link href={`/product/${(item as any).path}`}>
+        <div className=" relative w-[80px] h-[80px] bg-primary-200 rounded-lg overflow-hidden cursor-pointer">
+          <Link
+            className="relative block h-full w-full"
+            href={`/product/${(item as any).path}`}
+          >
             <Image
-              className="w-full h-full object-cover"
-              width={80}
-              height={80}
+              // className="w-full h-full object-cover"
+              // width={80}
+              // height={80}
+              quality="85"
+              fill
+              sizes="(max-width: 768px) 33vw,  10vw"
               src={
                 (item as any).variant?.product?.images[0]?.url || placeholderImg
               }
