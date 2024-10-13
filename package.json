@@ -9,6 +9,9 @@
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^5.17.0",
     "@supabase/supabase-js": "^2.44.4",

@@ -183,9 +183,15 @@ export async function fetchProducts(
         orderBy: orderBy,
         include: {
           images: true,
-          variants: true,
+          variants: {
+            include: {
+              variantOptions: {
+                include: { optionValue: { include: { option: true } } },
+              },
+            },
+          },
           price: true,
-          options: true,
+          options: { include: { values: true } },
         },
       });
     } else {
@@ -195,9 +201,15 @@ export async function fetchProducts(
         orderBy: orderBy,
         include: {
           images: true,
-          variants: true,
+          variants: {
+            include: {
+              variantOptions: {
+                include: { optionValue: { include: { option: true } } },
+              },
+            },
+          },
           price: true,
-          options: true,
+          options: { include: { values: true } },
         },
       });
     }
