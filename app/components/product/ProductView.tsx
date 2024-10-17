@@ -9,6 +9,8 @@ import { addItem } from "@lib/actions/actions";
 
 import { Product } from "@lib/prisma";
 import { useSession } from "next-auth/react";
+import { VariantSelector } from "@/app/components/product";
+import { AddToCart } from "@/app/components/cart/AddToCart";
 interface ProductViewProps {
   product: Product;
   relatedProducts: Product[];
@@ -75,9 +77,12 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
             <div className="text-2xl font-semibold text-primary-800">
               {price}
             </div>
-
+            <VariantSelector
+              options={product.options}
+              variants={product.variants}
+            />
             {/* Add to Cart Button */}
-            <div>
+            {/* <div>
               {error && <ErrorMessage error={error} className="my-4" />}
               <Button
                 aria-label="Add to Cart"
@@ -89,8 +94,11 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
               >
                 {variant?.quantity === 0 ? "Not Available" : "Add To Cart"}
               </Button>
-            </div>
-
+            </div> */}
+            <AddToCart
+              variants={product.variants}
+              availableForSale={product.availableForSale}
+            />
             {/* Product Description */}
             <p className="text-lg text-primary-600">{product.description}</p>
           </div>

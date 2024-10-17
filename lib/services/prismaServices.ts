@@ -209,7 +209,11 @@ export async function fetchProducts(
             },
           },
           price: true,
-          options: { include: { values: true } },
+          options: {
+            include: {
+              values: { include: { option: true } },
+            },
+          },
         },
       });
     }
@@ -226,9 +230,19 @@ export async function fetchProductById(id: string) {
     where: { id },
     include: {
       images: true,
-      variants: true,
+      variants: {
+        include: {
+          variantOptions: {
+            include: { optionValue: { include: { option: true } } },
+          },
+        },
+      },
       price: true,
-      options: true,
+      options: {
+        include: {
+          values: { include: { option: true } },
+        },
+      },
     },
   });
 }
@@ -239,9 +253,19 @@ export async function fetchProductBySlug(slug: string) {
     where: { slug: slug },
     include: {
       images: true,
-      variants: true,
+      variants: {
+        include: {
+          variantOptions: {
+            include: { optionValue: { include: { option: true } } },
+          },
+        },
+      },
       price: true,
-      options: true,
+      options: {
+        include: {
+          values: { include: { option: true } },
+        },
+      },
     },
   });
   ///console.log("slug", product);
@@ -412,9 +436,19 @@ export async function fetchCollections() {
           product: {
             include: {
               images: true,
-              variants: true,
+              variants: {
+                include: {
+                  variantOptions: {
+                    include: { optionValue: { include: { option: true } } },
+                  },
+                },
+              },
               price: true,
-              options: true,
+              options: {
+                include: {
+                  values: { include: { option: true } },
+                },
+              },
             },
           },
         },
@@ -554,9 +588,15 @@ export async function fetchCollection(
             product: {
               include: {
                 images: true,
-                variants: true,
+                variants: {
+                  include: {
+                    variantOptions: {
+                      include: { optionValue: { include: { option: true } } },
+                    },
+                  },
+                },
                 price: true,
-                options: true,
+                options: { include: { values: true } },
               },
             }, // Include the full product details
           },

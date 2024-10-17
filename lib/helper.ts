@@ -7,6 +7,7 @@ import prisma, { Product, Collection } from "@lib/prisma";
 import { TAGS } from "@lib/const";
 import { getCartItem, getCartByIdUtil } from "@lib/actions/actions";
 export { getCartItem, getCartByIdUtil };
+import { ReadonlyURLSearchParams } from "next/navigation";
 interface Rule {
   field: string;
   condition: string;
@@ -158,3 +159,13 @@ export function convertToSlug(input: string): string {
     .replace(/\s+/g, "-") // Replace spaces with dashes
     .toLowerCase(); // Convert to lowercase
 }
+
+export const createUrl = (
+  pathname: string,
+  params: URLSearchParams | ReadonlyURLSearchParams
+) => {
+  const paramsString = params.toString();
+  const queryString = `${paramsString.length ? "?" : ""}${paramsString}`;
+
+  return `${pathname}${queryString}`;
+};

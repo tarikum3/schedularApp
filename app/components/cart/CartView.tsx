@@ -36,13 +36,14 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
     <div className="relative">
       <button
         onClick={() => {
-          session?.user ? handleDropdown("cart") : openModal();
+          // session?.user ? handleDropdown("cart") : openModal();
+          handleDropdown("cart");
         }}
         aria-label="Menu"
         className="relative"
       >
         <Bag className="w-6 h-6" />
-        {session?.user && cart && (cart as any)?.items?.length > 0 && (
+        {cart && (cart as any)?.items?.length > 0 && (
           <span className="absolute right-2 top-2 min-w-[1.25rem] min-h-[1.25rem] bg-primary-900 text-primary-100 rounded-full flex items-center justify-center text-xs font-bold">
             {(cart as any)?.items?.length}
           </span>

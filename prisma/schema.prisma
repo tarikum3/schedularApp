@@ -400,6 +400,7 @@ model ProductVariant {
   @@index([productId])
 }
 
+
 model ProductOption {
   id              String            @id @default(uuid())
   name            String            // e.g., Color, Size

@@ -41,19 +41,19 @@ export async function generateMetadata({
       : null,
   };
 }
-async function getProductPage(params: { slug: string }) {
+async function getProduct(params: { slug: string }) {
   const product = await fetchProductBySlug(params!.slug);
   if (!product) return notFound();
   const { products: relatedProducts } = await fetchProducts({});
 
   return {
-    product: product as any,
-    relatedProducts: relatedProducts as any,
+    product: product,
+    relatedProducts: relatedProducts,
   };
 }
 
 export default async function Slug({ params }: { params: { slug: string } }) {
-  const { product, relatedProducts } = await getProductPage(params);
+  const { product, relatedProducts } = await getProduct(params);
 
   return <ProductView product={product!} relatedProducts={relatedProducts!} />;
 }
