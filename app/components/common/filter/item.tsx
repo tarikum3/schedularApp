@@ -9,6 +9,7 @@ import type { ListItem, PathFilterItem } from ".";
 
 function PathFilterItem({ item }: { item: PathFilterItem }) {
   const pathname = usePathname();
+
   const searchParams = useSearchParams();
   const active = pathname === item.path;
   const newParams = new URLSearchParams(searchParams.toString());
@@ -19,7 +20,7 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
   return (
     <li className="mt-2 flex text-black dark:text-white" key={item.title}>
       <DynamicTag
-        href={createUrl(item.path, newParams)}
+        href={`/collection/${createUrl(item.path, newParams)}`}
         className={clsx(
           "w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100",
           {
@@ -36,13 +37,20 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
 function SortFilterItem({ item }: { item: SortFilterItems }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const active = searchParams.get("sort") === item.slug;
+  const order = item.reverse ? "desc" : "asc";
+  const active =
+    searchParams.get("sort") === item.slug &&
+    searchParams.get("order") === order;
   const q = searchParams.get("q");
   const href = createUrl(
     pathname,
     new URLSearchParams({
       ...(q && { q }),
-      ...(item.slug && item.slug.length && { sort: item.slug }),
+      ...(item.slug &&
+        item.slug.length && {
+          sort: item.slug,
+          order: item.reverse ? "desc" : "asc",
+        }),
     })
   );
   const DynamicTag = active ? "p" : Link;

@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       where: { id: resetToken.id } as any,
     });
   } catch (error) {
-    console.log("error at reset", error);
+    // console.log("error at reset", error);
     return NextResponse.json({ errors: { message: "error" } }, { status: 401 });
   }
   return NextResponse.json(

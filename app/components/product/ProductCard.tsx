@@ -17,7 +17,7 @@ const ProductCard: FC<Props> = ({ product }) => {
     amount: product.price!.amount,
     currencyCode: product.price!.currency!,
   });
-  console.log("productsnewwwfront", product);
+  //console.log("productsnewwwfront", product);
   return (
     <Link
       href={`/product/${product.slug}`}

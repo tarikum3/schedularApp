@@ -1,12 +1,28 @@
 import { ProductCard } from "@/app/components/product";
 import { unstable_noStore as noStore } from "next/cache";
 
-import { fetchProducts } from "@lib/services/prismaServices";
+import { fetchProducts, productSortField } from "@lib/services/prismaServices";
 export const dynamic = "force-dynamic";
-async function getSearchProducts(q: string) {
+async function getSearchProducts({
+  q,
+  sort,
+  order,
+}: {
+  q: string;
+  sort?: string;
+  order?: string;
+}) {
   noStore();
+  let sortBy: any;
+  if (sort && productSortField.includes(sort)) {
+    sortBy = { field: sort, order: order == "asc" ? order : "desc" };
+  }
 
-  const { products } = await fetchProducts({ searchKey: q });
+  const { products } = await fetchProducts({
+    searchKey: q,
+    // sort: { field: sort },
+    ...(sortBy && { sort: sortBy }),
+  });
 
   return {
     products,
@@ -19,19 +35,23 @@ export default async function Page({
   searchParams,
 }: {
   searchParams?: {
-    query?: string;
+    q?: string;
+    sort?: string;
+    order?: string;
   };
 }) {
-  const query = searchParams?.query || "";
-  const { products, found, q } = await getSearchProducts(query);
-
-  const perPage = 2;
-  const maxPage = Math.ceil(products?.length / perPage);
+  const query = searchParams?.q || "";
+  const { sort, order } = { ...searchParams };
+  const { products, found, q } = await getSearchProducts({
+    q: query,
+    sort,
+    order,
+  });
 
   return (
     <div className="relative flex flex-col py-16 px-8 gap-3">
       <div className=" text-xl mx-auto md:mx-24">
-        {found ? (
+        {q && found ? (
           <span className="text-primary-700">
             Showing {products?.length} results{" "}
             {q && (
@@ -41,12 +61,14 @@ export default async function Page({
             )}
           </span>
         ) : (
-          <span>
-            There are no products that match{" "}
-            <strong>
-              "<span className="font-semibold">{q}</span>"
-            </strong>
-          </span>
+          q && (
+            <span>
+              There are no products that match{" "}
+              <strong>
+                "<span className="font-semibold">{q}</span>"
+              </strong>
+            </span>
+          )
         )}
       </div>
 

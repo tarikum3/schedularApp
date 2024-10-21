@@ -1,5 +1,8 @@
 import { ProductCard } from "@/app/components/product";
-import { fetchCollection } from "@lib/services/prismaServices";
+import {
+  fetchCollection,
+  productSortField,
+} from "@lib/services/prismaServices";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -20,8 +23,21 @@ export async function generateMetadata({
   };
 }
 
-async function getCollection(params: { name: string }) {
-  const { products } = await fetchCollection({ title: params!.name });
+async function getCollection(params: {
+  name: string;
+  sort?: string;
+  order?: string;
+}) {
+  const { sort, order } = { ...params };
+  let sortBy: any;
+  if (sort && productSortField.includes(sort)) {
+    sortBy = { field: sort, order: order == "asc" ? order : "desc" };
+  }
+
+  const { products } = await fetchCollection({
+    title: params!.name,
+    ...(sortBy && { sortProduct: sortBy }),
+  });
 
   return {
     products,
@@ -32,10 +48,21 @@ async function getCollection(params: { name: string }) {
 
 export default async function Collection({
   params,
+  searchParams,
 }: {
   params: { name: string };
+  searchParams?: {
+    q?: string;
+    sort?: string;
+    order?: string;
+  };
 }) {
-  const { products, collection } = await getCollection(params);
+  const { sort, order } = { ...searchParams };
+  const { products, collection } = await getCollection({
+    name: params.name,
+    sort,
+    order,
+  });
 
   return (
     <div className="m-10">

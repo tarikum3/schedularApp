@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import { Suspense } from "react";
 
-import FilterList from "./filter";
+import FilterList from ".";
 
 async function CollectionList() {
   const collections = [
-    { title: "women", path: "/women" },
-    { title: "men", path: "/men" },
+    { title: "Women", path: "women" },
+    { title: "Men", path: "men" },
   ];
   return <FilterList list={collections} title="Collections" />;
 }

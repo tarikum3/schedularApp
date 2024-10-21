@@ -34,7 +34,7 @@ export default async function Home() {
         </p>
 
         <Link
-          href="/collection/new-arrivals"
+          href="/search/?sort=createdAt&order=desc"
           className="bg-primary-100 text-primary-700 text-lg font-semibold py-3 px-8 rounded-lg mt-8 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out"
         >
           Explore
@@ -54,7 +54,7 @@ export default async function Home() {
 async function ExploreProducts() {
   const productsPromise = await getHomeProducts();
   const { products } = productsPromise;
-  console.log("productsnewww", products);
+  //console.log("productsnewww", products);
   if (!products.length) return null;
   //await new Promise((resolve) => setTimeout(resolve, 9000)); //  seconds delay
   return (

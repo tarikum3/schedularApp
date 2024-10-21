@@ -107,6 +107,8 @@ const productData2 = {
   options: [{ name: "Size", values: ["S", "M", "L"] }],
 };
 
+export const productSortField = ["name", "createdAt", "price"];
+
 export async function fetchProducts(
   options: FetchProductsOptions
 ): Promise<{ products: Product[]; total: number }> {
@@ -163,7 +165,10 @@ export async function fetchProducts(
       }
     }
     const orderBy = sort
-      ? { [sort.field]: sort.order }
+      ? {
+          [sort.field]:
+            sort.field === "price" ? { amount: sort.order } : sort.order,
+        }
       : ({ createdAt: "desc" } as const);
 
     // Handle pagination
@@ -534,31 +539,52 @@ export async function removeProductFromCollection(
 interface FetchCollectionOptions {
   id?: string;
   title?: string;
+
+  sortProduct?: {
+    field: "name" | "createdAt" | "price";
+    order: "asc" | "desc";
+  };
 }
 
 export async function fetchCollection(
   options: FetchCollectionOptions
 ): Promise<Collection & { products: Product[] }> {
-  const { id, title } = options;
-  const collectionData = {
-    title: "women",
-    description: "women collection.",
-    rules: [
-      {
-        field: "description",
-        condition: "contains",
-        value: "black",
-      },
-    ],
-  };
-  const collectionData2 = {
+  const { id, title, sortProduct } = options;
+  // const collectionData = {
+  //   title: "women",
+  //   description: "women collection.",
+  //   rules: [
+  //     {
+  //       field: "description",
+  //       condition: "contains",
+  //       value: "black",
+  //     },
+  //   ],
+  // };
+  // const collectionData2 = {
+  //   title: "men",
+  //   description: "men collection.",
+  //   rules: [
+  //     {
+  //       field: "description",
+  //       condition: "contains",
+  //       value: "white",
+  //     },
+  //     // {
+  //     //   field: "price",
+  //     //   condition: "greater_than",
+  //     //   value: "20",
+  //     // },
+  //   ],
+  // };
+  const collectionData3 = {
     title: "men",
     description: "men collection.",
     rules: [
       {
         field: "description",
         condition: "contains",
-        value: "white",
+        value: "jacket",
       },
       // {
       //   field: "price",
@@ -567,19 +593,63 @@ export async function fetchCollection(
       // },
     ],
   };
-
-  //createCollection(collectionData);
+  const collectionData4 = {
+    title: "women",
+    description: "women collection.",
+    rules: [
+      {
+        field: "description",
+        condition: "contains",
+        value: "t-shirt",
+      },
+    ],
+  };
   if (!id && !title) {
     throw new Error("Either id or title must be provided.");
   }
 
   try {
-    // const collection1 = await createCollection(collectionData);
-    // const collection2 = await createCollection(collectionData2);
+    // const collection1 = await createCollection(collectionData3);
+    // const collection2 = await createCollection(collectionData4);
     // console.log("collection1", collection1);
     // console.log("collection2", collection2);
     const whereClause = id ? { id } : { title: title as string };
 
+    // const collection = await prisma.collection.findFirst({
+    //   where: whereClause,
+    //   include: {
+    //     products: {
+    //       include: {
+    //         product: {
+    //           include: {
+    //             images: true,
+    //             variants: {
+    //               include: {
+    //                 variantOptions: {
+    //                   include: { optionValue: { include: { option: true } } },
+    //                 },
+    //               },
+    //             },
+    //             price: true,
+    //             options: { include: { values: true } },
+    //           },
+    //         }, // Include the full product details
+    //       },
+
+    //     },
+    //   },
+    // });
+
+    const orderBy = sortProduct
+      ? {
+          product: {
+            [sortProduct.field]:
+              sortProduct.field === "price"
+                ? { amount: sortProduct.order }
+                : sortProduct.order,
+          },
+        }
+      : { product: { createdAt: "desc" } };
     const collection = await prisma.collection.findFirst({
       where: whereClause,
       include: {
@@ -598,8 +668,15 @@ export async function fetchCollection(
                 price: true,
                 options: { include: { values: true } },
               },
-            }, // Include the full product details
+            },
           },
+          // orderBy: {
+          //   product: {
+          //     name: "asc", // Use 'desc' for descending order
+          //   },
+          // },
+          // ...(orderBy&&{orderBy: orderBy}),
+          orderBy: orderBy as any,
         },
       },
     });

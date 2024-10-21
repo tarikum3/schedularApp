@@ -5,7 +5,7 @@ import prisma from "@lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  console.log("forgot1");
+  //console.log("forgot1");
 
   const { email } = await req.json();
 

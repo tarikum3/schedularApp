@@ -34,6 +34,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
         setActive(listItem.title);
       }
     });
+    console.log("pathnamepathname", pathname);
   }, [pathname, list, searchParams]);
 
   return (

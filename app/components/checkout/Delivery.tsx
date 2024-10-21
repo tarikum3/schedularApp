@@ -59,8 +59,8 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
     { value: "BE", label: "Berlin" },
   ];
   const [errorMessage, dispatch] = useFormState(updateCartAction, {} as any);
-  console.log("checkouterrorMessage", errorMessage);
-  console.log("checkoutformData", formData);
+  //console.log("checkouterrorMessage", errorMessage);
+  // console.log("checkoutformData", formData);
   return (
     <form action={dispatch}>
       <div className="space-y-4">

@@ -41,7 +41,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     Credentials({
       async authorize(credentials) {
-        console.log("Invalid credentialssd", credentials);
+        // console.log("Invalid credentialssd", credentials);
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(8) })
           .safeParse(credentials);
@@ -62,7 +62,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      console.log("isLoggedInuser", auth?.user);
+      //console.log("isLoggedInuser", auth?.user);
       const isLoggedIn = !!auth?.user;
       const isOnProfile = nextUrl.pathname.startsWith("/profile");
       //  console.log("isLoggedInuser", auth?.user);
@@ -77,9 +77,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     async signIn({ user, account, profile }) {
       // Here you have access to the user's information
-      console.log("isLoggedInuseremail", "email");
+      //  console.log("isLoggedInuseremail", "email");
       const { name, email } = user;
-      console.log("isLoggedInuseremail", email);
+      // console.log("isLoggedInuseremail", email);
       if (email) {
         try {
           const isuser = await getCustomer({ email });
