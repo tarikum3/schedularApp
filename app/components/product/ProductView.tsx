@@ -1,14 +1,13 @@
 "use client";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC,  } from "react";
 
 import usePrice from "@/lib/use-price";
 import { SEO } from "@/app/components/common";
-import { Button, ErrorMessage } from "@/app/components";
-import { addItem } from "@lib/actions/actions";
+
 
 import { Product } from "@lib/prisma";
-import { useSession } from "next-auth/react";
+
 import { VariantSelector } from "@/app/components/product";
 import { AddToCart } from "@/app/components/cart/AddToCart";
 interface ProductViewProps {
@@ -24,34 +23,14 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
     currencyCode: product.price!.currency!,
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<null | Error>(null);
-  const { data: session, status } = useSession();
-  const variant = product.variants[0];
-  const addToCart = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      await addItem(null, variant ? variant.id : product.variants[0]?.id);
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      if (err instanceof Error) {
-        console.error(err);
-        setError({
-          ...err,
-          message: "Could not add item to cart. Please try again.",
-        });
-      }
-    }
-  };
-
+ 
+ 
   return (
     <>
-      <div className="py-8 px-6 md:py-12 md:px-10 bg-white">
-        <div className="mx-auto grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:gap-x-16 min-h-[500px]">
+      <div className="py-8 px-6 md:py-12 md:px-10 bg-primary-100">
+        <div className="mx-auto grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:gap-x-8 min-h-[500px]">
           {/* Product Image */}
-          <div className="relative flex justify-center lg:order-2 lg:row-span-6 ">
+          <div className="relative flex justify-center lg:order-2  ">
             {product?.images && (
               <Image
                 quality="85"
@@ -81,20 +60,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
               options={product.options}
               variants={product.variants}
             />
-            {/* Add to Cart Button */}
-            {/* <div>
-              {error && <ErrorMessage error={error} className="my-4" />}
-              <Button
-                aria-label="Add to Cart"
-                type="button"
-                className="w-full md:w-2/3 py-3 text-xl font-medium bg-primary-700 text-primary-100 rounded-md hover:bg-primary-600 transition-colors"
-                onClick={addToCart}
-                loading={loading}
-                disabled={variant?.quantity === 0 || !!session?.user}
-              >
-                {variant?.quantity === 0 ? "Not Available" : "Add To Cart"}
-              </Button>
-            </div> */}
+     
             <AddToCart
               variants={product.variants}
               availableForSale={product.availableForSale}

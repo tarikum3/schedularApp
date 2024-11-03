@@ -5,8 +5,8 @@ import FilterList from ".";
 
 async function CollectionList() {
   const collections = [
-    { title: "Women", path: "women" },
-    { title: "Men", path: "men" },
+    { title: "Women", path: "/collection/women" },
+    { title: "Men", path: "/collection/men" },
   ];
   return <FilterList list={collections} title="Collections" />;
 }

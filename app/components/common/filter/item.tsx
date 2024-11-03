@@ -20,7 +20,7 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
   return (
     <li className="mt-2 flex text-black dark:text-white" key={item.title}>
       <DynamicTag
-        href={`/collection/${createUrl(item.path, newParams)}`}
+        href={`${createUrl(item.path, newParams)}`}
         className={clsx(
           "w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100",
           {

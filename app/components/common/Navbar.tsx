@@ -8,10 +8,10 @@ import UserView from "@/app/components/common/UserView";
 const Navbar: FC = async () => {
   return (
     <NavWrapper>
-      <Suspense>
+      <Suspense fallback={<div></div >}>
         <CartWrapper />
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<div></div >}>
         <UserView />
       </Suspense>
     </NavWrapper>

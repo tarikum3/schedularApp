@@ -417,7 +417,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="radio"
                   name="deliveryMethod"
                   value="dhl"
-                  className="h-4 w-4 border-gray-300 bg-white"
+                  className="h-4 w-4 border-gray-300 bg-primary-100"
                   checked={formData.deliveryMethod === "dhl"}
                   onChange={handleRadioChange}
                 />
@@ -439,7 +439,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="radio"
                   name="deliveryMethod"
                   value="fedex"
-                  className="h-4 w-4 border-gray-300 bg-white"
+                  className="h-4 w-4 border-gray-300 bg-primary-100"
                   checked={formData.deliveryMethod === "fedex"}
                   onChange={handleRadioChange}
                 />
@@ -476,7 +476,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="radio"
                   name="paymentMethod"
                   value="creditCard"
-                  className="h-4 w-4 border-gray-300 bg-white"
+                  className="h-4 w-4 border-gray-300 bg-primary-100"
                   checked={formData.paymentMethod === "creditCard"}
                   onChange={handleRadioChange}
                 />
@@ -501,7 +501,7 @@ const Delivery = ({ cart }: { cart: Cart | undefined }) => {
                   type="radio"
                   name="paymentMethod"
                   value="paypal"
-                  className="h-4 w-4 border-gray-300 bg-white"
+                  className="h-4 w-4 border-gray-300 bg-primary-100"
                   checked={formData.paymentMethod === "paypal"}
                   onChange={handleRadioChange}
                 />

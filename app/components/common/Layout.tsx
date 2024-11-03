@@ -2,8 +2,7 @@ import { Footer } from "@/app/components/common";
 import Navbar from "@/app/components/common/Navbar";
 import ModalUI from "@/app/components/common/ModalUI";
 
-import { ManagedUIContext } from "@/app/components/context";
-import { SessionProvider } from "next-auth/react";
+import SessionWrapper from "@/app/components/common/SessionWrapper";
 import { Suspense } from "react";
 interface Props {
   children?: React.ReactNode;
@@ -11,8 +10,7 @@ interface Props {
 
 const Layout: React.FC<Props> = async ({ children }) => {
   return (
-    <SessionProvider>
-      <ManagedUIContext>
+    <SessionWrapper>
         <div className="h-full max-w-[2460px] bg-primary-100 mx-auto transition-colors duration-150">
           <Navbar />
 
@@ -22,12 +20,11 @@ const Layout: React.FC<Props> = async ({ children }) => {
               <Footer />
             </Suspense>
           </Suspense>
-          <Suspense>
+          <Suspense fallback={<div></div>}>
             <ModalUI />
           </Suspense>
         </div>
-      </ManagedUIContext>
-    </SessionProvider>
+        </SessionWrapper>
   );
 };
 

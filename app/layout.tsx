@@ -29,14 +29,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+   
     <html lang="en">
       <body className={inter.className}>
-        <Suspense>
-          <Layout>
-            <Suspense>{children}</Suspense>
+   
+      
+      <Layout>
+      {children}
           </Layout>
-        </Suspense>
       </body>
     </html>
+    
   );
 }

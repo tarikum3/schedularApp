@@ -44,7 +44,7 @@ export default function ResetPassword() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg bg-white"
+      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg bg-primary-100"
     >
       <div className="flex justify-center pb-8">
         <Logo width="64px" height="64px" />

@@ -26,7 +26,7 @@ const Searchbar: FC = () => {
   };
 
   return (
-    <div className="relative pr-3 flex  justify-between border border-primary-300 rounded-xl items-center text-2xl bg-primary-100text-primary-900  w-full transition-colors duration-150 ">
+    <div className="relative pr-3 flex  justify-between border border-primary-300 rounded-xl items-center text-2xl bg-primary-100 text-primary-900  w-full transition-colors duration-150 ">
       <label className="hidden" htmlFor="search">
         Search
       </label>

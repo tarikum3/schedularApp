@@ -1,18 +1,17 @@
 import prisma, { Product, Collection } from "@lib/prisma";
-//import { cookies } from "next/headers";
-
-//import { getCart } from "@lib/services";
-//import { getCart } from "@lib/services/prismaServices";
-//import { unstable_cache } from "next/cache";
 import { TAGS } from "@lib/const";
 import { getCartItem, getCartByIdUtil } from "@lib/actions/actions";
 export { getCartItem, getCartByIdUtil };
 import { ReadonlyURLSearchParams } from "next/navigation";
+import { twMerge } from 'tailwind-merge';
+import clsx, { ClassValue } from 'clsx';
 interface Rule {
   field: string;
   condition: string;
   value: string;
 }
+//export type ProductFields = keyof Product extends string ? keyof Product : never;
+
 export type ProductFields = keyof Product;
 function isValidField(field: string): field is ProductFields {
   return [
@@ -39,7 +38,7 @@ export async function applyCollectionRules(collectionId: string) {
   const products = await prisma.product.findMany();
 
   const matchingProducts = products.filter((product: any) => {
-    return collection.rules.every((rule) => {
+    return collection.rules.every((rule:any) => {
       if (!isValidField(rule.field)) {
         console.warn(`Field ${rule.field} is not valid on the product.`);
         return false;
@@ -70,7 +69,7 @@ export async function applyCollectionRules(collectionId: string) {
   });
 
   await prisma.productCollection.createMany({
-    data: matchingProducts.map((product) => ({
+    data: matchingProducts.map((product:any) => ({
       productId: product.id,
       collectionId,
     })),
@@ -168,4 +167,12 @@ export const createUrl = (
   const queryString = `${paramsString.length ? "?" : ""}${paramsString}`;
 
   return `${pathname}${queryString}`;
+};
+
+
+
+
+
+export const cn = (...inputs: ClassValue[]) => {
+  return twMerge(clsx(inputs));
 };

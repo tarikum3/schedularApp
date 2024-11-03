@@ -38,7 +38,7 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
   return (
     <div className="fixed bg-black bg-opacity-50 flex items-center justify-center inset-0 z-50">
       <div
-        className="bg-white p-8 md:p-12 rounded-lg shadow-lg relative border border-gray-200 focus:outline-none"
+        className="bg-primary-100 p-8 md:p-12 rounded-lg shadow-lg relative border border-gray-200 focus:outline-none"
         role="dialog"
         ref={ref}
       >

@@ -21,7 +21,7 @@ const ProductCard: FC<Props> = ({ product }) => {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="relative w-full max-w-sm bg-white rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out overflow-hidden cursor-pointer"
+      className="relative w-full max-w-sm bg-primary-100 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out overflow-hidden cursor-pointer"
       aria-label={product.name}
     >
       {/* Image Section */}
