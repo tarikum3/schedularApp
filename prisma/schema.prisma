@@ -430,7 +430,7 @@ model ProductOptionValue {
 model VariantOption {
   id              String            @id @default(uuid())
   variantId       String
-  variant         ProductVariant    @relation(fields: [variantId], references: [id])
+  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade) // Specify onDelete here
   optionValueId   String
   optionValue     ProductOptionValue @relation(fields: [optionValueId], references: [id])
 

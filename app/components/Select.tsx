@@ -38,14 +38,14 @@ const Select: React.FC<SelectProps> = ({
       <div className="mb-2 flex items-center gap-2">
         <label
           htmlFor={`select-${label}`}
-          className="block text-sm font-medium text-primary-900 dark:text-primary-100"
+          className="block text-sm font-medium text-primary-900 "
         >
           {label}
         </label>
       </div>
       <select
         id={`select-${label}`}
-        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-primary-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-primary-100 dark:placeholder:text-primary-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+        className="block w-full rounded-lg border border-primary-500 text-primary-900 bg-primary-100 p-2.5 text-sm  focus:outline-none shadow-outline-normal  "
         onChange={handleChange}
         name={name}
         value={selectedValue}

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getCartByIdUtil } from "@/lib/helper";
+import { getCartByIdUtil ,deleteCookies} from "@/lib/helper";
 //export const runtime = "edge";
 import { cookies } from "next/headers";
 export const dynamic = "force-dynamic";
@@ -21,8 +21,8 @@ export default async function Payment() {
   if (cart?.step != "payment") {
     return notFound();
   }
-
-  cookies().delete("cartId");
+  await deleteCookies("cartId");
+ // cookies().delete("cartId");
   return (
     <div className="m-10">
       <p className="capitalize text-5xl text-primary-900 text-center font-bold mb-12">

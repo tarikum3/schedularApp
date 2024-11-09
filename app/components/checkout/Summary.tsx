@@ -9,21 +9,21 @@ const Summary = ({ cart }: { cart: Cart | undefined }) => {
     // <div className="min-w-80 w-1  space-y-8 m-3 p-4 border">
     <div className="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
       <div className="">
-        <div className="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
+        <div className="-my-3 divide-y divide-primary-200">
           <dl className="flex items-center justify-between gap-4 py-3">
-            <dt className="text-base font-normal text-primary-500 dark:text-primary-400">
+            <dt className="text-base font-normal text-primary-900 ">
               Subtotal
             </dt>
-            <dd className="text-base font-medium text-primary-900 dark:text-primary-100">
+            <dd className="text-base font-medium text-primary-900 ">
               {cart?.subtotalPrice}
             </dd>
           </dl>
 
           <dl className="flex items-center justify-between gap-4 py-3">
-            <dt className="text-base font-normal text-primary-500 dark:text-primary-400">
+            <dt className="text-base font-normal text-primary-900 ">
               Shipping
             </dt>
-            <dd className="text-base font-medium text-primary-900 dark:text-primary-100">
+            <dd className="text-base font-medium text-primary-900 d">
               {cart?.deliveryMethod == "fedex"
                 ? 10
                 : cart?.deliveryMethod == "dhl"
@@ -33,19 +33,19 @@ const Summary = ({ cart }: { cart: Cart | undefined }) => {
           </dl>
 
           <dl className="flex items-center justify-between gap-4 py-3">
-            <dt className="text-base font-normal text-primary-500 dark:text-primary-400">
+            <dt className="text-base font-normal text-primary-900 ">
               Tax
             </dt>
-            <dd className="text-base font-medium text-primary-900 dark:text-primary-100">
+            <dd className="text-base font-medium text-primary-900 ">
               15%
             </dd>
           </dl>
 
           <dl className="flex items-center justify-between gap-4 py-3">
-            <dt className="text-base font-bold text-primary-900 dark:text-primary-100">
+            <dt className="text-base font-bold text-primary-900 ">
               Total
             </dt>
-            <dd className="text-base font-bold text-primary-900 dark:text-primary-100">
+            <dd className="text-base font-bold text-primary-900 ">
               {cart?.totalPrice}
             </dd>
           </dl>

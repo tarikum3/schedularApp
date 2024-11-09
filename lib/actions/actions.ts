@@ -28,6 +28,14 @@ export async function getCartByIdUtil() {
   }
   return cart;
 }
+export async function deleteCookies (cookieName:string)  {
+  
+ 
+ 
+  cookies().delete(cookieName);
+  revalidateTag(TAGS.cart);
+  
+};
 const getCartItem = unstable_cache(
   async (id) => {
     const cart = await getCart(id);

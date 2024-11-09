@@ -1,7 +1,7 @@
 import prisma, { Product, Collection } from "@lib/prisma";
 import { TAGS } from "@lib/const";
-import { getCartItem, getCartByIdUtil } from "@lib/actions/actions";
-export { getCartItem, getCartByIdUtil };
+import { getCartItem, getCartByIdUtil,deleteCookies } from "@lib/actions/actions";
+export { getCartItem, getCartByIdUtil ,deleteCookies};
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { twMerge } from 'tailwind-merge';
 import clsx, { ClassValue } from 'clsx';

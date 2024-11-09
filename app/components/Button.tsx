@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       className={` inline-flex items-center justify-center min-h-[44px] max-h-[64px] text-primary-100 p-3 text-xs rounded-xl
       ${className} ${
         disabled || loading
-          ? "bg-primary-300 cursor-not-allowed"
+          ? "bg-primary-400 cursor-not-allowed"
           : "bg-primary-900 "
       } `}
       disabled={disabled}

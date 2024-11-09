@@ -16,8 +16,9 @@ const Input: React.FC<InputProps> = (props) => {
     return null;
   };
 
+
   const defaultClasses = `${className} bg-primary-100 py-2 px-6 w-full appearance-none rounded-xl
-  pr-10 border border-primary-500 text-primary-500 focus:outline-none shadow-outline-normal`;
+  pr-10 border border-primary-500 text-primary-800 focus:outline-none shadow-outline-normal`;
   const checkboxClass = "mr-2 h-4 w-4";
   const classFull = `${
     props.type == "checkbox" ? checkboxClass : defaultClasses
