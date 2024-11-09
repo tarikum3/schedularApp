@@ -98,7 +98,7 @@ export default function VariantSelector({
                 !isAvailableForSale ? " (Out of Stock)" : ""
               }`}
               className={clsx(
-                "flex min-w-[48px] items-center text-primary-900 justify-center rounded-full border bg-primary-300 px-2 py-1 text-sm ",
+                "flex min-w-[48px] items-center  justify-center rounded-full  bg-primary-300 px-2 py-1 text-sm ",
                 {
                   "cursor-default text-primary-900 border border-primary-900": isActive,
                   " transition duration-300 ease-in-out hover:scale-110  text-primary-900":

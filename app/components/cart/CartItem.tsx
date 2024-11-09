@@ -9,6 +9,7 @@ import usePrice from "@/lib/use-price";
 
 import { EditItemQuantityButton } from "./EditCart";
 import { DeleteItemButton } from "./DeleteButton";
+import {  Button } from "@/app/components";
 type ItemOption = {
   name: string;
   nameId: number;
@@ -42,7 +43,7 @@ const CartItem = ({
       setQuantity(item.quantity);
     }
   }, [item.quantity]);
-
+console.log("carttitem",item);
   return (
     <li
       className={`flex flex-col md:flex-row md:items-center md:justify-between py-4 ${
@@ -53,8 +54,8 @@ const CartItem = ({
       <div className="flex space-x-4 py-4">
         <div className=" relative w-[80px] h-[80px] bg-primary-200 rounded-lg overflow-hidden cursor-pointer">
           <Link
-            className="relative block h-full w-full"
-            href={`/product/${(item as any).path}`}
+            className="relative block h-full w-full "
+            href={`/product/${(item as any)?.variant?.product?.slug}`}
           >
             <Image
               // className="w-full h-full object-cover"
@@ -85,7 +86,7 @@ const CartItem = ({
         <div className="flex items-center space-x-2">
           <button
             type="button"
-            className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 disabled:bg-gray-100"
+            className="p-2 bg-primary-200 rounded-md hover:bg-primary-300 disabled:bg-primary-100"
             disabled={quantity <= 1}
             // onClick={() => increaseQuantity(-1)}
           >
@@ -94,7 +95,7 @@ const CartItem = ({
           <span className="px-3 text-sm font-medium">{quantity}</span>
           <button
             type="button"
-            className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 disabled:bg-gray-100"
+            className="p-2 bg-primary-200 rounded-md hover:bg-primary-300 disabled:bg-primary-100"
             disabled={quantity >= max}
             // onClick={() => increaseQuantity(1)}
           >
@@ -103,7 +104,7 @@ const CartItem = ({
         </div>
 
         <button
-          className="p-2 bg-red-500 text-primary-100 rounded-md hover:bg-red-600 disabled:bg-gray-100"
+          className="p-2 bg-primary-500 text-primary-100 rounded-md hover:bg-primary-600 disabled:bg-primary-100"
           // onClick={handleRemove}
         >
           <DeleteItemButton item={item} />

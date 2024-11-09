@@ -76,35 +76,10 @@ export async function applyCollectionRules(collectionId: string) {
   });
 }
 
-// const getCartItem = unstable_cache(
-//   async (id) => {
-//     const cart = await getCart(id);
-//     // const subtotalPrice = cart.items.reduce((total, item) => {
-//     //   return (total += item.variant.price);
-//     // }, 0);
-//     // const totalPrice = subtotalPrice + (subtotalPrice * 15) / 100;
-//     let cartC = addComputedCartPrices(cart);
-//     // return { ...cart, subtotalPrice, totalPrice, currency: "ETB" };
-//     return cartC;
-//   },
-//   [],
-//   {
-//     tags: [TAGS.cart],
-//   }
-// );
 
-// export async function getCartByIdUtil() {
-//   const cartId = cookies().get("cartId")?.value;
-//   let cart;
-
-//   if (cartId) {
-//     cart = await getCartItem(cartId);
-//   }
-//   return cart;
-// }
 export function addComputedCartPrices(cart: any) {
   const subtotalPrice = cart?.items?.reduce((total: any, item: any) => {
-    return (total += item.variant.price);
+    return (total += item.variant.price * item.quantity);
   }, 0);
   const delivery =
     cart?.deliveryMethod == "fedex"

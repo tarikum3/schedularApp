@@ -31,7 +31,7 @@ const CartView = ({ cart }: { cart: Cart | undefined }) => {
     setDropdown(dropdown === current ? "" : current);
     setDisplay(true);
   };
-
+  console.log("cartt",cart);
   return (
     <div className="relative">
       <button
