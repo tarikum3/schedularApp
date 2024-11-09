@@ -61,15 +61,7 @@ export default function VariantSelector({
           optionSearchParams.set(optionNameLowerCase, OptionValue.value);
           const optionUrl = createUrl(pathname, optionSearchParams);
 
-          // In order to determine if an option is available for sale, we need to:
-          //
-          // 1. Filter out all other param state
-          // 2. Filter out invalid options
-          // 3. Check if the option combination is available for sale
-          //
-          // This is the "magic" that will cross check possible variant combinations and preemptively
-          // disable combinations that are not available. For example, if the color gray is only available in size medium,
-          // then all other sizes should be disabled.
+       
           const filtered = Array.from(optionSearchParams.entries()).filter(
             ([key, value]) =>
               options.find(
@@ -106,10 +98,10 @@ export default function VariantSelector({
                 !isAvailableForSale ? " (Out of Stock)" : ""
               }`}
               className={clsx(
-                "flex min-w-[48px] items-center justify-center rounded-full border bg-primary-300 px-2 py-1 text-sm ",
+                "flex min-w-[48px] items-center text-primary-900 justify-center rounded-full border bg-primary-300 px-2 py-1 text-sm ",
                 {
-                  "cursor-default ": isActive,
-                  " transition duration-300 ease-in-out hover:scale-110  ":
+                  "cursor-default text-primary-900 border border-primary-900": isActive,
+                  " transition duration-300 ease-in-out hover:scale-110  text-primary-900":
                     !isActive && isAvailableForSale,
                   " cursor-not-allowed  bg-primary-300 text-primary-500   ":
                     !isAvailableForSale,

@@ -53,7 +53,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
             </h1>
 
             {/* Price */}
-            <div className="text-2xl font-semibold text-primary-800">
+            <div className="text-2xl font-semibold text-primary-900">
               {price}
             </div>
             <VariantSelector
@@ -66,10 +66,11 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
               availableForSale={product.availableForSale}
             />
             {/* Product Description */}
-            <p className="text-lg text-primary-600">{product.description}</p>
+            <p className="text-lg text-primary-800 tracking-normal">{product.description}</p>
           </div>
         </div>
       </div>
+
 
       <SEO
         title={product.name}

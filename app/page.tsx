@@ -23,19 +23,19 @@ export const metadata = {
 export default async function Home() {
   return (
     <>
-      <div className="relative flex flex-col items-center justify-center bg-primary-700 py-16 px-8 w-4/5 mx-auto h-[70vh] rounded-xl mt-20 mb-12 shadow-lg">
+      <div className="relative flex flex-col items-center justify-center bg-primary-900 py-16 px-8 w-4/5 mx-auto h-[70vh] rounded-xl mt-20 mb-12 shadow-lg">
         <h2 className="text-3xl text-center text-primary-100 font-bold tracking-tight font-serif mb-4 md:text-5xl">
           New Arrivals
         </h2>
 
-        <p className="text-base text-center text-primary-300 font-light leading-relaxed lg:text-lg max-w-lg">
+        <p className="text-base text-center text-primary-100 font-light leading-relaxed lg:text-lg max-w-lg">
           Explore the latest trends in fashion and discover stylish new clothing
           in our shop.
         </p>
 
         <Link
           href="/search/?sort=createdAt&order=desc"
-          className="bg-primary-100 text-primary-700 text-lg font-semibold py-3 px-8 rounded-lg mt-8 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out"
+          className="bg-primary-100 text-primary-800 text-lg font-semibold py-3 px-8 rounded-lg mt-8 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out"
         >
           Explore
         </Link>
@@ -59,7 +59,7 @@ async function ExploreProducts() {
   //await new Promise((resolve) => setTimeout(resolve, 9000)); //  seconds delay
   return (
     <>
-      <p className="text-xl text-primary-900 font-semibold mb-8 md:mx-24 lg:text-2xl">
+      <p className="text-xl text-primary-900 font-semibold mb-8 lg:text-2xl">
         Explore Products
       </p>
       <div className="grid grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">

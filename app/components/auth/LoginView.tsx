@@ -39,7 +39,7 @@ const LoginView: React.FC = () => {
 
         <div className="flex justify-center pt-4">
           <LoginButton
-          // className="w-full bg-primary-700 hover:bg-primary-800 text-primary-100 py-2 rounded-md"
+          // className="w-full bg-primary-700 hover:bg-primary-900 text-primary-100 py-2 rounded-md"
           />
         </div>
 
@@ -92,7 +92,7 @@ function LoginButton() {
   return (
     <Button
       // className="w-full bg-primary-600 text-primary-100 py-2 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
-      className="w-full bg-primary-700 hover:bg-primary-800 text-primary-100 py-2 rounded-md"
+      className="w-full bg-primary-700 hover:bg-primary-900 text-primary-100 py-2 rounded-md"
       type="submit"
       loading={pending}
       disabled={pending}
