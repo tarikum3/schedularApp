@@ -15,11 +15,11 @@ export const metadata: Metadata = {
   },
 };
 export default async function Checkout() {
-  const cartId = cookies().get("cartId")?.value;
+ // const cartId = cookies().get("cartId")?.value;
 
-  if (!cartId) {
-    return notFound;
-  }
+  // if (!cartId) {
+  //   return notFound;
+  // }
 
   return (
     <>
