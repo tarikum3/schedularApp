@@ -50,7 +50,7 @@ const Footer: FC = () => {
             <span key={page.url} className="mt-5 ">
               <Link
                 href={page.url!}
-                className="font-medium tracking-normal  text-primary-900 text-xs hover:text-primary-500 transition ease-in-out duration-150"
+                className="font-medium tracking-normal  text-primary-900 text-sm  hover:text-primary-500 transition ease-in-out duration-150"
               >
                 {page.name}
               </Link>
@@ -63,7 +63,7 @@ const Footer: FC = () => {
             contact
           </span>
 
-          <span className="font-medium  text-primary-900 mt-5 text-xs ">
+          <span className="font-medium  text-primary-900 mt-5 text-sm ">
             tarikum3@gmail.com
           </span>
         </div>
