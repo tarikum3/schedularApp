@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCartByIdUtil ,deleteCookies} from "@/lib/helper";
 //export const runtime = "edge";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Payment",
