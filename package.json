@@ -7,13 +7,7 @@
     "build": "next build",
     "start": "next start",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
-    "lint": "next lint",
-    "prisma-clear": "ts-node prisma/clear.ts",
-    "prisma-seed": "ts-node prisma/seed.ts"
-  },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
-    "clear": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/clear.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
