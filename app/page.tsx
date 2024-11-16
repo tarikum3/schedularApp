@@ -13,7 +13,7 @@ const getHomeProducts = async () => {
 };
 
 //export const revalidate = 3600;
-
+//export const revalidate = 3600;
 export const metadata = {
   description: "Modalinda shop.",
   openGraph: {
