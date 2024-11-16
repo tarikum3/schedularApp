@@ -9,7 +9,7 @@ import { Suspense } from "react";
 const inter = Inter({ subsets: ["latin"] });
 const { SITE_NAME } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  ? `http://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   : "http://localhost:3000";
 export const metadata = {
   metadataBase: new URL(baseUrl),
