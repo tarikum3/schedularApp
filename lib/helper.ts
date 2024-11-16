@@ -38,7 +38,7 @@ export async function applyCollectionRules(collectionId: string) {
   const products = await prisma.product.findMany();
 
   const matchingProducts = products.filter((product: any) => {
-    return collection.rules.every((rule:any) => {
+    return collection.rules.some((rule:any) => {
       if (!isValidField(rule.field)) {
         console.warn(`Field ${rule.field} is not valid on the product.`);
         return false;

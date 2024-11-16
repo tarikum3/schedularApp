@@ -22,90 +22,7 @@ interface FetchProductsOptions {
     order: "asc" | "desc";
   };
 }
-const productData = {
-  name: "White T-shirt",
-  description: "A comfortable and stylish white T-shirt.",
-  //descriptionHtml: "<p>A comfortable and stylish white T-shirt.</p>",
-  sku: "TSHIRT-White",
-  category: "Top",
-  //slug: "white-t-shirt",
-  //path: "/white-t-shirt",
-  //vendor: "Fashion Co.",
-  tags: ["clothing", "t-shirt", "white", "women"],
-  images: [
-    {
-      url: "https://qvkdnhfbjppmzromhdae.supabase.co/storage/v1/object/public/images/public/t-shirt-3.png",
-    },
-    // { url: "https://example.com/images/white-tshirt-back.jpg" },
-  ],
-  variants: [
-    {
-      name: "White T-shirt - Small",
-      // sku: "TSHIRT-White-S",
-      price: 19.99,
-      quantity: 2,
-    },
-    {
-      name: "White T-shirt - Medium",
-      //sku: "TSHIRT-White-M",
-      price: 19.99,
-      quantity: 3,
-    },
-    {
-      name: "White T-shirt - Large",
-      //sku: "TSHIRT-White-L",
-      price: 19.99,
-      quantity: 1,
-    },
-  ],
-  price: {
-    amount: 19.99,
-    currency: "ETB",
-  },
-  options: [{ name: "Size", values: ["S", "M", "L"] }],
-};
-const productData2 = {
-  name: "Black T-shirt",
-  description: "A comfortable and stylish black T-shirt.",
-  //descriptionHtml: "<p>A comfortable and stylish black T-shirt.</p>",
-  sku: "TSHIRT-black",
-  category: "Top",
-  //slug: "black-t-shirt",
-  //path: "/black-t-shirt",
-  //vendor: "Fashion Co.",
-  tags: ["clothing", "t-shirt", "black", "men"],
-  images: [
-    {
-      url: "https://qvkdnhfbjppmzromhdae.supabase.co/storage/v1/object/public/images/public/0d6ae87c-5049-4a31-a279-55f4bad71e5e-t-shirt-1.png",
-    },
-    // { url: "https://example.com/images/black-tshirt-back.jpg" },
-  ],
-  variants: [
-    {
-      name: "Black T-shirt - Small",
-      // sku: "TSHIRT-Black-S",
-      price: 19.99,
-      quantity: 2,
-    },
-    {
-      name: "Black T-shirt - Medium",
-      // sku: "TSHIRT-Black-M",
-      price: 19.99,
-      quantity: 3,
-    },
-    {
-      name: "Black T-shirt - Large",
-      // sku: "TSHIRT-Black-L",
-      price: 19.99,
-      quantity: 1,
-    },
-  ],
-  price: {
-    amount: 19.99,
-    currency: "ETB",
-  },
-  options: [{ name: "Size", values: ["S", "M", "L"] }],
-};
+
 
 export const productSortField = ["name", "createdAt", "price"];
 
@@ -546,37 +463,42 @@ interface FetchCollectionOptions {
   };
 }
 
+
+export async function seedCollections() {
+  const collections = [
+    {
+      title: "men",
+      description: "Collection of men's clothing and accessories.",
+      rules: [
+        { field: "name", condition: "contains", value: "Shoes" },
+        { field: "name", condition: "contains", value: "T-Shirt Spiral" },
+        { field: "name", condition: "contains", value: "Bomber Jacket" },
+        { field: "name", condition: "contains", value: "Hat" },
+        { field: "name", condition: "contains", value: "Hoodie" },
+      ],
+    },
+    {
+      title: "women",
+      description: "Collection of women's clothing and accessories.",
+      rules: [
+        { field: "name", condition: "contains", value: "Baby Cap" },
+        { field: "name", condition: "contains", value: "T-Shirt" },
+      ],
+    },
+  ];
+
+  for (const collectionData of collections) {
+    await createCollection(collectionData);
+  }
+
+  console.log("Collections seeded successfully!");
+}
+
 export async function fetchCollection(
   options: FetchCollectionOptions
 ): Promise<Collection & { products: Product[] }> {
   const { id, title, sortProduct } = options;
-  // const collectionData = {
-  //   title: "women",
-  //   description: "women collection.",
-  //   rules: [
-  //     {
-  //       field: "description",
-  //       condition: "contains",
-  //       value: "black",
-  //     },
-  //   ],
-  // };
-  // const collectionData2 = {
-  //   title: "men",
-  //   description: "men collection.",
-  //   rules: [
-  //     {
-  //       field: "description",
-  //       condition: "contains",
-  //       value: "white",
-  //     },
-  //     // {
-  //     //   field: "price",
-  //     //   condition: "greater_than",
-  //     //   value: "20",
-  //     // },
-  //   ],
-  // };
+ 
   const collectionData3 = {
     title: "men",
     description: "men collection.",
@@ -609,10 +531,11 @@ export async function fetchCollection(
   }
 
   try {
-    // const collection1 = await createCollection(collectionData3);
-    // const collection2 = await createCollection(collectionData4);
-    // console.log("collection1", collection1);
-    // console.log("collection2", collection2);
+  //  const rrrr=  await fetchCollections()
+  //    console.log("collectionnn", rrrr);
+    
+  //const seedddrr=  await seedCollections();
+  
     const whereClause = id ? { id } : { title: title as string };
 
     // const collection = await prisma.collection.findFirst({
