@@ -531,10 +531,7 @@ export async function fetchCollection(
   }
 
   try {
-  //  const rrrr=  await fetchCollections()
-  //    console.log("collectionnn", rrrr);
-    
-  //const seedddrr=  await seedCollections();
+
   
     const whereClause = id ? { id } : { title: title as string };
 
