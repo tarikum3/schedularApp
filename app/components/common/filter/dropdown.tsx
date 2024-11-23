@@ -10,7 +10,7 @@ import { FilterItem } from "./item";
 export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState("All");
   const [openSelect, setOpenSelect] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -34,7 +34,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
         setActive(listItem.title);
       }
     });
-    console.log("pathnamepathname", pathname);
+  //  console.log("pathnamepathname", pathname);
   }, [pathname, list, searchParams]);
 
   return (
@@ -43,7 +43,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
         onClick={() => {
           setOpenSelect(!openSelect);
         }}
-        className="flex w-full items-center justify-between rounded border border-black/30 px-4 py-2 text-sm dark:border-white/30"
+        className="flex w-full items-center justify-between rounded border border-black/30 px-4 py-2 text-sm "
       >
         <div>{active}</div>
         {/* <ChevronDownIcon className="h-4" /> */}
@@ -53,7 +53,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
           onClick={() => {
             setOpenSelect(false);
           }}
-          className="absolute z-40 w-full rounded-b-md bg-primary-100 p-4 shadow-md dark:bg-black"
+          className="absolute z-40 w-full rounded-b-md bg-primary-100 p-4 shadow-md"
         >
           {list.map((item: ListItem, i) => (
             <FilterItem key={i} item={item} />

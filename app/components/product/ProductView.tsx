@@ -28,9 +28,9 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
   return (
     <>
       <div className="py-8 px-6 md:py-12 md:px-10 bg-primary-100">
-        <div className="mx-auto grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:gap-x-8 min-h-[500px]">
+        <div className="mx-auto grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:gap-x-8 ">
           {/* Product Image */}
-          <div className="relative flex justify-center lg:order-2  ">
+          <div className="relative flex justify-center lg:order-1 lg:col-span-2 ">
             {product?.images && (
               <Image
                 quality="85"
@@ -40,13 +40,13 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                 // width={400}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover rounded-lg shadow-lg"
+               className="object-contain "
               />
             )}
           </div>
 
           {/* Product Details */}
-          <div className="lg:order-1 lg:mt-0 space-y-6">
+          <div className="lg:order-2 lg:mt-0 space-y-6 lg:col-span-1">
             {/* Product Name */}
             <h1 className="text-4xl font-bold text-primary-900">
               {product.name}
@@ -61,12 +61,13 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
               variants={product.variants}
             />
      
+         
+            {/* Product Description */}
+            <p className="text-lg text-primary-800 tracking-normal">{product.description}</p>
             <AddToCart
               variants={product.variants}
               availableForSale={product.availableForSale}
             />
-            {/* Product Description */}
-            <p className="text-lg text-primary-800 tracking-normal">{product.description}</p>
           </div>
         </div>
       </div>
@@ -92,5 +93,6 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
     </>
   );
 };
+
 
 export default ProductView;
