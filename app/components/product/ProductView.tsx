@@ -39,8 +39,9 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                 // height={400}
                 // width={400}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes='(min-width: 768px) 33vw, 100vw'
                className="object-contain "
+               
               />
             )}
           </div>

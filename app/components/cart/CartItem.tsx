@@ -63,11 +63,12 @@ console.log("carttitem",item);
               // height={80}
               quality="85"
               fill
-              sizes="(max-width: 768px) 33vw,  10vw"
+              sizes="10vw"
               src={
                 (item as any).variant?.product?.images[0]?.url || placeholderImg
               }
               alt={item.variant.image?.alt || "Product Image"}
+              
             />
           </Link>
         </div>

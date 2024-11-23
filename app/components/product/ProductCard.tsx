@@ -21,7 +21,7 @@ const ProductCard: FC<Props> = ({ product }) => {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="relative w-full max-w-sm bg-primary-100 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out overflow-hidden cursor-pointer"
+      className="relative w-full bg-primary-100 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out overflow-hidden cursor-pointer"
       aria-label={product.name}
     >
       {/* Image Section */}
@@ -33,10 +33,12 @@ const ProductCard: FC<Props> = ({ product }) => {
           // height={540}
           quality="85"
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes='(min-width: 768px) 33vw, 100vw'
           style={{
-            objectFit: "cover", // cover, contain, none
+            objectFit: "contain", // cover, contain, none
+          
           }}
+          
         />
       </div>
 
