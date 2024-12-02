@@ -7,9 +7,10 @@ import type { Cart } from "@lib/types";
 
 
 const Loading = () => (
-    <Bag className="w-6 h-6">
-     
-    </Bag>
+    <div className="absolute right-0 w-[80vw] mt-2 md:w-[700px] max-w-[80vw] h-[80vh] bg-primary-100 rounded-md shadow-xl  z-50">
+      {/* <LoadingDots /> */}
+      Loading...
+    </div>
   );
   
   const dynamicProps = {
