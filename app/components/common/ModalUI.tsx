@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import LoginView from "@/app/components/auth/LoginView";
+//import LoginView from "@/app/components/auth/LoginView";
 import { useUI } from "@/app/components/context";
 
 const Loading = () => (
@@ -14,7 +14,10 @@ const Loading = () => (
 const dynamicProps = {
   loading: Loading,
 };
-
+const LoginView = dynamic(() => import("@/app/components/auth/LoginView"), {
+  ...dynamicProps,
+  ssr: false,
+});
 const SignUpView = dynamic(() => import("@/app/components/auth/SignUpView"), {
   ...dynamicProps,
   ssr: false,
