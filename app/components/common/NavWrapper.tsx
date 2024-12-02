@@ -8,7 +8,30 @@ import { Searchbar } from "@/app/components/common";
 import { Search as SearchIcon } from "@/app/components/icons";
 
 import React from "react";
+import ContainerNav from "@/app/components/common/ContainerNav";
 
+
+// const ContainerFB = () => (
+//   <div
+//   className={`sticky  top-0 min-h-[74px] bg-primary-100  z-40 transition-all duration-150  px-6`}
+// >
+// </div>
+// );
+// const ContainerNav = dynamic(() => import("@/app/components/common/ContainerNav"), {
+//   loading: ContainerFB,
+//   ssr: false,
+// });
+
+
+
+// const CartWrapper = dynamic(() => import("@/app/components/cart/CartWrapper"), {
+//   loading: CartWrapperFB,
+//  // ssr: false,
+// });
+// const UserView = dynamic(() => import("@/app/components/common/UserView"), {
+//   loading: UserViewFB,
+//   ssr: false,
+// });
 const links = [
   {
     name: "Home",
@@ -28,37 +51,14 @@ interface Props {
   children?: React.ReactNode;
 }
 const NavWrapper: FC<Props> = ({ children }) => {
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const [itemsCount, setItemsCount] = useState(0);
+  
   const [searchExtend, setSearchExtend] = useState(false);
-  // console.log("navwrapper", hasScrolled);
-  useEffect(() => {
-    const handleScroll = async () => {
-      const throttle = (await import("lodash.throttle")).default;
-      const fun = throttle(() => {
-        const offset = 0;
-        const { scrollTop } = document.documentElement;
-        const scrolled = scrollTop > offset;
+  
 
-        if (hasScrolled !== scrolled) {
-          setHasScrolled(scrolled);
-        }
-      }, 200);
-      fun();
-    };
-
-    document.addEventListener("scroll", handleScroll);
-
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-    };
-  }, [hasScrolled]);
 
   return (
-    <div
-      className={`${
-        hasScrolled ? "shadow-magical " : ""
-      }sticky  top-0 min-h-[74px] bg-primary-100  z-40 transition-all duration-150  px-6`}
+    <ContainerNav
+    
     >
       <div className="relative flex flex-row items-center gap-1 justify-between py-4 md:py-4">
         <div className="flex items-center flex-auto ">
@@ -67,6 +67,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
             // className={s.logo}
             className="cursor-pointer rounded-full border transform duration-100 ease-in-out hover:shadow-md"
             aria-label="Logo"
+            prefetch={false}
           >
             <Logo className="size-9" />
           </Link>
@@ -124,7 +125,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
           {children}
         </div>
       </div>
-    </div>
+    </ContainerNav>
   );
 };
 
