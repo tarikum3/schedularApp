@@ -50,7 +50,7 @@ export default async function Page({
 
   return (
     <div className="relative flex flex-col py-16 px-8 gap-3">
-      <div className=" text-xl mx-auto md:mx-24">
+      <div className=" text-xl mx-auto ">
         {q && found ? (
           <span className="text-primary-700">
             Showing {products?.length} results{" "}
@@ -72,7 +72,7 @@ export default async function Page({
         )}
       </div>
 
-      <div className="grid grid-cols-1 gap-8 mx-auto md:mx-24 lg:grid-cols-3 ">
+      <div className="grid grid-cols-1 gap-8 mx-auto  lg:grid-cols-3 border">
         {products?.map((product: any) => (
           <ProductCard key={product.id} product={product} />
         ))}
@@ -80,3 +80,4 @@ export default async function Page({
     </div>
   );
 }
+

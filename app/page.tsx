@@ -1,10 +1,11 @@
-import { ProductCard } from "@/app/components/product";
+import { ProductCard,ProductsSkeleton } from "@/app/components/product";
 
 import Link from "next/link";
 import { ArrowRight } from "@/app/components/icons";
 import { Product } from "@lib/prisma";
 import { fetchProducts } from "@lib/services/prismaServices";
 import { Suspense } from "react";
+
 export const dynamic = "force-dynamic";
 const getHomeProducts = async () => {
   const productsPromise = await fetchProducts({});
@@ -43,7 +44,7 @@ export default async function Home() {
 
       {/* Product Grid Section */}
       <div className="w-4/5 mx-auto mb-12">
-        <Suspense>
+        <Suspense fallback={<ProductsSkeleton></ProductsSkeleton>}>
           <ExploreProducts />
         </Suspense>
       </div>
@@ -64,7 +65,7 @@ async function ExploreProducts() {
       </p>
       <div className="grid grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">
         {products.slice(0, 9).map((product: any) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} linkProps={{prefetch:false}} />
         ))}
       </div>
 

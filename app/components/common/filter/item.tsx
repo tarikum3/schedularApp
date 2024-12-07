@@ -18,7 +18,7 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
   newParams.delete("q");
 
   return (
-    <li className="mt-2 flex text-black " key={item.title}>
+    <li className="mt-2 flex text-primary-900  " key={item.title}>
       <DynamicTag
         href={`${createUrl(item.path, newParams)}`}
         className={clsx(

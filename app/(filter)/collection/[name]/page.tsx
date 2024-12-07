@@ -65,12 +65,12 @@ export default async function Collection({
   });
 
   return (
-    <div className="m-10">
+    <div className=" ">
       <p className="capitalize text-5xl text-primary-900 text-center font-bold mb-12">
         {collection}
       </p>
 
-      <div className="mb-2 grid grid-cols-1 gap-8 mx-auto md:mx-24 lg:grid-cols-3">
+      <div className="mb-2 grid grid-cols-1 gap-8 mx-auto  lg:grid-cols-3 ">
         {products?.slice(0, 9).map((product: any) => (
           <ProductCard key={product.id} product={product} />
         ))}

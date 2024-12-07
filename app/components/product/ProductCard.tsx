@@ -8,11 +8,13 @@ import { Product } from "@lib/prisma";
 interface Props {
   //product: Product;
   product: Product;
+  imageProps?:React.ComponentProps<typeof Image>;
+  linkProps?:Partial<React.ComponentProps<typeof Link>>;
 }
 
 const placeholderImg = "/product-img-placeholder.svg";
 
-const ProductCard: FC<Props> = ({ product }) => {
+const ProductCard: FC<Props> = ({ product,imageProps,linkProps }) => {
   const { price } = usePrice({
     amount: product.price!.amount,
     currencyCode: product.price!.currency!,
@@ -23,6 +25,7 @@ const ProductCard: FC<Props> = ({ product }) => {
       href={`/product/${product.slug}`}
       className="relative w-full bg-primary-100 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out overflow-hidden cursor-pointer"
       aria-label={product.name}
+      {...linkProps}
     >
       {/* Image Section */}
       <div className="relative block overflow-hidden rounded-t-lg min-h-[400px]">
@@ -38,6 +41,7 @@ const ProductCard: FC<Props> = ({ product }) => {
             objectFit: "contain", // cover, contain, none
           
           }}
+          {...imageProps}
           
         />
       </div>
