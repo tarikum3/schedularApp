@@ -94,7 +94,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
                 href={l.url}
                 key={l.url}
                 // className={s.link}
-                className="inline-flex items-center text-sm text-primary-900  font-semibold transition ease-in-out duration-75 cursor-pointer  hover:text-primary-900 "
+                className=" text-sm text-primary-900  font-semibold transition ease-in-out duration-75 cursor-pointer  hover:text-primary-900 "
               >
                 {l.name}
               </Link>
