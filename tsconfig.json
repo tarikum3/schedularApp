@@ -24,8 +24,6 @@
       "@utils/*": ["utils/*"],
       "@config/*": ["app/config/*"],
       "@assets/*": ["assets/*"],
-      "@framework": ["app/framework/shopify"],
-      "@framework/*": ["app/framework/shopify/*"],
       "@components": ["app/components"],
       "@components/*": ["app/components/*"]
     }

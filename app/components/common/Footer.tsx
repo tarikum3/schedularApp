@@ -74,7 +74,7 @@ const Footer: FC = () => {
           <a
             className="flex flex-initial justify-center items-center mt-5"
             aria-label="Github Repository"
-            href="https://github.com/tarikum3/Shopify-typescript-tailwind.git"
+            href="https://github.com/tarikum3/Ecommerce-nextjs-typescript-tailwind"
           >
            
             <Github />
