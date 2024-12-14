@@ -5,7 +5,7 @@ import { ArrowRight } from "@/app/components/icons";
 import { Product } from "@lib/prisma";
 import { fetchProducts } from "@lib/services/prismaServices";
 import { Suspense } from "react";
-
+import Hero from "@/app/components/home/Hero";
 export const dynamic = "force-dynamic";
 const getHomeProducts = async () => {
   const productsPromise = await fetchProducts({});
@@ -24,7 +24,7 @@ export const metadata = {
 export default async function Home() {
   return (
     <>
-      <div className="relative flex flex-col items-center justify-center bg-primary-900 py-16 px-8 w-4/5 mx-auto h-[70vh] rounded-xl mt-20 mb-12 shadow-lg">
+      {/* <div className="relative flex flex-col items-center justify-center bg-primary-900 py-16 px-8 w-4/5 mx-auto h-[70vh] rounded-xl mt-20 mb-12 shadow-lg">
         <h2 className="text-3xl text-center text-primary-100 font-bold tracking-tight font-serif mb-4 md:text-5xl">
           New Arrivals
         </h2>
@@ -40,8 +40,8 @@ export default async function Home() {
         >
           Explore
         </Link>
-      </div>
-
+      </div> */}
+<Hero/>
       {/* Product Grid Section */}
       <div className="w-4/5 mx-auto mb-12">
         <Suspense fallback={<ProductsSkeleton></ProductsSkeleton>}>

@@ -88,13 +88,13 @@ const NavWrapper: FC<Props> = ({ children }) => {
             ))}
           </nav>
 
-          <nav className={` hidden sm:block flex-auto ml-6 space-x-4 `}>
+          <nav className={` hidden sm:block flex-auto ml-6 space-x-5 `}>
             {links?.map((l) => (
               <Link
                 href={l.url}
                 key={l.url}
                 // className={s.link}
-                className=" text-sm text-primary-900  font-semibold transition ease-in-out duration-75 cursor-pointer  hover:text-primary-900 "
+                className=" text-sm/6 text-primary-700  font-semibold   hover:text-primary-900 "
               >
                 {l.name}
               </Link>
@@ -113,7 +113,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
         >
           <Searchbar />
         </div>
-        <div className=" flex items-center justify-end flex-auto space-x-8">
+        <div className=" flex items-center justify-end flex-auto space-x-8 text-primary-700">
           <button
             className={`${searchExtend ? "hidden" : ""} sm:hidden`}
             onClick={() => {

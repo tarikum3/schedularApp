@@ -50,7 +50,7 @@ const ContainerNav: FC<Props> = ({ children }) => {
   return (
     <div
       className={`${
-        hasScrolled ? "shadow-magical " : ""
+        hasScrolled ? " " : ""
       }sticky  top-0 min-h-[74px] bg-primary-100  z-40 transition-all duration-150  px-6`}
     >
      {children}
