@@ -26,13 +26,13 @@ const Searchbar: FC = () => {
   };
 
   return (
-    <div className="relative pr-3 flex  justify-between border border-primary-300 rounded-xl items-center text-2xl bg-primary-100 text-primary-900  w-full transition-colors duration-150 ">
+    <div className="relative w-full max-w-sm flex  justify-between items-center border border-primary-300 pr-3 rounded-xl  text-2xl bg-primary-100 text-primary-900    ">
       <label className="hidden" htmlFor="search">
         Search
       </label>
       <input
         id="search"
-        className="placeholder-primary-500 text-sm bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out pr-10  focus:outline-none "
+        className="placeholder-primary-500 text-sm bg-transparent px-3 py-2 pr-10 appearance-none w-full    focus:outline-none "
         placeholder="Search for products..."
         defaultValue={searchParams.get("q")?.toString()}
         onKeyUp={handleKeyUp}

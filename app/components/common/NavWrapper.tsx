@@ -57,10 +57,11 @@ const NavWrapper: FC<Props> = ({ children }) => {
 
 
   return (
-    <ContainerNav
-    
+    <div
+    className=
+    "sticky  top-0 min-h-[74px] bg-primary-100  z-40  "
     >
-      <div className="relative flex flex-row items-center gap-1 justify-between py-4 md:py-4">
+      <div className="relative flex flex-row items-center justify-between gap-1  py-5 px-10 ">
         <div className="flex items-center flex-auto ">
           <Link
             href="/"
@@ -88,7 +89,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
             ))}
           </nav>
 
-          <nav className={` hidden sm:block flex-auto ml-6 space-x-5 `}>
+          <nav className={` hidden sm:block flex-auto ml-6 space-x-10 `}>
             {links?.map((l) => (
               <Link
                 href={l.url}
@@ -125,7 +126,7 @@ const NavWrapper: FC<Props> = ({ children }) => {
           {children}
         </div>
       </div>
-    </ContainerNav>
+    </div>
   );
 };
 
