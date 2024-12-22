@@ -2,9 +2,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import Layout from "@/app/components/common/Layout";
+// import Layout from "@/app/components/common/Layout";
 
-import { Suspense } from "react";
+// import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 const {NEXT_PUBLIC_SITE_NAME } = process.env;
@@ -36,9 +36,9 @@ export default async function RootLayout({
       >
    
       
-      <Layout>
+      {/* <Layout> */}
       {children}
-          </Layout>
+          {/* </Layout> */}
       </body>
     </html>
     

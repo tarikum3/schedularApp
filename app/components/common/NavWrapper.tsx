@@ -8,30 +8,14 @@ import { Searchbar } from "@/app/components/common";
 import { Search as SearchIcon } from "@/app/components/icons";
 
 import React from "react";
-import ContainerNav from "@/app/components/common/ContainerNav";
-
-
-// const ContainerFB = () => (
-//   <div
-//   className={`sticky  top-0 min-h-[74px] bg-primary-100  z-40 transition-all duration-150  px-6`}
-// >
-// </div>
-// );
-// const ContainerNav = dynamic(() => import("@/app/components/common/ContainerNav"), {
-//   loading: ContainerFB,
-//   ssr: false,
-// });
+//import ContainerNav from "@/app/components/common/ContainerNav";
 
 
 
-// const CartWrapper = dynamic(() => import("@/app/components/cart/CartWrapper"), {
-//   loading: CartWrapperFB,
-//  // ssr: false,
-// });
-// const UserView = dynamic(() => import("@/app/components/common/UserView"), {
-//   loading: UserViewFB,
-//   ssr: false,
-// });
+
+
+
+
 const links = [
   {
     name: "Home",
