@@ -1,7 +1,7 @@
 
 import { TableSortLabel } from "@mui/material";
 import React, { useState ,useEffect,useCallback} from "react";
-import { Label } from "recharts";
+
 import { exportPDFNew } from "utils/exportPDF";
 import { exportDataNew,sortData,getNestedValue } from "utils/exportData";
 
