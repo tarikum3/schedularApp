@@ -52,31 +52,6 @@ export const exportDataNew = (
   FileSaver.saveAs(blobData, `${fileName}.xlsx`);
 };
 
-// export const sortData = (
-//   data: any[],
-//   key: string,
-//   order: 'asc' | 'desc' = 'asc'
-// ) => {
-//   const sortedData = [...data].sort((a, b) => {
-//     const aValue = a[key];
-//     const bValue = b[key];
-
-//     if (typeof aValue === 'string' && typeof bValue === 'string') {
-//       const aLower = aValue.toLowerCase();
-//       const bLower = bValue.toLowerCase();
-
-//       if (aLower < bLower) return order === 'asc' ? -1 : 1;
-//       if (aLower > bLower) return order === 'asc' ? 1 : -1;
-//       return 0;
-//     } else {
-//       if (aValue < bValue) return order === 'asc' ? -1 : 1;
-//       if (aValue > bValue) return order === 'asc' ? 1 : -1;
-//       return 0;
-//     }
-//   });
-
-//   return sortedData;
-// };
 
 export const getNestedValue = (obj: any, key: string) => {
   return key.split('.').reduce((acc, part) => acc?.[part], obj);
