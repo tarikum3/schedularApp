@@ -2,7 +2,7 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { dateFormat, dateFormatDays } from "./dayjs";
-import Logo from "../assets/Ethiopost_logo.png";
+import { Logo,  } from "@/app/components";
 export const exportPDF = ({
   title,
   headers,
@@ -57,7 +57,7 @@ export const exportPDF = ({
   };
 
   doc.setFontSize(10);
-  //doc.text('Powered By : eTech PLC', 40, 350);
+ 
   // doc.addImage('/assets/logo.png', 'PNG', 30, 10, 150, 30);
   doc.autoTable({
     startY: 60,
@@ -179,14 +179,14 @@ export const exportPDFNew = ({
       doc.setFontSize(7); // Adjust the font size as needed
 
       // Add the "Powered By:" text
-      doc.text("Powered By: eTech S.C", 210, 200);
+      doc.text("Powered By: TM", 210, 200);
     },
   };
 
   // doc.setFontSize(10);
   //doc.text('Powered By : ', 40, 350);
 
-  // doc.text("Powered By : eTech PLC", 40, 350);
+  
   doc.setTextColor(44, 46, 123);
   // doc.addImage('/assets/nedaj-logo.png', 'PNG', 30, 10, 150, 30);
   // styles: { overflow: 'linebreak' },

@@ -20,7 +20,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 
 
-import { permissionArray, permissionsCondition } from "@/lib/admin/utils/permissions";
+import { permissionArray,  } from "@/lib/admin/utils/permissions";
 
 import { PERMISSIONS } from "@/lib/admin/configs/permissions";
 
@@ -58,7 +58,12 @@ export default function SideBar(
 
 ) {
   const pathname = "/home";
-  const permissions = [""];
+  const permissions = [
+    'Read Dashboard Over All',
+    'Read Customer Service Dashboard',
+    'Read Marketing Dashboard',
+    'Read Sales Dashboard'
+  ];
 
   const userinfo = "userinfo";
 

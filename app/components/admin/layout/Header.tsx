@@ -62,7 +62,7 @@ const Header = () => {
               <img
                 src={`${Logo}`}
                 className="h-14 ml-4 mr-2 mx-auto"
-                alt="Ethiopost-logo"
+                alt="logo"
               />
             </Link>
           </div>

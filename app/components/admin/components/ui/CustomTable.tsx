@@ -1,4 +1,4 @@
-
+'use client';
 import { TableSortLabel } from "@mui/material";
 import React, { useState ,useEffect,useCallback} from "react";
 
