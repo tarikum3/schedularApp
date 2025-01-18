@@ -28,7 +28,7 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 type Columns={label:string,accessorKey:string}[];
-interface CustomTableProps {
+export interface CustomTableProps {
   data: any[];
   onOptionChange?:(...args:any)=>any;
   onTableDateRangeChange?:(...args:any)=>any;

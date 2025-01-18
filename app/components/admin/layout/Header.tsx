@@ -25,7 +25,7 @@ const Header = () => {
               id="toggleSidebarMobile"
               aria-expanded="true"
               aria-controls="sidebar"
-              className="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded"
+              className="lg:hidden mr-2 text-gray-900 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded"
               onClick={toggleSidebar}
           >
               <svg
@@ -59,8 +59,8 @@ const Header = () => {
               href="/"
               className="text-xl font-bold flex justify-center items-center lg:ml-2.5"
             >
-              <img
-                src={`${Logo}`}
+              <Logo
+                
                 className="h-14 ml-4 mr-2 mx-auto"
                 alt="logo"
               />
