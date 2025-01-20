@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
     // Return response with created TempImage data
     return NextResponse.json({
-      message: 'File uploaded and temp image created successfully',
+    //  message: 'File uploaded and temp image created successfully',
       tempImage,
     });
   } catch (err) {
