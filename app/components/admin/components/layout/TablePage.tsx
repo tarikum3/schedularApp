@@ -4,14 +4,14 @@
 import { CircularProgress } from '@mui/material';
 import CustomTable,{CustomTableProps} from '@components/admin/components/ui/CustomTable';
 import PageHeader,{PageHeaderProps} from '@components/admin/components/layout/PageHeader';
-export interface Props {
-  title: string;
-  description: string;
+export interface TablePageProps {
+  
+ 
   TableOptions?:CustomTableProps;
   HeaderOptions?:PageHeaderProps;
 }
 
-const TablePage = ({ title, TableOptions ,HeaderOptions }: Props) => {
+const TablePage = ({  TableOptions ,HeaderOptions }: TablePageProps) => {
  
 
   return (
