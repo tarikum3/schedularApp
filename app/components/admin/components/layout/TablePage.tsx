@@ -3,22 +3,24 @@
 
 import { CircularProgress } from '@mui/material';
 import CustomTable,{CustomTableProps} from '@components/admin/components/ui/CustomTable';
-interface Props {
+import PageHeader,{PageHeaderProps} from '@components/admin/components/layout/PageHeader';
+export interface Props {
   title: string;
   description: string;
   TableOptions?:CustomTableProps;
+  HeaderOptions?:PageHeaderProps;
 }
 
-const TablePage = ({ title, TableOptions  }: Props) => {
+const TablePage = ({ title, TableOptions ,HeaderOptions }: Props) => {
  
 
   return (
     <section className="min-h-[calc(100vh-163px)] table-section dark:text-white">
  
-
-      <div className="px-5 pt-[50px]">
+ {HeaderOptions ? <PageHeader {...HeaderOptions}/> : null}
+      {/* <div className="px-5 pt-[50px]">
         <h2 className="font-[700] text-2xl text-[#2C2E7B]">{title}</h2>
-      </div>
+      </div> */}
       <div className="full-width">
         {TableOptions ? <CustomTable {...TableOptions}/> : <CircularProgress />}
       </div>

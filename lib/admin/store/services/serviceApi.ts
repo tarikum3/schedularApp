@@ -6,6 +6,6 @@ export const serviceApi = createApi({
          baseUrl: '/api/'
 
       }),
-  tagTypes: ['Customer', 'Product'],
+  tagTypes: ['Customer', 'Product','Order','Activity','User'],
   endpoints: () => ({}),
 });

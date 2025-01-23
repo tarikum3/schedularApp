@@ -11,8 +11,6 @@ import { serviceApi } from './serviceApi';
 export const productApi = serviceApi.injectEndpoints({
     endpoints: (builder) => ({
   
-
-
         getProducts: builder.query<any, any>({
           query: ({ page = 1, limit = 10, searchText = '' }) => ({
             url: `admin/product?page=${page}&limit=${limit}&searchText=${searchText}`,
@@ -30,7 +28,22 @@ export const productApi = serviceApi.injectEndpoints({
           // transformResponse: (response: Product) => response.data.product,
           invalidatesTags: ["Product"],
         }),
-
+        updateProduct: builder.mutation<
+        any,
+        any & { id: string }
+      >({
+        query: (product) => {
+          let { id } = product;
+  
+          return {
+            url: `admin/product/${id}`,
+            method: "PUT",
+            body: product,
+          };
+        },
+  
+        invalidatesTags: ["Product"],
+      }),
         uploadProductImage: builder.mutation<any, any>({
           query: (image) => ({
             url: "admin/product/",
@@ -43,4 +56,4 @@ export const productApi = serviceApi.injectEndpoints({
       }),
 
 })
-export const { useGetProductsQuery ,useCreateProductMutation,useUploadProductImageMutation} = productApi
+export const { useGetProductsQuery ,useCreateProductMutation,useUploadProductImageMutation,useUpdateProductMutation} = productApi
