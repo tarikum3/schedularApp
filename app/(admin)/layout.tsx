@@ -1,5 +1,5 @@
 
-import Header from '@components/admin/layout/Header';
+import Header from '@/app/components/admin/components/layout/Header';
 import StoreProvider from '@components/admin/storeProvider';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

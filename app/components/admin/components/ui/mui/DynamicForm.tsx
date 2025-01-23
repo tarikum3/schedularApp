@@ -1,24 +1,23 @@
 'use client';
+
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import Autocomplete from '@mui/material/Autocomplete';
-import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Typography from '@mui/material/Typography';
 import { z, ZodSchema } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-//import { DevTool } from '@hookform/devtools';
+import Icon from '@mui/material/Icon';
 
 interface FieldConfig {
   name: string;
   label: string;
   required: boolean;
   default: any;
-  fieldType: 'TextField' | 'Checkbox' | 'Autocomplete';
+  fieldType: 'TextField' | 'Checkbox' | 'Autocomplete' | 'File';
   props?: Record<string, any>;
 }
 
@@ -41,7 +40,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formTitle, fields, zodSchema,
     mode: 'all',
   });
 
-  const { isSubmitting, isValid, dirtyFields, errors } = formState;
+  const { isSubmitting, isValid, dirtyFields } = formState;
 
   const handleFormSubmit = async (data: Record<string, any>) => {
     try {
@@ -90,20 +89,17 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formTitle, fields, zodSchema,
                 name={field.name}
                 control={control}
                 render={({ field: { onChange, value, ...restField }, fieldState }) => (
-                  <FormControl error={!!fieldState.error} required={field.required}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={value}
-                          onChange={(e) => onChange(e.target.checked)}
-                          {...field.props}
-                          {...restField}
-                        />
-                      }
-                      label={field.label}
-                    />
-                    <FormHelperText>{fieldState.error?.message}</FormHelperText>
-                  </FormControl>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={value}
+                        onChange={(e) => onChange(e.target.checked)}
+                        {...field.props}
+                        {...restField}
+                      />
+                    }
+                    label={field.label}
+                  />
                 )}
               />
             )}
@@ -134,6 +130,59 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formTitle, fields, zodSchema,
                 )}
               />
             )}
+
+            {field.fieldType === 'File' && (
+              <Controller
+                name={field.name}
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <div className="flex flex-wrap gap-4">
+                    <label
+                      htmlFor={`${field.name}-file`}
+                      className="flex items-center justify-center relative w-32 h-32 border rounded-lg cursor-pointer overflow-hidden shadow hover:shadow-lg"
+                    >
+                      <input
+                        accept={field.props?.accept || ''}
+                        id={`${field.name}-file`}
+                        type="file"
+                        className="hidden"
+                        multiple={field.props?.multiple}
+                        onChange={(e) => {
+                          const files = Array.from(e.target.files || []);
+                          onChange([...value, ...files]);
+                        }}
+                      />
+                      <Icon fontSize="large" color="action">
+                        cloud_upload
+                      </Icon>
+                    </label>
+
+                    {value.map((file: File, index: number) => (
+                      <div
+                        key={index}
+                        className="relative w-32 h-32 border rounded-lg overflow-hidden shadow"
+                      >
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt={file.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newValue = value.filter((_:any, i:any) => i !== index);
+                            onChange(newValue);
+                          }}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              />
+            )}
           </div>
         ))}
 
@@ -158,34 +207,53 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formTitle, fields, zodSchema,
           </Button>
         </div>
       </form>
-
-      <div className="w-1/2 my-16 p-24">
-        <Typography variant="body1">Form State:</Typography>
-        <pre className="p-16 bg-gray-100 rounded-lg">
-          {JSON.stringify(formState, null, 2)}
-        </pre>
-      </div>
-
-      {/* <DevTool control={control} /> */}
     </div>
   );
 };
+
+
 
 export default DynamicForm;
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const ProductCreationForm: React.FC = () => {
+  // Updated schema to include image validation
   const schema = z.object({
     productName: z.string().nonempty('Product Name is required.'),
     productCategory: z
       .array(z.string())
       .min(1, 'At least one category is required.'),
     agreeTerms: z.boolean().refine((val) => val, 'You must accept the terms.'),
+    productImages: z
+      .array(z.any()) // Can use `z.instanceof(File)` if you want to ensure it's a File object
+      .min(1, 'At least one image is required.')
+      .refine((files) => files.every((file: File) => file.type.startsWith('image/')), {
+        message: 'All uploaded files must be images.',
+      }),
   });
 
-  const fields : FieldConfig[] = [
+  const fields: FieldConfig[] = [
     {
       name: 'productName',
       label: 'Product Name',
@@ -212,12 +280,29 @@ export const ProductCreationForm: React.FC = () => {
       default: false,
       fieldType: 'Checkbox',
     },
+    {
+      name: 'productImages',
+      label: 'Upload Product Images',
+      required: true,
+      default: [],
+      fieldType: 'File',
+      props: { accept: 'image/*', multiple: true },
+    },
   ];
-
 
   const handleSubmit = async (data: Record<string, any>) => {
     try {
       console.log('Submitting data...', data);
+
+      // If you need to upload images to an API
+      const formData = new FormData();
+      formData.append('productName', data.productName);
+      formData.append('productCategory', JSON.stringify(data.productCategory));
+      formData.append('agreeTerms', String(data.agreeTerms));
+      data.productImages.forEach((file: File) => {
+        formData.append('productImages', file);
+      });
+
       // Mock API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log('Data submitted successfully:', data);
@@ -237,5 +322,11 @@ export const ProductCreationForm: React.FC = () => {
     </div>
   );
 };
+
+
+
+
+
+
 
 

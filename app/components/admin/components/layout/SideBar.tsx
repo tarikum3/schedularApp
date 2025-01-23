@@ -6,26 +6,18 @@ import Paper from "@mui/material/Paper";
 import { ROUTES } from "@/lib/admin/configs/routes";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
-
 import DashboardIcon from "@mui/icons-material/Dashboard";
-
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-
 import { ButtonBase } from "@mui/material";
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
-
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-
-
 import { permissionArray,  } from "@/lib/admin/utils/permissions";
-
 import { PERMISSIONS } from "@/lib/admin/configs/permissions";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 
-
-import PeopleAltOutlined from "@mui/icons-material/PeopleAltOutlined";
 
 interface ConfigChildren {
   label: string;
@@ -59,11 +51,48 @@ export default function SideBar(
 ) {
   const pathname = "/home";
   const permissions = [
-    'Read Dashboard Over All',
-    'Read Customer Service Dashboard',
-    'Read Marketing Dashboard',
-    'Read Sales Dashboard'
+    // Dashboard Permissions
+    PERMISSIONS.READ_OVERVIEW_DASHBOARD,
+    PERMISSIONS.READ_ANALYTICS_DASHBOARD,
+  
+    // Role Permissions
+    PERMISSIONS.CREATE_ROLE,
+    PERMISSIONS.READ_ROLE,
+    PERMISSIONS.UPDATE_ROLE,
+    PERMISSIONS.DELETE_ROLE,
+    PERMISSIONS.ASSIGN_ROLE,
+  
+    // User Permissions
+    PERMISSIONS.CREATE_USER,
+    PERMISSIONS.READ_USER,
+    PERMISSIONS.UPDATE_USER,
+    PERMISSIONS.DELETE_USER,
+  
+    // Product Permissions
+    PERMISSIONS.CREATE_PRODUCT,
+    PERMISSIONS.READ_PRODUCT,
+    PERMISSIONS.UPDATE_PRODUCT,
+    PERMISSIONS.DELETE_PRODUCT,
+  
+    // Order Permissions
+    PERMISSIONS.CREATE_ORDER,
+    PERMISSIONS.READ_ORDER,
+    PERMISSIONS.UPDATE_ORDER,
+    PERMISSIONS.DELETE_ORDER,
+  
+    // Customer Permissions
+    PERMISSIONS.CREATE_CUSTOMER,
+    PERMISSIONS.READ_CUSTOMER,
+    PERMISSIONS.UPDATE_CUSTOMER,
+    PERMISSIONS.DELETE_CUSTOMER,
+  
+    // Activity Permissions
+    PERMISSIONS.CREATE_ACTIVITY,
+    PERMISSIONS.READ_ACTIVITY,
+    PERMISSIONS.UPDATE_ACTIVITY,
+    PERMISSIONS.DELETE_ACTIVITY,
   ];
+  
 
   const userinfo = "userinfo";
 
@@ -74,53 +103,52 @@ export default function SideBar(
   const [sideBarConfigs, setSideBarConfigs] = React.useState<any[]>([]);
 
   React.useEffect(() => {
-    setSideBarConfigs([
+    // setSideBarConfigs([
 
+    //   ...permissionArray(
 
-      ...permissionArray(
-        // (PERMISSIONS.READ_DASHBOARD || PERMISSIONS.SALES_DASHBOARD || PERMISSIONS.MARKETING_DASHBOARD || PERMISSIONS.CUSTOMER_SERVICE_DASHBOARD),
-        [
-          ...(permissions.includes(PERMISSIONS.MARKETING_DASHBOARD) ? [PERMISSIONS.MARKETING_DASHBOARD] : []),
-          ...(permissions.includes(PERMISSIONS.CUSTOMER_SERVICE_DASHBOARD) ? [PERMISSIONS.CUSTOMER_SERVICE_DASHBOARD] : []),
-        ],
-        {
-          label: "Dashboard",
-          icon: <DashboardIcon />,
-          isOpen: false,
-          isHovered: false,
-          children: [
-            ...permissionArray(
-              PERMISSIONS.READ_DASHBOARD,
-              {
-                label: "Overview",
-                icon: <DashboardIcon />,
-                route: ROUTES.DASHBOARD,
-              },
-              permissions,
-              //userinfo?.user
-            ),
-            ...permissionArray(
-              PERMISSIONS.CUSTOMER_SERVICE_DASHBOARD,
+    //     [
+    //       ...(permissions.includes(PERMISSIONS.READ_OVERVIEW_DASHBOARD) ? [PERMISSIONS.READ_OVERVIEW_DASHBOARD] : []),
+    //       ...(permissions.includes(PERMISSIONS.READ_ANALYTICS_DASHBOARD) ? [PERMISSIONS.READ_ANALYTICS_DASHBOARD] : []),
+    //     ],
+    //     {
+    //       label: "Dashboard",
+    //       icon: <DashboardIcon />,
+    //       isOpen: false,
+    //       isHovered: false,
+    //       children: [
+    //         ...permissionArray(
+    //           PERMISSIONS.READ_OVERVIEW_DASHBOARD,
+    //           {
+    //             label: "Overview",
+    //             icon: <DashboardIcon />,
+    //             route: ROUTES.DASHBOARD_OVERVIEW,
+    //           },
+    //           permissions,
+              
+    //         ),
+    //         ...permissionArray(
+    //           PERMISSIONS.READ_ANALYTICS_DASHBOARD,
   
-              {
-                label: "C S",
-                icon: <PeopleAltOutlined />,
-                route: ROUTES.DASHBOARD_CUSTOMER,
-              },
-              permissions,
-              //userinfo?.user
-            )
+    //           {
+    //             label: "Analytics",
+    //             icon: <PeopleAltOutlined />,
+    //             route: ROUTES.DASHBOARD_ANALYTICS,
+    //           },
+    //           permissions,
+              
+    //         )
   
-          ],
-        },
-        permissions,
-        // userinfo?.user
-      ),
+    //       ],
+    //     },
+    //     permissions,
+       
+    //   ),
       
 
-      {
-        type: "divider",
-      },
+    //   {
+    //     type: "divider",
+    //   },
 
 
   
@@ -129,20 +157,125 @@ export default function SideBar(
 
 
  
-      ...permissionArray(
-        PERMISSIONS.CREATE_ROLE,
-        {
-          label: "Employees",
-          icon: <PeopleAltOutlinedIcon />,
-          route: ROUTES.DASHBOARD,
-        },
-        permissions,
-        userinfo
-      ),
+    //   ...permissionArray(
+    //     PERMISSIONS.READ_USER,
+    //     {
+    //       label: "Users",
+    //       icon: <PeopleAltOutlinedIcon />,
+    //       route: ROUTES.USERS,
+    //     },
+    //     permissions,
+    //     userinfo
+    //   ),
 
 
  
-    ]);
+    // ]);
+
+
+
+
+setSideBarConfigs([
+  // Dashboard Section
+  ...permissionArray(
+    [
+      ...(permissions.includes(PERMISSIONS.READ_OVERVIEW_DASHBOARD) ? [PERMISSIONS.READ_OVERVIEW_DASHBOARD] : []),
+      ...(permissions.includes(PERMISSIONS.READ_ANALYTICS_DASHBOARD) ? [PERMISSIONS.READ_ANALYTICS_DASHBOARD] : []),
+    ],
+    {
+      label: 'Dashboard',
+      icon: <DashboardIcon />,
+      isOpen: false,
+      isHovered: false,
+      children: [
+        ...permissionArray(
+          PERMISSIONS.READ_OVERVIEW_DASHBOARD,
+          {
+            label: 'Overview',
+            icon: <DashboardIcon />,
+            route: ROUTES.DASHBOARD_OVERVIEW,
+          },
+          permissions
+        ),
+        ...permissionArray(
+          PERMISSIONS.READ_ANALYTICS_DASHBOARD,
+          {
+            label: 'Analytics',
+            icon: <DashboardIcon />,
+            route: ROUTES.DASHBOARD_ANALYTICS,
+          },
+          permissions
+        ),
+      ],
+    },
+    permissions
+  ),
+
+  {
+    type: 'divider',
+  },
+
+  // Users Section
+  ...permissionArray(
+    PERMISSIONS.READ_USER,
+    {
+      label: 'Users',
+      icon: <PeopleAltOutlinedIcon />,
+      route: ROUTES.USERS,
+    },
+    permissions
+  ),
+
+  {
+    type: 'divider',
+  },
+
+  // Products Section
+  ...permissionArray(
+    PERMISSIONS.READ_PRODUCT,
+    {
+      label: 'Products',
+      icon: <Inventory2OutlinedIcon />,
+      route: ROUTES.PRODUCT,
+    },
+    permissions
+  ),
+
+  // Orders Section
+  ...permissionArray(
+    PERMISSIONS.READ_ORDER,
+    {
+      label: 'Orders',
+      icon: <ShoppingCartOutlinedIcon />,
+      route: ROUTES.ORDER,
+    },
+    permissions
+  ),
+
+  // Customers Section
+  ...permissionArray(
+    PERMISSIONS.READ_CUSTOMER,
+    {
+      label: 'Customers',
+      icon: <GroupOutlinedIcon />,
+      route: ROUTES.CUSTOMERS,
+    },
+    permissions
+  ),
+
+  // Activities Section
+  ...permissionArray(
+    PERMISSIONS.READ_ACTIVITY,
+    {
+      label: 'Activities',
+      icon: <EventOutlinedIcon />,
+      route: ROUTES.ACTIVITIES,
+    },
+    permissions
+  ),
+]);
+
+
   }, []);
 
   const toggleSubMenu = (index: number) => {
