@@ -1,3 +1,4 @@
+"use client";
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 

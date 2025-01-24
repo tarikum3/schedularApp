@@ -1,85 +1,9 @@
 //@ts-nocheck
+"use client";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { dateFormat, dateFormatDays } from "./dayjs";
-import { Logo,  } from "@/app/components";
-export const exportPDF = ({
-  title,
-  headers,
-  data,
-  startDate,
-  endDate,
-}: any) => {
-  const unit = "pt";
-  const size = "A7"; // Use A1, A2, A3 or A4
-  const orientation = "landscape"; // portrait or landscape
-
-  const doc = new jsPDF("l", "mm", "a4");
-
-  doc.setFontSize(10);
-
-  let content = {
-    startY: 80,
-    head: headers,
-    body: data,
-    theme: "grid",
-    margin: { top: 37 },
-    tableLineColor: [34, 120, 33],
-    tableLineWidth: 1,
-    styles: {
-      lineColor: [44, 62, 80],
-      lineWidth: 1,
-    },
-    headStyles: {
-      fillColor: [34, 120, 33],
-      fontSize: 10,
-      halign: "center",
-    },
-    footStyles: {
-      fillColor: [241, 196, 15],
-      fontSize: 15,
-    },
-    bodyStyles: {
-      fillColor: [212, 216, 222],
-      textColor: 1,
-    },
-    alternateRowStyles: {
-      fillColor: [212, 216, 222],
-    },
-    columnStyles: {
-      email: {
-        fontStyle: "bold",
-      },
-      id: {
-        halign: "right",
-      },
-    },
-  };
-
-  doc.setFontSize(10);
- 
-  // doc.addImage('/assets/logo.png', 'PNG', 30, 10, 150, 30);
-  doc.autoTable({
-    startY: 60,
-    head: [
-      [
-        {
-          content: title,
-          colSpan: 5,
-          styles: { halign: "center", fillColor: [34, 120, 33] },
-        },
-      ],
-    ],
-    theme: "grid",
-  });
-
-  doc.autoTable(content);
-  // doc.save(
-  //   `${dateFormatDays(startDate)} - ${dateFormatDays(endDate)} Nedaj Report`,
-  // );
-
-  return doc;
-};
+import { Logo } from "@/app/components";
 
 export const exportPDFNew = ({
   title,
@@ -111,14 +35,14 @@ export const exportPDFNew = ({
 
   const drawBackgroundImage = (pageNumber: number) => {
     doc.setPage(pageNumber);
-    doc.addImage(Logo, "PNG", 30, 10, 150, 30); // Adjust the position and size as needed
+    // doc.addImage(Logo, "PNG", 30, 10, 150, 30); // Adjust the position and size as needed
   };
 
   const formattedStartDate = formatDate(startDate);
   const formattedEndDate = formatDate(endDate);
   const dateRange = `from: ${formattedStartDate} to ${formattedEndDate}`;
   doc.text(startDate ? dateRange : "", 10, 50);
-  doc.addImage(Logo, "PNG", 30, 10, 150, 30);
+  //doc.addImage(Logo, "PNG", 30, 10, 150, 30);
   const columnStyles: { [key: number]: any } = {};
   headers.forEach((header: string, index: number) => {
     columnStyles[index] = {
@@ -174,7 +98,7 @@ export const exportPDFNew = ({
     columnStyles: columnStyles,
     didDrawPage: (data) => {
       // Add the logo on each page
-      doc.addImage(Logo, "PNG", 30, 10, 150, 30);
+      //  doc.addImage(Logo, "PNG", 30, 10, 150, 30);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(7); // Adjust the font size as needed
 
@@ -186,7 +110,6 @@ export const exportPDFNew = ({
   // doc.setFontSize(10);
   //doc.text('Powered By : ', 40, 350);
 
-  
   doc.setTextColor(44, 46, 123);
   // doc.addImage('/assets/nedaj-logo.png', 'PNG', 30, 10, 150, 30);
   // styles: { overflow: 'linebreak' },

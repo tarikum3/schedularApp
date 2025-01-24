@@ -33,6 +33,8 @@
     "file-saver": "^2.0.5",
     "fs": "^0.0.1-security",
     "js-cookie": "^3.0.1",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25",
     "lodash.debounce": "^4.0.8",
     "lodash.random": "^3.2.0",
     "lodash.throttle": "^4.1.1",
