@@ -1,4 +1,4 @@
-import prisma, { Product, Collection } from "@lib/prisma";
+import prisma, { Product, Collection, EventLog } from "@lib/prisma";
 import { applyCollectionRules, convertToSlug } from "@/lib/helper";
 import { supabase } from "@lib/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
@@ -23,8 +23,143 @@ interface FetchProductsOptions {
   };
 }
 
-
 export const productSortField = ["name", "createdAt", "price"];
+
+interface CreateEventLogInput {
+  userId: string;
+  resourceType: string;
+  resourceName: string;
+  resourceId: string;
+  action: string;
+  changedField?: string; // Optional
+  ipAddress?: string; // Optional
+}
+
+export async function createEventLog(input: CreateEventLogInput) {
+  const { userId, resourceName, action } = input;
+
+  try {
+    const eventLog = await prisma.eventLog.create({
+      data: {
+        userId,
+
+        resourceName,
+
+        action,
+      },
+    });
+    return eventLog;
+  } catch (error) {
+    console.error(`Failed to create Event Log: ${error}`);
+    throw new Error(`Failed to create Event Log: ${error}`);
+  }
+}
+
+export interface FetchEventsOptions {
+  searchKey?: string;
+  filter?: {
+    resourceName?: string;
+    action?: string;
+    startDate?: Date;
+    endDate?: Date;
+  };
+  pagination?: {
+    page?: number;
+    pageSize?: number;
+  };
+  sort?: {
+    field: string;
+    order: "asc" | "desc";
+  };
+}
+
+export async function fetchEvents(
+  options: FetchEventsOptions
+): Promise<{ events: EventLog[]; total: number }> {
+  const { searchKey, filter, pagination, sort } = options;
+
+  try {
+    const whereClause: any = {};
+
+    // Handle searchKey
+    if (searchKey) {
+      whereClause.OR = [
+        { resourceName: { contains: searchKey, mode: "insensitive" } },
+        { action: { contains: searchKey, mode: "insensitive" } },
+      ];
+    }
+
+    // Handle filter
+    if (filter) {
+      if (filter.resourceName) {
+        whereClause.resourceName = filter.resourceName;
+      }
+
+      if (filter.action) {
+        whereClause.action = filter.action;
+      }
+
+      if (filter.startDate) {
+        whereClause.createdAt = { gte: filter.startDate };
+      }
+
+      if (filter.endDate) {
+        whereClause.createdAt = whereClause.createdAt
+          ? { ...whereClause.createdAt, lte: filter.endDate }
+          : { lte: filter.endDate };
+      }
+    }
+
+    const orderBy = sort
+      ? {
+          [sort.field]: sort.order,
+        }
+      : { createdAt: "desc" as const };
+
+    // Handle pagination
+    let events: EventLog[];
+    const total = await prisma.eventLog.count({ where: whereClause });
+
+    if (pagination) {
+      const page = pagination.page ?? 1;
+      const pageSize = pagination.pageSize ?? 10;
+      const skip = (page - 1) * pageSize;
+      const take = pageSize;
+
+      events = await prisma.eventLog.findMany({
+        where: whereClause,
+        skip,
+        take,
+        orderBy: orderBy,
+        include: {
+          user: true,
+        },
+      });
+    } else {
+      // If no pagination is provided, fetch all events
+      events = await prisma.eventLog.findMany({
+        where: whereClause,
+        orderBy: orderBy,
+        include: {
+          user: true,
+        },
+      });
+    }
+
+    return { events, total };
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    throw new Error("Unable to fetch events.");
+  }
+}
+export async function fetchEventById(id: string) {
+  return await prisma.eventLog.findUnique({
+    where: { id },
+    include: {
+      user: true, // Include the user relation if needed
+    },
+  });
+}
 
 export async function fetchProducts(
   options: FetchProductsOptions
@@ -463,7 +598,6 @@ interface FetchCollectionOptions {
   };
 }
 
-
 export async function seedCollections() {
   const collections = [
     {
@@ -498,7 +632,7 @@ export async function fetchCollection(
   options: FetchCollectionOptions
 ): Promise<Collection & { products: Product[] }> {
   const { id, title, sortProduct } = options;
- 
+
   const collectionData3 = {
     title: "men",
     description: "men collection.",
@@ -531,8 +665,6 @@ export async function fetchCollection(
   }
 
   try {
-
-  
     const whereClause = id ? { id } : { title: title as string };
 
     // const collection = await prisma.collection.findFirst({

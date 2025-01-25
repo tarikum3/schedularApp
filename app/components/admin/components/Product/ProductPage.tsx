@@ -27,7 +27,13 @@ const ProductPage = () => {
   const { data: allProducts } = useGetProductsQuery({ page, limit });
   console.log("allProductssss", allProducts);
   const tableColumns = useMemo(
-    () => [{ label: "Name", accessorKey: "name" }],
+    () => [
+      {
+        label: "Name",
+        accessorKey: "name",
+        cell: (row: any) => <span className="bg-red-800">row.name</span>,
+      },
+    ],
     []
   );
 

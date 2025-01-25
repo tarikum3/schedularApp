@@ -24,7 +24,11 @@ import NavigateBeforeOutlinedIcon from "@mui/icons-material/NavigateBeforeOutlin
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
-type Columns = { label: string; accessorKey: string }[];
+type Columns = {
+  label: string;
+  accessorKey: string;
+  cell?: (...args: any) => any;
+}[];
 export interface CustomTableProps {
   data: any[];
   onOptionChange?: (...args: any) => any;
@@ -259,7 +263,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
 
           {/* Table Body */}
           <tbody>
-            {tableData?.map((person, index) => (
+            {tableData?.map((row, index) => (
               <tr
                 key={index}
                 className="block sm:table-row border-b sm:border-none"
@@ -273,10 +277,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     <span className="block sm:hidden font-bold">
                       {col.label}:
                     </span>
-                    {/* {person[col.accessorKey] ?? ""} */}
-                    {getNestedValue(person, col.accessorKey) !== undefined &&
-                    getNestedValue(person, col.accessorKey) !== null
-                      ? getNestedValue(person, col.accessorKey).toString()
+
+                    {col.cell
+                      ? col.cell(row)
+                      : getNestedValue(row, col.accessorKey) !== undefined &&
+                        getNestedValue(row, col.accessorKey) !== null
+                      ? getNestedValue(row, col.accessorKey).toString()
                       : ""}
                   </td>
                 ))}

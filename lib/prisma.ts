@@ -56,3 +56,8 @@ export type Cart = Prisma.CartGetPayload<{
   };
 }>;
 export type Collection = PrismaCollection;
+export type EventLog = Prisma.EventLogGetPayload<{
+  include: {
+    user: true; // Including the user relation in the EventLog
+  };
+}>;
