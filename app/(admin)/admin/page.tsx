@@ -1,9 +1,9 @@
-import { ProductCreationForm } from "@components/admin/components/ui/mui/DynamicForm";
+// import { ProductCreationForm } from "@components/admin/components/ui/mui/DynamicForm";
 import ProductPage from "@components/admin/components/Product/ProductPage";
 export default async function Page() {
   return (
     <main>
-      <h1 className={`mb-4 text-xl md:text-2xl`}>Dashboard</h1>
+      {/* <h1 className={`mb-4 text-xl md:text-2xl`}>Dashboard</h1> */}
       <ProductPage />
     </main>
   );

@@ -31,7 +31,7 @@ const ProductPage = () => {
       {
         label: "Name",
         accessorKey: "name",
-        cell: (row: any) => <span className="bg-red-800">row.name</span>,
+        cell: (row: any) => <span >{row.name}</span>,
       },
     ],
     []

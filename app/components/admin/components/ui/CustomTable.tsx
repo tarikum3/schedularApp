@@ -201,148 +201,138 @@ const CustomTable: React.FC<CustomTableProps> = ({
   }, [toDate, fromDate]);
 
   return (
-    <div className="container mx-auto p-4 w-full  text-primary   ">
-      <div className="flex w-full   justify-between gap-2 py-2 ">
-        <div className="flex w-full flex-wrap  justify-start gap-2  ">
-          <span className="flex">
-            {onTableDateRangeChange && (
-              <DateRangeComponent
-                open={dateRangeModal}
-                onChange={handleDateRangeChange}
-                toggle={handleOnDateRangeToggle}
-              />
-            )}
-          </span>
-        </div>
-        <div className="flex  flex-none gap-2  ">
-          <Tooltip title="export ">
-            <span className="flex items-center justify-center pr-1 ">
-              <IconButton
-                //  onClick={handleTemplateDownload}
-
-                onClick={handleExportExcel}
-              >
-                <GetAppOutlinedIcon />
-              </IconButton>{" "}
-            </span>
-          </Tooltip>
-          <Tooltip title="print ">
-            <span className="flex items-center justify-center pr-1 ">
-              <IconButton
-                //  onClick={handleTemplateDownload}
-                onClick={handleExportPDF}
-              >
-                <Print />
-              </IconButton>{" "}
-            </span>
-          </Tooltip>
-        </div>
-      </div>
-
-      <div className="overflow-x-auto min-h-40 max-h-60 overflow-y-auto ">
-        <table className="min-w-full bg-white border border-gray-200">
-          {/* Table Head for larger screens */}
-          <thead className="hidden sm:table-header-group">
-            <tr className="bg-gray-100">
-              {tableCol?.map((col) => (
-                <th
-                  key={col.accessorKey}
-                  className="border-b border-gray-200 px-4 py-2 lg:px-6"
-                >
-                  <TableSortLabel
-                    active={orderBy === col.accessorKey}
-                    direction={orderBy === col.accessorKey ? order : "asc"}
-                    onClick={() => handleRequestSort(col.accessorKey)}
-                  >
-                    {col.label}
-                  </TableSortLabel>
-                </th>
-              ))}
-            </tr>
-          </thead>
-
-          {/* Table Body */}
-          <tbody>
-            {tableData?.map((row, index) => (
-              <tr
-                key={index}
-                className="block sm:table-row border-b sm:border-none"
-              >
-                {tableCol?.map((col) => (
-                  <td
-                    key={col.accessorKey}
-                    className="block sm:table-cell border-b border-gray-200 sm:border-none px-4 py-2 lg:px-6"
-                  >
-                    {/* Show label for stacked layout on small screens */}
-                    <span className="block sm:hidden font-bold">
-                      {col.label}:
-                    </span>
-
-                    {col.cell
-                      ? col.cell(row)
-                      : getNestedValue(row, col.accessorKey) !== undefined &&
-                        getNestedValue(row, col.accessorKey) !== null
-                      ? getNestedValue(row, col.accessorKey).toString()
-                      : ""}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {tableData?.length > 0 && pageCount && (pageIndex || pageIndex === 0) && (
-        <div className="flex flex-wrap justify-center items-center gap-2 mt-4 p-1">
-          <IconButton
-            size="large"
-            className="border rounded p-1"
-            onClick={() => handlePageChange(0)}
-            disabled={pageIndex === 0}
-          >
-            <KeyboardDoubleArrowLeftOutlinedIcon />
-          </IconButton>
-          <IconButton
-            className="border rounded p-1"
-            onClick={() => handlePageChange(pageIndex - 1)}
-            disabled={pageIndex === 0}
-          >
-            <NavigateBeforeOutlinedIcon />
-          </IconButton>
-          <IconButton
-            className="border rounded p-1"
-            onClick={() => handlePageChange(pageIndex + 1)}
-            disabled={pageIndex >= pageCount - 1}
-          >
-            <KeyboardArrowRightOutlinedIcon />
-          </IconButton>
-          <IconButton
-            className="border rounded p-1"
-            onClick={() => handlePageChange(pageCount - 1)}
-            disabled={pageIndex >= pageCount - 1}
-          >
-            <KeyboardDoubleArrowRightOutlinedIcon />
-          </IconButton>
-
-          <span className="flex items-center gap-1">
-            <div className="text-[#2C2E7B]">Page</div>
-            <strong className="text-[#2C2E7B] whitespace-nowrap">
-              {pageIndex + 1} of {pageCount}
-            </strong>
-          </span>
-
-          <span className="flex text-[#2C2E7B] items-center gap-1">
-            Set page size:
-          </span>
-          <input
-            type="number"
-            // value={pageSize}
-            defaultValue={pageSize}
-            onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-            className="border p-1 text-[#2C2E7B] rounded w-16 bg-white"
-          />
-        </div>
+<div className="container mx-auto p-4 w-full text-primary">
+  {/* Header Section */}
+  <div className="flex flex-wrap justify-between gap-2 py-2">
+    <div className="flex flex-wrap items-center gap-2">
+      {onTableDateRangeChange && (
+        <DateRangeComponent
+          open={dateRangeModal}
+          onChange={handleDateRangeChange}
+          toggle={handleOnDateRangeToggle}
+        />
       )}
     </div>
+    <div className="flex items-center gap-2">
+      <Tooltip title="Export">
+        <IconButton
+          onClick={handleExportExcel}
+          className="bg-primary-300 hover:bg-primary-400 text-primary-800"
+        >
+          <GetAppOutlinedIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Print">
+        <IconButton
+          onClick={handleExportPDF}
+          className="bg-primary-300 hover:bg-primary-400 text-primary-800"
+        >
+          <Print />
+        </IconButton>
+      </Tooltip>
+    </div>
+  </div>
+
+  {/* Table Section */}
+  <div className="overflow-x-auto bg-white shadow-md rounded-md border border-primary-200 dark:bg-primary-100">
+    <table className="min-w-full table-auto">
+      {/* Table Head */}
+      <thead className="bg-primary-300 dark:bg-primary-700 text-primary-800">
+        <tr>
+          {tableCol?.map((col) => (
+            <th
+              key={col.accessorKey}
+              className="px-4 py-2 text-left border-b border-primary-200"
+            >
+              <TableSortLabel
+                active={orderBy === col.accessorKey}
+                direction={orderBy === col.accessorKey ? order : "asc"}
+                onClick={() => handleRequestSort(col.accessorKey)}
+              >
+                {col.label}
+              </TableSortLabel>
+            </th>
+          ))}
+        </tr>
+      </thead>
+
+      {/* Table Body */}
+      <tbody>
+        {tableData?.map((row, index) => (
+          <tr
+            key={index}
+            className="hover:bg-primary-200 dark:hover:bg-primary-300"
+          >
+            {tableCol?.map((col) => (
+              <td
+                key={col.accessorKey}
+                className="px-4 py-2 border-b border-primary-200"
+              >
+                {/* Mobile view label */}
+                <span className="block sm:hidden font-semibold">
+                  {col.label}:
+                </span>
+                {col.cell
+                  ? col.cell(row)
+                  : getNestedValue(row, col.accessorKey) || ""}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Pagination Section */}
+  {tableData?.length > 0 && pageCount && (pageIndex || pageIndex === 0) && (
+    <div className="flex flex-wrap justify-center items-center gap-2 mt-4">
+      <IconButton
+        onClick={() => handlePageChange(0)}
+        disabled={pageIndex === 0}
+        className="border border-primary-300 rounded p-1 hover:bg-primary-400"
+      >
+        <KeyboardDoubleArrowLeftOutlinedIcon />
+      </IconButton>
+      <IconButton
+        onClick={() => handlePageChange(pageIndex - 1)}
+        disabled={pageIndex === 0}
+        className="border border-primary-300 rounded p-1 hover:bg-primary-400"
+      >
+        <NavigateBeforeOutlinedIcon />
+      </IconButton>
+      <IconButton
+        onClick={() => handlePageChange(pageIndex + 1)}
+        disabled={pageIndex >= pageCount - 1}
+        className="border border-primary-300 rounded p-1 hover:bg-primary-400"
+      >
+        <KeyboardArrowRightOutlinedIcon />
+      </IconButton>
+      <IconButton
+        onClick={() => handlePageChange(pageCount - 1)}
+        disabled={pageIndex >= pageCount - 1}
+        className="border border-primary-300 rounded p-1 hover:bg-primary-400"
+      >
+        <KeyboardDoubleArrowRightOutlinedIcon />
+      </IconButton>
+      <span className="flex items-center gap-1">
+        <span>Page</span>
+        <strong>
+          {pageIndex + 1} of {pageCount}
+        </strong>
+      </span>
+      <span className="flex items-center gap-1">
+        <span>Set page size:</span>
+        <input
+          type="number"
+          defaultValue={pageSize}
+          onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+          className="border border-primary-300 rounded p-1 w-16 bg-white"
+        />
+      </span>
+    </div>
+  )}
+</div>
+
   );
 };
 

@@ -1,6 +1,7 @@
-'use client';
+
+"use client";
 import * as React from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import List from "@mui/material/List";
 import Paper from "@mui/material/Paper";
 import { ROUTES } from "@/lib/admin/configs/routes";
@@ -11,26 +12,12 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { ButtonBase } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { permissionArray,  } from "@/lib/admin/utils/permissions";
+import { permissionArray } from "@/lib/admin/utils/permissions";
 import { PERMISSIONS } from "@/lib/admin/configs/permissions";
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
-import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
-
-
-interface ConfigChildren {
-  label: string;
-  icon: React.ReactNode;
-  route: string;
-}
-
-interface Config {
-  label: string;
-  icon: React.ReactNode;
-  route: string;
-  children?: ConfigChildren[];
-}
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
   "& .MuiListItemButton-root": {
@@ -46,236 +33,134 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
   },
 });
 
-export default function SideBar(
-
-) {
+export default function SideBar() {
   const pathname = "/home";
   const permissions = [
-    // Dashboard Permissions
     PERMISSIONS.READ_OVERVIEW_DASHBOARD,
     PERMISSIONS.READ_ANALYTICS_DASHBOARD,
-  
-    // Role Permissions
     PERMISSIONS.CREATE_ROLE,
     PERMISSIONS.READ_ROLE,
     PERMISSIONS.UPDATE_ROLE,
     PERMISSIONS.DELETE_ROLE,
     PERMISSIONS.ASSIGN_ROLE,
-  
-    // User Permissions
     PERMISSIONS.CREATE_USER,
     PERMISSIONS.READ_USER,
     PERMISSIONS.UPDATE_USER,
     PERMISSIONS.DELETE_USER,
-  
-    // Product Permissions
     PERMISSIONS.CREATE_PRODUCT,
     PERMISSIONS.READ_PRODUCT,
     PERMISSIONS.UPDATE_PRODUCT,
     PERMISSIONS.DELETE_PRODUCT,
-  
-    // Order Permissions
     PERMISSIONS.CREATE_ORDER,
     PERMISSIONS.READ_ORDER,
     PERMISSIONS.UPDATE_ORDER,
     PERMISSIONS.DELETE_ORDER,
-  
-    // Customer Permissions
     PERMISSIONS.CREATE_CUSTOMER,
     PERMISSIONS.READ_CUSTOMER,
     PERMISSIONS.UPDATE_CUSTOMER,
     PERMISSIONS.DELETE_CUSTOMER,
-  
-    // Activity Permissions
     PERMISSIONS.CREATE_ACTIVITY,
     PERMISSIONS.READ_ACTIVITY,
     PERMISSIONS.UPDATE_ACTIVITY,
     PERMISSIONS.DELETE_ACTIVITY,
   ];
-  
-
-  const userinfo = "userinfo";
-
-
-
-
 
   const [sideBarConfigs, setSideBarConfigs] = React.useState<any[]>([]);
 
   React.useEffect(() => {
-    // setSideBarConfigs([
+    setSideBarConfigs([
+      ...permissionArray(
+        [
+          ...(permissions.includes(PERMISSIONS.READ_OVERVIEW_DASHBOARD)
+            ? [PERMISSIONS.READ_OVERVIEW_DASHBOARD]
+            : []),
+          ...(permissions.includes(PERMISSIONS.READ_ANALYTICS_DASHBOARD)
+            ? [PERMISSIONS.READ_ANALYTICS_DASHBOARD]
+            : []),
+        ],
+        {
+          label: "Dashboard",
+          icon: <DashboardIcon className="text-primary-500" />,
+          isOpen: false,
+          isHovered: false,
+          children: [
+            ...permissionArray(
+              PERMISSIONS.READ_OVERVIEW_DASHBOARD,
+              {
+                label: "Overview",
+                icon: <DashboardIcon className="text-primary-400" />,
+                route: ROUTES.DASHBOARD_OVERVIEW,
+              },
+              permissions
+            ),
+            ...permissionArray(
+              PERMISSIONS.READ_ANALYTICS_DASHBOARD,
+              {
+                label: "Analytics",
+                icon: <DashboardIcon className="text-primary-400" />,
+                route: ROUTES.DASHBOARD_ANALYTICS,
+              },
+              permissions
+            ),
+          ],
+        },
+        permissions
+      ),
 
-    //   ...permissionArray(
+      { type: "divider" },
 
-    //     [
-    //       ...(permissions.includes(PERMISSIONS.READ_OVERVIEW_DASHBOARD) ? [PERMISSIONS.READ_OVERVIEW_DASHBOARD] : []),
-    //       ...(permissions.includes(PERMISSIONS.READ_ANALYTICS_DASHBOARD) ? [PERMISSIONS.READ_ANALYTICS_DASHBOARD] : []),
-    //     ],
-    //     {
-    //       label: "Dashboard",
-    //       icon: <DashboardIcon />,
-    //       isOpen: false,
-    //       isHovered: false,
-    //       children: [
-    //         ...permissionArray(
-    //           PERMISSIONS.READ_OVERVIEW_DASHBOARD,
-    //           {
-    //             label: "Overview",
-    //             icon: <DashboardIcon />,
-    //             route: ROUTES.DASHBOARD_OVERVIEW,
-    //           },
-    //           permissions,
-              
-    //         ),
-    //         ...permissionArray(
-    //           PERMISSIONS.READ_ANALYTICS_DASHBOARD,
-  
-    //           {
-    //             label: "Analytics",
-    //             icon: <PeopleAltOutlined />,
-    //             route: ROUTES.DASHBOARD_ANALYTICS,
-    //           },
-    //           permissions,
-              
-    //         )
-  
-    //       ],
-    //     },
-    //     permissions,
-       
-    //   ),
-      
+      ...permissionArray(
+        PERMISSIONS.READ_USER,
+        {
+          label: "Users",
+          icon: <PeopleAltOutlinedIcon className="text-primary-500" />,
+          route: ROUTES.USERS,
+        },
+        permissions
+      ),
 
-    //   {
-    //     type: "divider",
-    //   },
+      { type: "divider" },
 
+      ...permissionArray(
+        PERMISSIONS.READ_PRODUCT,
+        {
+          label: "Products",
+          icon: <Inventory2OutlinedIcon className="text-primary-500" />,
+          route: ROUTES.PRODUCT,
+        },
+        permissions
+      ),
 
-  
+      ...permissionArray(
+        PERMISSIONS.READ_ORDER,
+        {
+          label: "Orders",
+          icon: <ShoppingCartOutlinedIcon className="text-primary-500" />,
+          route: ROUTES.ORDER,
+        },
+        permissions
+      ),
 
-   
+      ...permissionArray(
+        PERMISSIONS.READ_CUSTOMER,
+        {
+          label: "Customers",
+          icon: <GroupOutlinedIcon className="text-primary-500" />,
+          route: ROUTES.CUSTOMERS,
+        },
+        permissions
+      ),
 
-
- 
-    //   ...permissionArray(
-    //     PERMISSIONS.READ_USER,
-    //     {
-    //       label: "Users",
-    //       icon: <PeopleAltOutlinedIcon />,
-    //       route: ROUTES.USERS,
-    //     },
-    //     permissions,
-    //     userinfo
-    //   ),
-
-
- 
-    // ]);
-
-
-
-
-setSideBarConfigs([
-  // Dashboard Section
-  ...permissionArray(
-    [
-      ...(permissions.includes(PERMISSIONS.READ_OVERVIEW_DASHBOARD) ? [PERMISSIONS.READ_OVERVIEW_DASHBOARD] : []),
-      ...(permissions.includes(PERMISSIONS.READ_ANALYTICS_DASHBOARD) ? [PERMISSIONS.READ_ANALYTICS_DASHBOARD] : []),
-    ],
-    {
-      label: 'Dashboard',
-      icon: <DashboardIcon />,
-      isOpen: false,
-      isHovered: false,
-      children: [
-        ...permissionArray(
-          PERMISSIONS.READ_OVERVIEW_DASHBOARD,
-          {
-            label: 'Overview',
-            icon: <DashboardIcon />,
-            route: ROUTES.DASHBOARD_OVERVIEW,
-          },
-          permissions
-        ),
-        ...permissionArray(
-          PERMISSIONS.READ_ANALYTICS_DASHBOARD,
-          {
-            label: 'Analytics',
-            icon: <DashboardIcon />,
-            route: ROUTES.DASHBOARD_ANALYTICS,
-          },
-          permissions
-        ),
-      ],
-    },
-    permissions
-  ),
-
-  {
-    type: 'divider',
-  },
-
-  // Users Section
-  ...permissionArray(
-    PERMISSIONS.READ_USER,
-    {
-      label: 'Users',
-      icon: <PeopleAltOutlinedIcon />,
-      route: ROUTES.USERS,
-    },
-    permissions
-  ),
-
-  {
-    type: 'divider',
-  },
-
-  // Products Section
-  ...permissionArray(
-    PERMISSIONS.READ_PRODUCT,
-    {
-      label: 'Products',
-      icon: <Inventory2OutlinedIcon />,
-      route: ROUTES.PRODUCT,
-    },
-    permissions
-  ),
-
-  // Orders Section
-  ...permissionArray(
-    PERMISSIONS.READ_ORDER,
-    {
-      label: 'Orders',
-      icon: <ShoppingCartOutlinedIcon />,
-      route: ROUTES.ORDER,
-    },
-    permissions
-  ),
-
-  // Customers Section
-  ...permissionArray(
-    PERMISSIONS.READ_CUSTOMER,
-    {
-      label: 'Customers',
-      icon: <GroupOutlinedIcon />,
-      route: ROUTES.CUSTOMERS,
-    },
-    permissions
-  ),
-
-  // Activities Section
-  ...permissionArray(
-    PERMISSIONS.READ_ACTIVITY,
-    {
-      label: 'Activities',
-      icon: <EventOutlinedIcon />,
-      route: ROUTES.ACTIVITIES,
-    },
-    permissions
-  ),
-]);
-
-
+      ...permissionArray(
+        PERMISSIONS.READ_ACTIVITY,
+        {
+          label: "Activities",
+          icon: <EventOutlinedIcon className="text-primary-500" />,
+          route: ROUTES.ACTIVITIES,
+        },
+        permissions
+      ),
+    ]);
   }, []);
 
   const toggleSubMenu = (index: number) => {
@@ -287,7 +172,7 @@ setSideBarConfigs([
   };
 
   return (
-    <div className="border-r-[1px] border-gray-200 h-full pb-12">
+    <div className="border-r border-primary-300 h-full pb-12">
       <div className="h-full">
         <Paper
           elevation={0}
@@ -302,15 +187,15 @@ setSideBarConfigs([
           }}
         >
           <FireNav component="nav" disablePadding>
-            {sideBarConfigs.map((config: Config | any, index: number) => (
+            {sideBarConfigs.map((config: any, index: number) => (
               <div className="my-1" key={config.label}>
                 {config.type === "divider" ? (
-                  <Divider sx={{ margin: "15px" }} key={config.label} />
+                  <Divider className="my-4" />
                 ) : (
                   <>
                     {config.children ? (
                       <div
-                        className="mx-auto w-[90%] rounded-md cursor-pointer overflow-hidden"
+                        className="w-[90%] mx-auto rounded-md cursor-pointer"
                         onMouseEnter={() => {
                           setSideBarConfigs((prevConfigs) => {
                             const updatedConfigs = [...prevConfigs];
@@ -327,79 +212,49 @@ setSideBarConfigs([
                         }}
                       >
                         <ButtonBase
-                          sx={{ width: "100%" }}
+                          className={`flex justify-between items-center px-3 py-2 rounded-md w-full transition-colors ${
+                            config.isHovered
+                              ? "bg-primary-600 text-primary-100"
+                              : "hover:bg-primary-500 hover:text-primary-100"
+                          }`}
                           onClick={() => toggleSubMenu(index)}
                         >
-                          <div
-                            className={`flex w-full px-1 py-[.7rem] justify-between ${
-                              config.isHovered ? "bg-[#2C2E7B] text-white" : ""
-                            }`}
-                          >
-                            <div className="flex text-[1.1rem] items-center">
-                              <div className=" ">{config.icon}</div>{" "}
-                              <span className="ml-2">{config.label}</span>
-                            </div>
-                            <div className="flex items-center">
-                              {config.isOpen ? (
-                                <ExpandMoreIcon />
-                              ) : (
-                                <ChevronRightIcon />
-                              )}
-                            </div>
+                          <div className="flex items-center text-sm font-semibold">
+                            {config.icon}
+                            <span className="ml-2">{config.label}</span>
                           </div>
+                          <div>{config.isOpen ? <ExpandMoreIcon /> : <ChevronRightIcon />}</div>
                         </ButtonBase>
                         {config.isOpen && (
-                          <List disablePadding>
-                            {config.children.map(
-                              (subConfig: ConfigChildren) => (
-                                <Link
-                                href={subConfig.route}
-                                  key={subConfig.label}
+                          <List disablePadding className="pl-6">
+                            {config.children.map((subConfig: any) => (
+                              <Link href={subConfig.route} key={subConfig.label}>
+                                <div
+                                  className={`px-3 py-2 rounded-md transition-colors cursor-pointer text-sm font-medium ${
+                                    pathname === subConfig.route
+                                      ? "bg-primary-700 text-primary-100"
+                                      : "hover:bg-primary-500 hover:text-primary-100"
+                                  }`}
                                 >
-                                  <div
-                                    // mx-2 w-[90%] rounded-md
-                                    className={`bg-[#EEEEFF] ml-4 cursor-pointer overflow-hidden ${
-                                      pathname === subConfig.route
-                                        ? "bg-[#8B5ACD] text-black"
-                                        : "text-gray-700  hover:bg-[#6BD8E6] hover:text-black"
-                                    }`}
-                                  >
-       
-                                    <ButtonBase
-                                      sx={{ width: "100%" }}
-                                      className="hover:bg-[#212E7B] hover:text-white active:bg-[#2C2E7B] active:text-white"
-                                    >
-                                      <div className="flex w-full px-3 py-[.7rem]">
-                                        <div className="flex text-[1.1rem] items-center">
-                                          <div>{subConfig.icon}</div>
-                                          <span className="ml-2">{subConfig.label}</span>
-                                        </div>
-                                      </div>
-                                    </ButtonBase>
-                                  </div>
-                                </Link>
-                              )
-                            )}
+                                  {subConfig.icon}
+                                  <span className="ml-2">{subConfig.label}</span>
+                                </div>
+                              </Link>
+                            ))}
                           </List>
                         )}
                       </div>
                     ) : (
-                      <Link href={config.route} key={config.label}>
+                      <Link href={config.route}>
                         <div
-                          className={`mx-auto w-[100%] rounded-md cursor-pointer overflow-hidden ${
-                            location.pathname === config.route
-                              ? "bg-[#2C2E7B] text-white"
-                              : "text-gray-700  hover:bg-[#2C2E7B] hover:text-white"
+                          className={`flex items-center px-3 py-2 rounded-md w-full text-sm font-semibold transition-colors cursor-pointer ${
+                            pathname === config.route
+                              ? "bg-primary-700 text-primary-100"
+                              : "hover:bg-primary-500 hover:text-primary-100"
                           }`}
                         >
-                          <ButtonBase sx={{ width: "100%" }}>
-                            <div className="flex w-full px-4 py-[.7rem]">
-                              <div className="flex text-[1.1rem] items-center">
-                                <div className=" ">{config.icon}</div>{" "}
-                                <span className="ml-2">{config.label}</span>
-                              </div>
-                            </div>
-                          </ButtonBase>
+                          {config.icon}
+                          <span className="ml-2">{config.label}</span>
                         </div>
                       </Link>
                     )}
