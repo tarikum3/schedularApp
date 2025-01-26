@@ -41,6 +41,7 @@
     "materialui-daterange-picker": "^1.1.92",
     "next": "14.1.4",
     "next-auth": "^5.0.0-beta.16",
+    "next-intl": "^3.26.3",
     "next-themes": "^0.2.0",
     "nodemailer": "^6.9.14",
     "path": "^0.12.7",

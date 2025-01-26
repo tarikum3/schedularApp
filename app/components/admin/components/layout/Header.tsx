@@ -106,7 +106,7 @@ import Link from 'next/link';
 import { Logo } from "@/app/components";
 import { Menu as MenuIcon, Close as CloseIcon, Notifications as NotificationsIcon, AccountCircle as AccountIcon, Settings as SettingsIcon } from '@mui/icons-material';
 import SideBar from './SideBar';
-
+import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
 const Header = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   
@@ -153,10 +153,10 @@ const Header = () => {
                 <NotificationsIcon />
               </button>
               <button className="text-gray-900 hover:text-gray-600 p-2">
-                <SettingsIcon />
+             
               </button>
-              <button className="text-gray-900 hover:text-gray-600 p-2">
-                <AccountIcon />
+              <button className="w-4 h-4 text-gray-900 hover:text-gray-600 p-2">
+                {/* <LanguageSwitcher  /> */}
               </button>
             </div>
           </div>
