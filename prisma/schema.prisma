@@ -309,3 +309,47 @@ model EventLog {
 //   name     String
 //   description String
 // }
+
+
+
+
+
+
+model Schedule {
+  id          String                    @id @default(uuid())
+  name        String
+  startDate   DateTime
+  endDate     DateTime
+  days        String[]  @default([])
+  startTimes  DateTime[] @default([])
+  endTimes    DateTime[] @default([])
+  isWorkingDay Boolean   @default(true)
+  daysRelation Day[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Day {
+  id          String                    @id @default(uuid())
+  date         DateTime  @db.Date
+  dayName      DayEnum
+  startTimes   DateTime[] @default([])
+  endTimes     DateTime[] @default([])
+  isWorkingDay Boolean    @default(true)
+  isCustom     Boolean    @default(false)
+  year         String
+  scheduleId   String?
+  schedule     Schedule?  @relation(fields: [scheduleId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum DayEnum {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
