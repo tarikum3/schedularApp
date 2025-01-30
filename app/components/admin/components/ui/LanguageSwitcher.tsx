@@ -1,114 +1,7 @@
-// import Button from '@material-ui/core/Button';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import Popover from '@material-ui/core/Popover';
-// import Typography from '@material-ui/core/Typography';
-// import { useState } from 'react';
 
+"use client";
 
-
-// const languages = [
-//   {
-//     id: 'en',
-//     title: 'English',
-//     flag: 'us',
-//   },
-//   {
-//     id: 'tr',
-//     title: 'Turkish',
-//     flag: 'tr',
-//   },
-//   {
-//     id: 'ar',
-//     title: 'Arabic',
-//     flag: 'sa',
-//   },
-// ];
-
-// function LanguageSwitcher() {
-  
-
-//   const [menu, setMenu] = useState(null);
-//   const [currentLanguage, setCurrentLanguage] = useState(  {
-//     id: 'en',
-//     title: 'English',
-//     flag: 'us',
-//   });
-
-//   const langMenuClick = (event) => {
-//     setMenu(event.currentTarget);
-//   };
-
-//   const langMenuClose = () => {
-//     setMenu(null);
-//   };
-
-//   function handleLanguageChange(lng) {
-//     setCurrentLanguage(lng);
-
-//     langMenuClose();
-//   }
-
-//   return (
-//     <>
-//       <Button className="h-40 w-64" onClick={langMenuClick}>
-//         <img
-//           className="mx-4 min-w-20"
-//           src={`assets/images/flags/${currentLanguage.flag}.png`}
-//           alt={currentLanguage.title}
-//         />
-
-//         <Typography className="mx-4 font-semibold uppercase" color="textSecondary">
-//           {currentLanguage.id}
-//         </Typography>
-//       </Button>
-
-//       <Popover
-//         open={Boolean(menu)}
-//         anchorEl={menu}
-//         onClose={langMenuClose}
-//         anchorOrigin={{
-//           vertical: 'bottom',
-//           horizontal: 'center',
-//         }}
-//         transformOrigin={{
-//           vertical: 'top',
-//           horizontal: 'center',
-//         }}
-//         classes={{
-//           paper: 'py-8',
-//         }}
-//       >
-//         {languages.map((lng) => (
-//           <MenuItem key={lng.id} onClick={() => handleLanguageChange(lng)}>
-//             <ListItemIcon className="min-w-40">
-//               <img
-//                 className="min-w-20"
-//                 src={`assets/images/flags/${lng.flag}.png`}
-//                 alt={lng.title}
-//               />
-//             </ListItemIcon>
-//             <ListItemText primary={lng.title} />
-//           </MenuItem>
-//         ))}
-
-     
-//       </Popover>
-//     </>
-//   );
-// }
-
-// export default LanguageSwitcher;
-
-
-import Button from '@material-ui/core/Button';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import { useState, MouseEvent } from 'react';
+import { useState } from "react";
 
 interface Language {
   id: string;
@@ -118,88 +11,66 @@ interface Language {
 
 const languages: Language[] = [
   {
-    id: 'en',
-    title: 'English',
-    flag: 'us',
+    id: "en",
+    title: "English",
+    flag: "us",
   },
   {
-    id: 'tr',
-    title: 'Turkish',
-    flag: 'tr',
+    id: "tr",
+    title: "Turkish",
+    flag: "tr",
   },
   {
-    id: 'ar',
-    title: 'Arabic',
-    flag: 'sa',
+    id: "ar",
+    title: "Arabic",
+    flag: "sa",
   },
 ];
 
 const LanguageSwitcher = () => {
-  const [menu, setMenu] = useState<HTMLElement | null>(null);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>({
-    id: 'en',
-    title: 'English',
-    flag: 'us',
-  });
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(languages[0]);
 
-  const langMenuClick = (event: MouseEvent<HTMLElement>): void => {
-    setMenu(event.currentTarget);
-  };
-
-  const langMenuClose = (): void => {
-    setMenu(null);
-  };
-
-  function handleLanguageChange(lng: Language): void {
+  const handleLanguageChange = (lng: Language) => {
     setCurrentLanguage(lng);
-    langMenuClose();
-  }
+    setIsOpen(false);
+  };
 
   return (
-    <>
-      <Button className="h-40 w-64" onClick={langMenuClick}>
-        <img
-          className="mx-4 min-w-20"
-          src={`assets/images/flags/${currentLanguage.flag}.png`}
-          alt={currentLanguage.title}
-        />
-
-        <Typography className="mx-4 font-semibold uppercase" color="textSecondary">
-          {currentLanguage.id}
-        </Typography>
-      </Button>
-
-      <Popover
-        open={Boolean(menu)}
-        anchorEl={menu}
-        onClose={langMenuClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        classes={{
-          paper: 'py-8',
-        }}
+    <div className="relative inline-block text-left">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center px-4 py-2 border border-gray-300 rounded-lg bg-white shadow-sm hover:bg-gray-100"
       >
-        {languages.map((lng) => (
-          <MenuItem key={lng.id} onClick={() => handleLanguageChange(lng)}>
-            <ListItemIcon className="min-w-40">
+        <img
+          src={`/assets/images/flags/${currentLanguage.flag}.png`}
+          alt={currentLanguage.title}
+          className="w-6 h-6 mr-2"
+        />
+        <span className="uppercase font-semibold text-gray-700">
+          {currentLanguage.id}
+        </span>
+      </button>
+      {isOpen && (
+        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+          {languages.map((lng) => (
+            <button
+              key={lng.id}
+              onClick={() => handleLanguageChange(lng)}
+              className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100"
+            >
               <img
-                className="min-w-20"
-                src={`assets/images/flags/${lng.flag}.png`}
+                src={`/assets/images/flags/${lng.flag}.png`}
                 alt={lng.title}
+                className="w-6 h-6 mr-2"
               />
-            </ListItemIcon>
-            <ListItemText primary={lng.title} />
-          </MenuItem>
-        ))}
-      </Popover>
-    </>
+              <span className="text-gray-700">{lng.title}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
-}
+};
 
 export default LanguageSwitcher;
