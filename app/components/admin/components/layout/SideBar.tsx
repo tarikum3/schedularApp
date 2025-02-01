@@ -18,7 +18,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
-
+import UserView from "@components/admin/components/user/usermenu"
 const FireNav = styled(List)<{ component?: React.ElementType }>({
   "& .MuiListItemButton-root": {
     paddingLeft: 24,
@@ -173,8 +173,8 @@ export default function SideBar() {
 
   return (
     <div className="border-r border-primary-300 h-full pb-12">
-      <div className="h-full">
-        <Paper
+      <div className="h-full flex flex-col justify-end">
+        {/* <Paper
           elevation={0}
           sx={{
             mt: 1,
@@ -263,7 +263,8 @@ export default function SideBar() {
               </div>
             ))}
           </FireNav>
-        </Paper>
+        </Paper> */}
+        <UserView/>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 // import { ProductCreationForm } from "@components/admin/components/ui/mui/DynamicForm";
-import ProductPage from "@components/admin/components/Product/ProductPage";
+//import ProductPage from "@components/admin/components/Product/ProductPage";
 export default async function Page() {
   return (
     <main>

@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Logo } from "@/app/components";
 import { Menu as MenuIcon, Close as CloseIcon, Notifications as NotificationsIcon, AccountCircle as AccountIcon, Settings as SettingsIcon } from '@mui/icons-material';
-// import SideBar from './SideBar';
-import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
+ import SideBar from './SideBar';
+//import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
 const Header = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   
@@ -56,7 +56,7 @@ const Header = () => {
              
               </button>
               <button className="w-4 h-4 relative text-gray-900 hover:text-gray-600 p-2">
-                <LanguageSwitcher  />
+                {/* <LanguageSwitcher  /> */}
               </button>
             </div>
           </div>
@@ -70,7 +70,7 @@ const Header = () => {
         className={`fixed bg-white z-[999] h-full top-0 left-0 pt-[80px] lg:flex flex-shrink-0 flex-col w-[270px] transition-width duration-75 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
         aria-label="Sidebar"
       >
-        {/* <SideBar /> */}
+        <SideBar />
       </aside>
     </>
   );

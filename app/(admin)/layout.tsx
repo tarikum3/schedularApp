@@ -1,8 +1,12 @@
 import Header from "@/app/components/admin/components/layout/Header";
 import StoreProvider from "@components/admin/storeProvider";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
+                <AppRouterCacheProvider>
+
+          
       <StoreProvider>
         <Header />
         <div
@@ -12,6 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </StoreProvider>
+      </AppRouterCacheProvider>
     </div>
   );
 }
