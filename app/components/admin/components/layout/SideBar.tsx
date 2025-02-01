@@ -18,7 +18,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
-import UserView from "@components/admin/components/user/usermenu"
+//import UserView from "@components/admin/components/user/usermenu"
 const FireNav = styled(List)<{ component?: React.ElementType }>({
   "& .MuiListItemButton-root": {
     paddingLeft: 24,
@@ -81,7 +81,7 @@ export default function SideBar() {
         {
           label: "Dashboard",
           icon: <DashboardIcon className="text-primary-500" />,
-          isOpen: false,
+          isOpen: true,
           isHovered: false,
           children: [
             ...permissionArray(
@@ -166,15 +166,18 @@ export default function SideBar() {
   const toggleSubMenu = (index: number) => {
     setSideBarConfigs((prevConfigs) => {
       const updatedConfigs = [...prevConfigs];
-      updatedConfigs[index].isOpen = !updatedConfigs[index].isOpen;
-      return updatedConfigs;
+      //updatedConfigs[index].isOpen = !updatedConfigs[index].isOpen;
+      const up={...updatedConfigs[index],isOpen:!updatedConfigs[index].isOpen};
+      updatedConfigs[index]=up;
+      return [...updatedConfigs];
     });
+    console.log("clickedindex");
   };
 
   return (
     <div className="border-r border-primary-300 h-full pb-12">
       <div className="h-full flex flex-col justify-end">
-        {/* <Paper
+        <Paper
           elevation={0}
           sx={{
             mt: 1,
@@ -195,7 +198,7 @@ export default function SideBar() {
                   <>
                     {config.children ? (
                       <div
-                        className="w-[90%] mx-auto rounded-md cursor-pointer"
+                        className="w-[100%] mx-auto rounded-md cursor-pointer"
                         onMouseEnter={() => {
                           setSideBarConfigs((prevConfigs) => {
                             const updatedConfigs = [...prevConfigs];
@@ -211,7 +214,7 @@ export default function SideBar() {
                           });
                         }}
                       >
-                        <ButtonBase
+                        <button
                           className={`flex justify-between items-center px-3 py-2 rounded-md w-full transition-colors ${
                             config.isHovered
                               ? "bg-primary-600 text-primary-100"
@@ -224,7 +227,7 @@ export default function SideBar() {
                             <span className="ml-2">{config.label}</span>
                           </div>
                           <div>{config.isOpen ? <ExpandMoreIcon /> : <ChevronRightIcon />}</div>
-                        </ButtonBase>
+                        </button>
                         {config.isOpen && (
                           <List disablePadding className="pl-6">
                             {config.children.map((subConfig: any) => (
@@ -263,8 +266,8 @@ export default function SideBar() {
               </div>
             ))}
           </FireNav>
-        </Paper> */}
-        <UserView/>
+        </Paper>
+        {/* <UserView/> */}
       </div>
     </div>
   );
