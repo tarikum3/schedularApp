@@ -4,9 +4,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Logo } from "@/app/components";
-import { Menu as MenuIcon, Close as CloseIcon, Notifications as NotificationsIcon, AccountCircle as AccountIcon, Settings as SettingsIcon } from '@mui/icons-material';
- import SideBar from './SideBar';
-//import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
+import { Menu as MenuIcon, Close as CloseIcon,  } from '@mui/icons-material';
+import SideBar from '@/app/components/admin/components/layout/SideBar';
+import RightSideBar from '@/app/components/admin/components/layout/RightSideBar';
+import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
+import NotificationIcon from "@/app/components/admin/components/notification/NotificationIcon";
+import ThemeSwitcher from "@/app/components/admin/components/ui/ThemeSwitcher";
 const Header = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   
@@ -20,7 +23,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-white border-b border-gray-200 overflow-hidden">
+      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-white  overflow-hidden">
         <div className=" py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-between  w-[270px] ">
@@ -48,16 +51,15 @@ const Header = () => {
               </button>
       
             </div>
-            <div className="flex items-center space-x-4 px-8 h-full">
-              <button className="text-gray-900 hover:text-gray-600 p-2">
-                <NotificationsIcon />
-              </button>
-              <button className="text-gray-900 hover:text-gray-600 p-2">
-             
-              </button>
-              <button className="w-4 h-4 relative text-gray-900 hover:text-gray-600 p-2">
-                {/* <LanguageSwitcher  /> */}
-              </button>
+            <div className=" flex items-center space-x-4 px-8 h-full">
+           
+              {/* <button className="text-gray-900 hover:text-gray-600 p-2">
+              </button> */}
+              
+                <LanguageSwitcher  />
+                <ThemeSwitcher />
+                <NotificationIcon />
+               
             </div>
           </div>
         </div>
@@ -71,7 +73,9 @@ const Header = () => {
         aria-label="Sidebar"
       >
         <SideBar />
+        
       </aside>
+      <RightSideBar />
     </>
   );
 };

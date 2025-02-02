@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-
+import NotificationPanel from "@/app/components/admin/components/notification/NotificationPanel";
 import { useUI } from "@/app/components/admin/components/ui/UIContext";
 const RightSidebar = () => {
   const { displayRightSidebar, closeRightSidebar } = useUI();
@@ -10,14 +10,14 @@ const RightSidebar = () => {
       {/* Overlay Background */}
       {displayRightSidebar && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="fixed inset-0 bg-white opacity-50 z-40"
           onClick={closeRightSidebar}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform z-50 transition-transform duration-300 ${
+        className={`fixed top-0 right-0 w-80 h-full shadow-lg transform z-50 transition-transform duration-300 ${
           displayRightSidebar ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -33,6 +33,7 @@ const RightSidebar = () => {
         <div className="p-5">
           <h2 className="text-lg font-semibold mb-4">Right Sidebar</h2>
           <p className="text-sm text-gray-600">Your content goes here.</p>
+         < NotificationPanel/>
         </div>
       </aside>
     </>
