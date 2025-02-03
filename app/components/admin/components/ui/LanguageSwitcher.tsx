@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -29,7 +28,9 @@ const languages: Language[] = [
 
 const LanguageSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(languages[0]);
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(
+    languages[0]
+  );
 
   const handleLanguageChange = (lng: Language) => {
     setCurrentLanguage(lng);
@@ -52,7 +53,7 @@ const LanguageSwitcher = () => {
         </span>
       </button>
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-[1010]">
           {languages.map((lng) => (
             <button
               key={lng.id}
