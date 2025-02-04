@@ -9,12 +9,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <StoreProvider>
           <SessionWrapper>
             {/* <Header /> */}
-            <div
+            {/* <div
               id="main-content"
               className=" flex flex-col relative overflow-y-auto pt-[80px] lg:ml-[270px]"
-            >
-              {children}
-            </div>
+            > */}
+            {children}
+            {/* </div> */}
           </SessionWrapper>
         </StoreProvider>
       </AppRouterCacheProvider>
