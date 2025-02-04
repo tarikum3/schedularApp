@@ -17,7 +17,7 @@ import {
   getYear,
   parseISO,
 } from "date-fns";
-import "./style.css";
+
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
@@ -111,6 +111,232 @@ const ScheduleItem: React.FC<{ item?: any }> = ({ item }) => {
   );
 };
 
+// const Calendar: React.FC = () => {
+//   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+//   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+//   const [selectOptionValue, setSelectOptionValue] = useState(
+//     format(new Date(), "yyyy")
+//   );
+//   const [modalOpen, setModalOpen] = useState(false);
+//   const [modalOpenCal, setModalOpenCal] = useState(false);
+//   const { data } = useGetDayByYearQuery(format(new Date(), "yyyy"));
+//   const { data: scheduledata } = useGetAllSchedulesQuery();
+//   const [mappedData, setMappedData] = useState<any>();
+
+//   const generateYears = (startYear: number, endYear: number): string[] => {
+//     const years = [];
+//     for (let year = startYear; year <= endYear; year++) {
+//       years.push(format(new Date(year, 0, 1), "yyyy"));
+//     }
+//     return years;
+//   };
+
+//   const years = generateYears(2022, 2100);
+
+//   console.log("yearsssdata", data);
+//   console.log("scheduledata", scheduledata);
+
+//   useEffect(() => {
+//     if ((data as any)?.length && (data as any)?.length > 0) {
+//       let mapped: any = {};
+//       // mapped = (data as any).map((item: any) => item);
+
+//       // mapped = (data as any).reduce((acc: any, obj: any) => {
+//       //   const date = obj.date; // Use the entire date string as the key
+//       //   acc[date] = obj;
+//       //   //  acc[obj.date] = obj;
+//       //   return acc;
+//       // });
+//       (data as any).forEach((element: any) => {
+//         let mapitem = format(new Date(element.date), "yyyy-MM-dd");
+//         mapped[mapitem] = element;
+//       });
+//       setMappedData(mapped);
+//     }
+//   }, [data]);
+
+//   console.log("yearsssdatamappedData", mappedData);
+//   console.log("yearsssdataselectedDate", selectedDate);
+
+//   useEffect(() => {
+//     //if(){
+//     const newDate = setYear(currentMonth, selectOptionValue as any);
+//     // if( newDate?.getFullYear >currentMonth.getFullYear){
+//     setCurrentMonth(newDate);
+//     // console.log("selectOptionValuenewDate", newDate);
+//     // }
+
+//     //  }
+//   }, [selectOptionValue]);
+
+//   const renderHeader = () => {
+//     const dateFormat = "MMMM ";
+//     return (
+//       <div className="flex justify-between items-center p-6 bg-white border-b border-gray-200">
+//         <div className="cursor-pointer" onClick={prevMonth}>
+//           <span className="text-lg m-1">{"<"}</span>
+//         </div>
+//         <div className="flex items-center">
+//           <span>{format(currentMonth, dateFormat)}</span>
+//           <select
+//             name="select option"
+//             value={selectOptionValue}
+//             onChange={(e) => setSelectOptionValue(e.target.value)}
+//             className="focus:outline-none focus:ring-0 p-1 bg-white border border-gray-200 rounded h-10 ml-3"
+//           >
+//             {years.map((option) => (
+//               <option key={option} value={option} id={option}>
+//                 {option}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+//         <div className="cursor-pointer" onClick={nextMonth}>
+//           <span className="text-lg m-1">{">"}</span>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   const renderDays = () => {
+//     const dateFormat = "eeee";
+//     const days = [];
+//     const startDate = startOfWeek(currentMonth);
+
+//     for (let i = 0; i < 7; i++) {
+//       days.push(
+//         <div className="flex justify-center p-2 text-gray-500" key={i}>
+//           {format(addDays(startDate, i), dateFormat)}
+//         </div>
+//       );
+//     }
+
+//     return <div className="grid grid-cols-7">{days}</div>;
+//   };
+
+//   const renderCells = () => {
+//     const monthStart = startOfMonth(currentMonth);
+//     const monthEnd = endOfMonth(monthStart);
+//     const startDate = startOfWeek(monthStart);
+//     const endDate = endOfWeek(monthEnd);
+//     const dateFormat = "d";
+//     const rows = [];
+//     let days = [];
+//     let day = startDate;
+//     let formattedDate = "";
+
+//     while (day <= endDate) {
+//       for (let i = 0; i < 7; i++) {
+//         formattedDate = format(day, dateFormat);
+//         const cloneDay = day;
+//         let forrmm = format(new Date(cloneDay), "yyyy-MM-dd");
+
+//         days.push(
+//           <div
+//             className={`p-4 text-center border border-gray-200 cursor-pointer ${
+//               !isSameMonth(day, monthStart)
+//                 ? "text-gray-300"
+//                 : isSameDay(day, selectedDate)
+//                 ? "bg-blue-500 text-white"
+//                 : "hover:bg-gray-100"
+//             }`}
+//             key={day.toString()}
+//             onClick={() => onDateClick(cloneDay)}
+//           >
+//             <div className="flex flex-col">
+//               <span className="text-sm">
+//                 {mappedData && mappedData[forrmm]
+//                   ? mappedData[forrmm].isWorkingDay
+//                     ? "open"
+//                     : "closed"
+//                   : "not scheduled"}
+//               </span>
+//               <span>{formattedDate}</span>
+//             </div>
+//           </div>
+//         );
+//         day = addDays(day, 1);
+//       }
+//       rows.push(
+//         <div className="grid grid-cols-7" key={day.toString()}>
+//           {days}
+//         </div>
+//       );
+//       days = [];
+//     }
+//     return <div>{rows}</div>;
+//   };
+
+//   const onDateClick = (day: Date) => {
+//     setSelectedDate(day);
+//   };
+
+//   const nextMonth = () => {
+//     let dateNext = addMonths(currentMonth, 1);
+//     setCurrentMonth(dateNext);
+//     let year = dateNext.getFullYear();
+//     if (year != (selectOptionValue as any)) {
+//       setSelectOptionValue(year as any);
+//     }
+//   };
+
+//   const prevMonth = () => {
+//     let datePrev = subMonths(currentMonth, 1);
+//     setCurrentMonth(datePrev);
+//     let year = datePrev.getFullYear();
+//     if (year != (selectOptionValue as any)) {
+//       setSelectOptionValue(year as any);
+//     }
+//   };
+
+//   return (
+//     <div className="flex flex-wrap md:flex-nowrap m-10 space-x-2">
+//       <div className="w-full md:w-1/2">
+//         {renderHeader()}
+//         {renderDays()}
+//         {renderCells()}
+//       </div>
+//       <div className="text-2xl w-full md:w-1/2 text-center font-bold p-2 h-20">
+//         <div className="text-xl font-bold mb-4">Schedules</div>
+//         <div className="flex justify-between mb-5">
+//           <Button
+//             variant="outlined"
+//             disableElevation
+//             onClick={() => setModalOpenCal(true)}
+//             className="text-sm"
+//           >
+//             Calculate ED API
+//           </Button>
+//           <Button
+//             variant="outlined"
+//             disableElevation
+//             onClick={() => setModalOpen(true)}
+//             className="text-sm"
+//           >
+//             <AddOutlinedIcon />
+//           </Button>
+//         </div>
+//         <div className="p-2 space-y-1 h-[400px] overflow-y-auto">
+//           {scheduledata?.map((item) => (
+//             <ScheduleItem item={item} />
+//           ))}
+//         </div>
+
+//         {modalOpen && (
+//           <ModalComponent
+//             open={modalOpen}
+//             onClose={() => setModalOpen(false)}
+//             titles={{ title: "Create Schedule" }}
+//             fullWidth
+//           >
+//             <CreateSchedule />
+//           </ModalComponent>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
 const Calendar: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -133,20 +359,9 @@ const Calendar: React.FC = () => {
 
   const years = generateYears(2022, 2100);
 
-  console.log("yearsssdata", data);
-  console.log("scheduledata", scheduledata);
-
   useEffect(() => {
     if ((data as any)?.length && (data as any)?.length > 0) {
       let mapped: any = {};
-      // mapped = (data as any).map((item: any) => item);
-
-      // mapped = (data as any).reduce((acc: any, obj: any) => {
-      //   const date = obj.date; // Use the entire date string as the key
-      //   acc[date] = obj;
-      //   //  acc[obj.date] = obj;
-      //   return acc;
-      // });
       (data as any).forEach((element: any) => {
         let mapitem = format(new Date(element.date), "yyyy-MM-dd");
         mapped[mapitem] = element;
@@ -155,78 +370,57 @@ const Calendar: React.FC = () => {
     }
   }, [data]);
 
-  console.log("yearsssdatamappedData", mappedData);
-  console.log("yearsssdataselectedDate", selectedDate);
-
   useEffect(() => {
-    //if(){
     const newDate = setYear(currentMonth, selectOptionValue as any);
-    // if( newDate?.getFullYear >currentMonth.getFullYear){
     setCurrentMonth(newDate);
-    // console.log("selectOptionValuenewDate", newDate);
-    // }
-
-    //  }
   }, [selectOptionValue]);
 
   const renderHeader = () => {
-    //const dateFormat = "MMMM yyyy";
-    const dateFormat = "MMMM ";
     return (
-      <div className="header row flex-middle ">
-        <div className="col col-start  ">
-          <div
-            onClick={prevMonth}
-            className="flex flex-col justify-center h-full  "
-          >
-            <span className="cursor-pointer m-2"> {"<"}</span>
-          </div>
-        </div>
-        <div className="col col-center">
-          <span>{format(currentMonth, dateFormat)}</span>
+      <div className="flex justify-between items-center p-6 bg-white shadow-md rounded-lg">
+        <button
+          className="text-xl px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg"
+          onClick={prevMonth}
+        >
+          {"<"}
+        </button>
+        <div className="flex items-center space-x-2">
+          <span className="text-lg font-semibold">
+            {format(currentMonth, "MMMM")}
+          </span>
           <select
-            name={"select option"}
             value={selectOptionValue}
             onChange={(e) => setSelectOptionValue(e.target.value)}
-            className="focus:outline-none focus:ring-0 p-1 bg-white border-x-1 border-y-1 border-slate-200 rounded h-[40px]"
+            className="p-2 border rounded-md bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-400"
           >
-            {/* <option
-              //disabled={true}
-              value=""
-            >
-              all
-            </option> */}
-            {years.map((option: any) => (
-              <option value={option} id={option}>
+            {years.map((option) => (
+              <option key={option} value={option}>
                 {option}
               </option>
             ))}
           </select>
         </div>
-        <div className="col col-end" onClick={nextMonth}>
-          <div className="flex flex-col justify-center h-full  ">
-            <span className="cursor-pointer m-1 ">{">"}</span>
-          </div>
-        </div>
+        <button
+          className="text-xl px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg"
+          onClick={nextMonth}
+        >
+          {">"}
+        </button>
       </div>
     );
   };
 
   const renderDays = () => {
-    const dateFormat = "eeee";
     const days = [];
-
     const startDate = startOfWeek(currentMonth);
-
     for (let i = 0; i < 7; i++) {
       days.push(
-        <div className="col col-center" key={i}>
-          {format(addDays(startDate, i), dateFormat)}
+        <div className="text-center font-semibold text-gray-600 py-2" key={i}>
+          {format(addDays(startDate, i), "EEE")}
         </div>
       );
     }
-
-    return <div className="days row">{days}</div>;
+    return <div className="grid grid-cols-7">{days}</div>;
   };
 
   const renderCells = () => {
@@ -234,68 +428,53 @@ const Calendar: React.FC = () => {
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-
-    const dateFormat = "d";
-    const rows: JSX.Element[] = [];
-
-    let days: JSX.Element[] = [];
+    const rows = [];
+    let days = [];
     let day = startDate;
-    let formattedDate = "";
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
-        formattedDate = format(day, dateFormat);
         const cloneDay = day;
-        let forrmm = format(new Date(cloneDay), "yyyy-MM-dd");
+        let formattedDate = format(day, "d");
+        let formattedFullDate = format(day, "yyyy-MM-dd");
+
         days.push(
           <div
-            className={`col cell ${
-              !isSameMonth(day, monthStart)
-                ? "disabled"
-                : isSameDay(day, selectedDate)
-                ? "selected"
-                : ""
-            }`}
             key={day.toString()}
-            onClick={() => {
-              // onDateClick(parse(cloneDay.toString(), "yyyy-MM-dd", new Date()));
-              onDateClick(cloneDay);
-              // let forrmm = format(new Date(cloneDay), "yyyy-MM-dd");
-              // console.log("forrmm", forrmm);
-              // let forrmm2 = mappedData[forrmm];
-              // console.log("forrmm2", forrmm2);
-              // console.log("cloneDaycurrentMonth", currentMonth);
-            }}
+            className={`p-4 text-center border cursor-pointer transition-all duration-200 ${
+              !isSameMonth(day, monthStart)
+                ? "text-gray-300"
+                : isSameDay(day, selectedDate)
+                ? "bg-blue-500 text-white font-bold"
+                : "hover:bg-gray-200"
+            }`}
+            onClick={() => onDateClick(cloneDay)}
           >
-            <div className="flex flex-col justify-center border h-full">
-              <span className="text-xs overflow-hidden whitespace-wrap overflow-ellipsis">
-                {mappedData && mappedData[forrmm]
-                  ? !mappedData[forrmm].scheduleId
-                    ? "not scheduled"
-                    : mappedData[forrmm].isWorkingDay
-                    ? "open"
-                    : "closed"
-                  : "not scheduled"}
+            <div className="flex flex-col items-center">
+              <span className="text-xs font-medium">
+                {mappedData && mappedData[formattedFullDate]
+                  ? mappedData[formattedFullDate].isWorkingDay
+                    ? "Open"
+                    : "Closed"
+                  : "N/A"}
               </span>
-              <span className="text-base font-medium">{formattedDate}</span>
+              <span className="text-lg font-semibold">{formattedDate}</span>
             </div>
-            <span className="bg">{formattedDate}</span>
           </div>
         );
         day = addDays(day, 1);
       }
       rows.push(
-        <div className="row" key={day.toString()}>
+        <div className="grid grid-cols-7" key={day.toString()}>
           {days}
         </div>
       );
       days = [];
     }
-    return <div className="body">{rows}</div>;
+    return <div>{rows}</div>;
   };
 
   const onDateClick = (day: Date) => {
-    console.log("yearsssselectedDatenoDate", day);
     setSelectedDate(day);
   };
 
@@ -318,42 +497,32 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-wrap md:flex-nowrap m-10 space-x-2 text-primary bg-white">
-      <div className="calendar !w-full  md:!w-1/2">
+    <div className="flex flex-col lg:flex-row items-start justify-center space-x-4 p-6 bg-gray-50 rounded-lg shadow-lg">
+      <div className="w-full lg:w-2/3 bg-white p-4 rounded-lg shadow-md">
         {renderHeader()}
         {renderDays()}
         {renderCells()}
       </div>
-
-      <div className="text-2xl w-full md:w-1/2 text-center font-bold p-2 h-20">
-        <div className="text-xl text-center font-bold m-2 p-3">Schedules</div>
-        <div className=" flex justify-between text-end m-5 ">
-          <Button
-            variant="outlined"
-            disableElevation
-            onClick={() => {
-              setModalOpenCal(true);
-            }}
-            style={{ textTransform: "none" }}
+      <div className="w-full lg:w-1/3 p-4 bg-white rounded-lg shadow-md">
+        <div className="text-xl font-bold mb-4 text-center">Schedules</div>
+        <div className="flex justify-between mb-4">
+          <button
+            onClick={() => setModalOpenCal(true)}
+            className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md shadow"
           >
-            <span>Calculate ED API </span>
-          </Button>
-          <Button
-            className="  text-end "
-            variant="outlined"
-            disableElevation
-            onClick={() => {
-              setModalOpen(true);
-            }}
+            Calculate ED API
+          </button>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-md shadow"
           >
             <AddOutlinedIcon />
-          </Button>
+          </button>
         </div>
-        <div className=" p-2 space-y-1 h-[400px]  overflow-y-auto m-1">
-          {scheduledata?.map((item) => {
-            //  return ScheduleItem(item as any);
-            return <ScheduleItem item={item}></ScheduleItem>;
-          })}
+        <div className="p-2 space-y-2 h-80 overflow-y-auto border rounded-md">
+          {scheduledata?.map((item) => (
+            <ScheduleItem item={item} />
+          ))}
         </div>
 
         {modalOpen && (
@@ -361,10 +530,9 @@ const Calendar: React.FC = () => {
             open={modalOpen}
             onClose={() => setModalOpen(false)}
             titles={{ title: "Create Schedule" }}
-            // widthLoadingOnSubmit={false}
-            fullWidth={true}
+            fullWidth
           >
-            <CreateSchedule></CreateSchedule>
+            <CreateSchedule />
           </ModalComponent>
         )}
       </div>
@@ -373,16 +541,3 @@ const Calendar: React.FC = () => {
 };
 
 export default Calendar;
-
-// Enkutatash (New Year) - Meskerem 1 (September 11 or 12 in the Gregorian calendar)
-// Meskel (Finding of the True Cross) - Meskerem 17 (September 27 in the Gregorian calendar)
-// Genna (Ethiopian Christmas) - Tahsas 29 (January 7 in the Gregorian calendar)
-// Timkat (Epiphany) - Tir 11 (January 19 in the Gregorian calendar)
-// Adwa Victory Day - Yekatit 23 (March 2 in the Gregorian calendar)
-// Ethiopian Good Friday - Movable, based on the Ethiopian Orthodox Church's calculations
-// Fasika (Ethiopian Easter) - Movable, based on the Ethiopian Orthodox Church's calculations
-// Patriots' Victory Day - Miazia 27 (May 5 in the Gregorian calendar)
-// Labour Day - Miazia 23 (May 1 in the Gregorian calendar)
-// Derg Downfall Day - Ginbot 20 (May 28 in the Gregorian calendar)
-// Eid ul-Fitr - Movable, based on the Islamic lunar calendar
-// Eid ul-Adha - Movable, based on the Islamic lunar calendar
