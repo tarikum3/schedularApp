@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   format,
@@ -24,20 +24,14 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import { IconButton } from "@mui/material";
- 
+
 import CreateSchedule from "@/app/components/schedular/CreateSchedule";
 import ModalComponent from "@components/admin/components/ui/ModalComponent";
 import { TextField, Button } from "@mui/material";
-import { useGetDayByYearQuery } from "services/day.service";
-import {
-  useGetAllSchedulesQuery,
-  useCalculateEnddateMutation,
-} from "services/schedule.service";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useDeleteScheduleMutation } from "services/schedule.service";
-import { useSelector } from "react-redux";
+import { useGetDayByYearQuery } from "@/lib/admin/store/services/day.service";
+import { useGetAllSchedulesQuery } from "@/lib/admin/store/services/schedule.service";
 
+import { useDeleteScheduleMutation } from "@/lib/admin/store/services/schedule.service";
 
 const DAYS = [
   { day: "Sunday", name: "S" },
@@ -49,116 +43,7 @@ const DAYS = [
   { day: "Saturday", name: "S" },
 ];
 
-const CalculateEnddate: React.FC<{ item?: any }> = ({ item }) => {
-  //const ScheduleItem = (item: any) => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [duration, setDuration] = useState<any>();
-
-  const [query, setQuery] = useState<any>({ startDate: null, duration: null });
-  const [calculateEnddate] = useCalculateEnddateMutation();
-
-  const [deadline, setDeadline] = useState<any>();
-
-  console.log("calend", deadline);
-  console.log("calendquery", query);
-  console.log("startDate", startDate);
-
-  function formatCustomDate(dateString: string) {
-    // Parse the input date string into a Date object
-    const date = parseISO(dateString);
-
-    // Format the date into the desired string format
-   // return format(date, "MMMM d, yyyy h 'hours' m 'minutes' a");
-   return format(date, "MMMM d, yyyy h:mm a");
-  }
-
-  useEffect(() => {
-    const fun = async () => {
-      const response = await calculateEnddate(query);
-      if ((response as any).data) {
-        // console.log(
-        //   "calendresponsed",
-        //   formatCustomDate((response as any).data)
-        // );
-        let formattt = formatCustomDate((response as any).data);
-        setDeadline(formattt);
-      } else {
-        //  let formattt = formatCustomDate((response as any).data);
-        setDeadline("the start date or end date out of calender date ");
-      }
-    };
-    if (query.startDate) {
-      fun();
-    }
-  }, [query]);
-  return (
-    <div className="">
-      <div className="text-dark-500  space-y-10 p-5 m-5">
-        <div className="flex flex-col">
-          <div className="flex flex-row m-2 p-1 space-x-3">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              {" "}
-              <DatePicker
-                label="Startdate"
-                value={startDate}
-                onChange={(newValue) => {
-                  if (newValue) {
-                    setStartDate((prev) => {
-                      return new Date(newValue);
-                    });
-                  }
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    // fullWidth
-                    {...params}
-                  />
-                )}
-              />
-            </LocalizationProvider>
-            <div className="flex items-center space-x-2 ">
-              {" "}
-              <strong> duration </strong>
-              <input
-                type="number"
-                className=" w-10 text-grey-darkest outline-none h-full "
-                placeholder=""
-                value={duration}
-                onChange={(e) => setDuration(e.target.value)}
-              />{" "}
-              <span>min</span>
-            </div>
-            <Button
-              variant="contained"
-              disabled={!startDate || !duration}
-              onClick={() => {
-                setQuery((prev: any) => {
-                  return { startDate, duration };
-                });
-              }}
-              sx={{
-                background: "#2C2E7B !important",
-                borderColor: "#2C2E7B",
-                color: "#fff",
-                fontWeight: 800,
-                padding: "12px 1.2rem 10px",
-                borderRadius: 1,
-              }}
-            >
-              cal
-            </Button>
-          </div>
-          <p className="text-red-500 text-sm  m-1">{deadline}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const ScheduleItem: React.FC<{ item?: any }> = ({ item }) => {
- 
-
-
   //const ScheduleItem = (item: any) => {
   const [deleteSchedule] = useDeleteScheduleMutation();
   const [modalOpen, setModalOpen] = useState(false);
@@ -190,37 +75,32 @@ const ScheduleItem: React.FC<{ item?: any }> = ({ item }) => {
           <span className="text-xs text-primary font-medium p-2 mr-1">
             {item.isWorkingDay ? "open" : "closed"}
           </span>
-       
-              <IconButton
-                onClick={() => {
-                  setModalOpen(true);
-                  // setUpdateData(row.row.original);
-                  // setcurrentId(row.row.original.id);
-                }}
-              >
-                <ModeEditOutlineOutlinedIcon />
-              </IconButton>
-       
 
-        
-          
-              <IconButton
-                onClick={() => {
-                  // setViewDetail(row?.getValue().id)
-                  deleteSchedule(item.id);
-                }}
-              >
-                <DeleteOutlineOutlinedIcon />
-              </IconButton>
-      
-          
+          <IconButton
+            onClick={() => {
+              setModalOpen(true);
+              // setUpdateData(row.row.original);
+              // setcurrentId(row.row.original.id);
+            }}
+          >
+            <ModeEditOutlineOutlinedIcon />
+          </IconButton>
+
+          <IconButton
+            onClick={() => {
+              // setViewDetail(row?.getValue().id)
+              deleteSchedule(item.id);
+            }}
+          >
+            <DeleteOutlineOutlinedIcon />
+          </IconButton>
         </div>
       </div>
       {modalOpen && (
         <ModalComponent
           open={modalOpen}
           onClose={() => setModalOpen(false)}
-          titles={{ title: "Update Schedule",  }}
+          titles={{ title: "Update Schedule" }}
           //widthLoadingOnSubmit={false}
           fullWidth={true}
         >
@@ -243,7 +123,6 @@ const Calendar: React.FC = () => {
   const { data: scheduledata } = useGetAllSchedulesQuery();
   const [mappedData, setMappedData] = useState<any>();
 
-
   const generateYears = (startYear: number, endYear: number): string[] => {
     const years = [];
     for (let year = startYear; year <= endYear; year++) {
@@ -256,8 +135,6 @@ const Calendar: React.FC = () => {
 
   console.log("yearsssdata", data);
   console.log("scheduledata", scheduledata);
-
- 
 
   useEffect(() => {
     if ((data as any)?.length && (data as any)?.length > 0) {
@@ -298,7 +175,10 @@ const Calendar: React.FC = () => {
     return (
       <div className="header row flex-middle ">
         <div className="col col-start  ">
-          <div onClick={prevMonth} className="flex flex-col justify-center h-full  ">
+          <div
+            onClick={prevMonth}
+            className="flex flex-col justify-center h-full  "
+          >
             <span className="cursor-pointer m-2"> {"<"}</span>
           </div>
         </div>
@@ -390,7 +270,9 @@ const Calendar: React.FC = () => {
             <div className="flex flex-col justify-center border h-full">
               <span className="text-xs overflow-hidden whitespace-wrap overflow-ellipsis">
                 {mappedData && mappedData[forrmm]
-                  ? !mappedData[forrmm].scheduleId ? "not scheduled" :mappedData[forrmm].isWorkingDay
+                  ? !mappedData[forrmm].scheduleId
+                    ? "not scheduled"
+                    : mappedData[forrmm].isWorkingDay
                     ? "open"
                     : "closed"
                   : "not scheduled"}
@@ -473,24 +355,13 @@ const Calendar: React.FC = () => {
             return <ScheduleItem item={item}></ScheduleItem>;
           })}
         </div>
-        {modalOpenCal && (
-          <ModalComponent
-            open={modalOpenCal}
-            onClose={() => setModalOpenCal(false)}
-            titles={{ title: "Calculate ED API" }}
-           // widthLoadingOnSubmit={false}
-            fullWidth={true}
-          >
-            <CalculateEnddate></CalculateEnddate>
-          </ModalComponent>
-        )}
 
         {modalOpen && (
           <ModalComponent
             open={modalOpen}
             onClose={() => setModalOpen(false)}
-            titles={{ title: "Create Schedule",  }}
-           // widthLoadingOnSubmit={false}
+            titles={{ title: "Create Schedule" }}
+            // widthLoadingOnSubmit={false}
             fullWidth={true}
           >
             <CreateSchedule></CreateSchedule>

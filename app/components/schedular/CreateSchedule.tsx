@@ -1,10 +1,6 @@
-'use client';
+"use client";
 import React, { useEffect, useState, useCallback } from "react";
-import {
- 
-  addDays,
-
-} from "date-fns";
+import { addDays } from "date-fns";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 //import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TextField, Button } from "@mui/material";
@@ -17,8 +13,7 @@ import { IconButton } from "@mui/material";
 import {
   useCreateScheduleMutation,
   useUpdateScheduleMutation,
-} from "services/schedule.service";
-//import { useNavigate,  } from "react-router-dom";
+} from "@/lib/admin/store/services/schedule.service";
 
 const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
   const [days, setDays] = useState<String[]>([]);
@@ -27,7 +22,6 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
 
   const [startingTime, setStartingTime] = useState<Date | null>(null);
   const [endTime, setEndTime] = useState<Date | null>(null);
- 
 
   const [startingTimes, setStartingTimes] = useState<Date[]>([]);
   const [endTimes, setEndTimes] = useState<Date[]>([]);
@@ -52,11 +46,11 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
     "Friday",
     "Saturday",
   ];
-  const navigate = useNavigate();
+
   const formatDateAmPm = (date: Date): string => {
     let hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, "0");
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     const hoursStr = hours.toString().padStart(2, "0");
@@ -104,8 +98,8 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
         ...item.endTimes.map((dateitem: any, index: any) => {
           // const st = formatDate(new Date(item.startTimes[index]));
           // const ed = formatDate(new Date(dateitem));
-        
-              const st = formatDateAmPm(new Date(item.startTimes[index]));
+
+          const st = formatDateAmPm(new Date(item.startTimes[index]));
           const ed = formatDateAmPm(new Date(dateitem));
           const formatted = `From ${st} to ${ed}`;
           return formatted;
@@ -115,7 +109,6 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
   }, [item]);
   //useEffect(() => {}, []);
 
-  
   console.log("startingTime", startingTime);
   console.log("startingTimes", startingTimes);
   //console.log("formatDateAmPm",  formatDateAmPm(new Date("2024-07-24T11:25:45.539Z" )));
@@ -127,9 +120,9 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
     ) {
       // const st = formatDate(startingTime);
       // const ed = formatDate(endTime);
-            const st = formatDateAmPm(startingTime);
+      const st = formatDateAmPm(startingTime);
       const ed = formatDateAmPm(endTime);
-      
+
       console.log("startingTimeafter", startingTime);
       const formatted = `From ${st} to ${ed}`;
       setTimes((prev) => [...prev, formatted]);
@@ -151,7 +144,7 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
       return prev.filter((value, index) => index !== id);
     });
   };
- 
+
   function extractHourAndMinute(dateS: Date): string {
     const date = new Date(dateS);
     const hours = String(date.getUTCHours()).padStart(2, "0");
@@ -233,12 +226,9 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
           days: days,
           startTimes: startingTimes,
           endTimes: endTimes,
-     
+
           isWorkingDay: isClosed ? false : true,
         } as any);
-        if (response?.data) {
-         // navigate(0);
-        }
       } else {
         const response: any = await createSchedule({
           name: name,
@@ -247,13 +237,9 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
           days: days,
           startTimes: startingTimes,
           endTimes: endTimes,
-          
+
           isWorkingDay: isClosed ? false : true,
         });
-        console.log("createSchedulesresponse", response);
-        if (response?.data) {
-          navigate(0);
-        }
       }
     }
   };
@@ -264,7 +250,6 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
         <div className="flex flex-col ">
           <strong className="">Schedule name</strong>
           <div className=" m-2 p-1 space-x-1 text-sm">
-       
             <TextField
               fullWidth
               label="Schedule Name"
@@ -313,13 +298,7 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
                     setStartDate(new Date(new Date(newValue)));
                   }
                 }}
-                renderInput={(params) => (
-                  <TextField
-                    fullWidth
-                    {...params}
-                
-                  />
-                )}
+                renderInput={(params) => <TextField fullWidth {...params} />}
               />
             </LocalizationProvider>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -331,13 +310,7 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
                     setEndDate(new Date(newValue));
                   }
                 }}
-                renderInput={(params) => (
-                  <TextField
-                    fullWidth
-                    {...params}
-              
-                  />
-                )}
+                renderInput={(params) => <TextField fullWidth {...params} />}
               />
             </LocalizationProvider>
           </div>
@@ -357,13 +330,7 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
                     //  setStartingTimes((prev) => [...prev, new Date(newValue)]);
                   }
                 }}
-                renderInput={(params) => (
-                  <TextField
-                    fullWidth
-                    {...params}
-           
-                  />
-                )}
+                renderInput={(params) => <TextField fullWidth {...params} />}
               />{" "}
             </LocalizationProvider>{" "}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -376,13 +343,7 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
                     //  setEndTimes((prev) => [...prev, new Date(newValue)]);
                   }
                 }}
-                renderInput={(params) => (
-                  <TextField
-                    fullWidth
-                    {...params}
-                
-                  />
-                )}
+                renderInput={(params) => <TextField fullWidth {...params} />}
               />
             </LocalizationProvider>
             <Button
@@ -406,7 +367,14 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
               <AddOutlinedIcon />
             </Button>
           </div>
-          <p className="text-red-500 text-sm  m-1"> {endTime&&startingTime&&(endTime?.getTime() < startingTime?.getTime())?"end time should be greater than start time hint: 8:00 am - 11:59 am morning ,1:00 pm - 5:00 pm afternoon":''}</p>
+          <p className="text-red-500 text-sm  m-1">
+            {" "}
+            {endTime &&
+            startingTime &&
+            endTime?.getTime() < startingTime?.getTime()
+              ? "end time should be greater than start time hint: 8:00 am - 11:59 am morning ,1:00 pm - 5:00 pm afternoon"
+              : ""}
+          </p>
           <div className="flex flex-col m-2 p-1">
             {times.map((item, index) => (
               <div className="flex flex-center items-center">
@@ -430,10 +398,7 @@ const CreateSchedule: React.FC<{ item?: any }> = ({ item }) => {
               </div>
             ))}
           </div>
-         
         </div>
-
-   
 
         <div className="flex justify-end text-md m-2 p-1">
           <Switch

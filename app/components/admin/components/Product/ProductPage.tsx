@@ -12,8 +12,8 @@ import ModalComponent from "@components/admin/components/ui/ModalComponent";
 import TablePage, {
   TablePageProps,
 } from "@components/admin/components/layout/TablePage";
-import { useGetProductsQuery } from "@lib/admin/store/services/product";
-import {useTranslations} from 'next-intl';
+import { useGetProductsQuery } from "@/lib/admin/store/services/product.service";
+import { useTranslations } from "next-intl";
 const ProductPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [page, setPage] = useState(1);
@@ -31,7 +31,7 @@ const ProductPage = () => {
       {
         label: "Name",
         accessorKey: "name",
-        cell: (row: any) => <span >{row.name}</span>,
+        cell: (row: any) => <span>{row.name}</span>,
       },
     ],
     []
@@ -62,7 +62,6 @@ const ProductPage = () => {
     setLimit(pageSize);
   }, [pageIndex, pageSize]);
 
- 
   // const t = useTranslations('HomePage');
   return (
     <>
@@ -78,9 +77,8 @@ const ProductPage = () => {
           <></>
         </ModalComponent>
       )}
-      
- 
-{/* <h1 className={`mb-4 text-xl md:text-2xl`}>{t('title')}</h1> */}
+
+      {/* <h1 className={`mb-4 text-xl md:text-2xl`}>{t('title')}</h1> */}
       <TablePage
         TableOptions={TableOptions}
         HeaderOptions={HeaderOptions}
