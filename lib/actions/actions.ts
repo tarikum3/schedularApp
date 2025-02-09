@@ -9,6 +9,7 @@ import {
   deleteCartItem,
   updateCart,
   createCustomer,
+  placeOrder,
 } from "@lib/services/prismaServices";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -28,23 +29,25 @@ export async function getCartByIdUtil() {
   }
   return cart;
 }
-export async function deleteCookies (cookieName:string)  {
-  
- 
- 
+export async function placeOrderUtil() {
+  const cartId = cookies().get("cartId")?.value;
+  let order;
+
+  if (cartId) {
+    order = await placeOrder(cartId);
+  }
+  return order;
+}
+export async function deleteCookies(cookieName: string) {
   cookies().delete(cookieName);
   revalidateTag(TAGS.cart);
-  
-};
+}
 const getCartItem = unstable_cache(
   async (id) => {
     const cart = await getCart(id);
-    // const subtotalPrice = cart.items.reduce((total, item) => {
-    //   return (total += item.variant.price);
-    // }, 0);
-    // const totalPrice = subtotalPrice + (subtotalPrice * 15) / 100;
+
     let cartC = addComputedCartPrices(cart);
-    // return { ...cart, subtotalPrice, totalPrice, currency: "ETB" };
+
     return cartC;
   },
   [],

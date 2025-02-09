@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import fs from "fs";
 import bcrypt from "bcryptjs";
-
+import { addComputedCartPrices } from "@/lib/helper";
 interface FetchProductsOptions {
   searchKey?: string;
   filter?: {
@@ -766,14 +766,23 @@ export async function createCustomer(data: CreateCustomerData) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
     // Create the customer with the hashed password
-    const customer = await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         ...data,
         password: hashedPassword,
       },
     });
-
-    return customer;
+    const customer = await prisma.customer.create({
+      data: {
+        userId: user.id,
+        password: user.password,
+        ...(user.firstName && { firstName: user.firstName }),
+        ...(user.lastName && { lastName: user.lastName }),
+        ...(user.email && { email: user.email }),
+        ...(user.phone && { phone: user.phone }),
+      },
+    });
+    return user;
   } catch (error) {
     console.error("Error creating customer:", error);
     throw new Error("Unable to create customer.");
@@ -882,4 +891,74 @@ export async function login(data: LoginData) {
     console.error("Error logging in:", error);
     throw new Error("Unable to log in.");
   }
+}
+
+export async function placeOrder(cartId: string) {
+  return await prisma.$transaction(async (tx) => {
+    // Fetch Cart and Items
+    const cart = await tx.cart.findUnique({
+      where: { id: cartId },
+      include: { items: { include: { variant: true } } },
+    });
+
+    if (!cart || cart.items.length === 0) {
+      throw new Error("Cart not found or empty");
+    }
+
+    const customer = await prisma.customer.findUnique({
+      where: { userId: cart.userId },
+    });
+    if (!customer) {
+      throw new Error("Customer not found or empty");
+    }
+
+    let cartC = addComputedCartPrices(cart);
+    // Create Order
+
+    const order = await tx.order.create({
+      data: {
+        userId: cartC.userId,
+        firstName: cartC.firstName,
+        lastName: cartC.lastName,
+        email: cartC.email,
+        phone: cartC.phone,
+        companyName: cartC.companyName,
+        address: cartC.address,
+        city: cartC.city,
+        country: cartC.country,
+        postalCode: cartC.postalCode,
+        billingName: cartC.billingName,
+        billingEmail: cartC.billingEmail,
+        billingCompanyName: cartC.billingCompanyName,
+        billingAddress: cartC.billingAddress,
+        paymentMethod: cartC.paymentMethod,
+        deliveryMethod: cartC.deliveryMethod,
+        currency: cartC.currency,
+        subtotalPrice: cartC.subtotalPrice,
+        totalPrice: cartC.totalPrice,
+        status: "PENDING",
+        items: {
+          create: cart.items.map((cartItem) => ({
+            variantId: cartItem.variantId,
+            quantity: cartItem.quantity,
+          })),
+        },
+      },
+      include: { items: true },
+    });
+
+    await tx.customer.update({
+      where: { id: customer.id },
+      data: {
+        totalOrders: { increment: 1 },
+        totalSpent: { increment: cartC.totalPrice },
+        lastOrderDate: new Date(),
+      },
+    });
+
+    // Clear Cart After Order is Placed
+    // await tx.cartItem.deleteMany({ where: { cartId } });
+
+    return order;
+  });
 }

@@ -65,6 +65,8 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   EventLog  EventLog[]
+  Customer  Customer?
+  AdminUser AdminUser?
 
   @@index([email])
 }
@@ -91,6 +93,52 @@ model PasswordResetToken {
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+}
+
+model Customer {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName     String?
+  lastName      String?
+  password      String
+  email         String?   @unique
+  phone             String?   @unique
+  address           String?
+  city              String?
+  state             String?
+  country           String?
+  postalCode        String?
+  totalOrders       Int       @default(0)
+  totalSpent        Float     @default(0)
+  lastOrderDate     DateTime?
+  averageOrderValue Float     @default(0)
+
+  carts  Cart[]
+  orders Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([phone])
+}
+
+model AdminUser {
+  id     String  @id @default(cuid())
+  userId String  @unique
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  email  String  @unique
+  phone  String? @unique
+  image  Image?  @relation(fields: [imageId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  imageId   String?
+
+  @@index([userId])
+  @@index([email])
+  @@index([phone])
 }
 
 model Product {
@@ -127,6 +175,7 @@ model ProductVariant {
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
   variantOptions   VariantOption[] // Relation to define variant options
+  OrderItem        OrderItem[]
 
   @@index([productId])
 }
@@ -190,8 +239,9 @@ model Image {
   productId String
   product   Product @relation(fields: [productId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  AdminUser AdminUser[]
 
   @@index([productId])
 }
@@ -260,8 +310,10 @@ model Cart {
   currency           String?
   step               String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?
 
   @@index([userId])
 }
@@ -279,6 +331,62 @@ model CartItem {
 
   @@index([variantId])
   @@index([cartId])
+}
+
+model Order {
+  id                 String      @id @default(uuid())
+  userId             String
+  items              OrderItem[]
+  firstName          String?
+  lastName           String?
+  email              String?
+  phone              String?
+  companyName        String?
+  address            String?
+  city               String?
+  country            String?
+  postalCode         String?
+  billingName        String?
+  billingEmail       String?
+  billingCompanyName String?
+  billingAddress     String?
+  paymentMethod      String?
+  deliveryMethod     String?
+  currency           String?
+  subtotalPrice      Float
+  totalPrice         Float
+  status             OrderStatus @default(PENDING)
+  step               String?
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id        String         @id @default(uuid())
+  orderId   String
+  order     Order          @relation(fields: [orderId], references: [id])
+  variantId String
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
+  quantity  Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+  @@index([variantId])
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELED
+  REFUNDED
 }
 
 model EventLog {
@@ -310,30 +418,26 @@ model EventLog {
 //   description String
 // }
 
-
-
-
-
 model Schedule {
-  id           String      @id @default(uuid())  
+  id           String       @id @default(uuid())
   name         String
-  startDate    DateTime  
-  endDate      DateTime  
-  days         DayEnum[]   @default([])  // Stores predefined days as ENUMs
+  startDate    DateTime
+  endDate      DateTime
+  days         DayEnum[]    @default([]) // Stores predefined days as ENUMs
   scheduleType ScheduleType
-  daysRelation Day[]       @relation("DaySchedules")  // Many-to-many with Day
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  daysRelation Day[]        @relation("DaySchedules") // Many-to-many with Day
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 }
 
 model Day {
-  id         String     @id @default(uuid())  
-  date       DateTime   @db.Date  // Stores only DATE (No Time) in PostgreSQL
-  dayName    DayEnum  
-  year       String
-  schedules  Schedule[] @relation("DaySchedules")  // Many-to-many with Schedule
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id        String     @id @default(uuid())
+  date      DateTime   @db.Date // Stores only DATE (No Time) in PostgreSQL
+  dayName   DayEnum
+  year      String
+  schedules Schedule[] @relation("DaySchedules") // Many-to-many with Schedule
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 enum ScheduleType {
@@ -351,9 +455,3 @@ enum DayEnum {
   Saturday
   Sunday
 }
-
-
-
-
-
-

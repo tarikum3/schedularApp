@@ -1,8 +1,6 @@
-
-import ZigzagDeclineIcon from "./icons/ZigzagDeclineIcon";
-import ZigzagRiseIcon from "./icons/ZigzagRiseIcon";
-
-
+"use client";
+import ZigzagDeclineIcon from "@/app/components/admin/components/dashboard/Icons/ZigzagDeclineIcon";
+import ZigzagRiseIcon from "@/app/components/admin/components/dashboard/Icons/ZigzagRiseIcon";
 
 export default function Card({
   title,

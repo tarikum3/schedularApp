@@ -1,10 +1,17 @@
 import prisma, { Product, Collection } from "@lib/prisma";
 import { TAGS } from "@lib/const";
-import { getCartItem, getCartByIdUtil,deleteCookies } from "@lib/actions/actions";
-export { getCartItem, getCartByIdUtil ,deleteCookies};
+import {
+  getCartItem,
+  getCartByIdUtil,
+  deleteCookies,
+  placeOrderUtil,
+} from "@lib/actions/actions";
+
 import { ReadonlyURLSearchParams } from "next/navigation";
-import { twMerge } from 'tailwind-merge';
-import clsx, { ClassValue } from 'clsx';
+import { twMerge } from "tailwind-merge";
+import clsx, { ClassValue } from "clsx";
+
+export { getCartItem, getCartByIdUtil, deleteCookies, placeOrderUtil };
 interface Rule {
   field: string;
   condition: string;
@@ -38,7 +45,7 @@ export async function applyCollectionRules(collectionId: string) {
   const products = await prisma.product.findMany();
 
   const matchingProducts = products.filter((product: any) => {
-    return collection.rules.some((rule:any) => {
+    return collection.rules.some((rule: any) => {
       if (!isValidField(rule.field)) {
         console.warn(`Field ${rule.field} is not valid on the product.`);
         return false;
@@ -69,13 +76,12 @@ export async function applyCollectionRules(collectionId: string) {
   });
 
   await prisma.productCollection.createMany({
-    data: matchingProducts.map((product:any) => ({
+    data: matchingProducts.map((product: any) => ({
       productId: product.id,
       collectionId,
     })),
   });
 }
-
 
 export function addComputedCartPrices(cart: any) {
   const subtotalPrice = cart?.items?.reduce((total: any, item: any) => {
@@ -143,10 +149,6 @@ export const createUrl = (
 
   return `${pathname}${queryString}`;
 };
-
-
-
-
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
