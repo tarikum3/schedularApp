@@ -1,11 +1,18 @@
-import prisma, { Product, Collection, EventLog } from "@lib/prisma";
-import { applyCollectionRules, convertToSlug } from "@/lib/helper";
+import prisma, {
+  Product,
+  Collection,
+  EventLog,
+  Order,
+  OrderStatus,
+} from "@lib/prisma";
+import { applyCollectionRules, convertToSlug, dateSchema } from "@/lib/helper";
 import { supabase } from "@lib/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import fs from "fs";
 import bcrypt from "bcryptjs";
 import { addComputedCartPrices } from "@/lib/helper";
+import { z } from "zod";
 interface FetchProductsOptions {
   searchKey?: string;
   filter?: {
@@ -167,11 +174,6 @@ export async function fetchProducts(
   const { searchKey, filter, pagination, sort } = options;
 
   try {
-    // Build the query
-    // const product = await createProduct(productData);
-    // const product2 = await createProduct(productData2);
-    // console.log("productpp1", product);
-    // console.log("productpp2", product2);
     // const image = "t-shirt-1.png";
     // const imagePath = path.resolve("./public/assets", image);
     // console.log("imagePath", imagePath);
@@ -904,16 +906,26 @@ export async function placeOrder(cartId: string) {
     if (!cart || cart.items.length === 0) {
       throw new Error("Cart not found or empty");
     }
+    const userId = cart.userId;
+    // const customer = await tx.customer.findUnique({
+    //   where: { userId: cart.userId },
+    // });
 
-    const customer = await prisma.customer.findUnique({
-      where: { userId: cart.userId },
-    });
-    if (!customer) {
-      throw new Error("Customer not found or empty");
-    }
+    // if (!customer) {
+    //   throw new Error("Customer not found or empty");
+    // }
 
     let cartC = addComputedCartPrices(cart);
     // Create Order
+
+    const cc = await tx.customer.update({
+      where: { userId: userId },
+      data: {
+        totalOrders: { increment: 1 },
+        totalSpent: { increment: cartC.totalPrice },
+        lastOrderDate: new Date(),
+      },
+    });
 
     const order = await tx.order.create({
       data: {
@@ -947,18 +959,203 @@ export async function placeOrder(cartId: string) {
       include: { items: true },
     });
 
-    await tx.customer.update({
-      where: { id: customer.id },
-      data: {
-        totalOrders: { increment: 1 },
-        totalSpent: { increment: cartC.totalPrice },
-        lastOrderDate: new Date(),
-      },
-    });
-
     // Clear Cart After Order is Placed
     // await tx.cartItem.deleteMany({ where: { cartId } });
 
     return order;
   });
+}
+
+export async function refreshMaterializedView() {
+  // Run the SQL command to refresh the materialized view
+  await prisma.$executeRaw`REFRESH MATERIALIZED VIEW daily_new_customers`;
+  console.log("Materialized view refreshed successfully.");
+}
+
+// refreshMaterializedView()
+//   .catch((e) => {
+//     console.error("Error refreshing materialized view:", e);
+//   })
+//   .finally(async () => {
+//     await prisma.$disconnect();
+//   });
+
+export async function incrementalRefreshMaterializedView() {
+  // Step 1: Fetch new data
+  await prisma.$executeRaw`
+      WITH new_data AS (
+          SELECT
+              DATE(created_at) AS day,
+              COUNT(customer_id) AS new_customers
+          FROM
+              customers
+          WHERE
+              DATE(created_at) > (SELECT last_refreshed_date FROM refresh_metadata WHERE view_name = 'daily_new_customers')
+          GROUP BY
+              DATE(created_at)
+      )
+      INSERT INTO daily_new_customers (day, new_customers)
+      SELECT day, new_customers FROM new_data;
+  `;
+
+  // Step 2: Update the last_refreshed_date
+  await prisma.$executeRaw`
+      UPDATE refresh_metadata
+      SET last_refreshed_date = (SELECT MAX(day) FROM daily_new_customers)
+      WHERE view_name = 'daily_new_customers';
+  `;
+
+  console.log("Materialized view incrementally refreshed successfully.");
+}
+
+export async function getDailyNewCustomers(
+  startDateStr: string,
+  endDateStr: string
+) {
+  try {
+    // Validate and parse dates
+    const startDate = dateSchema.parse(startDateStr);
+    const endDate = dateSchema.parse(endDateStr);
+
+    // Run the query
+    const results = await prisma.dailyNewCustomers.findMany({
+      where: {
+        day: {
+          gte: new Date(startDate),
+          lte: new Date(endDate),
+        },
+      },
+      orderBy: {
+        day: "asc",
+      },
+    });
+
+    return results;
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Handle the validation error
+      throw new Error(
+        "Invalid date format. Please provide valid date strings."
+      );
+    }
+    // Handle any other unexpected errors
+    throw new Error("An unexpected error occurred while fetching the data.");
+  }
+}
+
+// export async function getMonthlyNewCustomers(startDate: Date, endDate: Date) {
+//   const results = await prisma.$queryRaw`
+//       SELECT
+//           TO_CHAR(DATE_TRUNC('month', day), 'Month YYYY') AS month, -- Format as "October 2023"
+//           SUM(new_customers) AS new_customers
+//       FROM
+//           daily_new_customers
+//       WHERE
+//           day >= ${startDate} AND day <= ${endDate}
+//       GROUP BY
+//           DATE_TRUNC('month', day) -- Group by month
+//       ORDER BY
+//           DATE_TRUNC('month', day); -- Order by month
+//   `;
+
+//   return results;
+// }
+
+export async function getMonthlyNewCustomers(
+  startDateStr: string,
+  endDateStr: string
+) {
+  try {
+    // Validate and parse dates
+    const startDate = dateSchema.parse(startDateStr);
+    const endDate = dateSchema.parse(endDateStr);
+
+    const results = await prisma.$queryRaw`
+    SELECT
+        TO_CHAR(DATE_TRUNC('month', day), 'Month YYYY') AS month, -- Format as "October 2023"
+        SUM(new_customers) AS new_customers
+    FROM
+        daily_new_customers
+    WHERE
+        day >= ${startDate} AND day <= ${endDate}
+    GROUP BY
+        DATE_TRUNC('month', day) -- Group by month
+    ORDER BY
+        DATE_TRUNC('month', day); -- Order by month
+`;
+
+    return results;
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Handle the validation error
+      throw new Error(
+        "Invalid date format. Please provide valid date strings."
+      );
+    }
+    // Handle any other unexpected errors
+    throw new Error("An unexpected error occurred while fetching the data.");
+  }
+}
+
+interface FetchOrdersOptions {
+  searchKey?: string;
+  filter?: {
+    status?: OrderStatus;
+    customerId?: string;
+  };
+  pagination?: {
+    offset?: number;
+    limit?: number;
+  };
+  sort?: {
+    field: "createdAt" | "totalPrice" | "status";
+    order: "asc" | "desc";
+  };
+}
+
+export async function fetchOrders(
+  options: FetchOrdersOptions
+): Promise<{ orders: Order[]; total: number }> {
+  const { searchKey, filter, pagination, sort } = options;
+
+  const where: any = {};
+
+  if (searchKey) {
+    where.OR = [
+      { firstName: { contains: searchKey, mode: "insensitive" } },
+      { lastName: { contains: searchKey, mode: "insensitive" } },
+      { email: { contains: searchKey, mode: "insensitive" } },
+      { phone: { contains: searchKey, mode: "insensitive" } },
+      { companyName: { contains: searchKey, mode: "insensitive" } },
+      { city: { contains: searchKey, mode: "insensitive" } },
+      { country: { contains: searchKey, mode: "insensitive" } },
+    ];
+  }
+
+  if (filter?.status) {
+    where.status = filter.status;
+  }
+
+  if (filter?.customerId) {
+    where.customerId = filter.customerId;
+  }
+
+  const orderBy = sort
+    ? { [sort.field]: sort.order === "asc" ? "asc" : "desc" }
+    : ({ createdAt: "desc" } as const);
+
+  const orders = await prisma.order.findMany({
+    where,
+    orderBy,
+    skip: pagination?.offset ?? 0,
+    take: pagination?.limit ?? 10,
+    include: {
+      Customer: true,
+      items: true,
+    },
+  });
+
+  const total = await prisma.order.count({ where });
+
+  return { orders, total };
 }

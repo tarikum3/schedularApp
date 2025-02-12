@@ -13,7 +13,7 @@ import {
 } from "@lib/services/prismaServices";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { signIn, signOut } from "@/auth";
+import { signIn, signOut, auth } from "@/auth";
 import { AuthError } from "next-auth";
 import { z } from "zod";
 import { unstable_cache } from "next/cache";
@@ -29,6 +29,7 @@ export async function getCartByIdUtil() {
   }
   return cart;
 }
+
 export async function placeOrderUtil() {
   const cartId = cookies().get("cartId")?.value;
   let order;
@@ -68,7 +69,8 @@ export async function addItem(
   }
 
   if (!cartId || !cart) {
-    cart = await createCart();
+    const session = await auth();
+    cart = await createCart(session?.user?.id ?? "");
     if (!cart?.id) {
       return "Missing Cart ID";
     }

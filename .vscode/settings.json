@@ -2,6 +2,16 @@
   "dart.updateDevTools": false,
   "dart.checkForSdkUpdates": false,
   "terminal.integrated.scrollback": 500,
-  "typescript.tsserver.maxTsServerMemory": 2072,
-  "workbench.colorTheme": "Default Dark Modern"
+  "typescript.tsserver.maxTsServerMemory": 1072,
+  "workbench.colorTheme": "Default Dark Modern",
+  "gitlens.telemetry.enabled": false,
+  "files.exclude": {
+    "**/.next": true,
+    "**/node_modules": true
+  },
+  "files.watcherExclude": {
+    "**/.next/**": true,
+    "**/node_modules/**": true
+  },
+  "breadcrumbs.enabled": false
 }

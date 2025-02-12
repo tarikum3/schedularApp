@@ -124,6 +124,13 @@ model Customer {
   @@index([phone])
 }
 
+model DailyNewCustomers {
+    day        DateTime @id @db.Date
+    new_customers Int
+
+    @@map("daily_new_customers") // Map to the materialized view name in the database
+}
+
 model AdminUser {
   id     String  @id @default(cuid())
   userId String  @unique

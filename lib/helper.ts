@@ -10,6 +10,7 @@ import {
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import clsx, { ClassValue } from "clsx";
+import { z } from "zod";
 
 export { getCartItem, getCartByIdUtil, deleteCookies, placeOrderUtil };
 interface Rule {
@@ -18,6 +19,11 @@ interface Rule {
   value: string;
 }
 //export type ProductFields = keyof Product extends string ? keyof Product : never;
+export const dateSchema = z
+  .string()
+  .refine((date) => !isNaN(Date.parse(date)), {
+    message: "Invalid date format",
+  });
 
 export type ProductFields = keyof Product;
 function isValidField(field: string): field is ProductFields {
