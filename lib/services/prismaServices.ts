@@ -192,7 +192,7 @@ export async function fetchProducts(
     //   supabase.storage.from("images").getPublicUrl(data.path).data.publicUrl
     // }`;
     // console.log("imageUrlimageUrl", imageUrl);
-
+    // await checkmain();
     const whereClause: any = {};
 
     if (searchKey) {
@@ -1158,4 +1158,32 @@ export async function fetchOrders(
   const total = await prisma.order.count({ where });
 
   return { orders, total };
+}
+
+// async function checkmain() {
+//   // Execute the UPDATE query
+//   const updateResult = await prisma.$executeRaw`
+//     UPDATE "_prisma_migrations"
+//     SET "checksum" = '01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b'
+//     WHERE "migration_name" = '20250210170106_create_meta_refresh_view'
+//   `;
+//   console.log("Update Result:", updateResult);
+// }
+
+async function checkmain() {
+  // First, execute the SELECT query
+  const selectResult = await prisma.$queryRaw`
+    SELECT "id", "migration_name", "checksum"
+    FROM "_prisma_migrations"
+    WHERE "migration_name" = '20250214180043_create_daily_freh_orders'
+  `;
+  console.log("Before Updateeee:", selectResult);
+
+  // Now, execute the UPDATE query
+  const updateResult = await prisma.$executeRaw`
+    UPDATE "_prisma_migrations"
+    SET "checksum" = '05a84c22c0cb39bed5e09655fa950a7d6ad2ee57132c13f0b594582acf023b3f'
+    WHERE "migration_name" = '20250214180043_create_daily_freh_orders'
+  `;
+  console.log("Update Result:", updateResult);
 }

@@ -4,19 +4,16 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  // Uses connection pooling
   url       = env("POSTGRES_PRISMA_URL")
-  // Uses direct connection, ⚠️ make sure to keep this to `POSTGRES_URL_NON_POOLING`
-  // or you'll have dangling databases from migrations
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
+  id                 String   @id @default(cuid())
+  userId             String   @map("user_id")
   type               String
   provider           String
-  providerAccountId  String  @map("provider_account_id")
+  providerAccountId  String   @map("provider_account_id")
   refresh_token      String?
   access_token       String?
   expires_at         Int?
@@ -26,11 +23,9 @@ model Account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -41,32 +36,29 @@ model Session {
   sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   firstName     String?
   lastName      String?
   password      String
   phone         String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
-
-  accounts Account[]
-  sessions Session[]
-
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  EventLog  EventLog[]
-  Customer  Customer?
-  AdminUser AdminUser?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  accounts      Account[]
+  AdminUser     AdminUser?
+  Customer      Customer?
+  EventLog      EventLog[]
+  sessions      Session[]
 
   @@index([email])
 }
@@ -76,9 +68,8 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@unique([identifier, token])
 }
@@ -88,7 +79,6 @@ model PasswordResetToken {
   userId    String
   token     String
   expiresAt DateTime
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -98,11 +88,6 @@ model PasswordResetToken {
 model Customer {
   id                String    @id @default(cuid())
   userId            String    @unique
-  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  firstName     String?
-  lastName      String?
-  password      String
-  email         String?   @unique
   phone             String?   @unique
   address           String?
   city              String?
@@ -113,35 +98,30 @@ model Customer {
   totalSpent        Float     @default(0)
   lastOrderDate     DateTime?
   averageOrderValue Float     @default(0)
-
-  carts  Cart[]
-  orders Order[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  email             String?   @unique
+  firstName         String?
+  lastName          String?
+  password          String
+  carts             Cart[]
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders            Order[]
 
   @@index([userId])
   @@index([phone])
 }
 
-model DailyNewCustomers {
-    day        DateTime @id @db.Date
-    new_customers Int
-
-    @@map("daily_new_customers") // Map to the materialized view name in the database
-}
-
 model AdminUser {
-  id     String  @id @default(cuid())
-  userId String  @unique
-  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  email  String  @unique
-  phone  String? @unique
-  image  Image?  @relation(fields: [imageId], references: [id])
-
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  email     String   @unique
+  phone     String?  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   imageId   String?
+  image     Image?   @relation(fields: [imageId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([email])
@@ -152,19 +132,19 @@ model Product {
   id               String              @id @default(uuid())
   name             String
   description      String
-  slug             String
   sku              String?
-  category         String?
-  images           Image[]
-  variants         ProductVariant[]
-  price            ProductPrice?
-  options          ProductOption[]
   vendor           String?
   tags             String[]
-  collections      ProductCollection[]
-  availableForSale Boolean
   createdAt        DateTime            @default(now())
+  category         String?
+  slug             String
   updatedAt        DateTime            @updatedAt
+  availableForSale Boolean
+  images           Image[]
+  collections      ProductCollection[]
+  options          ProductOption[]
+  price            ProductPrice?
+  variants         ProductVariant[]
 
   @@index([slug])
   @@index([vendor])
@@ -173,42 +153,40 @@ model Product {
 model ProductVariant {
   id               String          @id @default(uuid())
   name             String
-  quantity         Int
-  price            Float
   productId        String
-  product          Product         @relation(fields: [productId], references: [id])
-  cartItems        CartItem[]
-  availableForSale Boolean
+  price            Float
+  quantity         Int
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
-  variantOptions   VariantOption[] // Relation to define variant options
+  availableForSale Boolean
+  cartItems        CartItem[]
   OrderItem        OrderItem[]
+  product          Product         @relation(fields: [productId], references: [id])
+  variantOptions   VariantOption[]
 
   @@index([productId])
 }
 
 model ProductOption {
   id        String               @id @default(uuid())
-  name      String // e.g., Color, Size
-  values    ProductOptionValue[]
+  name      String
   productId String
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
   product   Product              @relation(fields: [productId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  values    ProductOptionValue[]
 
   @@index([productId])
 }
 
 model ProductOptionValue {
   id             String          @id @default(uuid())
-  value          String // e.g., Red, Small
+  value          String
   optionId       String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
   option         ProductOption   @relation(fields: [optionId], references: [id])
-  variantOptions VariantOption[] // Back-reference to VariantOption
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  variantOptions VariantOption[]
 
   @@index([optionId])
 }
@@ -216,12 +194,11 @@ model ProductOptionValue {
 model VariantOption {
   id            String             @id @default(uuid())
   variantId     String
-  variant       ProductVariant     @relation(fields: [variantId], references: [id], onDelete: Cascade) // Specify onDelete here
   optionValueId String
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
   optionValue   ProductOptionValue @relation(fields: [optionValueId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  variant       ProductVariant     @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@index([variantId])
   @@index([optionValueId])
@@ -232,23 +209,21 @@ model ProductPrice {
   amount    Float
   currency  String
   productId String   @unique
-  product   Product? @relation(fields: [productId], references: [id])
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id])
 
   @@index([productId])
 }
 
 model Image {
-  id        String  @id @default(uuid())
+  id        String      @id @default(uuid())
   url       String
   productId String
-  product   Product @relation(fields: [productId], references: [id])
-
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   AdminUser AdminUser[]
+  product   Product     @relation(fields: [productId], references: [id])
 
   @@index([productId])
 }
@@ -257,7 +232,7 @@ model TempImage {
   id         String   @id @default(cuid())
   url        String
   imageFor   String
-  supabaseId String // To store the Supabase storage object id
+  supabaseId String
   createdAt  DateTime @default(now())
 }
 
@@ -265,18 +240,17 @@ model Collection {
   id          String                    @id @default(uuid())
   title       String
   description String?
-  products    ProductCollection[]
+  createdAt   DateTime                  @default(now())
+  updatedAt   DateTime                  @updatedAt
   rules       AutomaticCollectionRule[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  products    ProductCollection[]
 }
 
 model ProductCollection {
   productId    String
   collectionId String
-  product      Product    @relation(fields: [productId], references: [id])
   collection   Collection @relation(fields: [collectionId], references: [id])
+  product      Product    @relation(fields: [productId], references: [id])
 
   @@id([productId, collectionId])
 }
@@ -287,54 +261,51 @@ model AutomaticCollectionRule {
   condition    String
   value        String
   collectionId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
   collection   Collection @relation(fields: [collectionId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model Cart {
   id                 String     @id @default(uuid())
-  userId             String
-  items              CartItem[]
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+  address            String?
+  billingAddress     String?
+  billingCompanyName String?
+  billingEmail       String?
+  billingName        String?
+  city               String?
+  companyName        String?
+  country            String?
+  currency           String?
+  deliveryMethod     String?
+  email              String?
   firstName          String?
   lastName           String?
-  postalCode         String?
-  email              String?
-  companyName        String?
-  address            String?
-  phone              String?
-  country            String?
-  city               String?
-  billingName        String?
-  billingEmail       String?
-  billingCompanyName String?
-  billingAddress     String?
   paymentMethod      String?
-  deliveryMethod     String?
+  phone              String?
+  postalCode         String?
+  step               String?
   subtotalPrice      Float?
   totalPrice         Float?
-  currency           String?
-  step               String?
-
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  Customer   Customer? @relation(fields: [customerId], references: [id])
-  customerId String?
+  userId             String
+  customerId         String?
+  Customer           Customer?  @relation(fields: [customerId], references: [id])
+  items              CartItem[]
 
   @@index([userId])
 }
 
 model CartItem {
   id        String         @id @default(uuid())
-  variantId String
-  variant   ProductVariant @relation(fields: [variantId], references: [id])
   quantity  Int
   cartId    String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  variantId String
   cart      Cart           @relation(fields: [cartId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
 
   @@index([variantId])
   @@index([cartId])
@@ -343,7 +314,6 @@ model CartItem {
 model Order {
   id                 String      @id @default(uuid())
   userId             String
-  items              OrderItem[]
   firstName          String?
   lastName           String?
   email              String?
@@ -364,11 +334,11 @@ model Order {
   totalPrice         Float
   status             OrderStatus @default(PENDING)
   step               String?
-
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  Customer   Customer? @relation(fields: [customerId], references: [id])
-  customerId String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  customerId         String?
+  Customer           Customer?   @relation(fields: [customerId], references: [id])
+  items              OrderItem[]
 
   @@index([userId])
 }
@@ -376,24 +346,15 @@ model Order {
 model OrderItem {
   id        String         @id @default(uuid())
   orderId   String
-  order     Order          @relation(fields: [orderId], references: [id])
   variantId String
-  variant   ProductVariant @relation(fields: [variantId], references: [id])
   quantity  Int
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  order     Order          @relation(fields: [orderId], references: [id])
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
 
   @@index([orderId])
   @@index([variantId])
-}
-
-enum OrderStatus {
-  PENDING
-  CONFIRMED
-  COMPLETED
-  CANCELED
-  REFUNDED
 }
 
 model EventLog {
@@ -403,48 +364,57 @@ model EventLog {
   action       String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  user User? @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
-
-// Commented out models
-
-// model DeliveryMethod {
-//   id        String   @id @default(uuid())
-//   price    Float
-//   name     String
-//   description String
-// }
-
-// model PaymentMethod {
-//   id        String   @id @default(uuid())
-//   price    Float?
-//   name     String
-//   description String
-// }
 
 model Schedule {
   id           String       @id @default(uuid())
   name         String
   startDate    DateTime
   endDate      DateTime
-  days         DayEnum[]    @default([]) // Stores predefined days as ENUMs
-  scheduleType ScheduleType
-  daysRelation Day[]        @relation("DaySchedules") // Many-to-many with Day
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
+  scheduleType ScheduleType
+  days         DayEnum[]    @default([])
+  daysRelation Day[]        @relation("DaySchedules")
 }
 
 model Day {
   id        String     @id @default(uuid())
-  date      DateTime   @db.Date // Stores only DATE (No Time) in PostgreSQL
+  date      DateTime   @db.Date
   dayName   DayEnum
   year      String
-  schedules Schedule[] @relation("DaySchedules") // Many-to-many with Schedule
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+  schedules Schedule[] @relation("DaySchedules")
+}
+
+model refresh_metadata {
+  view_name           String    @id
+  last_refreshed_date DateTime? @db.Date
+}
+
+ model DailyNewCustomers {
+    day        DateTime @id @db.Date
+    new_customers Int
+
+    @@map("daily_new_customers") // Map to the materialized view name in the database
+} 
+ model DailyNewOrders {
+    day        DateTime @id @db.Date
+    new_orders Int
+
+    @@map("daily_new_orders") // Map to the materialized view name in the database
+} 
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELED
+  REFUNDED
 }
 
 enum ScheduleType {
