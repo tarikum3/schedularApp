@@ -408,6 +408,17 @@ model refresh_metadata {
 
     @@map("daily_new_orders") // Map to the materialized view name in the database
 } 
+model OrderStatusSummary {
+  day            DateTime @id @db.Date
+  total_orders    Int
+  pending_orders  Int
+  processing_orders Int
+  shipped_orders  Int
+  delivered_orders Int
+  cancelled_orders Int
+
+  @@map("order_status_summary")
+}
 
 enum OrderStatus {
   PENDING

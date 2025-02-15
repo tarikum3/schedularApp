@@ -966,48 +966,6 @@ export async function placeOrder(cartId: string) {
   });
 }
 
-export async function refreshMaterializedView() {
-  // Run the SQL command to refresh the materialized view
-  await prisma.$executeRaw`REFRESH MATERIALIZED VIEW daily_new_customers`;
-  console.log("Materialized view refreshed successfully.");
-}
-
-// refreshMaterializedView()
-//   .catch((e) => {
-//     console.error("Error refreshing materialized view:", e);
-//   })
-//   .finally(async () => {
-//     await prisma.$disconnect();
-//   });
-
-export async function incrementalRefreshMaterializedView() {
-  // Step 1: Fetch new data
-  await prisma.$executeRaw`
-      WITH new_data AS (
-          SELECT
-              DATE(created_at) AS day,
-              COUNT(customer_id) AS new_customers
-          FROM
-              customers
-          WHERE
-              DATE(created_at) > (SELECT last_refreshed_date FROM refresh_metadata WHERE view_name = 'daily_new_customers')
-          GROUP BY
-              DATE(created_at)
-      )
-      INSERT INTO daily_new_customers (day, new_customers)
-      SELECT day, new_customers FROM new_data;
-  `;
-
-  // Step 2: Update the last_refreshed_date
-  await prisma.$executeRaw`
-      UPDATE refresh_metadata
-      SET last_refreshed_date = (SELECT MAX(day) FROM daily_new_customers)
-      WHERE view_name = 'daily_new_customers';
-  `;
-
-  console.log("Materialized view incrementally refreshed successfully.");
-}
-
 export async function getDailyNewCustomers(
   startDateStr: string,
   endDateStr: string
@@ -1043,30 +1001,11 @@ export async function getDailyNewCustomers(
   }
 }
 
-// export async function getMonthlyNewCustomers(startDate: Date, endDate: Date) {
-//   const results = await prisma.$queryRaw`
-//       SELECT
-//           TO_CHAR(DATE_TRUNC('month', day), 'Month YYYY') AS month, -- Format as "October 2023"
-//           SUM(new_customers) AS new_customers
-//       FROM
-//           daily_new_customers
-//       WHERE
-//           day >= ${startDate} AND day <= ${endDate}
-//       GROUP BY
-//           DATE_TRUNC('month', day) -- Group by month
-//       ORDER BY
-//           DATE_TRUNC('month', day); -- Order by month
-//   `;
-
-//   return results;
-// }
-
 export async function getMonthlyNewCustomers(
   startDateStr: string,
   endDateStr: string
 ) {
   try {
-    // Validate and parse dates
     const startDate = dateSchema.parse(startDateStr);
     const endDate = dateSchema.parse(endDateStr);
 
@@ -1094,6 +1033,178 @@ export async function getMonthlyNewCustomers(
     }
     // Handle any other unexpected errors
     throw new Error("An unexpected error occurred while fetching the data.");
+  }
+}
+export async function getMonthlyNewOrders(
+  startDateStr: string,
+  endDateStr: string
+) {
+  try {
+    const startDate = dateSchema.parse(startDateStr);
+    const endDate = dateSchema.parse(endDateStr);
+
+    const results = await prisma.$queryRaw`
+      SELECT
+          TO_CHAR(DATE_TRUNC('month', day), 'Month YYYY') AS month, -- Format as "October 2023"
+          SUM(new_orders) AS new_orders
+      FROM
+          daily_new_orders
+      WHERE
+          day >= ${startDate} AND day <= ${endDate}
+      GROUP BY
+          DATE_TRUNC('month', day) -- Group by month
+      ORDER BY
+          DATE_TRUNC('month', day); -- Order by month
+    `;
+
+    return results;
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Handle the validation error
+      throw new Error(
+        "Invalid date format. Please provide valid date strings."
+      );
+    }
+    // Handle any other unexpected errors
+    throw new Error("An unexpected error occurred while fetching the data.");
+  }
+}
+export async function getOrdersStatusSummary(
+  startDateStr: string,
+  endDateStr: string
+) {
+  try {
+    // Validate and parse the input dates
+    const startDate = dateSchema.parse(startDateStr);
+    const endDate = dateSchema.parse(endDateStr);
+
+    // Query the order_status_summary materialized view
+    const results = await prisma.$queryRaw`
+      SELECT
+          SUM(total_orders) AS total,
+          SUM(pending_orders) AS pending,
+          SUM(confirmed_orders) AS confirmed,
+          SUM(completed_orders) AS completed,
+          SUM(canceled_orders) AS canceled,
+          SUM(refunded_orders) AS refunded
+      FROM
+          order_status_summary
+      WHERE
+          day >= ${startDate} AND day <= ${endDate};
+    `;
+
+    // Return the results in the desired format
+    return results; // Since the query returns a single row
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Handle the validation error
+      throw new Error(
+        "Invalid date format. Please provide valid date strings in the format YYYY-MM-DD."
+      );
+    }
+    // Handle any other unexpected errors
+    throw new Error("An unexpected error occurred while fetching the data.");
+  }
+}
+
+export async function refreshMaterializedView() {
+  // Run the SQL command to refresh the materialized view
+  await prisma.$executeRaw`REFRESH MATERIALIZED VIEW daily_new_customers`;
+  console.log("Materialized view refreshed successfully.");
+}
+export async function incrementallyRefreshNewCustomerMV() {
+  await prisma.$executeRaw`
+      WITH new_data AS (
+          SELECT
+              DATE(created_at) AS day,
+              COUNT(customer_id) AS new_customers
+          FROM
+              customers
+          WHERE
+              DATE(created_at) > (SELECT last_refreshed_date FROM refresh_metadata WHERE view_name = 'daily_new_customers')
+          GROUP BY
+              DATE(created_at)
+      )
+      INSERT INTO daily_new_customers (day, new_customers)
+      SELECT day, new_customers FROM new_data;
+  `;
+
+  await prisma.$executeRaw`
+      UPDATE refresh_metadata
+      SET last_refreshed_date = (SELECT MAX(day) FROM daily_new_customers)
+      WHERE view_name = 'daily_new_customers';
+  `;
+
+  // console.log("Materialized view incrementally refreshed successfully.");
+}
+
+export async function incrementallyRefreshNewOrdersMV() {
+  await prisma.$executeRaw`
+      WITH new_data AS (
+          SELECT
+              DATE("createdAt") AS day,
+              COUNT(id) AS new_orders
+          FROM
+              "Order"  -- Use double quotes to match Prisma's exact table name
+          WHERE
+              DATE("createdAt") > (SELECT last_refreshed_date FROM refresh_metadata WHERE view_name = 'daily_new_orders')
+          GROUP BY
+              DATE("createdAt")
+      )
+      INSERT INTO daily_new_orders (day, new_orders)
+      SELECT day, new_orders FROM new_data;
+  `;
+
+  await prisma.$executeRaw`
+      UPDATE refresh_metadata
+      SET last_refreshed_date = (SELECT MAX(day) FROM daily_new_orders)
+      WHERE view_name = 'daily_new_orders';
+  `;
+
+  // console.log("Materialized view incrementally refreshed successfully.");
+}
+
+export async function incrementallyRefreshOrderStatusSummaryMV() {
+  try {
+    // Step 1: Fetch new or updated data since the last refresh
+    await prisma.$executeRaw`
+      WITH new_data AS (
+          SELECT
+              DATE("createdAt") AS day,
+              COUNT(id) AS total_orders,
+              SUM(CASE WHEN "status" = 'PENDING' THEN 1 ELSE 0 END) AS pending_orders,
+              SUM(CASE WHEN "status" = 'CONFIRMED' THEN 1 ELSE 0 END) AS confirmed_orders,
+              SUM(CASE WHEN "status" = 'COMPLETED' THEN 1 ELSE 0 END) AS completed_orders,
+              SUM(CASE WHEN "status" = 'CANCELED' THEN 1 ELSE 0 END) AS canceled_orders,
+              SUM(CASE WHEN "status" = 'REFUNDED' THEN 1 ELSE 0 END) AS refunded_orders
+          FROM
+              "Order"
+          WHERE
+              DATE("createdAt") > (SELECT last_refreshed_date FROM refresh_metadata WHERE view_name = 'order_status_summary')
+          GROUP BY
+              DATE("createdAt")
+      )
+      -- Insert or update the materialized view
+      INSERT INTO order_status_summary (day, total_orders, pending_orders, confirmed_orders, completed_orders, canceled_orders, refunded_orders)
+      SELECT day, total_orders, pending_orders, confirmed_orders, completed_orders, canceled_orders, refunded_orders FROM new_data;
+    `;
+
+    // Step 2: Update the last refresh date in the metadata table
+    await prisma.$executeRaw`
+      UPDATE refresh_metadata
+      SET last_refreshed_date = (SELECT MAX(day) FROM order_status_summary)
+      WHERE view_name = 'order_status_summary';
+    `;
+
+    console.log(
+      "Materialized view 'order_status_summary' incrementally refreshed successfully."
+    );
+  } catch (error) {
+    console.error(
+      "Failed to incrementally refresh the materialized view:",
+      error
+    );
+    throw error;
   }
 }
 
@@ -1158,32 +1269,4 @@ export async function fetchOrders(
   const total = await prisma.order.count({ where });
 
   return { orders, total };
-}
-
-// async function checkmain() {
-//   // Execute the UPDATE query
-//   const updateResult = await prisma.$executeRaw`
-//     UPDATE "_prisma_migrations"
-//     SET "checksum" = '01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b'
-//     WHERE "migration_name" = '20250210170106_create_meta_refresh_view'
-//   `;
-//   console.log("Update Result:", updateResult);
-// }
-
-async function checkmain() {
-  // First, execute the SELECT query
-  const selectResult = await prisma.$queryRaw`
-    SELECT "id", "migration_name", "checksum"
-    FROM "_prisma_migrations"
-    WHERE "migration_name" = '20250214180043_create_daily_freh_orders'
-  `;
-  console.log("Before Updateeee:", selectResult);
-
-  // Now, execute the UPDATE query
-  const updateResult = await prisma.$executeRaw`
-    UPDATE "_prisma_migrations"
-    SET "checksum" = '05a84c22c0cb39bed5e09655fa950a7d6ad2ee57132c13f0b594582acf023b3f'
-    WHERE "migration_name" = '20250214180043_create_daily_freh_orders'
-  `;
-  console.log("Update Result:", updateResult);
 }
