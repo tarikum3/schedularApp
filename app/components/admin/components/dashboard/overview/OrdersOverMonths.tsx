@@ -7,17 +7,17 @@ import DateWrapper from "@/app/components/admin/components/dashboard/elements/Da
 
 const colors = ["#8884d8", "#82ca9d", "#ffc658"];
 
-const CustomersOverMonths = () => {
+const OrdersOverMonths = () => {
   const [dateRange, setDateRange] = useState<any>({
     startDate: "",
     endDate: "",
   });
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [newCustomers, setNewCustomers] = useState<any>([]);
-  const { data: newCustomersData } = useGetOverviewsQuery(
+  const [newOrders, setNewOrders] = useState<any>([]);
+  const { data: newOrdersData } = useGetOverviewsQuery(
     {
-      type: "newCustomers",
+      type: "newOrders",
       fromDate: dateRange?.startDate,
       toDate: dateRange?.endDate,
     },
@@ -30,33 +30,21 @@ const CustomersOverMonths = () => {
     },
     [dateRange]
   );
-  console.log("newCustomersData", newCustomersData?.data);
+  console.log("newOrdersData", newOrdersData?.data);
   useEffect(() => {
-    let newCustomers = (newCustomersData as any)?.data;
-    if (newCustomers?.length >= 0) {
-      setNewCustomers([
-        ...newCustomers.map((data: any) => {
+    let newOrders = (newOrdersData as any)?.data;
+    if (newOrders?.length >= 0) {
+      setNewOrders([
+        { category: "Mar", Orders: 9 },
+        ...newOrders.map((data: any) => {
           return {
             category: data.month,
-            Customers: data.new_customers ?? 0,
+            Orders: data.new_orders ?? 0,
           };
         }),
       ]);
     }
-  }, [newCustomersData]);
-  // useEffect(() => {
-  //   if (dateRange?.startDate && dateRange.endDate) {
-  //     setToDate(dateRange?.endDate)
-  //         setFromDate(dateRange?.startDate)
-
-  //         }else{
-  //           setToDate("")
-  //           setFromDate("")
-
-  //         }
-  //         setFromDatePrev(dateRange?.startDatePrev)
-  //         setToDatePrev(dateRange?.endDatePrev)
-  // }, [dateRange]);
+  }, [newOrdersData]);
 
   return (
     <>
@@ -64,10 +52,10 @@ const CustomersOverMonths = () => {
         <div className="p-6 bg-primary-100 min-h-screen flex justify-center items-center">
           <div className="w-full max-w-3xl">
             <h2 className="text-xl font-semibold text-center mb-4">
-              New Customers
+              New Orders
             </h2>
             <GenericAreaChart
-              data={newCustomers}
+              data={newOrders}
               colors={colors}
               height={450}
               grid
@@ -80,4 +68,4 @@ const CustomersOverMonths = () => {
   );
 };
 
-export default CustomersOverMonths;
+export default OrdersOverMonths;

@@ -1016,7 +1016,7 @@ export async function getMonthlyNewCustomers(
     FROM
         daily_new_customers
     WHERE
-        day >= ${startDate} AND day <= ${endDate}
+    day >= ${new Date(startDate)} AND day <= ${new Date(endDate)}
     GROUP BY
         DATE_TRUNC('month', day) -- Group by month
     ORDER BY
