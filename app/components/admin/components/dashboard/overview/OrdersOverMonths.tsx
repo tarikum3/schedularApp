@@ -35,7 +35,7 @@ const OrdersOverMonths = () => {
     let newOrders = (newOrdersData as any)?.data;
     if (newOrders?.length >= 0) {
       setNewOrders([
-        { category: "Mar", Orders: 9 },
+        
         ...newOrders.map((data: any) => {
           return {
             category: data.month,

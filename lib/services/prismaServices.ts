@@ -192,7 +192,7 @@ export async function fetchProducts(
     //   supabase.storage.from("images").getPublicUrl(data.path).data.publicUrl
     // }`;
     // console.log("imageUrlimageUrl", imageUrl);
-    // await checkmain();
+    //await checkmain();
     const whereClause: any = {};
 
     if (searchKey) {
@@ -1050,7 +1050,7 @@ export async function getMonthlyNewOrders(
       FROM
           daily_new_orders
       WHERE
-          day >= ${startDate} AND day <= ${endDate}
+      day >= ${new Date(startDate)} AND day <= ${new Date(endDate)}
       GROUP BY
           DATE_TRUNC('month', day) -- Group by month
       ORDER BY
@@ -1069,6 +1069,7 @@ export async function getMonthlyNewOrders(
     throw new Error("An unexpected error occurred while fetching the data.");
   }
 }
+
 export async function getOrdersStatusSummary(
   startDateStr: string,
   endDateStr: string
@@ -1086,11 +1087,52 @@ export async function getOrdersStatusSummary(
           SUM(confirmed_orders) AS confirmed,
           SUM(completed_orders) AS completed,
           SUM(canceled_orders) AS canceled,
-          SUM(refunded_orders) AS refunded
+          SUM(refunded_orders) AS refunded,
+          SUM(completed_revenue) AS completed_revenue  -- Added revenue from completed orders
       FROM
           order_status_summary
       WHERE
-          day >= ${startDate} AND day <= ${endDate};
+          day >= ${new Date(startDate)} AND day <= ${new Date(endDate)};
+    `;
+
+    // Return the results in the desired format
+    return results; // Since the query returns a single row with the aggregated results
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Handle the validation error
+      throw new Error(
+        "Invalid date format. Please provide valid date strings in the format YYYY-MM-DD."
+      );
+    }
+    // Handle any other unexpected errors
+    throw new Error("An unexpected error occurred while fetching the data.");
+  }
+}
+
+
+export async function getCustomerStatusSummary(
+  startDateStr: string,
+  endDateStr: string
+) {
+  try {
+    // Validate and parse the input dates
+    const startDate = dateSchema.parse(startDateStr);
+    const endDate = dateSchema.parse(endDateStr);
+
+    // Query the customer_status_summary materialized view
+    const results = await prisma.$queryRaw`
+      SELECT
+          SUM(total_customers) AS total,
+          SUM(one_time_customers) AS one_time,
+          SUM(returning_customers) AS returning,
+          SUM(vip_customers) AS vip,
+          SUM(normal_customers) AS normal,
+          SUM(active_customers) AS active,
+          SUM(inactive_customers) AS inactive
+      FROM
+          customer_status_summary
+      WHERE
+      day >= ${new Date(startDate)} AND day <= ${new Date(endDate)}
     `;
 
     // Return the results in the desired format
@@ -1107,11 +1149,75 @@ export async function getOrdersStatusSummary(
   }
 }
 
-export async function refreshMaterializedView() {
+
+
+export async function getMonthlySalesRevenue(
+  startDateStr: string,
+  endDateStr: string
+) {
+  try {
+    const startDate = dateSchema.parse(startDateStr);
+    const endDate = dateSchema.parse(endDateStr);
+
+    const results = await prisma.$queryRaw`
+      SELECT
+          TO_CHAR(DATE_TRUNC('month', day), 'Mon YYYY') AS month, -- Abbreviated month format "Feb 2025"
+          SUM(completed_revenue) AS total_revenue
+      FROM
+          order_status_summary
+      WHERE
+          day >= ${new Date(startDate)} AND day <= ${new Date(endDate)}
+      GROUP BY
+          DATE_TRUNC('month', day) -- Group by month
+      ORDER BY
+          DATE_TRUNC('month', day); -- Order by month
+    `;
+
+    return results;
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Handle the validation error
+      throw new Error(
+        "Invalid date format. Please provide valid date strings."
+      );
+    }
+    // Handle any other unexpected errors
+    throw new Error("An unexpected error occurred while fetching the data.");
+  }
+}
+
+
+export async function refreshNewCustomerMV() {
   // Run the SQL command to refresh the materialized view
   await prisma.$executeRaw`REFRESH MATERIALIZED VIEW daily_new_customers`;
   console.log("Materialized view refreshed successfully.");
 }
+export async function refreshNewOrderMV() {
+  // Run the SQL command to refresh the materialized view
+  await prisma.$executeRaw`REFRESH MATERIALIZED VIEW daily_new_orders`;
+  console.log("Materialized view refreshed successfully.");
+}
+export async function refreshOrderStatusSummaryMV() {
+  try {
+    // Run the SQL command to refresh the 'order_status_summary' materialized view
+    await prisma.$executeRaw`REFRESH MATERIALIZED VIEW order_status_summary`;
+    console.log("Materialized view 'order_status_summary' refreshed successfully.");
+  } catch (error) {
+    console.error("Error refreshing 'order_status_summary' materialized view:", error);
+    throw error;
+  }
+}
+export async function refreshCustomerStatusSummaryMV() {
+  try {
+    // Run the SQL command to refresh the 'customer_status_summary' materialized view
+    await prisma.$executeRaw`REFRESH MATERIALIZED VIEW customer_status_summary`;
+    console.log("Materialized view 'customer_status_summary' refreshed successfully.");
+  } catch (error) {
+    console.error("Error refreshing 'customer_status_summary' materialized view:", error);
+    throw error;
+  }
+}
+
 export async function incrementallyRefreshNewCustomerMV() {
   await prisma.$executeRaw`
       WITH new_data AS (
@@ -1176,7 +1282,8 @@ export async function incrementallyRefreshOrderStatusSummaryMV() {
               SUM(CASE WHEN "status" = 'CONFIRMED' THEN 1 ELSE 0 END) AS confirmed_orders,
               SUM(CASE WHEN "status" = 'COMPLETED' THEN 1 ELSE 0 END) AS completed_orders,
               SUM(CASE WHEN "status" = 'CANCELED' THEN 1 ELSE 0 END) AS canceled_orders,
-              SUM(CASE WHEN "status" = 'REFUNDED' THEN 1 ELSE 0 END) AS refunded_orders
+              SUM(CASE WHEN "status" = 'REFUNDED' THEN 1 ELSE 0 END) AS refunded_orders,
+              SUM(CASE WHEN "status" = 'COMPLETED' THEN "totalPrice" ELSE 0 END) AS completed_revenue  -- Added revenue from completed orders
           FROM
               "Order"
           WHERE
@@ -1185,8 +1292,8 @@ export async function incrementallyRefreshOrderStatusSummaryMV() {
               DATE("createdAt")
       )
       -- Insert or update the materialized view
-      INSERT INTO order_status_summary (day, total_orders, pending_orders, confirmed_orders, completed_orders, canceled_orders, refunded_orders)
-      SELECT day, total_orders, pending_orders, confirmed_orders, completed_orders, canceled_orders, refunded_orders FROM new_data;
+      INSERT INTO order_status_summary (day, total_orders, pending_orders, confirmed_orders, completed_orders, canceled_orders, refunded_orders, completed_revenue)
+      SELECT day, total_orders, pending_orders, confirmed_orders, completed_orders, canceled_orders, refunded_orders, completed_revenue FROM new_data;
     `;
 
     // Step 2: Update the last refresh date in the metadata table
@@ -1207,6 +1314,56 @@ export async function incrementallyRefreshOrderStatusSummaryMV() {
     throw error;
   }
 }
+
+
+
+export async function incrementallyRefreshCustomerStatusSummaryMV() {
+  try {
+    // Step 1: Fetch new or updated data since the last refresh
+    await prisma.$executeRaw`
+      WITH new_data AS (
+          SELECT
+              DATE("createdAt") AS day,
+              COUNT(id) AS total_customers,
+              SUM(CASE WHEN totalOrders = 1 THEN 1 ELSE 0 END) AS one_time_customers,
+              SUM(CASE WHEN totalOrders > 1 THEN 1 ELSE 0 END) AS returning_customers,
+              SUM(CASE WHEN totalSpent >= 1000 THEN 1 ELSE 0 END) AS vip_customers,
+              SUM(CASE WHEN totalSpent < 1000 THEN 1 ELSE 0 END) AS normal_customers,
+              SUM(CASE WHEN lastOrderDate >= CURRENT_DATE - INTERVAL '30 days' THEN 1 ELSE 0 END) AS active_customers,
+              SUM(CASE WHEN lastOrderDate < CURRENT_DATE - INTERVAL '30 days' OR lastOrderDate IS NULL THEN 1 ELSE 0 END) AS inactive_customers
+          FROM
+              "Customer"
+          WHERE
+              DATE("createdAt") > (SELECT last_refreshed_date FROM refresh_metadata WHERE view_name = 'customer_status_summary')
+          GROUP BY
+              DATE("createdAt")
+      )
+      -- Insert or update the materialized view
+      INSERT INTO customer_status_summary (day, total_customers, one_time_customers, returning_customers, vip_customers, normal_customers, active_customers, inactive_customers)
+      SELECT day, total_customers, one_time_customers, returning_customers, vip_customers, normal_customers, active_customers, inactive_customers FROM new_data;
+    `;
+
+    // Step 2: Update the last refresh date in the metadata table
+    await prisma.$executeRaw`
+      UPDATE refresh_metadata
+      SET last_refreshed_date = (SELECT MAX(day) FROM customer_status_summary)
+      WHERE view_name = 'customer_status_summary';
+    `;
+
+    console.log(
+      "Materialized view 'customer_status_summary' incrementally refreshed successfully."
+    );
+  } catch (error) {
+    console.error(
+      "Failed to incrementally refresh the materialized view:",
+      error
+    );
+    throw error;
+  }
+}
+
+
+
 
 interface FetchOrdersOptions {
   searchKey?: string;
@@ -1269,4 +1426,23 @@ export async function fetchOrders(
   const total = await prisma.order.count({ where });
 
   return { orders, total };
+}
+
+
+async function checkmain() {
+  // First, execute the SELECT query
+  const selectResult = await prisma.$queryRaw`
+    SELECT "id", "migration_name", "checksum"
+    FROM "_prisma_migrations"
+    WHERE "migration_name" = '20250216152952_20250216143935_create_customer_status_summary'
+  `;
+  console.log("Before Updateeee:", selectResult);
+
+  // Now, execute the UPDATE query
+  const updateResult = await prisma.$executeRaw`
+    UPDATE "_prisma_migrations"
+    SET "checksum" = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+    WHERE "migration_name" = '20250216152952_20250216143935_create_customer_status_summary'
+  `;
+  console.log("Update Result:", updateResult);
 }

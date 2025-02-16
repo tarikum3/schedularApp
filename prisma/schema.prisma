@@ -400,13 +400,15 @@ model refresh_metadata {
     day        DateTime @id @db.Date
     new_customers Int
 
-    @@map("daily_new_customers") // Map to the materialized view name in the database
+    @@map("daily_new_customers") 
+    
 } 
  model DailyNewOrders {
     day        DateTime @id @db.Date
     new_orders Int
 
-    @@map("daily_new_orders") // Map to the materialized view name in the database
+    @@map("daily_new_orders") 
+    
 } 
 model OrderStatusSummary {
   day            DateTime @id @db.Date
@@ -416,9 +418,25 @@ model OrderStatusSummary {
   shipped_orders  Int
   delivered_orders Int
   cancelled_orders Int
-
+  completed_revenue Float
   @@map("order_status_summary")
+  
 }
+
+model CustomerStatusSummary {
+  day            DateTime @id @db.Date
+  total_customers    Int
+  one_time_customers Int
+  returning_customers Int
+  vip_customers      Int
+  normal_customers   Int
+  active_customers   Int
+  inactive_customers Int
+  @@map("customer_status_summary")
+    
+}
+
+
 
 enum OrderStatus {
   PENDING

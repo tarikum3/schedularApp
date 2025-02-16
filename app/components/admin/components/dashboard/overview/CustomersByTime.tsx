@@ -1,13 +1,6 @@
 
 
-// export default function CustomersBytime (){
 
-
-
-//     return (<>
-    
-//     </>)
-// }
 
 "use client";
 import React from "react";
