@@ -1,18 +1,38 @@
-"use client";
+// "use client";
 
-// import CustomersByTime from "@/app/components/admin/components/dashboard/overview/CustomersByTime";
 // import CustomersOverMonths from "@/app/components/admin/components/dashboard/Overview/CustomersOverMonths";
 
+// export default function OverView() {
+//   return (
+//     <>
+//       <div className=" flex flex-col  text-primary">
+//              <CustomersOverMonths />
+//       </div>
+//     </>
+//   );
+// }
+
+"use client";
+
+import React, { Suspense } from "react";
+import CustomersOverMonths from "@/app/components/admin/components/dashboard/Overview/CustomersOverMonths";
+import OrderStatusSummary from "@/app/components/admin/components/dashboard/Overview/OrderStatusSummary";
+import OrdersOverMonths from "@/app/components/admin/components/dashboard/Overview/OrdersOverMonths";
+import CustomersAnalytics from "@/app/components/admin/components/dashboard/Analytics/CustomersAnalytics";
 
 export default function OverView() {
   return (
-    <>
-      <div className=" flex flex-col   h-full w-full   p-4 mb-5 gap-14   text-primary">
-        {/* <CustomersByTime /> */}
-        {/* <h2 className="text-xl font-semibold text-center mb-4">
-            Orders Status Summaryyy
-            </h2> */}
-      </div>
-    </>
+    <div className="flex flex-col text-primary">
+      {/* Wrap CustomersOverMonths in Suspense with a fallback */}
+      <Suspense>
+        <CustomersOverMonths />
+      </Suspense>
+      <Suspense>
+        <OrderStatusSummary />
+      </Suspense>
+      <Suspense>
+        <OrdersOverMonths />
+      </Suspense>
+    </div>
   );
 }

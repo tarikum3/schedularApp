@@ -45,7 +45,7 @@ export default class GenericAreaChart extends PureComponent<GenericAreaChartProp
     const valueKeys = Object.keys(data[0]).filter(key => key !== "category");
 
     return (
-      <div className="p-4 bg-white shadow-lg rounded-lg">
+   
         <ResponsiveContainer width="100%" height={height}>
           <AreaChart
             data={data}
@@ -85,7 +85,7 @@ export default class GenericAreaChart extends PureComponent<GenericAreaChartProp
             ))}
           </AreaChart>
         </ResponsiveContainer>
-      </div>
+     
     );
   }
 }
