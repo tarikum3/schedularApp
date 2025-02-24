@@ -13,13 +13,14 @@ const CustomersAnalytics = () => {
     endDate: "",
   });
 
-
-  const [firstreturning, setFirstreturning] = useState([{value:0,name:"firstTime",
-    color:"#8884d8"},{value:0,name:"returning",
-      color:"#82ca9d"}]);
-      const [vipregular, setVipregular] = useState([{value:0,name:"vip",
-        color:"#8884d8"},{value:0,name:"regular",
-          color:"#82ca9d"}]);
+  const [firstreturning, setFirstreturning] = useState([
+    { value: 0, name: "firstTime", color: "#8884d8" },
+    { value: 0, name: "returning", color: "#82ca9d" },
+  ]);
+  const [vipregular, setVipregular] = useState([
+    { value: 0, name: "vip", color: "#8884d8" },
+    { value: 0, name: "regular", color: "#82ca9d" },
+  ]);
   const { data: CustomersAnalyticsData } = useGetAnalyticsQuery(
     {
       type: "CustomersAnalytics",
@@ -39,29 +40,30 @@ const CustomersAnalytics = () => {
   useEffect(() => {
     let CustomersAnalytics = (CustomersAnalyticsData as any)?.data;
     if (CustomersAnalytics) {
-   
     }
   }, [CustomersAnalyticsData]);
 
   return (
     <>
-      <DateWrapper type="year" onTableDateRangeChange={onTableDateRangeChange}>
-        <div className="p-6 bg-primary-100 min-h-screen flex justify-center items-center">
-          <div className="w-full max-w-3xl">
-            {/* <h2 className="text-xl font-semibold text-center mb-4">
-            Orders Status Summary
-            </h2> */}
-            <div className="w-full mt-6  grid grid-cols-2 gap-3 justify-items-center   sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 p-2">
- 
-   
-
-  <PieChartFullCircle data={firstreturning}/>
-
-
-          </div>
+      <div className="bg-white text-primary-900 border p-8 mx-auto rounded-lg shadow-sm w-full max-w-5xl">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-primary-900">
+            Customers Analytics
+          </h2>
+          <div className="ml-auto">
+            <DateWrapper
+              type="year"
+              onTableDateRangeChange={onTableDateRangeChange}
+            />
           </div>
         </div>
-      </DateWrapper>
+
+        <div className="w-full mt-6  grid grid-cols-2 gap-3 justify-items-center   sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 p-2">
+          <PieChartFullCircle data={firstreturning} />
+        </div>
+
+        {/* Loading State */}
+      </div>
     </>
   );
 };

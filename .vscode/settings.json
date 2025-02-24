@@ -6,8 +6,8 @@
   "workbench.colorTheme": "Default Dark Modern",
   "gitlens.telemetry.enabled": false,
   "files.exclude": {
-    "**/.next": true,
-    "**/node_modules": true
+    "**/.next/**": true,
+    "**/node_modules/**": true
   },
   "files.watcherExclude": {
     "**/.next/**": true,

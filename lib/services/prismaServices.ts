@@ -1032,6 +1032,7 @@ export async function getMonthlyNewCustomers(
       );
     }
     // Handle any other unexpected errors
+    console.log("monthorderly", error);
     throw new Error("An unexpected error occurred while fetching the data.");
   }
 }
@@ -1066,6 +1067,7 @@ export async function getMonthlyNewOrders(
       );
     }
     // Handle any other unexpected errors
+    console.log("monthlyorder", error);
     throw new Error("An unexpected error occurred while fetching the data.");
   }
 }
@@ -1095,8 +1097,7 @@ export async function getOrdersStatusSummary(
           day >= ${new Date(startDate)} AND day <= ${new Date(endDate)};
     `;
 
-    // Return the results in the desired format
-    return results; // Since the query returns a single row with the aggregated results
+    return results;
   } catch (error) {
     if (error instanceof z.ZodError) {
       // Handle the validation error
@@ -1108,7 +1109,6 @@ export async function getOrdersStatusSummary(
     throw new Error("An unexpected error occurred while fetching the data.");
   }
 }
-
 
 export async function getCustomerStatusSummary(
   startDateStr: string,
@@ -1149,8 +1149,6 @@ export async function getCustomerStatusSummary(
   }
 }
 
-
-
 export async function getMonthlySalesRevenue(
   startDateStr: string,
   endDateStr: string
@@ -1161,7 +1159,7 @@ export async function getMonthlySalesRevenue(
 
     const results = await prisma.$queryRaw`
       SELECT
-          TO_CHAR(DATE_TRUNC('month', day), 'Mon YYYY') AS month, -- Abbreviated month format "Feb 2025"
+          TO_CHAR(DATE_TRUNC('month', day), 'Month YYYY') AS month, -- Abbreviated month format "Feb 2025"
           SUM(completed_revenue) AS total_revenue
       FROM
           order_status_summary
@@ -1186,7 +1184,6 @@ export async function getMonthlySalesRevenue(
   }
 }
 
-
 export async function refreshNewCustomerMV() {
   // Run the SQL command to refresh the materialized view
   await prisma.$executeRaw`REFRESH MATERIALIZED VIEW daily_new_customers`;
@@ -1201,9 +1198,14 @@ export async function refreshOrderStatusSummaryMV() {
   try {
     // Run the SQL command to refresh the 'order_status_summary' materialized view
     await prisma.$executeRaw`REFRESH MATERIALIZED VIEW order_status_summary`;
-    console.log("Materialized view 'order_status_summary' refreshed successfully.");
+    console.log(
+      "Materialized view 'order_status_summary' refreshed successfully."
+    );
   } catch (error) {
-    console.error("Error refreshing 'order_status_summary' materialized view:", error);
+    console.error(
+      "Error refreshing 'order_status_summary' materialized view:",
+      error
+    );
     throw error;
   }
 }
@@ -1211,9 +1213,14 @@ export async function refreshCustomerStatusSummaryMV() {
   try {
     // Run the SQL command to refresh the 'customer_status_summary' materialized view
     await prisma.$executeRaw`REFRESH MATERIALIZED VIEW customer_status_summary`;
-    console.log("Materialized view 'customer_status_summary' refreshed successfully.");
+    console.log(
+      "Materialized view 'customer_status_summary' refreshed successfully."
+    );
   } catch (error) {
-    console.error("Error refreshing 'customer_status_summary' materialized view:", error);
+    console.error(
+      "Error refreshing 'customer_status_summary' materialized view:",
+      error
+    );
     throw error;
   }
 }
@@ -1315,8 +1322,6 @@ export async function incrementallyRefreshOrderStatusSummaryMV() {
   }
 }
 
-
-
 export async function incrementallyRefreshCustomerStatusSummaryMV() {
   try {
     // Step 1: Fetch new or updated data since the last refresh
@@ -1361,9 +1366,6 @@ export async function incrementallyRefreshCustomerStatusSummaryMV() {
     throw error;
   }
 }
-
-
-
 
 interface FetchOrdersOptions {
   searchKey?: string;
@@ -1427,7 +1429,6 @@ export async function fetchOrders(
 
   return { orders, total };
 }
-
 
 async function checkmain() {
   // First, execute the SELECT query

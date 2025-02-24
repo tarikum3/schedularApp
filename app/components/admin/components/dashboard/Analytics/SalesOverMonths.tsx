@@ -35,7 +35,6 @@ const SalesOverMonths = () => {
     let monthlySalesRevenue = (monthlySalesRevenueData as any)?.data;
     if (monthlySalesRevenue?.length >= 0) {
       setMonthlySalesRevenue([
-        
         ...monthlySalesRevenue.map((data: any) => {
           return {
             category: data.month,
@@ -48,22 +47,29 @@ const SalesOverMonths = () => {
 
   return (
     <>
-      <DateWrapper type="year" onTableDateRangeChange={onTableDateRangeChange}>
-        <div className="p-6 bg-primary-100 min-h-screen flex justify-center items-center">
-          <div className="w-full max-w-3xl">
-            <h2 className="text-xl font-semibold text-center mb-4">
-              Sales over Months
-            </h2>
-            <GenericAreaChart
-              data={monthlySalesRevenue}
-              colors={colors}
-              height={450}
-              grid
-              smooth
+      <div className="bg-white text-primary-900 border p-8 mx-auto rounded-lg shadow-sm w-full max-w-5xl">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-primary-900">
+            Sales over Months
+          </h2>
+          <div className="ml-auto">
+            <DateWrapper
+              type="year"
+              onTableDateRangeChange={onTableDateRangeChange}
             />
           </div>
         </div>
-      </DateWrapper>
+
+        {/* Chart Section */}
+        <div className="flex flex-col gap-4">
+          <GenericAreaChart
+            data={monthlySalesRevenue}
+            height={400}
+            smooth
+            grid
+          />
+        </div>
+      </div>
     </>
   );
 };

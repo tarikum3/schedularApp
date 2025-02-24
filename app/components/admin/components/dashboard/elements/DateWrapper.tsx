@@ -8,20 +8,33 @@ import React, {
 } from "react";
 import dynamic from "next/dynamic";
 import { Typography } from "@material-ui/core";
-import { endOfYear, startOfYear, subYears } from "date-fns";
-import { dateFormatDays } from "@/lib/admin/utils/dayjs";
+// import { endOfYear, startOfYear, subYears } from "date-fns";
+import {
+  dateFormatDays,
+  endOfYear,
+  startOfYear,
+  subYears,
+} from "@/lib/admin/utils/dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
-
+import { SxProps } from "@mui/system";
 const DateRangeComponent = dynamic(
   () => import("@/app/components/admin/components/ui/CustomDateRange"),
   {
     ssr: false,
   }
 );
-
+const inputStyles: SxProps = {
+  "& .MuiOutlinedInput-root": {
+    color: "red",
+  },
+  "& .MuiInputLabel-root": {
+    top: -3, // adjust the label position if needed
+    color: "red",
+  },
+};
 interface CustomTableProps {
   onTableDateRangeChange?: (dateRange: {
     startDate: string;
@@ -115,19 +128,28 @@ const DateWrapper: React.FC<CustomTableProps> = ({
   }, [dateRangeValues, onTableDateRangeChange]);
 
   return (
-    <div className="h-full w-full">
-      <Typography variant="h6" className="text-xl text-primary font-bold mb-4">
+    <div className="w-full max-w-48 ">
+      <Typography
+        variant="h6"
+        className="text-xl text-primary-700 font-bold mb-4"
+      >
         {title}
       </Typography>
       {type === "year" ? (
-        <div className="relative bg-white text-[#2C2E7B] w-full max-w-[200px] ml-auto rounded-[3px] text-md border border-gray-300">
+        <div className="relative bg-white text-primary-700 w-full max-w-48 ml-auto ">
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               views={["year"]}
               label="Select Year"
               value={new Date(selectedYear, 0)}
               onChange={handleYearChange}
-              renderInput={(params) => <TextField {...params} fullWidth />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  // sx={inputStyles}
+                  fullWidth
+                />
+              )}
             />
           </LocalizationProvider>
         </div>
@@ -140,50 +162,6 @@ const DateWrapper: React.FC<CustomTableProps> = ({
       )}
       {children}
     </div>
-
-    // <div className="h-full w-full bg-white p-6 rounded-lg shadow-sm">
-    //   {/* Title Section */}
-    //   <Typography
-    //     variant="h6"
-    //     className="text-xl text-primary-900 font-bold mb-6"
-    //   >
-    //     {title}
-    //   </Typography>
-
-    //   {/* Year Picker or Date Range Component */}
-    //   <div className="flex flex-col space-y-6">
-    //     {type === "year" ? (
-    //       <div className="relative bg-white text-primary-900 w-full max-w-[200px] ml-auto rounded-md border border-primary-300">
-    //         <LocalizationProvider dateAdapter={AdapterDateFns}>
-    //           <DatePicker
-    //             views={["year"]}
-    //             label="Select Year"
-    //             value={new Date(selectedYear, 0)}
-    //             onChange={handleYearChange}
-    //             renderInput={(params) => (
-    //               <TextField
-    //                 {...params}
-    //                 fullWidth
-    //                 variant="outlined"
-    //                 size="small"
-    //                 className="text-primary-900"
-    //               />
-    //             )}
-    //           />
-    //         </LocalizationProvider>
-    //       </div>
-    //     ) : (
-    //       <DateRangeComponent
-    //         open={dateRangeModal}
-    //         onChange={handleDateRangeChange}
-    //         toggle={handleOnDateRangeToggle}
-    //       />
-    //     )}
-    //   </div>
-
-    //   {/* Children Content */}
-    //   <div className="mt-8">{children}</div>
-    // </div>
   );
 };
 

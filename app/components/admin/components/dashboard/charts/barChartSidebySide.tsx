@@ -10,6 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { primaryColors } from "@lib/const"; // Import primary colors
 
 interface DataType {
   [key: string]: number | string;
@@ -18,52 +19,47 @@ interface DataType {
 
 interface GenericBarChartProps {
   data: DataType[];
-  colors: string[];
 }
 
-const CustomBarShape = (props: any) => {
-  const { x, y, width, height, fill } = props;
+const CustomBarShape: React.FC<any> = ({ x, y, width, height, fill }) => {
   const radius = 5;
-
   return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        fill={fill}
-        rx={radius}
-        ry={radius}
-      />
-    </g>
+    <rect
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      fill={fill}
+      rx={radius}
+      ry={radius}
+    />
   );
 };
 
-const CustomLegend = (props: any) => {
-  const { payload } = props;
-  return (
-    <ul className="flex justify-center flex-wrap">
-      {payload.map((entry: any, index: number) => (
-        <li key={`item-${index}`} className="flex items-center mr-4">
-          <svg width="20" height="20" style={{ marginRight: 4 }}>
-            <polygon points="10,0 0,20 20,20" fill={entry.color} />
-          </svg>
-          <span>{entry.value}</span>
-        </li>
-      ))}
-    </ul>
-  );
-};
+const CustomLegend: React.FC<any> = ({ payload }) => (
+  <ul className="flex justify-center flex-wrap">
+    {payload.map((entry: any, index: number) => (
+      <li key={`item-${index}`} className="flex items-center mr-4">
+        <svg width="20" height="20" style={{ marginRight: 4 }}>
+          <rect width="20" height="20" fill={entry.color} rx="5" ry="5" />
+        </svg>
+        <span>{entry.value}</span>
+      </li>
+    ))}
+  </ul>
+);
 
-export default class GenericBarChart extends PureComponent<GenericBarChartProps> {
+class GenericBarChart extends PureComponent<GenericBarChartProps> {
   render() {
-    const { data, colors } = this.props;
+    const { data } = this.props;
 
     if (data.length === 0) return null;
 
     // Determine the value keys dynamically, excluding the category key
-    const valueKeys = Object.keys(data[0]).filter(key => key !== "category");
+    const valueKeys = Object.keys(data[0]).filter((key) => key !== "category");
+
+    // Convert primaryColors object to an array for easy indexing
+    const primaryColorsArray = Object.values(primaryColors);
 
     return (
       <ResponsiveContainer width="100%" height={400}>
@@ -81,13 +77,20 @@ export default class GenericBarChart extends PureComponent<GenericBarChartProps>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="category" />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: primaryColors["primary-900"], // Use primary-900
+              borderColor: primaryColors["primary-700"], // Use primary-700
+              borderRadius: 5,
+              color: primaryColors["primary-100"], // Use primary-100
+            }}
+          />
           <Legend content={<CustomLegend />} />
           {valueKeys.map((key, index) => (
             <Bar
               key={key}
               dataKey={key}
-              fill={colors[index % colors.length]}
+              fill={primaryColorsArray[index % primaryColorsArray.length]} // Use primary colors
               shape={<CustomBarShape />}
             />
           ))}
@@ -97,10 +100,4 @@ export default class GenericBarChart extends PureComponent<GenericBarChartProps>
   }
 }
 
-
-
-
-
-
-
-
+export default GenericBarChart;

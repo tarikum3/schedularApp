@@ -21,49 +21,42 @@ interface GenericBarChartStackProps {
   colors: string[];
 }
 
-const CustomBarShape = (props: any) => {
-  const { x, y, width, height, fill } = props;
+const CustomBarShape: React.FC<any> = ({ x, y, width, height, fill }) => {
   const radius = 5;
-
   return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        fill={fill}
-        rx={radius}
-        ry={radius}
-      />
-    </g>
+    <rect
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      fill={fill}
+      rx={radius}
+      ry={radius}
+    />
   );
 };
 
-const CustomLegend = (props: any) => {
-  const { payload } = props;
-  return (
-    <ul className="flex justify-center">
-      {payload.map((entry: any, index: number) => (
-        <li key={`item-${index}`} className="flex items-center mr-4">
-          <svg width="20" height="20" style={{ marginRight: 4 }}>
-            <polygon points="10,0 0,20 20,20" fill={entry.color} />
-          </svg>
-          <span>{entry.value}</span>
-        </li>
-      ))}
-    </ul>
-  );
-};
+const CustomLegend: React.FC<any> = ({ payload }) => (
+  <ul className="flex justify-center">
+    {payload.map((entry: any, index: number) => (
+      <li key={`item-${index}`} className="flex items-center mr-4">
+        <svg width="20" height="20" style={{ marginRight: 4 }}>
+          <polygon points="10,0 0,20 20,20" fill={entry.color} />
+        </svg>
+        <span>{entry.value}</span>
+      </li>
+    ))}
+  </ul>
+);
 
-export default class GenericBarChartStack extends PureComponent<GenericBarChartStackProps> {
+class GenericBarChartStack extends PureComponent<GenericBarChartStackProps> {
   render() {
     const { data, colors } = this.props;
 
     if (data.length === 0) return null;
 
     // Determine the value keys dynamically, excluding the category key
-    const valueKeys = Object.keys(data[0]).filter(key => key !== "category");
+    const valueKeys = Object.keys(data[0]).filter((key) => key !== "category");
 
     return (
       <ResponsiveContainer width="100%" height={400}>
@@ -98,10 +91,4 @@ export default class GenericBarChartStack extends PureComponent<GenericBarChartS
   }
 }
 
-
-
-
-
-
-
-
+export default GenericBarChartStack;
