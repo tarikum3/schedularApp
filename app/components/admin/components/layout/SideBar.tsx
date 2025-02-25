@@ -1,4 +1,3 @@
-
 "use client";
 import * as React from "react";
 import Link from "next/link";
@@ -13,7 +12,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
-import UserView from "@components/admin/components/user/usermenu"
+import UserView from "@/app/components/admin/components/user/UserMenu";
 export default function SideBar() {
   const pathname = "/home";
   const permissions = [
@@ -31,33 +30,67 @@ export default function SideBar() {
   React.useEffect(() => {
     setSideBarConfigs([
       ...permissionArray(
-        [PERMISSIONS.READ_OVERVIEW_DASHBOARD, PERMISSIONS.READ_ANALYTICS_DASHBOARD],
+        [
+          PERMISSIONS.READ_OVERVIEW_DASHBOARD,
+          PERMISSIONS.READ_ANALYTICS_DASHBOARD,
+        ],
         {
           label: "Dashboard",
           icon: <DashboardIcon className="text-primary-500" />,
           isOpen: true,
           isHovered: false,
           children: [
-            { label: "Overview", icon: <DashboardIcon className="text-primary-400" />, route: ROUTES.DASHBOARD_OVERVIEW },
-            { label: "Analytics", icon: <DashboardIcon className="text-primary-400" />, route: ROUTES.DASHBOARD_ANALYTICS },
+            {
+              label: "Overview",
+              icon: <DashboardIcon className="text-primary-400" />,
+              route: ROUTES.DASHBOARD_OVERVIEW,
+            },
+            {
+              label: "Analytics",
+              icon: <DashboardIcon className="text-primary-400" />,
+              route: ROUTES.DASHBOARD_ANALYTICS,
+            },
           ],
         },
         permissions
       ),
-      
-      { label: "Users", icon: <PeopleAltOutlinedIcon className="text-primary-500" />, route: ROUTES.USERS },
-     
-      { label: "Products", icon: <Inventory2OutlinedIcon className="text-primary-500" />, route: ROUTES.PRODUCT },
-      { label: "Orders", icon: <ShoppingCartOutlinedIcon className="text-primary-500" />, route: ROUTES.ORDER },
-      { label: "Customers", icon: <GroupOutlinedIcon className="text-primary-500" />, route: ROUTES.CUSTOMERS },
-      { label: "Activities", icon: <EventOutlinedIcon className="text-primary-500" />, route: ROUTES.ACTIVITIES },
+
+      {
+        label: "Users",
+        icon: <PeopleAltOutlinedIcon className="text-primary-500" />,
+        route: ROUTES.USERS,
+      },
+
+      {
+        label: "Products",
+        icon: <Inventory2OutlinedIcon className="text-primary-500" />,
+        route: ROUTES.PRODUCT,
+      },
+      {
+        label: "Orders",
+        icon: <ShoppingCartOutlinedIcon className="text-primary-500" />,
+        route: ROUTES.ORDER,
+      },
+      {
+        label: "Customers",
+        icon: <GroupOutlinedIcon className="text-primary-500" />,
+        route: ROUTES.CUSTOMERS,
+      },
+      {
+        label: "Activities",
+        icon: <EventOutlinedIcon className="text-primary-500" />,
+        route: ROUTES.ACTIVITIES,
+      },
     ]);
   }, []);
 
   const toggleSubMenu = (index: number) => {
     setSideBarConfigs((prevConfigs) => {
       const updatedConfigs = [...prevConfigs];
-      updatedConfigs[index] = { ...updatedConfigs[index], isOpen: !updatedConfigs[index].isOpen };
+      updatedConfigs[index] = {
+        ...updatedConfigs[index],
+        isOpen: !updatedConfigs[index].isOpen,
+      };
       return updatedConfigs;
     });
   };
@@ -66,7 +99,7 @@ export default function SideBar() {
     <div className="border-r border-primary-300 h-full pb-12">
       <div className="h-full flex flex-col justify-end">
         <div className="mt-1 w-full h-full overflow-y-auto bg-white p-2">
-          <nav>
+          {/* <nav>
             {sideBarConfigs.map((config: any, index: number) => (
               <div className="my-1" key={index}>
                 {config.type === "divider" ? (
@@ -93,7 +126,9 @@ export default function SideBar() {
                       >
                         <button
                           className={`flex justify-between items-center px-3 py-2 rounded-md w-full transition-colors ${
-                            config.isHovered ? "bg-primary-600 text-primary-100" : "hover:bg-primary-500 hover:text-primary-100"
+                            config.isHovered
+                              ? "bg-primary-600 text-primary-100"
+                              : "hover:bg-primary-500 hover:text-primary-100"
                           }`}
                           onClick={() => toggleSubMenu(index)}
                         >
@@ -101,22 +136,34 @@ export default function SideBar() {
                             {config.icon}
                             <span className="ml-2">{config.label}</span>
                           </div>
-                          <div>{config.isOpen ? <ExpandMoreIcon /> : <ChevronRightIcon />}</div>
+                          <div>
+                            {config.isOpen ? (
+                              <ExpandMoreIcon />
+                            ) : (
+                              <ChevronRightIcon />
+                            )}
+                          </div>
                         </button>
                         {config.isOpen && (
                           <div className="pl-6">
-                            {config.children.map((subConfig: any, subIndex: number) => (
-                              <Link href={subConfig.route} key={subIndex}>
-                                <div
-                                  className={`px-3 py-2 rounded-md transition-colors cursor-pointer text-sm font-medium ${
-                                    pathname === subConfig.route ? "bg-primary-700 text-primary-100" : "hover:bg-primary-500 hover:text-primary-100"
-                                  }`}
-                                >
-                                  {subConfig.icon}
-                                  <span className="ml-2">{subConfig.label}</span>
-                                </div>
-                              </Link>
-                            ))}
+                            {config.children.map(
+                              (subConfig: any, subIndex: number) => (
+                                <Link href={subConfig.route} key={subIndex}>
+                                  <div
+                                    className={`px-3 py-2 rounded-md transition-colors cursor-pointer text-sm font-medium ${
+                                      pathname === subConfig.route
+                                        ? "bg-primary-700 text-primary-100"
+                                        : "hover:bg-primary-500 hover:text-primary-100"
+                                    }`}
+                                  >
+                                    {subConfig.icon}
+                                    <span className="ml-2">
+                                      {subConfig.label}
+                                    </span>
+                                  </div>
+                                </Link>
+                              )
+                            )}
                           </div>
                         )}
                       </div>
@@ -124,7 +171,9 @@ export default function SideBar() {
                       <Link href={config.route}>
                         <div
                           className={`flex items-center px-3 py-2 rounded-md w-full text-sm font-semibold transition-colors cursor-pointer ${
-                            pathname === config.route ? "bg-primary-700 text-primary-100" : "hover:bg-primary-500 hover:text-primary-100"
+                            pathname === config.route
+                              ? "bg-primary-700 text-primary-100"
+                              : "hover:bg-primary-500 hover:text-primary-100"
                           }`}
                         >
                           {config.icon}
@@ -136,9 +185,9 @@ export default function SideBar() {
                 )}
               </div>
             ))}
-          </nav>
+          </nav> */}
         </div>
-        <UserView/> 
+        <UserView />
       </div>
     </div>
   );

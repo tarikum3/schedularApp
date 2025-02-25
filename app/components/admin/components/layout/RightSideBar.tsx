@@ -17,7 +17,7 @@ const RightSidebar = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 right-0 w-80 h-full shadow-lg transform z-50 transition-transform duration-300 ${
+        className={`fixed top-0 right-0 w-80 h-full shadow-lg transform z-40 transition-transform duration-300 ${
           displayRightSidebar ? "translate-x-0" : "translate-x-full"
         }`}
       >

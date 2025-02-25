@@ -53,7 +53,7 @@ const LanguageSwitcher = () => {
         </span>
       </button>
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-[1010]">
+        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
           {languages.map((lng) => (
             <button
               key={lng.id}

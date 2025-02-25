@@ -78,7 +78,7 @@ const CustomDateRangeComponent = ({ open, onChange, toggle, label }: Props) => {
       <div
         className={`${
           open ? "fixed" : "hidden"
-        } top-0 left-0 w-full h-full flex items-center justify-center bg-[#0002] backdrop-blur-sm z-[9999]`}
+        } top-0 left-0 w-full h-full flex items-center justify-center bg-[#0002] backdrop-blur-sm z-50`}
       >
         {/* <div className="bg-white pt-10 pb-6 px-10 rounded-lg"> */}
         <DateRangePicker

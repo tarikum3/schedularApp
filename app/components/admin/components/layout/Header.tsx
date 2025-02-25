@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Logo } from "@/app/components";
 import { Menu as MenuIcon, Close as CloseIcon } from "@mui/icons-material";
-//import SideBar from "@/app/components/admin/components/layout/SideBar";
+import SideBar from "@/app/components/admin/components/layout/SideBar";
 import RightSideBar from "@/app/components/admin/components/layout/RightSideBar";
 import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
 import NotificationIcon from "@/app/components/admin/components/notification/NotificationIcon";
@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-white  ">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-white  ">
         <div className=" py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-between  w-[270px] ">
@@ -57,20 +57,20 @@ const Header = () => {
         </div>
       </nav>
       <div
-        className={`fixed z-[999] inset-0 bg-black opacity-50 lg:hidden ${
+        className={`fixed z-40 inset-0 bg-black opacity-50 lg:hidden ${
           isSidebarOpen ? "block" : "hidden"
         }`}
         onClick={closeSidebar}
       ></div>
       <aside
-        className={`fixed bg-white z-[999] h-full top-0 left-0 pt-[80px] lg:flex flex-shrink-0 flex-col w-[270px] transition-width duration-75 ${
+        className={`fixed bg-white z-40 h-full top-0 left-0 pt-[80px] lg:flex flex-shrink-0 flex-col w-[270px] transition-width duration-75 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
         aria-label="Sidebar"
       >
-        {/* <SideBar /> */}
+        <SideBar />
       </aside>
-      <RightSideBar />
+      {/* <RightSideBar /> */}
     </>
   );
 };
