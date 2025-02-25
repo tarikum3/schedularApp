@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Logo } from "@/app/components";
 import { Menu as MenuIcon, Close as CloseIcon } from "@mui/icons-material";
-import SideBar from "@/app/components/admin/components/layout/SideBar";
+//import SideBar from "@/app/components/admin/components/layout/SideBar";
 import RightSideBar from "@/app/components/admin/components/layout/RightSideBar";
 import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
 import NotificationIcon from "@/app/components/admin/components/notification/NotificationIcon";
@@ -68,7 +68,7 @@ const Header = () => {
         } lg:translate-x-0`}
         aria-label="Sidebar"
       >
-        <SideBar />
+        {/* <SideBar /> */}
       </aside>
       <RightSideBar />
     </>

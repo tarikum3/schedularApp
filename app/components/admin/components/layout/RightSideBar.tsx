@@ -30,10 +30,10 @@ const RightSidebar = () => {
         </button>
 
         {/* Sidebar Content */}
-        <div className="p-5">
+        <div className="">
           <h2 className="text-lg font-semibold mb-4">Right Sidebar</h2>
           <p className="text-sm text-gray-600">Your content goes here.</p>
-         < NotificationPanel/>
+          <NotificationPanel />
         </div>
       </aside>
     </>
