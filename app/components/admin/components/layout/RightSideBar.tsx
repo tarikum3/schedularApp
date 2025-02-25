@@ -15,7 +15,6 @@ const RightSidebar = () => {
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`fixed top-0 right-0 w-80 h-full shadow-lg transform z-40 transition-transform duration-300 ${
           displayRightSidebar ? "translate-x-0" : "translate-x-full"
@@ -30,9 +29,7 @@ const RightSidebar = () => {
         </button>
 
         {/* Sidebar Content */}
-        <div className="">
-          <h2 className="text-lg font-semibold mb-4">Right Sidebar</h2>
-          <p className="text-sm text-gray-600">Your content goes here.</p>
+        <div className="h-full mt-20 ">
           <NotificationPanel />
         </div>
       </aside>

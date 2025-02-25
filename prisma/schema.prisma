@@ -59,7 +59,7 @@ model User {
   Customer      Customer?
   EventLog      EventLog[]
   sessions      Session[]
-
+  userNotifications UserNotification[]
   @@index([email])
 }
 
@@ -390,6 +390,54 @@ model Day {
   updatedAt DateTime   @updatedAt
   schedules Schedule[] @relation("DaySchedules")
 }
+
+
+// Define enums for constants
+enum NotificationType {
+  NEW_PRODUCT
+  NEW_USER
+  STOCK_OUT
+}
+
+enum NotificationStatus {
+  OPENED
+  VIEWED
+  PENDING
+}
+
+model Notification {
+  id          String             @id @default(uuid())
+  title       String?
+  description String?
+  link        String?            
+  type        NotificationType   
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  
+  userNotifications UserNotification[]
+}
+
+model UserNotification {
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  notificationId String
+  notification   Notification    @relation(fields: [notificationId], references: [id])
+  status         NotificationStatus 
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  
+  @@id([userId, notificationId])
+
+  
+  @@index([userId])
+  @@index([notificationId])
+}
+
+
+
+
 
 model refresh_metadata {
   view_name           String    @id

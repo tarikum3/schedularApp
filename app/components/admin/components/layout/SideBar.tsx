@@ -99,7 +99,7 @@ export default function SideBar() {
     <div className="border-r border-primary-300 h-full pb-12">
       <div className="h-full flex flex-col justify-end">
         <div className="mt-1 w-full h-full overflow-y-auto bg-white p-2">
-          {/* <nav>
+          <nav>
             {sideBarConfigs.map((config: any, index: number) => (
               <div className="my-1" key={index}>
                 {config.type === "divider" ? (
@@ -185,7 +185,7 @@ export default function SideBar() {
                 )}
               </div>
             ))}
-          </nav> */}
+          </nav>
         </div>
         <UserView />
       </div>
