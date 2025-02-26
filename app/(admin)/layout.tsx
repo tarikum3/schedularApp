@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <AppRouterCacheProvider>
         <StoreProvider>
           <SessionWrapper>
-            <Header />
+            {/* <Header /> */}
             {/* <div
               id="main-content"
               className=" flex flex-col relative overflow-y-auto pt-[80px] lg:ml-[270px]"
