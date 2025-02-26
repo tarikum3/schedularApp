@@ -1,0 +1,20 @@
+{
+  "LocaleSwitcher": {
+    "am": "አማርኛ",
+    "en": "እንግሊዝኛ",
+    "label": "ቋንቋ"
+  },
+
+  "SideBar": {
+    "dashboard": {
+      "label": "ዳሽቦርድ",
+      "overview": "አጠቃላይ እይታ",
+      "analytics": "ትንታኔ"
+    },
+    "users": "ተጠቃሚዎች",
+    "products": "ምርቶች",
+    "orders": "ትዕዛዞች",
+    "customers": "ደንበኞች",
+    "activities": "እንቅስቃሴዎች"
+  }
+}

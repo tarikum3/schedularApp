@@ -1,71 +1,84 @@
 "use client";
 
-import { useState } from "react";
-
-interface Language {
-  id: string;
-  title: string;
-  flag: string;
-}
-
-const languages: Language[] = [
-  {
-    id: "en",
-    title: "English",
-    flag: "us",
-  },
-  {
-    id: "tr",
-    title: "Turkish",
-    flag: "tr",
-  },
-  {
-    id: "ar",
-    title: "Arabic",
-    flag: "sa",
-  },
-];
+import { useState, useMemo } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { useTransition } from "react";
+import { Locale } from "@/i18n/config";
+import { setUserLocale } from "@lib/services/locale";
 
 const LanguageSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(
-    languages[0]
+  const [isPending, startTransition] = useTransition();
+  const t = useTranslations("LocaleSwitcher");
+  const locale = useLocale();
+
+  // Memoize the languages array to avoid unnecessary re-renders
+  const languages = useMemo(
+    () => [
+      {
+        value: "en",
+        label: t("en"),
+      },
+      {
+        value: "am",
+        label: t("am"),
+      },
+    ],
+    [t]
   );
 
-  const handleLanguageChange = (lng: Language) => {
-    setCurrentLanguage(lng);
-    setIsOpen(false);
+  const handleLanguageChange = (value: string) => {
+    const newLocale = value as Locale;
+    startTransition(() => {
+      try {
+        setUserLocale(newLocale);
+        setIsOpen(false); // Close the dropdown after selection
+      } catch (error) {
+        console.error("Failed to change locale:", error);
+      }
+    });
   };
 
   return (
     <div className="relative inline-block text-left">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center px-4 py-2 border border-gray-300 rounded-lg bg-white shadow-sm hover:bg-gray-100"
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+        className="flex items-center px-4 py-2 border border-gray-300 rounded-lg bg-white shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
         <img
-          src={`/assets/images/flags/${currentLanguage.flag}.png`}
-          alt={currentLanguage.title}
+          src={`/assets/flags/${locale}.png`}
+          alt={locale}
           className="w-6 h-6 mr-2"
+          aria-hidden="true"
         />
-        <span className="uppercase font-semibold text-gray-700">
-          {currentLanguage.id}
-        </span>
+        <span className="uppercase font-semibold text-gray-700">{locale}</span>
       </button>
+
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+        <div
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="language-switcher"
+          className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+        >
           {languages.map((lng) => (
             <button
-              key={lng.id}
-              onClick={() => handleLanguageChange(lng)}
-              className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100"
+              key={lng.value}
+              type="button"
+              role="menuitem"
+              onClick={() => handleLanguageChange(lng.value)}
+              className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
             >
               <img
-                src={`/assets/images/flags/${lng.flag}.png`}
-                alt={lng.title}
+                src={`/assets/flags/${lng.value}.png`}
+                alt={lng.label}
                 className="w-6 h-6 mr-2"
+                aria-hidden="true"
               />
-              <span className="text-gray-700">{lng.title}</span>
+              <span className="text-gray-700">{lng.label}</span>
             </button>
           ))}
         </div>
