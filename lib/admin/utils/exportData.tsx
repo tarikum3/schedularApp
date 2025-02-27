@@ -3,19 +3,17 @@ import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 
 // Export data function
-export const exportData = (data: any[], fileName: string) => {
-  const worksheet = XLSX.utils.json_to_sheet(data);
-  const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
-  const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
-  const blobData = new Blob([excelBuffer], {
-    type: "application/octet-stream",
-  });
-  FileSaver.saveAs(blobData, `${fileName}.xlsx`);
-};
+// export const exportData = (data: any[], fileName: string) => {
+//   const worksheet = XLSX.utils.json_to_sheet(data);
+//   const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
+//   const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+//   const blobData = new Blob([excelBuffer], {
+//     type: "application/octet-stream",
+//   });
+//   FileSaver.saveAs(blobData, `${fileName}.xlsx`);
+// };
 
-
-
-export const exportDataNew = (
+export const exportData = (
   data: any[],
   headers: string[],
   fileName: string
@@ -53,18 +51,17 @@ export const exportDataNew = (
   FileSaver.saveAs(blobData, `${fileName}.xlsx`);
 };
 
-
 export const getNestedValue = (obj: any, key: string) => {
-  return key.split('.').reduce((acc, part) => acc?.[part], obj);
+  return key.split(".").reduce((acc, part) => acc?.[part], obj);
 };
 export const sortData = (
   data: any[],
   key: string,
-  order: 'asc' | 'desc' = 'asc'
+  order: "asc" | "desc" = "asc"
 ) => {
   // Utility function to get the nested value
   const getNestedValue = (obj: any, key: string) => {
-    return key.split('.').reduce((acc, part) => acc?.[part], obj);
+    return key.split(".").reduce((acc, part) => acc?.[part], obj);
   };
 
   const sortedData = [...data].sort((a, b) => {
@@ -79,48 +76,51 @@ export const sortData = (
     if (!isANullish && isBNullish) return -1;
     if (isANullish && isBNullish) return 0;
 
-    if (typeof aValue === 'string' && typeof bValue === 'string') {
+    if (typeof aValue === "string" && typeof bValue === "string") {
       const aLower = aValue.toLowerCase();
       const bLower = bValue.toLowerCase();
 
-      if (aLower < bLower) return order === 'asc' ? -1 : 1;
-      if (aLower > bLower) return order === 'asc' ? 1 : -1;
+      if (aLower < bLower) return order === "asc" ? -1 : 1;
+      if (aLower > bLower) return order === "asc" ? 1 : -1;
       return 0;
     } else {
-      if (aValue < bValue) return order === 'asc' ? -1 : 1;
-      if (aValue > bValue) return order === 'asc' ? 1 : -1;
+      if (aValue < bValue) return order === "asc" ? -1 : 1;
+      if (aValue > bValue) return order === "asc" ? 1 : -1;
       return 0;
     }
   });
 
   return sortedData;
 };
-export const formatDurationFromHours=(totalHours: number | string | null | undefined)=> {
+export const formatDurationFromHours = (
+  totalHours: number | string | null | undefined
+) => {
   // Return null for null or undefined input
   if (totalHours === null || totalHours === undefined) {
-      return null;
+    return null;
   }
 
   // Convert the input to a number
-  const hoursNumber = typeof totalHours === 'string' ? parseFloat(totalHours) : totalHours;
+  const hoursNumber =
+    typeof totalHours === "string" ? parseFloat(totalHours) : totalHours;
 
   // Check for NaN after conversion
   if (isNaN(hoursNumber)) {
-      return null;
+    return null;
   }
 
   const days = Math.floor(hoursNumber / 24);
   const hours = Math.floor(hoursNumber % 24);
   const minutes = Math.round((hoursNumber - Math.floor(hoursNumber)) * 60);
 
-  let result = '';
+  let result = "";
   if (days > 0) {
-      result += `${days} day${days > 1 ? 's' : ''} `;
+    result += `${days} day${days > 1 ? "s" : ""} `;
   }
   if (hours > 0) {
-      result += `${hours} h `;
+    result += `${hours} h `;
   }
-  result += `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+  result += `${minutes} minute${minutes !== 1 ? "s" : ""}`;
 
   return result.trim();
-}
+};

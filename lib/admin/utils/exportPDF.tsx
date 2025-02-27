@@ -5,7 +5,7 @@ import "jspdf-autotable";
 import { dateFormat, dateFormatDays } from "./dayjs";
 import { Logo } from "@/app/components";
 
-export const exportPDFNew = ({
+export const exportPDF = ({
   title,
   headers,
   data,
@@ -21,7 +21,7 @@ export const exportPDFNew = ({
   doc.setFontSize(10);
 
   // Set the color for the date range text
-  doc.setTextColor(44, 46, 123); // RGB color values for text
+  doc.setTextColor(17, 24, 39); // RGB color values for text
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -62,17 +62,17 @@ export const exportPDFNew = ({
     body: data,
     theme: "grid",
     margin: { top: 50, bottom: 30 },
-    tableLineColor: [44, 46, 123],
+    tableLineColor: [229, 231, 235],
     tableLineWidth: 0.1,
     styles: {
-      lineColor: [44, 46, 123],
+      lineColor: [229, 231, 235],
       lineWidth: 0.1,
     },
     headStyles: {
-      fillColor: [255, 168, 24],
+      fillColor: [209, 213, 219],
       fontSize: 10,
       halign: "center",
-      textColor: [44, 46, 123],
+      textColor: [31, 41, 55],
     },
     footStyles: {
       fillColor: [255, 255, 255],
@@ -80,7 +80,7 @@ export const exportPDFNew = ({
     },
     bodyStyles: {
       fillColor: [255, 255, 255],
-      textColor: [44, 46, 123],
+      textColor: [44, 46, 46],
     },
     alternateRowStyles: {
       fillColor: [255, 255, 255],
@@ -110,7 +110,7 @@ export const exportPDFNew = ({
   // doc.setFontSize(10);
   //doc.text('Powered By : ', 40, 350);
 
-  doc.setTextColor(44, 46, 123);
+  doc.setTextColor(17, 24, 39);
   // doc.addImage('/assets/nedaj-logo.png', 'PNG', 30, 10, 150, 30);
   // styles: { overflow: 'linebreak' },
   doc.autoTable({
@@ -123,7 +123,7 @@ export const exportPDFNew = ({
           styles: {
             halign: "center",
             fillColor: [255, 255, 255],
-            textColor: [44, 46, 123],
+            textColor: [44, 46, 46],
             fontSize: 20,
             // overflow: "linebreak",
           },

@@ -91,8 +91,17 @@ const CustomersOverMonths = () => {
 
   const newCustomers = useMemo(() => {
     return (
-      (newCustomersData?.data)
-        //  || [
+      // newCustomersData?.data ||
+      [
+        { month: "feb", new_customers: 5 },
+        { month: "mar", new_customers: 4 },
+        { month: "apr", new_customers: 4 },
+        { month: "mars", new_customers: 5 },
+        { month: "aprs", new_customers: 8 },
+        { month: "mar", new_customers: 4 },
+        { month: "aprdd", new_customers: 4 },
+      ]
+        // || [
         //   { month: "feb", new_customers: 5 },
         //   { month: "mar", new_customers: 4 },
         //   { month: "apr", new_customers: 4 },
@@ -105,8 +114,8 @@ const CustomersOverMonths = () => {
   }, [newCustomersData]);
 
   return (
-    <div className="bg-white text-primary-900 border p-8 mx-auto rounded-lg shadow-sm w-full max-w-5xl">
-      <div className="flex justify-between items-center mb-8">
+    <div className="bg-white text-primary-900  p-8 mx-auto rounded-lg shadow-sm w-full max-w-5xl">
+      <div className="flex justify-between items-center mb-12">
         <h2 className="text-2xl font-bold text-primary-900">
           New Customers Over Months
         </h2>
@@ -119,8 +128,8 @@ const CustomersOverMonths = () => {
       </div>
 
       {/* Chart Section */}
-      <div className="flex flex-col gap-4">
-        <GenericAreaChart data={newCustomers} height={400} smooth grid />
+      <div className="flex flex-col gap-4 h-64  w-full max-w-5xl p-1">
+        <GenericAreaChart data={newCustomers} height={250} smooth grid />
       </div>
 
       {/* Loading State */}
