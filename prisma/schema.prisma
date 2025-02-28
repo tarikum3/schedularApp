@@ -459,16 +459,16 @@ model refresh_metadata {
     
 } 
 model OrderStatusSummary {
-  day            DateTime @id @db.Date
-  total_orders    Int
-  pending_orders  Int
-  processing_orders Int
-  shipped_orders  Int
-  delivered_orders Int
-  cancelled_orders Int
+  day              DateTime @id @db.Date
+  total_orders     Int
+  pending_orders   Int
+  confirmed_orders Int
+  completed_orders Int
+  canceled_orders  Int
+  refunded_orders  Int
   completed_revenue Float
+
   @@map("order_status_summary")
-  
 }
 
 model CustomerStatusSummary {

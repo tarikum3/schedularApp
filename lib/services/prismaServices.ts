@@ -1649,15 +1649,15 @@ async function checkmain() {
   const selectResult = await prisma.$queryRaw`
     SELECT "id", "migration_name", "checksum"
     FROM "_prisma_migrations"
-    WHERE "migration_name" = '20250216152952_20250216143935_create_customer_status_summary'
+    WHERE "migration_name" = '20250219182035_new'
   `;
   console.log("Before Updateeee:", selectResult);
 
   // Now, execute the UPDATE query
   const updateResult = await prisma.$executeRaw`
     UPDATE "_prisma_migrations"
-    SET "checksum" = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
-    WHERE "migration_name" = '20250216152952_20250216143935_create_customer_status_summary'
+    SET "checksum" = '01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b'
+    WHERE "migration_name" = '20250219182035_new'
   `;
   console.log("Update Result:", updateResult);
 }
