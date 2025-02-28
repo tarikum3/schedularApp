@@ -1,4 +1,3 @@
-
 "use client";
 import React, { FC, ReactNode, useCallback, useMemo } from "react";
 import { ThemeProvider } from "next-themes";
@@ -13,7 +12,7 @@ export interface State {
 
 const initialState: State = {
   displayModal: false,
-  displayLeftSidebar: false,
+  displayLeftSidebar: true,
   displayRightSidebar: false,
   modalView: "LOGIN_VIEW",
   dropDownView: "",
@@ -29,7 +28,12 @@ type Action =
   | { type: "OPEN_RIGHT_SIDEBAR" }
   | { type: "CLOSE_RIGHT_SIDEBAR" };
 
-type UI_VIEWS = "SIGNUP_VIEW" | "LOGIN_VIEW" | "FORGOT_VIEW" | "RESET_VIEW" | "DROPDOWN_VIEW";
+type UI_VIEWS =
+  | "SIGNUP_VIEW"
+  | "LOGIN_VIEW"
+  | "FORGOT_VIEW"
+  | "RESET_VIEW"
+  | "DROPDOWN_VIEW";
 
 export const UIContext = React.createContext<State | any>(initialState);
 UIContext.displayName = "UIContext";
@@ -62,13 +66,31 @@ export const UIProvider: FC<{ children?: ReactNode }> = ({ children }) => {
 
   const openModal = useCallback(() => dispatch({ type: "OPEN_MODAL" }), []);
   const closeModal = useCallback(() => dispatch({ type: "CLOSE_MODAL" }), []);
-  const setModalView = useCallback((view: UI_VIEWS) => dispatch({ type: "SET_MODAL_VIEW", view }), []);
-  const setDropDownView = useCallback((view: string) => dispatch({ type: "SET_DROPDOWN_VIEW", view }), []);
+  const setModalView = useCallback(
+    (view: UI_VIEWS) => dispatch({ type: "SET_MODAL_VIEW", view }),
+    []
+  );
+  const setDropDownView = useCallback(
+    (view: string) => dispatch({ type: "SET_DROPDOWN_VIEW", view }),
+    []
+  );
 
-  const openLeftSidebar = useCallback(() => dispatch({ type: "OPEN_LEFT_SIDEBAR" }), []);
-  const closeLeftSidebar = useCallback(() => dispatch({ type: "CLOSE_LEFT_SIDEBAR" }), []);
-  const openRightSidebar = useCallback(() => dispatch({ type: "OPEN_RIGHT_SIDEBAR" }), []);
-  const closeRightSidebar = useCallback(() => dispatch({ type: "CLOSE_RIGHT_SIDEBAR" }), []);
+  const openLeftSidebar = useCallback(
+    () => dispatch({ type: "OPEN_LEFT_SIDEBAR" }),
+    []
+  );
+  const closeLeftSidebar = useCallback(
+    () => dispatch({ type: "CLOSE_LEFT_SIDEBAR" }),
+    []
+  );
+  const openRightSidebar = useCallback(
+    () => dispatch({ type: "OPEN_RIGHT_SIDEBAR" }),
+    []
+  );
+  const closeRightSidebar = useCallback(
+    () => dispatch({ type: "CLOSE_RIGHT_SIDEBAR" }),
+    []
+  );
 
   const value = useMemo(
     () => ({
@@ -96,7 +118,9 @@ export const useUI = () => {
   return context;
 };
 
-export const ManagedUIContext: FC<{ children?: ReactNode }> = ({ children }) => (
+export const ManagedUIContext: FC<{ children?: ReactNode }> = ({
+  children,
+}) => (
   <UIProvider>
     <ThemeProvider>{children}</ThemeProvider>
   </UIProvider>

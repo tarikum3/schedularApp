@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "daily_new_customers" (
+CREATE TABLE IF NOT EXISTS "daily_new_customers" (
     "day" DATE NOT NULL,
     "new_customers" INTEGER NOT NULL,
 
@@ -7,7 +7,7 @@ CREATE TABLE "daily_new_customers" (
 );
 
 -- CreateTable
-CREATE TABLE "daily_new_orders" (
+CREATE TABLE IF NOT EXISTS "daily_new_orders" (
     "day" DATE NOT NULL,
     "new_orders" INTEGER NOT NULL,
 
@@ -15,7 +15,7 @@ CREATE TABLE "daily_new_orders" (
 );
 
 -- CreateTable
-CREATE TABLE "order_status_summary" (
+CREATE TABLE IF NOT EXISTS "order_status_summary" (
     "day" DATE NOT NULL,
     "total_orders" INTEGER NOT NULL,
     "pending_orders" INTEGER NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE "order_status_summary" (
 );
 
 -- CreateTable
-CREATE TABLE "customer_status_summary" (
+CREATE TABLE IF NOT EXISTS "customer_status_summary" (
     "day" DATE NOT NULL,
     "total_customers" INTEGER NOT NULL,
     "one_time_customers" INTEGER NOT NULL,
