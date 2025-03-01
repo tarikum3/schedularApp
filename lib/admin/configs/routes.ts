@@ -1,14 +1,9 @@
-
 export enum ROUTES {
-  // HOME = "/",
-  DASHBOARD_OVERVIEW = "/dashboard/overview",
-  DASHBOARD_ANALYTICS = "/dashboard/analytics",
-  FIRST_CALL = "first-call",
-  USERS = "/users",
-  PRODUCT="/product",
-  ORDER="/order",
-  CUSTOMERS="/customers",
-  ACTIVITIES="/activities",
-  PROFILE = "/profile/:id",
-  
+  DASHBOARD_OVERVIEW = "/admin/dashboard/overview",
+  DASHBOARD_ANALYTICS = "/admin/dashboard/analytics",
+  USERS = "/admin/users",
+  PRODUCT = "/admin/products",
+  ORDER = "/admin/orders",
+  CUSTOMERS = "/admin/customers",
+  PROFILE = "/admin/profile",
 }

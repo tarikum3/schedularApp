@@ -283,11 +283,6 @@ export default function SideBar() {
         icon: <GroupOutlinedIcon className="text-primary-500" />,
         route: ROUTES.CUSTOMERS,
       },
-      {
-        label: t("activities"), // Localized label
-        icon: <EventOutlinedIcon className="text-primary-500" />,
-        route: ROUTES.ACTIVITIES,
-      },
     ]);
   }, [t]);
 

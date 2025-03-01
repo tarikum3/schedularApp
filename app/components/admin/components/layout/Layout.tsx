@@ -1,9 +1,9 @@
 "use client";
 
 import React, { FC, useEffect, useRef, ReactElement, ReactNode } from "react";
-// import Header from "@/app/components/admin/components/layout/Header";
-// import RightSideBar from "@/app/components/admin/components/layout/RightSideBar";
-// import SideBar from "@/app/components/admin/components/layout/SideBar";
+import Header from "@/app/components/admin/components/layout/Header";
+import RightSideBar from "@/app/components/admin/components/layout/RightSideBar";
+import SideBar from "@/app/components/admin/components/layout/SideBar";
 import { useUI } from "@/app/components/admin/components/ui/UIContext";
 
 interface LayoutProps {
@@ -36,17 +36,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       {/* <Header /> */}
-      <div
-        id="main-content"
+      <main
         className={`flex flex-col relative overflow-y-auto ${
           displayLeftSidebar ? "lg:ml-[270px]" : "lg:ml-0"
         }`}
       >
         {children}
-      </div>
+      </main>
       {/* <RightSideBar /> */}
 
-      {/* {displayLeftSidebar && <SideBar />} */}
+      {displayLeftSidebar && <SideBar />}
     </>
   );
 };

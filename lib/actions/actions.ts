@@ -8,8 +8,10 @@ import {
   getCart,
   deleteCartItem,
   updateCart,
-  createCustomer,
+  createUser,
   placeOrder,
+  createCustomer,
+  createAdminUser,
 } from "@lib/services/prismaServices";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -216,7 +218,8 @@ export async function register(
         message: "Missing Fields. ",
       };
     }
-    const customerr = await createCustomer({ ...validatedFields.data });
+    const user = await createUser({ ...validatedFields.data });
+    const customerr = await createCustomer(user);
     // await signup({ ...validatedFields.data });
 
     await signIn("credentials", formData);
@@ -232,7 +235,40 @@ export async function register(
     throw error;
   }
 }
+export async function registerUser(
+  prevState: RegisterState | undefined,
+  formData: FormData
+) {
+  try {
+    const validatedFields = FormSchema.safeParse({
+      email: formData.get("email"),
+      password: formData.get("password"),
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+    });
+    if (!validatedFields.success) {
+      return {
+        errors: validatedFields.error.flatten().fieldErrors,
+        message: "Missing Fields. ",
+      };
+    }
+    const user = await createUser({ ...validatedFields.data });
+    const customerr = await createAdminUser(user);
+    // await signup({ ...validatedFields.data });
 
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
+    }
+    throw error;
+  }
+}
 interface UpdateCartParams {
   //id: string;
   firstName: string;
