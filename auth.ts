@@ -65,17 +65,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       //console.log("isLoggedInuser", auth?.user);
       const isLoggedIn = !!auth?.user;
       const isOnProfile = nextUrl.pathname.startsWith("/profile");
-      const isOnAdmin = nextUrl.pathname.startsWith("/admin");
       //  console.log("isLoggedInuser", auth?.user);
-      if (isOnProfile || isOnAdmin) {
-        if (isLoggedIn && isOnProfile) return true;
-        if (isLoggedIn && isOnAdmin)
-          return Response.redirect(
-            new URL("/admin/dashboard/overview", nextUrl)
-          );
-        if (isOnProfile) return false; // Redirect unauthenticated users to home page
-        if (isOnAdmin)
-          return Response.redirect(new URL("/admin/login", nextUrl));
+      if (isOnProfile) {
+        if (isLoggedIn) return true;
+        return false; // Redirect unauthenticated users to home page
       }
       //  else if (isLoggedIn) {
       //   return Response.redirect(new URL("/dashboard", nextUrl));
