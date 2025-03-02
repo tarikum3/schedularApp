@@ -1,35 +1,3 @@
-// import { serviceApi } from "./serviceApi";
-
-// export const notificationApi = serviceApi.injectEndpoints({
-//   endpoints: (builder) => ({
-//     getNotifications: builder.query<any, any>({
-//       query: ({ page = 1, limit = 10 }) => ({
-//         url: `admin/notification?page=${page}&limit=${limit}`,
-//         method: "GET",
-//       }),
-//       providesTags: ["Notification"],
-//     }),
-
-//     updateNotification: builder.mutation<any, any & { id: string }>({
-//       query: (notification) => {
-//         let { id } = notification;
-
-//         return {
-//           url: `admin/notification/${id}`,
-//           method: "PUT",
-//           body: notification,
-//         };
-//       },
-
-//       invalidatesTags: ["Notification"],
-//     }),
-//   }),
-// });
-// export const { useGetNotificationsQuery, useUpdateNotificationMutation } =
-//   notificationApi;
-
-// api/notificationApi.ts
-
 import { serviceApi } from "./serviceApi";
 // types/notification.ts
 
@@ -82,29 +50,6 @@ export interface UpdateNotificationRequest {
   currentStatus?: NotificationStatus; // Optional: Filter by current status for bulk updates
   newStatus: NotificationStatus; // New status to set
 }
-
-// export const notificationApi = serviceApi.injectEndpoints({
-//   endpoints: (builder) => ({
-//     getNotifications: builder.query<GetNotificationsResponse, { page?: number; limit?: number; userId: string }>({
-//       query: ({ page = 1, limit = 10, userId }) => ({
-//         url: `admin/notification?page=${page}&limit=${limit}&userId=${userId}`,
-//         method: "GET",
-//       }),
-//       providesTags: ["Notification"],
-//     }),
-
-//     updateNotification: builder.mutation<void, UpdateNotificationRequest>({
-//       query: ({ id, ...body }) => ({
-//         url: `admin/notification/${id}`,
-//         method: "PUT",
-//         body,
-//       }),
-//       invalidatesTags: ["Notification"],
-//     }),
-//   }),
-// });
-
-// export const { useGetNotificationsQuery, useUpdateNotificationMutation } = notificationApi;
 
 export const notificationApi = serviceApi.injectEndpoints({
   endpoints: (builder) => ({

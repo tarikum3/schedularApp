@@ -21,7 +21,7 @@ const defaultUser: User = {
   role: "Guest",
 };
 
-function UserMenu() {
+export default function UserMenu() {
   const [display, setDisplay] = useState(false);
   const router = useRouter();
   const userMenuClick = () => {
@@ -72,5 +72,3 @@ function UserMenu() {
     </div>
   );
 }
-
-export default UserMenu;

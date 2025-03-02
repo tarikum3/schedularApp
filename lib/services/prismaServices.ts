@@ -1677,7 +1677,7 @@ export async function createNotificationForAllUsers(
     const description = data.description || defaultDescriptions[data.type];
 
     // Fetch all users with the role "USER"
-    const users = await prisma.customer.findMany({
+    const users = await prisma.adminUser.findMany({
       // where: {
       //   role: "USER", // Assuming there's a `role` field in the User model
       // },
@@ -1715,31 +1715,6 @@ export async function createNotificationForAllUsers(
   }
 }
 
-// export async function getUserNotifications(
-//   userId: string,
-//   status?: NotificationStatus
-// ) {
-//   try {
-//     const userNotifications = await prisma.userNotification.findMany({
-//       where: {
-//         userId: userId,
-//         ...(status && { status: status }), // Filter by status if provided
-//       },
-//       include: {
-//         notification: true, // Include the associated Notification details
-//       },
-//       orderBy: {
-//         createdAt: "desc", // Sort by creation date (newest first)
-//       },
-//     });
-
-//     return userNotifications;
-//   } catch (error) {
-//     console.error("Error fetching user notifications:", error);
-//     throw new Error("Unable to fetch user notifications.");
-//   }
-// }
-
 export async function getUserNotifications(
   userId: string,
   options?: {
@@ -1749,11 +1724,11 @@ export async function getUserNotifications(
   }
 ): Promise<{
   notifications: any[];
-  total: number; // Total number of notifications (for pagination)
-  page: number; // Current page number
-  limit: number; // Number of items per page
+  total: number;
+  page: number;
+  limit: number;
 }> {
-  const { status, page = 1, limit = 10 } = options || {};
+  const { status = "PENDING", page = 1, limit = 10 } = options || {};
 
   try {
     // Calculate the `skip` value for pagination
@@ -1801,14 +1776,13 @@ export async function updateAllUserNotificationStatus(
   newStatus: NotificationStatus // New status to set
 ) {
   try {
-    // Update all UserNotification entries for the user with the current status
     const updatedUserNotifications = await prisma.userNotification.updateMany({
       where: {
         userId: userId,
-        status: currentStatus, // Filter by current status
+        status: currentStatus || "PENDING",
       },
       data: {
-        status: newStatus, // Set the new status
+        status: newStatus || "VIEWED",
       },
     });
 

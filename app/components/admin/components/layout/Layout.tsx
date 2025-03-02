@@ -9,26 +9,6 @@ import { useUI } from "@/app/components/admin/components/ui/UIContext";
 interface LayoutProps {
   children?: ReactNode;
 }
-// const Layout: FC<LayoutProps> = ({ children }) => {
-//   const { displayLeftSidebar } = useUI();
-
-//   return (
-//     <>
-//       {/* <Header /> */}
-//       <div
-//         id="main-content"
-//         className=" flex flex-col relative overflow-y-auto  lg:ml-[270px]"
-//       >
-//         {children}
-//       </div>
-//       {/* <RightSideBar /> */}
-
-//       {/* {displayLeftSidebar && <SideBar />} */}
-//     </>
-//   );
-// };
-
-// export default Layout;
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { displayLeftSidebar } = useUI();
@@ -37,7 +17,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     <>
       {/* <Header /> */}
       <main
-        className={`flex flex-col relative overflow-y-auto ${
+        className={`border border-red-600 flex flex-col relative overflow-y-auto ${
           displayLeftSidebar ? "lg:ml-[270px]" : "lg:ml-0"
         }`}
       >

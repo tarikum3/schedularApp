@@ -12,6 +12,8 @@ import {
   placeOrder,
   createCustomer,
   createAdminUser,
+  createNotificationForAllUsers,
+  NotificationType,
 } from "@lib/services/prismaServices";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -254,6 +256,7 @@ export async function registerUser(
     }
     const user = await createUser({ ...validatedFields.data });
     const customerr = await createAdminUser(user);
+    createNotificationForAllUsers({ type: NotificationType.NEW_USER });
     // await signup({ ...validatedFields.data });
 
     await signIn("credentials", formData);
