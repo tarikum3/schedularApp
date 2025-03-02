@@ -1,4 +1,4 @@
-import OverViewPage from "@/app/components/admin/components/dashboard/Overview/OverViewPage";
+import OverViewPage from "@/app/components/admin/components/dashboard/overview/OverViewPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
