@@ -2,9 +2,9 @@
 
 import React, { Suspense } from "react";
 
-import CustomersOverMonths from "@/app/components/admin/components/dashboard/Overview/CustomersOverMonths";
-import OrderStatusSummary from "@/app/components/admin/components/dashboard/Overview/OrderStatusSummary";
-import OrdersOverMonths from "@/app/components/admin/components/dashboard/Overview/OrdersOverMonths";
+import CustomersOverMonths from "@/app/components/admin/components/dashboard/overview/CustomersOverMonths";
+import OrderStatusSummary from "@/app/components/admin/components/dashboard/overview/OrderStatusSummary";
+import OrdersOverMonths from "@/app/components/admin/components/dashboard/overview/OrdersOverMonths";
 
 export default function Overview() {
   return (
