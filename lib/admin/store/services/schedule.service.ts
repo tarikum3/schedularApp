@@ -7,13 +7,31 @@ export interface Pagination {
 
 export const scheduleApi = serviceApi.injectEndpoints({
   endpoints: (builder) => ({
+    getAllSchedules: builder.query<Schedule[], void>({
+      query: () => ({
+        url: "schedular/schedule",
+        method: "GET",
+      }),
+      transformResponse: (response: {
+        data: { schedules: Schedule[] };
+      }): Schedule[] => {
+        if (response?.data?.schedules) {
+          return response.data.schedules;
+        }
+
+        return [];
+      },
+      providesTags: ["Schedule"],
+      //providesTags: (result, error) => [{ type: "Schedule", }],
+    }),
     createSchedule: builder.mutation<Schedule, SchedulePayload>({
       query: (schedule) => ({
-        url: "admin/schedule",
+        url: "schedular/schedule",
         method: "POST",
         body: schedule,
       }),
-      // transformResponse: (response: Schedule) => response.data.schedule,
+      transformResponse: (response: { data: { schedule: Schedule } }) =>
+        response.data.schedule,
       invalidatesTags: ["Schedule"],
     }),
     updateSchedule: builder.mutation<
@@ -24,7 +42,7 @@ export const scheduleApi = serviceApi.injectEndpoints({
         let { id } = schedule;
 
         return {
-          url: `admin/schedule/${id}`,
+          url: `schedular/schedule/${id}`,
           method: "PUT",
           body: schedule,
         };
@@ -35,19 +53,11 @@ export const scheduleApi = serviceApi.injectEndpoints({
 
     deleteSchedule: builder.mutation<Schedule, string>({
       query: (id) => ({
-        url: `admin/schedule/${id}`,
+        url: `schedular/schedule/${id}`,
         method: "DELETE",
       }),
       // transformResponse: (response: Schedule) => response.data.schedule,
       invalidatesTags: ["Schedule"],
-    }),
-
-    getAllSchedules: builder.query<Schedule[], void>({
-      query: () => ({
-        url: "schedules/fetch-all-schedules",
-      }),
-      providesTags: ["Schedule"],
-      //providesTags: (result, error) => [{ type: "Schedule", }],
     }),
   }),
 });

@@ -1,22 +1,19 @@
 "use client";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
-import CreateSchedule from "@/app/components/schedular/schedule/CreateSchedule";
+import CreateSchedule from "@/app/components/schedular/components/schedule/CreateSchedule";
+import ScheduleItem from "@/app/components/schedular/components/schedule/ScheduleItem";
 import ModalComponent from "@components/admin/components/ui/ModalComponent";
-
+import { useGetAllSchedulesQuery } from "@/lib/admin/store/services/schedule.service";
 const ScheduleList: React.FC<{ item?: any }> = ({ item }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const { data: scheduledata } = useGetAllSchedulesQuery();
   return (
-    <div className="w-full lg:w-1/3 p-4 bg-white rounded-lg shadow-md">
+    <div className="w-full  p-4 bg-white rounded-lg shadow-md">
       <div className="text-xl font-bold mb-4 text-center">Schedules</div>
-      <div className="flex justify-between mb-4">
-        <button
-          onClick={() => setModalOpenCal(true)}
-          className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md shadow"
-        >
-          Calculate ED API
-        </button>
+      <div className="flex justify-end mb-4">
         <button
           onClick={() => setModalOpen(true)}
           className="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-md shadow"

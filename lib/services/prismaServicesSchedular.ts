@@ -50,22 +50,22 @@ import {
 //   await prisma.day.createMany({ data: defaultDays });
 // };
 
-// export const getDaysByYear = async (year: number) => {
-//   await generateDefaultDays(year); // Ensure default days are generated
+export const getDaysByYear = async (year: number) => {
+  await generateDefaultDays(year); // Ensure default days are generated
 
-//   try {
-//     const days = await prisma.day.findMany({
-//       where: { year: year.toString() },
-//       include: {
-//         schedule: true, // Fetch related schedule details
-//       },
-//     });
+  try {
+    const days = await prisma.day.findMany({
+      where: { year: year.toString() },
+      include: {
+        schedules: true, // Fetch related schedule details
+      },
+    });
 
-//     return days;
-//   } catch (error) {
-//     throw new Error("Unable to fetch schedues.");
-//   }
-// };
+    return days;
+  } catch (error) {
+    throw new Error("Unable to fetch schedues.");
+  }
+};
 
 // export const createSchedule = async (scheduleBody: any) => {
 //   const { startDate, endDate, days, startTimes, endTimes, isWorkingDay, name } = scheduleBody;

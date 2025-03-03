@@ -8,33 +8,27 @@ export interface Pagination {
 
 export const DayApi = serviceApi.injectEndpoints({
   endpoints: (builder) => ({
-    updateDay: builder.mutation<Day, DayPayload & { id: string }>({
-      query: (Day) => {
-        let id = (Day as any).get("id");
-        (Day as any).delete("id");
+    getDayByYear: builder.query<Day, string>({
+      query: (year) => {
+        const params = new URLSearchParams({
+          year: year.toString(),
+        });
 
         return {
-          url: `admin/day/${id}`,
-          method: "PATCH",
-          body: Day,
+          url: `schedular/day/?${params.toString()}`,
+          method: "GET",
         };
       },
+      transformResponse: (response: { data: { days: Day[] } }): Day[] => {
+        if (response?.data?.days) {
+          return response.data.days;
+        }
 
-      invalidatesTags: ["Day"],
-    }),
-
-    getDayByYear: builder.query<Day, string>({
-      query: (id) => ({
-        url: `admin/day/${id}`,
-      }),
-
+        return [];
+      },
       providesTags: ["Day"],
     }),
   }),
 });
 
-export const {
-  useGetDayByYearQuery,
-
-  useUpdateDayMutation,
-} = DayApi;
+export const { useGetDayByYearQuery } = DayApi;
