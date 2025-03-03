@@ -61,20 +61,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      //console.log("isLoggedInuser", auth?.user);
-      const isLoggedIn = !!auth?.user;
-      const isOnProfile = nextUrl.pathname.startsWith("/profile");
-      //  console.log("isLoggedInuser", auth?.user);
-      if (isOnProfile) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to home page
-      }
-      //  else if (isLoggedIn) {
-      //   return Response.redirect(new URL("/dashboard", nextUrl));
-      // }
-      return true;
-    },
+    // authorized({ auth, request: { nextUrl } }) {
+    //   console.log("isLoggedInuser", auth?.user);
+    //   const isLoggedIn = !!auth?.user;
+    //   const isOnProfile = nextUrl.pathname.startsWith("/profile");
+    //   console.log("isLoggedInusernextUrl", nextUrl);
+    //   if (isOnProfile) {
+    //     if (isLoggedIn) return true;
+    //     return false; // Redirect unauthenticated users to home page
+    //   }
+    //   //  else if (isLoggedIn) {
+    //   //   return Response.redirect(new URL("/dashboard", nextUrl));
+    //   // }
+    //   return true;
+    // },
+
     async signIn({ user, account, profile }) {
       // Here you have access to the user's information
       //  console.log("isLoggedInuseremail", "email");
