@@ -1,4 +1,4 @@
-// Month.tsx
+"use client";
 import React from "react";
 import {
   format,
@@ -9,7 +9,7 @@ import {
   eachDayOfInterval,
   addDays,
 } from "date-fns";
-import Day from "./Day";
+import Day from "@/app/components/schedular/components/Calendar/Day";
 
 interface MonthProps {
   currentMonth: Date;

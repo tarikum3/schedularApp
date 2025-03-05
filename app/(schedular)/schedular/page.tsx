@@ -1,10 +1,9 @@
-import Calendar from "@/app/components/schedular/components/Calendar/Calendar";
+import CalendarPage from "@/app/components/schedular/components/Calendar/CalendarPage";
 
 export default async function Page() {
-  // await new Promise((resolve) => setTimeout(resolve, 9000)); //  seconds delay
   return (
     <>
-      <Calendar />
+      <CalendarPage />
     </>
   );
 }

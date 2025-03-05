@@ -1,4 +1,4 @@
-// Day.tsx
+"use client";
 import React from "react";
 import { format, isSameMonth, isSameDay } from "date-fns";
 
