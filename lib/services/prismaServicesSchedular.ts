@@ -329,10 +329,11 @@ export const deleteScheduleById = async (scheduleId: string) => {
 
 export const getAllSchedules = async () => {
   try {
-    return await prisma.schedule.findMany({
+    const schedules = await prisma.schedule.findMany({
       orderBy: { createdAt: "desc" },
       include: { daysRelation: true },
     });
+    return { schedules };
   } catch (error) {
     throw new Error("Error fetching schedules");
   }

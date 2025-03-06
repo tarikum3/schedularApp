@@ -12,11 +12,11 @@ const CalendarPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 border ">
       {/* Left Side */}
       <div
         className={`flex flex-col bg-white shadow-lg transition-all duration-300 ${
-          isSidebarOpen ? "w-64" : "w-16"
+          isSidebarOpen ? "w-72" : "w-16"
         }`}
       >
         {/* Menu Icon */}

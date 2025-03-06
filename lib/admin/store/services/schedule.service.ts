@@ -1,9 +1,13 @@
-import { SchedulePayload, Schedule } from "@/lib/admin/types/schedule.type";
+//import { SchedulePayload, Schedule } from "@/lib/admin/types/schedule.type";
+import { Prisma } from "@prisma/client";
 import { serviceApi } from "@/lib/admin/store/services/serviceApi";
 export interface Pagination {
   limit: number;
   page: number;
 }
+export type Schedule = Prisma.ScheduleGetPayload<{}>;
+export type SchedulePayload = Prisma.ScheduleCreateInput;
+export type SchedulePayloadUpdate = { id: string } & Prisma.ScheduleUpdateInput;
 
 export const scheduleApi = serviceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -34,10 +38,7 @@ export const scheduleApi = serviceApi.injectEndpoints({
         response.data.schedule,
       invalidatesTags: ["Schedule"],
     }),
-    updateSchedule: builder.mutation<
-      Schedule,
-      SchedulePayload & { id: string }
-    >({
+    updateSchedule: builder.mutation<Schedule, SchedulePayloadUpdate>({
       query: (schedule) => {
         let { id } = schedule;
 

@@ -10,6 +10,7 @@ import { useGetAllSchedulesQuery } from "@/lib/admin/store/services/schedule.ser
 const ScheduleList: React.FC<{ item?: any }> = ({ item }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const { data: scheduledata } = useGetAllSchedulesQuery();
+  console.log("scheduledataa", scheduledata);
   return (
     <div className="w-full  p-4 bg-white rounded-lg shadow-md">
       <div className="text-xl font-bold mb-4 text-center">Schedules</div>
@@ -21,10 +22,17 @@ const ScheduleList: React.FC<{ item?: any }> = ({ item }) => {
           <AddOutlinedIcon />
         </button>
       </div>
-      <div className="p-2 space-y-2 h-80 overflow-y-auto border rounded-md">
+      {/* <div className="p-2 space-y-2 h-80 overflow-y-auto border rounded-md">
         {scheduledata?.map((item) => (
           <ScheduleItem item={item} />
         ))}
+      </div> */}
+
+      <div className=" p-2 space-y-1 h-[400px]  overflow-y-auto m-1 border border-red-700">
+        {scheduledata?.map((item) => {
+          //  return ScheduleItem(item as any);
+          return <ScheduleItem item={item}></ScheduleItem>;
+        })}
       </div>
 
       {modalOpen && (

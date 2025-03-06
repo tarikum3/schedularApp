@@ -14,8 +14,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { displayLeftSidebar } = useUI();
 
   return (
-    <>
-      {/* <Header /> */}
+    <div>
+      <Header />
       <main
         className={` flex flex-col relative overflow-y-auto ${
           displayLeftSidebar ? "lg:ml-[270px]" : "lg:ml-0"
@@ -26,7 +26,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       {/* <RightSideBar /> */}
 
       {displayLeftSidebar && <SideBar />}
-    </>
+    </div>
   );
 };
 

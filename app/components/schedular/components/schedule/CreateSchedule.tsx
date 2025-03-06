@@ -14,6 +14,8 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import {
   useCreateScheduleMutation,
   useUpdateScheduleMutation,
+  SchedulePayload,
+  Schedule,
 } from "@/lib/admin/store/services/schedule.service";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -46,9 +48,7 @@ const defaultValues = {
   days: [],
 };
 
-const CreateSchedule: React.FC<{ item?: typeof defaultValues }> = ({
-  item,
-}) => {
+const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
   const { handleSubmit, control, formState } = useForm({
     defaultValues:
       // item ? { ...item, startDate: new Date(item.startDate), endDate: new Date(item.endDate) }:
@@ -67,13 +67,13 @@ const CreateSchedule: React.FC<{ item?: typeof defaultValues }> = ({
       if (item) {
         // Update existing schedule
         const response = await updateSchedule({
-          id: (item as any).id,
+          id: item.id,
           ...data,
         });
         console.log("Schedule updated successfully:", response);
       } else {
         // Create new schedule
-        const response = await createSchedule(data);
+        const response = await createSchedule(data as any);
         console.log("Schedule created successfully:", response);
       }
     } catch (error) {

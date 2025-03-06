@@ -3,24 +3,21 @@
 import React from "react";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
-import NotificationIcon from "@/app/components/admin/components/notification/NotificationIcon";
+// import NotificationIcon from "@/app/components/admin/components/notification/NotificationIcon";
 import ThemeSwitcher from "@/app/components/admin/components/ui/ThemeSwitcher";
 import { useUI } from "@/app/components/admin/components/ui/UIContext";
+import UserButton from "@/app/components/schedular/components/User/UserButton";
 
 const Header = () => {
   const { displayLeftSidebar, openLeftSidebar } = useUI();
   console.log("displayLeftSidebarrr", displayLeftSidebar);
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 bg-white">
-      <div
-        className={`py-3 lg:px-5 transition-all duration-300 ${
-          displayLeftSidebar ? "lg:ml-[270px]" : "lg:ml-0"
-        }`}
-      >
+    <nav className=" z-40 bg-white">
+      <div className={`py-3 lg:px-5 transition-all duration-300 `}>
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             {/* Show MenuIcon only when sidebar is closed */}
-            {!displayLeftSidebar && (
+            {/* {!displayLeftSidebar && (
               <button
                 id="toggleSidebarMobile"
                 aria-expanded="true"
@@ -30,12 +27,13 @@ const Header = () => {
               >
                 <MenuIcon className="w-6 h-6" />
               </button>
-            )}
+            )} */}
+            <MenuIcon className="w-6 h-6" />
           </div>
           <div className="flex items-center space-x-4 px-8 h-full">
             <LanguageSwitcher />
             <ThemeSwitcher />
-            <NotificationIcon />
+            <UserButton />
           </div>
         </div>
       </div>
