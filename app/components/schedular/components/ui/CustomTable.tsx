@@ -14,7 +14,7 @@ import Print from "@mui/icons-material/Print";
 
 import DateRangeComponent, {
   DateRangeValue,
-} from "@components/admin/components/ui/CustomDateRange";
+} from "@components/schedular/components/ui/CustomDateRange";
 import { IconButton, Tooltip } from "@mui/material";
 
 import { startOfDay, endOfDay, subDays } from "date-fns";

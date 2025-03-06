@@ -4,7 +4,7 @@ import EmailProvider from "next-auth/providers/email";
 import Nodemailer from "next-auth/providers/nodemailer";
 export const authConfig = {
   pages: {
-    signIn: "/",
+    signIn: "/login",
   },
   providers: [
     //Google,
@@ -28,19 +28,13 @@ export const authConfig = {
     // }),
   ],
   callbacks: {
-    // authorized({ auth, request: { nextUrl } }) {
-    //   console.log("isLoggedInuser", auth?.user);
-    //   const isLoggedIn = !!auth?.user;
-    //   const isOnProfile = nextUrl.pathname.startsWith("/profile");
-    //   console.log("isLoggedInusernextUrl", nextUrl);
-    //   if (isOnProfile) {
-    //     if (isLoggedIn) return true;
-    //     return false; // Redirect unauthenticated users to home page
-    //   }
-    //   //  else if (isLoggedIn) {
-    //   //   return Response.redirect(new URL("/dashboard", nextUrl));
-    //   // }
-    //   return true;
-    // },
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+
+      if (isLoggedIn) return true;
+      return false; // Redirect unauthenticated users to login page
+
+      // return true;
+    },
   },
 } satisfies NextAuthConfig;

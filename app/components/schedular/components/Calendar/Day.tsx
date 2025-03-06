@@ -2,22 +2,6 @@
 import React, { useMemo } from "react";
 import { format, isSameMonth, isSameDay } from "date-fns";
 
-// const schedulesdata = [
-//   {
-//     id: "1",
-//     name: "Team Meeting",
-//     startDate: new Date(),
-//     endDate: new Date(),
-//     scheduleType: "MEETING" as const,
-//   },
-//   {
-//     id: "2",
-//     name: "Doctor Appointment",
-//     startDate: new Date(),
-//     endDate: new Date(),
-//     scheduleType: "APPOINTMENT" as const,
-//   },
-// ];
 interface Schedule {
   id: string;
   name: string;
@@ -34,23 +18,6 @@ interface DayProps {
   mappedData: Record<string, { isWorkingDay: boolean }>;
   schedules?: Schedule[]; // Optional array of schedules
 }
-
-// const schedules = [
-//   {
-//     id: "1",
-//     name: "Team Meeting",
-//     startDate: new Date(),
-//     endDate: new Date(),
-//     scheduleType: "MEETING",
-//   },
-//   {
-//     id: "2",
-//     name: "Doctor Appointment",
-//     startDate: new Date(),
-//     endDate: new Date(),
-//     scheduleType: "APPOINTMENT",
-//   },
-// ];
 
 const Day: React.FC<DayProps> = ({
   day,
@@ -122,3 +89,20 @@ const Day: React.FC<DayProps> = ({
 };
 
 export default Day;
+
+// const schedules = [
+//   {
+//     id: "1",
+//     name: "Team Meeting",
+//     startDate: new Date(),
+//     endDate: new Date(),
+//     scheduleType: "MEETING",
+//   },
+//   {
+//     id: "2",
+//     name: "Doctor Appointment",
+//     startDate: new Date(),
+//     endDate: new Date(),
+//     scheduleType: "APPOINTMENT",
+//   },
+// ];

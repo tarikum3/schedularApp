@@ -2,10 +2,10 @@
 
 import React from "react";
 import { Menu as MenuIcon } from "@mui/icons-material";
-import LanguageSwitcher from "@/app/components/admin/components/ui/LanguageSwitcher";
+import LanguageSwitcher from "@/app/components/schedular/components/ui/LanguageSwitcher";
 // import NotificationIcon from "@/app/components/admin/components/notification/NotificationIcon";
-import ThemeSwitcher from "@/app/components/admin/components/ui/ThemeSwitcher";
-import { useUI } from "@/app/components/admin/components/ui/UIContext";
+import ThemeSwitcher from "@/app/components/schedular/components/ui/ThemeSwitcher";
+import { useUI } from "@/app/components/schedular/components/ui/UIContext";
 import UserButton from "@/app/components/schedular/components/User/UserButton";
 
 const Header = () => {

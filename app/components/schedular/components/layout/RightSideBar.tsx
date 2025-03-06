@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import NotificationPanel from "@/app/components/admin/components/notification/NotificationPanel";
-import { useUI } from "@/app/components/admin/components/ui/UIContext";
+import { useUI } from "@/app/components/schedular/components/ui/UIContext";
 const RightSidebar = () => {
   const { displayRightSidebar, closeRightSidebar } = useUI();
 

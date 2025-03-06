@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { useTranslations } from "next-intl";
-import { useUI } from "@/app/components/admin/components/ui/UIContext";
+import { useUI } from "@/app/components/schedular/components/ui/UIContext";
 import CloseIcon from "@mui/icons-material/Close";
 import ScheduleList from "@/app/components/schedular/components/schedule/ScheduleList";
 export default function SideBar() {

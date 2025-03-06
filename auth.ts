@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import { authConfig } from "./auth.config";
 //import { login, logout, getCustomer, signup } from "@lib/services";
-import { getUser as getCustomer } from "@lib/services/prismaServices";
+import { getUser as getCustomer } from "@lib/services/prismaServicesSchedular";
 import bcrypt from "bcryptjs";
 import Google from "next-auth/providers/google";
 async function getUser(
