@@ -89,7 +89,7 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import { IconButton } from "@mui/material";
 import CreateSchedule from "@/app/components/schedular/components/schedule/CreateSchedule";
-import ModalComponent from "@components/admin/components/ui/ModalComponent";
+import ModalComponent from "@components/schedular/components/ui/ModalComponent";
 import {
   useDeleteScheduleMutation,
   Schedule,

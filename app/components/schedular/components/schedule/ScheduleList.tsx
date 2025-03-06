@@ -5,7 +5,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 import CreateSchedule from "@/app/components/schedular/components/schedule/CreateSchedule";
 import ScheduleItem from "@/app/components/schedular/components/schedule/ScheduleItem";
-import ModalComponent from "@components/admin/components/ui/ModalComponent";
+import ModalComponent from "@components/schedular/components/ui/ModalComponent";
 import { useGetAllSchedulesQuery } from "@/lib/admin/store/services/schedule.service";
 const ScheduleList: React.FC<{ item?: any }> = ({ item }) => {
   const [modalOpen, setModalOpen] = useState(false);

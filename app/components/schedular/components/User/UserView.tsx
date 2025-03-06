@@ -1,7 +1,7 @@
 "use client";
 import { FC, useEffect, useState } from "react";
 
-import Clickoutside from "@/app/components/common/Clickoutside";
+import Clickoutside from "@/app/components/schedular/components/common/Clickoutside";
 
 import { logOut } from "@lib/actions/actions";
 
