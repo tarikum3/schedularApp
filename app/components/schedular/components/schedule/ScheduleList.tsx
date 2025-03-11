@@ -7,7 +7,7 @@ import CreateSchedule from "@/app/components/schedular/components/schedule/Creat
 import ScheduleItem from "@/app/components/schedular/components/schedule/ScheduleItem";
 import ModalComponent from "@components/schedular/components/ui/ModalComponent";
 import { useGetAllSchedulesQuery } from "@/lib/admin/store/services/schedule.service";
-const ScheduleList: React.FC<{ item?: any }> = ({ item }) => {
+const ScheduleList = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const { data: scheduledata } = useGetAllSchedulesQuery();
   console.log("scheduledataa", scheduledata);
@@ -28,7 +28,7 @@ const ScheduleList: React.FC<{ item?: any }> = ({ item }) => {
         ))}
       </div> */}
 
-      <div className=" p-2 space-y-1 h-[400px]  overflow-y-auto m-1 border border-red-700">
+      <div className=" p-2 space-y-1 h-[400px]  overflow-y-auto m-1 ">
         {scheduledata?.map((item) => {
           //  return ScheduleItem(item as any);
           return <ScheduleItem item={item}></ScheduleItem>;

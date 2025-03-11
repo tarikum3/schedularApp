@@ -14,6 +14,31 @@
   --primary-200: rgb(229 231 235 / var(--tw-bg-opacity));
   --primary-100: rgb(255 255 255 / var(--tw-bg-opacity));
   --primary-0: rgba(255 255 255);
+
+  --accent-notification-900: rgb(19 69 68 / var(--tw-bg-opacity));
+  --accent-notification-800: rgb(29 89 88 / var(--tw-bg-opacity));
+  --accent-notification-700: rgb(49 109 108 / var(--tw-bg-opacity));
+  --accent-notification-600: rgb(69 129 128 / var(--tw-bg-opacity));
+  --accent-notification-500: rgb(89 149 148 / var(--tw-bg-opacity));
+
+  --accent-danger-900: rgb(95 24 25 / var(--tw-bg-opacity));
+  --accent-danger-800: rgb(115 44 45 / var(--tw-bg-opacity));
+  --accent-danger-700: rgb(135 64 65 / var(--tw-bg-opacity));
+  --accent-danger-600: rgb(155 84 85 / var(--tw-bg-opacity));
+  --accent-danger-500: rgb(175 104 105 / var(--tw-bg-opacity));
+
+  --accent-warning-900: rgb(92 72 19 / var(--tw-bg-opacity));
+  --accent-warning-800: rgb(112 92 39 / var(--tw-bg-opacity));
+  --accent-warning-700: rgb(132 112 59 / var(--tw-bg-opacity));
+  --accent-warning-600: rgb(152 132 79 / var(--tw-bg-opacity));
+  --accent-warning-500: rgb(172 152 99 / var(--tw-bg-opacity));
+
+  --accent-positive-900: rgb(22 82 57 / var(--tw-bg-opacity));
+  --accent-positive-800: rgb(42 102 77 / var(--tw-bg-opacity));
+  --accent-positive-700: rgb(62 122 97 / var(--tw-bg-opacity));
+  --accent-positive-600: rgb(82 142 117 / var(--tw-bg-opacity));
+  --accent-positive-500: rgb(102 162 137 / var(--tw-bg-opacity));
+
   --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue",
     "Helvetica", sans-serif;
   font-size: 16px;
@@ -31,6 +56,30 @@
   --primary-700: rgb(209 213 219 / var(--tw-bg-opacity));
   --primary-800: rgb(229 231 235 / var(--tw-bg-opacity));
   --primary-900: rgb(255 255 255 / var(--tw-bg-opacity));
+
+  --accent-notification-900: rgb(19 69 68 / var(--tw-bg-opacity));
+  --accent-notification-800: rgb(29 89 88 / var(--tw-bg-opacity));
+  --accent-notification-700: rgb(49 109 108 / var(--tw-bg-opacity));
+  --accent-notification-600: rgb(69 129 128 / var(--tw-bg-opacity));
+  --accent-notification-500: rgb(89 149 148 / var(--tw-bg-opacity));
+
+  --accent-danger-900: rgb(95 24 25 / var(--tw-bg-opacity));
+  --accent-danger-800: rgb(115 44 45 / var(--tw-bg-opacity));
+  --accent-danger-700: rgb(135 64 65 / var(--tw-bg-opacity));
+  --accent-danger-600: rgb(155 84 85 / var(--tw-bg-opacity));
+  --accent-danger-500: rgb(175 104 105 / var(--tw-bg-opacity));
+
+  --accent-warning-900: rgb(92 72 19 / var(--tw-bg-opacity));
+  --accent-warning-800: rgb(112 92 39 / var(--tw-bg-opacity));
+  --accent-warning-700: rgb(132 112 59 / var(--tw-bg-opacity));
+  --accent-warning-600: rgb(152 132 79 / var(--tw-bg-opacity));
+  --accent-warning-500: rgb(172 152 99 / var(--tw-bg-opacity));
+
+  --accent-positive-900: rgb(22 82 57 / var(--tw-bg-opacity));
+  --accent-positive-800: rgb(42 102 77 / var(--tw-bg-opacity));
+  --accent-positive-700: rgb(62 122 97 / var(--tw-bg-opacity));
+  --accent-positive-600: rgb(82 142 117 / var(--tw-bg-opacity));
+  --accent-positive-500: rgb(102 162 137 / var(--tw-bg-opacity));
 }
 
 *,
