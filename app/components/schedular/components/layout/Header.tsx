@@ -12,10 +12,10 @@ const Header = () => {
   const { displayLeftSidebar, openLeftSidebar } = useUI();
   console.log("displayLeftSidebarrr", displayLeftSidebar);
   return (
-    <nav className=" z-40 bg-white">
+    <nav className=" z-40 bg-primary-0">
       <div className={`py-3 lg:px-5 transition-all duration-300 `}>
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
+          <div className="flex items-center px-8">
             <Logo className="w-6 h-6" />
           </div>
           <div className="flex items-center space-x-4 px-8 h-full">

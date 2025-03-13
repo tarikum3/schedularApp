@@ -87,10 +87,10 @@
 //       <div
 //         className={`relative p-4 text-center border cursor-pointer transition-all duration-200 ${
 //           !isCurrentMonth
-//             ? "text-gray-300"
+//             ? "text-primary-300"
 //             : isSelectedDay
 //             ? "bg-blue-500 text-white font-bold"
-//             : "hover:bg-gray-200"
+//             : "hover:bg-primary-200"
 //         }`}
 //         onClick={handleClick}
 //       >
@@ -119,17 +119,17 @@
 //           <div className="absolute bottom-1 left-1">
 //             <button
 //               onClick={toggleDropdown}
-//               className="text-xs text-gray-600 hover:text-gray-900 cursor-pointer focus:outline-none"
+//               className="text-xs text-primary-600 hover:text-primary-900 cursor-pointer focus:outline-none"
 //             >
 //               {schedules.length} schedule(s)
 //             </button>
 //             {dropdownOpen && (
-//               <div className="absolute left-0 mt-1 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+//               <div className="absolute left-0 mt-1 w-40 bg-primary-0 border border-primary-200 rounded-lg shadow-lg z-10">
 //                 <ul>
 //                   {schedules.map((schedule) => (
 //                     <li
 //                       key={schedule.id}
-//                       className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700"
+//                       className="px-4 py-2 hover:bg-primary-100 cursor-pointer text-sm text-primary-700"
 //                     >
 //                       {schedule.name}
 //                     </li>
@@ -249,7 +249,7 @@ const Day: React.FC<DayProps> = ({
       <div
         className={`relative p-4 text-center border cursor-pointer transition-all duration-200 ${
           !isCurrentMonth
-            ? "text-gray-300"
+            ? "text-primary-300"
             : isSelectedDay
             ? "bg-primary-500 text-white font-bold"
             : "hover:bg-primary-100"
@@ -283,7 +283,7 @@ const Day: React.FC<DayProps> = ({
               {schedules.length}
             </button>
             {dropdownOpen && (
-              <div className="absolute left-0 mt-1 w-40 bg-white border border-primary-200 rounded-lg shadow-lg z-10">
+              <div className="absolute left-0 mt-1 w-40 bg-primary-0 border border-primary-200 rounded-lg shadow-lg z-10">
                 <ul>
                   {schedules.map((schedule) => (
                     // <li

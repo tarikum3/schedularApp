@@ -13,7 +13,7 @@ const config: Config = {
         "8xl": "1920px",
       },
       colors: {
-        // Primary Colors
+        "primary-0": "var(--primary-0)",
         "primary-100": "var(--primary-100)",
         "primary-200": "var(--primary-200)",
         "primary-300": "var(--primary-300)",
@@ -24,28 +24,24 @@ const config: Config = {
         "primary-800": "var(--primary-800)",
         "primary-900": "var(--primary-900)",
 
-        // Accent Colors - Notification
         "accent-notification-500": "var(--accent-notification-500)",
         "accent-notification-600": "var(--accent-notification-600)",
         "accent-notification-700": "var(--accent-notification-700)",
         "accent-notification-800": "var(--accent-notification-800)",
         "accent-notification-900": "var(--accent-notification-900)",
 
-        // Accent Colors - Danger
         "accent-danger-500": "var(--accent-danger-500)",
         "accent-danger-600": "var(--accent-danger-600)",
         "accent-danger-700": "var(--accent-danger-700)",
         "accent-danger-800": "var(--accent-danger-800)",
         "accent-danger-900": "var(--accent-danger-900)",
 
-        // Accent Colors - Warning
         "accent-warning-500": "var(--accent-warning-500)",
         "accent-warning-600": "var(--accent-warning-600)",
         "accent-warning-700": "var(--accent-warning-700)",
         "accent-warning-800": "var(--accent-warning-800)",
         "accent-warning-900": "var(--accent-warning-900)",
 
-        // Accent Colors - Positive
         "accent-positive-500": "var(--accent-positive-500)",
         "accent-positive-600": "var(--accent-positive-600)",
         "accent-positive-700": "var(--accent-positive-700)",

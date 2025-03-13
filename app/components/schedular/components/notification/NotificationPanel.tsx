@@ -133,7 +133,7 @@
 //           )}
 //         </div>
 //       ) : (
-//         <p className="text-gray-500 text-center">No new notifications.</p>
+//         <p className="text-primary-500 text-center">No new notifications.</p>
 //       )}
 //     </div>
 //   );
@@ -307,7 +307,7 @@ const NotificationPanel = () => {
           )}
         </div>
       ) : (
-        <p className="text-gray-500 text-center">No new notifications.</p>
+        <p className="text-primary-500 text-center">No new notifications.</p>
       )}
     </div>
   );

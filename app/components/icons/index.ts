@@ -1,5 +1,5 @@
 export { default as Info } from "./Info";
-export { default as Bag } from "./Bag";
+
 export { default as Cross } from "./Cross";
 export { default as Check } from "./Check";
 export { default as Sun } from "./Sun";

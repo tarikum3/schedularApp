@@ -44,13 +44,13 @@ const CustomDateRangeComponent = ({ open, onChange, toggle, label }: Props) => {
 
   return (
     <div className="">
-      <div className="relative flex items-end  bg-white text-primary-700 w-full max-w-[200px] ml-auto rounded-[3px] text-md border border-gray-300 ">
+      <div className="relative flex items-end  bg-primary-0 text-primary-700 w-full max-w-[200px] ml-auto rounded-[3px] text-md border border-primary-300 ">
         <div onClick={() => toggle(true)}>
           <div className="absolute w-7 h-7 inset-y-2 left-0 pl-3">
             <CalendarMonthIcon />
           </div>
           <input
-            //  className="ml-auto mr-4 min-w-[180px] text-sm w-full bg-white text-[#2C2E7B] max-w-[600px] pl-10 py-[12px] rounded-sm text-md outline-none focus:ring-[1px]"
+            //  className="ml-auto mr-4 min-w-[180px] text-sm w-full bg-primary-0 text-[#2C2E7B] max-w-[600px] pl-10 py-[12px] rounded-sm text-md outline-none focus:ring-[1px]"
             className="ml-auto mr-4 text-sm w-full max-w-[600px] pl-10 py-[12px] rounded-sm text-md outline-none focus:ring-[1px] overflow-hidden text-ellipsis whitespace-nowrap"
             value={`${
               dateRange?.startDate
@@ -80,7 +80,7 @@ const CustomDateRangeComponent = ({ open, onChange, toggle, label }: Props) => {
           open ? "fixed" : "hidden"
         } top-0 left-0 w-full h-full flex items-center justify-center bg-[#0002] backdrop-blur-sm z-50`}
       >
-        {/* <div className="bg-white pt-10 pb-6 px-10 rounded-lg"> */}
+        {/* <div className="bg-primary-0 pt-10 pb-6 px-10 rounded-lg"> */}
         <DateRangePicker
           open={open}
           toggle={toggle}

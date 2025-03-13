@@ -43,9 +43,9 @@
 
 //   const renderHeader = () => {
 //     return (
-//       <div className="flex justify-between items-center p-4 bg-white shadow-md rounded-lg">
+//       <div className="flex justify-between items-center p-4 bg-primary-0 shadow-md rounded-lg">
 //         <button
-//           className="text-xl px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+//           className="text-xl px-2 py-1 bg-primary-200 hover:bg-primary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
 //           onClick={prevMonth}
 //           aria-label="Previous month"
 //         >
@@ -58,7 +58,7 @@
 //           <select
 //             value={selectOptionValue}
 //             onChange={(e) => setSelectOptionValue(e.target.value)}
-//             className="p-2 border rounded-md bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-400"
+//             className="p-2 border rounded-md bg-primary-50 text-primary-700 focus:ring-2 focus:ring-blue-400"
 //             aria-label="Select year"
 //           >
 //             {years.map((option) => (
@@ -69,7 +69,7 @@
 //           </select>
 //         </div>
 //         <button
-//           className="text-xl px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+//           className="text-xl px-2 py-1 bg-primary-200 hover:bg-primary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
 //           onClick={nextMonth}
 //           aria-label="Next month"
 //         >
@@ -84,7 +84,7 @@
 //     const startDate = startOfWeek(currentMonth);
 //     for (let i = 0; i < 7; i++) {
 //       days.push(
-//         <div className="text-center font-semibold text-gray-600 py-2" key={i}>
+//         <div className="text-center font-semibold text-primary-600 py-2" key={i}>
 //           {format(addDays(startDate, i), "EEE")}
 //         </div>
 //       );
@@ -93,8 +93,8 @@
 //   };
 
 //   return (
-//     <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-lg">
-//       <div className="w-full max-w-4xl bg-white p-4 rounded-lg shadow-md">
+//     <div className="flex flex-col items-center justify-center p-4 bg-primary-50 rounded-lg shadow-lg">
+//       <div className="w-full max-w-4xl bg-primary-0 p-4 rounded-lg shadow-md">
 //         {renderHeader()}
 //         {renderDays()}
 //         <Month
@@ -166,9 +166,9 @@ const Calendar: React.FC = () => {
 
   const renderHeader = () => {
     return (
-      <div className="flex justify-between items-center p-4 bg-white shadow-md rounded-lg">
+      <div className="flex justify-between items-center p-4 bg-primary-0 shadow-md rounded-lg">
         <button
-          className="text-xl px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="text-xl px-2 py-1 bg-primary-200 hover:bg-primary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           onClick={prevMonth}
           aria-label={t("previousMonth")} // Use localized aria-label
         >
@@ -181,7 +181,7 @@ const Calendar: React.FC = () => {
           <select
             value={selectOptionValue}
             onChange={(e) => setSelectOptionValue(e.target.value)}
-            className="p-2 border rounded-md bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-400"
+            className="p-2 border rounded-md bg-primary-50 text-primary-700 focus:ring-2 focus:ring-blue-400"
             aria-label={t("selectYear")} // Use localized aria-label
           >
             {years.map((option) => (
@@ -192,7 +192,7 @@ const Calendar: React.FC = () => {
           </select>
         </div>
         <button
-          className="text-xl px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="text-xl px-2 py-1 bg-primary-200 hover:bg-primary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           onClick={nextMonth}
           aria-label={t("nextMonth")} // Use localized aria-label
         >
@@ -207,7 +207,10 @@ const Calendar: React.FC = () => {
     const startDate = startOfWeek(currentMonth);
     for (let i = 0; i < 7; i++) {
       days.push(
-        <div className="text-center font-semibold text-gray-600 py-2" key={i}>
+        <div
+          className="text-center font-semibold text-primary-600 py-2"
+          key={i}
+        >
           {format(addDays(startDate, i), "EEE")}
         </div>
       );
@@ -216,8 +219,8 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-lg">
-      <div className="w-full max-w-4xl bg-white p-4 rounded-lg shadow-md">
+    <div className="flex flex-col items-center justify-center ">
+      <div className="w-full max-w-4xl bg-primary-0 p-4 rounded-lg shadow-md">
         {renderHeader()}
         {renderDays()}
         <Month

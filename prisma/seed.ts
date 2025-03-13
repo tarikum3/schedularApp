@@ -1,10 +1,9 @@
-
-
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function main() {
-  const baseImageUrl = "https://qvkdnhfbjppmzromhdae.supabase.co/storage/v1/object/public/images/public/";
+  const baseImageUrl =
+    "https://qvkdnhfbjppmzromhdae.supabase.co/storage/v1/object/public/images/public/";
 
   const products = [
     {
@@ -17,11 +16,33 @@ async function main() {
         color: ["Black", "Blue", "Gray"],
         size: ["Small", "Medium", "Large"],
       },
-      images: ["t-shirt-color-black.png", "t-shirt-color-blue.png", "t-shirt-color-gray.png"],
+      images: [
+        "t-shirt-color-black.png",
+        "t-shirt-color-blue.png",
+        "t-shirt-color-primary.png",
+      ],
       variants: [
-        { name: "Black Small", quantity: 10, price: 29.99, color: "Black", size: "Small" },
-        { name: "Blue Medium", quantity: 15, price: 32.99, color: "Blue", size: "Medium" },
-        { name: "Gray Large", quantity: 8, price: 34.99, color: "Gray", size: "Large" },
+        {
+          name: "Black Small",
+          quantity: 10,
+          price: 29.99,
+          color: "Black",
+          size: "Small",
+        },
+        {
+          name: "Blue Medium",
+          quantity: 15,
+          price: 32.99,
+          color: "Blue",
+          size: "Medium",
+        },
+        {
+          name: "Gray Large",
+          quantity: 8,
+          price: 34.99,
+          color: "Gray",
+          size: "Large",
+        },
       ],
     },
     {
@@ -36,8 +57,20 @@ async function main() {
       },
       images: ["t-shirt-circles-blue.png", "t-shirt-circles-white.png"],
       variants: [
-        { name: "Blue Small", quantity: 12, price: 35.99, color: "Blue", size: "Small" },
-        { name: "White Large", quantity: 8, price: 37.99, color: "White", size: "Large" },
+        {
+          name: "Blue Small",
+          quantity: 12,
+          price: 35.99,
+          color: "Blue",
+          size: "Small",
+        },
+        {
+          name: "White Large",
+          quantity: 8,
+          price: 37.99,
+          color: "White",
+          size: "Large",
+        },
       ],
     },
     {
@@ -52,8 +85,20 @@ async function main() {
       },
       images: ["t-shirt-spiral-1.png", "t-shirt-spiral-2.png"],
       variants: [
-        { name: "Spiral Small", quantity: 10, price: 39.99, color: "Patterned", size: "Small" },
-        { name: "Spiral Large", quantity: 7, price: 42.99, color: "Patterned", size: "Large" },
+        {
+          name: "Spiral Small",
+          quantity: 10,
+          price: 39.99,
+          color: "Patterned",
+          size: "Small",
+        },
+        {
+          name: "Spiral Large",
+          quantity: 7,
+          price: 42.99,
+          color: "Patterned",
+          size: "Large",
+        },
       ],
     },
     {
@@ -68,8 +113,20 @@ async function main() {
       },
       images: ["shoes-2.png", "shoes-1.png"],
       variants: [
-        { name: "Black Size 8", quantity: 20, price: 49.99, color: "Black", size: "8" },
-        { name: "White Size 10", quantity: 15, price: 54.99, color: "White", size: "10" },
+        {
+          name: "Black Size 8",
+          quantity: 20,
+          price: 49.99,
+          color: "Black",
+          size: "8",
+        },
+        {
+          name: "White Size 10",
+          quantity: 15,
+          price: 54.99,
+          color: "White",
+          size: "10",
+        },
       ],
     },
     {
@@ -82,11 +139,33 @@ async function main() {
         color: ["Black", "Gray", "White"],
         size: ["One Size"],
       },
-      images: ["baby-cap-black.png", "baby-cap-gray.png", "baby-cap-white.png"],
+      images: [
+        "baby-cap-black.png",
+        "baby-cap-primary.png",
+        "baby-cap-white.png",
+      ],
       variants: [
-        { name: "Black Cap", quantity: 50, price: 14.99, color: "Black", size: "One Size" },
-        { name: "Gray Cap", quantity: 30, price: 14.99, color: "Gray", size: "One Size" },
-        { name: "White Cap", quantity: 40, price: 14.99, color: "White", size: "One Size" },
+        {
+          name: "Black Cap",
+          quantity: 50,
+          price: 14.99,
+          color: "Black",
+          size: "One Size",
+        },
+        {
+          name: "Gray Cap",
+          quantity: 30,
+          price: 14.99,
+          color: "Gray",
+          size: "One Size",
+        },
+        {
+          name: "White Cap",
+          quantity: 40,
+          price: 14.99,
+          color: "White",
+          size: "One Size",
+        },
       ],
     },
     {
@@ -101,9 +180,27 @@ async function main() {
       },
       images: ["baby-onesie-beige-1.png"],
       variants: [
-        { name: "Beige Small", quantity: 10, price: 19.99, color: "Beige", size: "Small" },
-        { name: "Beige Medium", quantity: 15, price: 21.99, color: "Beige", size: "Medium" },
-        { name: "Beige Large", quantity: 8, price: 24.99, color: "Beige", size: "Large" },
+        {
+          name: "Beige Small",
+          quantity: 10,
+          price: 19.99,
+          color: "Beige",
+          size: "Small",
+        },
+        {
+          name: "Beige Medium",
+          quantity: 15,
+          price: 21.99,
+          color: "Beige",
+          size: "Medium",
+        },
+        {
+          name: "Beige Large",
+          quantity: 8,
+          price: 24.99,
+          color: "Beige",
+          size: "Large",
+        },
       ],
     },
     {
@@ -118,9 +215,27 @@ async function main() {
       },
       images: ["bomber-jacket-army.png"],
       variants: [
-        { name: "Army Medium", quantity: 5, price: 79.99, color: "Army", size: "Medium" },
-        { name: "Army Large", quantity: 3, price: 84.99, color: "Army", size: "Large" },
-        { name: "Army XL", quantity: 4, price: 89.99, color: "Army", size: "XL" },
+        {
+          name: "Army Medium",
+          quantity: 5,
+          price: 79.99,
+          color: "Army",
+          size: "Medium",
+        },
+        {
+          name: "Army Large",
+          quantity: 3,
+          price: 84.99,
+          color: "Army",
+          size: "Large",
+        },
+        {
+          name: "Army XL",
+          quantity: 4,
+          price: 89.99,
+          color: "Army",
+          size: "XL",
+        },
       ],
     },
     {
@@ -135,7 +250,13 @@ async function main() {
       },
       images: ["hat-1.png"],
       variants: [
-        { name: "Black Hat", quantity: 30, price: 19.99, color: "Black", size: "One Size" },
+        {
+          name: "Black Hat",
+          quantity: 30,
+          price: 19.99,
+          color: "Black",
+          size: "One Size",
+        },
       ],
     },
     {
@@ -150,17 +271,35 @@ async function main() {
       },
       images: ["hoodie-1.png"],
       variants: [
-        { name: "Gray Small", quantity: 10, price: 49.99, color: "Gray", size: "Small" },
-        { name: "Gray Medium", quantity: 8, price: 54.99, color: "Gray", size: "Medium" },
+        {
+          name: "Gray Small",
+          quantity: 10,
+          price: 49.99,
+          color: "Gray",
+          size: "Small",
+        },
+        {
+          name: "Gray Medium",
+          quantity: 8,
+          price: 54.99,
+          color: "Gray",
+          size: "Medium",
+        },
       ],
     },
   ];
-  
-  
-  
 
   for (const productData of products) {
-    const { name, slug, description, price, currency, options, images, variants } = productData;
+    const {
+      name,
+      slug,
+      description,
+      price,
+      currency,
+      options,
+      images,
+      variants,
+    } = productData;
 
     const product = await prisma.product.create({
       data: {
@@ -176,7 +315,9 @@ async function main() {
           create: [
             {
               name: "Color",
-              values: { create: options.color.map((color) => ({ value: color })) },
+              values: {
+                create: options.color.map((color) => ({ value: color })),
+              },
             },
             {
               name: "Size",
@@ -198,7 +339,8 @@ async function main() {
       },
     });
 
-    const findOptionValue = (value:any) => optionValues.find((option:any) => option.value === value);
+    const findOptionValue = (value: any) =>
+      optionValues.find((option: any) => option.value === value);
 
     for (const variant of variants) {
       const { name, quantity, price, color, size } = variant;
@@ -236,4 +378,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-

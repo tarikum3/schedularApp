@@ -44,7 +44,7 @@ export default function ForgotPassword() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="p-2 border border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
+                className="p-2 border border-primary-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
               />
 
               <Button

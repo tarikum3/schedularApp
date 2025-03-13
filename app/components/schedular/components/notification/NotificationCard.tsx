@@ -39,7 +39,7 @@
 //       case "new product":
 //         return <InventoryIcon className="text-green-500" />;
 //       default:
-//         return <NotificationsIcon className="text-gray-500" />;
+//         return <NotificationsIcon className="text-primary-500" />;
 //     }
 //   };
 
@@ -53,7 +53,7 @@
 //     <div
 //       className={clsx(
 //         "flex items-center p-4 rounded-lg shadow transition-all cursor-pointer",
-//         item.read ? "bg-gray-100 opacity-80" : "bg-white hover:bg-gray-50"
+//         item.read ? "bg-primary-100 opacity-80" : "bg-primary-0 hover:bg-primary-50"
 //       )}
 //       onClick={handleClick}
 //     >
@@ -63,8 +63,8 @@
 //       {/* Notification Content */}
 //       <div className="flex-1">
 //         <h3 className="text-sm font-semibold">{item.title}</h3>
-//         <p className="text-xs text-gray-500">{item.description}</p>
-//         <p className="text-xs text-gray-400 mt-1">{formatTime(item.time)}</p>
+//         <p className="text-xs text-primary-500">{item.description}</p>
+//         <p className="text-xs text-primary-400 mt-1">{formatTime(item.time)}</p>
 //       </div>
 
 //       {/* Unread Indicator */}
@@ -184,8 +184,8 @@ const NotificationCard: FC<NotificationCardProps> = memo(({ item }) => {
     <div
       className={`flex items-center p-4 rounded-lg shadow transition-all cursor-pointer ${
         item.status === "OPENED"
-          ? "bg-gray-100 opacity-80"
-          : "bg-white hover:bg-gray-50"
+          ? "bg-primary-100 opacity-80"
+          : "bg-primary-0 hover:bg-primary-50"
       }`}
       onClick={handleClick}
       role="button"
@@ -203,8 +203,8 @@ const NotificationCard: FC<NotificationCardProps> = memo(({ item }) => {
       {/* Notification Content */}
       <div className="flex-1">
         <h3 className="text-sm font-semibold">{item.title}</h3>
-        <p className="text-xs text-gray-500">{item.description}</p>
-        <p className="text-xs text-gray-400 mt-1">{formattedTime}</p>
+        <p className="text-xs text-primary-500">{item.description}</p>
+        <p className="text-xs text-primary-400 mt-1">{formattedTime}</p>
       </div>
 
       {/* Unread Indicator */}

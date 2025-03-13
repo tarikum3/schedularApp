@@ -44,9 +44,9 @@ const LoginView: React.FC = () => {
         </div>
 
         <div className="flex items-center my-6">
-          <hr className="w-full border-gray-300" />
+          <hr className="w-full border-primary-300" />
           <span className="px-3 text-primary-500 bg-primary-100">or</span>
-          <hr className="w-full border-gray-300" />
+          <hr className="w-full border-primary-300" />
         </div>
 
         <button

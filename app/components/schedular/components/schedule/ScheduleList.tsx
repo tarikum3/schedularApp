@@ -12,7 +12,7 @@
 //   const { data: scheduledata } = useGetAllSchedulesQuery();
 //   console.log("scheduledataa", scheduledata);
 //   return (
-//     <div className="w-full  p-4 bg-white rounded-lg shadow-md">
+//     <div className="w-full  p-4 bg-primary-0 rounded-lg shadow-md">
 //       <div className="text-xl font-bold mb-4 text-center">Schedules</div>
 //       <div className="flex justify-end mb-4">
 //         <button
@@ -66,7 +66,7 @@ const ScheduleList = () => {
   const { data: scheduledata } = useGetAllSchedulesQuery();
 
   return (
-    <div className="w-full p-4 bg-white rounded-lg shadow-md">
+    <div className="w-full p-4 bg-primary-0 rounded-lg shadow-md">
       <div className="text-xl font-bold mb-4 text-center">{t("title")}</div>
       <div className="flex justify-end mb-4">
         <button
