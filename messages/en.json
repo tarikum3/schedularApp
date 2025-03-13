@@ -4,16 +4,46 @@
     "en": "English",
     "label": "Language"
   },
-  "SideBar": {
-    "dashboard": {
-      "label": "Dashboard",
-      "overview": "Overview",
-      "analytics": "Analytics"
+  "Calendar": {
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "selectYear": "Select year",
+    "daysOfWeek": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  },
+  "ScheduleList": {
+    "title": "Schedules",
+    "addButton": "Add Schedule",
+    "noSchedules": "No schedules available."
+  },
+  "ScheduleItem": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "scheduleType": {
+      "full": "Full",
+      "mini": "Mini"
     },
-    "users": "Users",
-    "products": "Products",
-    "orders": "Orders",
-    "customers": "Customers",
-    "activities": "Activities"
+    "daysOfWeek": {
+      "Monday": "M",
+      "Tuesday": "T",
+      "Wednesday": "W",
+      "Thursday": "Th",
+      "Friday": "F",
+      "Saturday": "Sa",
+      "Sunday": "Su"
+    }
+  },
+  "CreateSchedule": {
+    "title": "Create Schedule",
+    "updateTitle": "Update Schedule",
+    "nameLabel": "Name",
+    "startDateLabel": "Start Date",
+    "endDateLabel": "End Date",
+    "daysLabel": "Days",
+    "typeLabel": "Type",
+    "saveButton": "Save",
+    "cancelButton": "Cancel"
+  },
+  "ModalComponent": {
+    "closeButton": "Close"
   }
 }

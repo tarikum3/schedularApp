@@ -4,17 +4,46 @@
     "en": "እንግሊዝኛ",
     "label": "ቋንቋ"
   },
-
-  "SideBar": {
-    "dashboard": {
-      "label": "ዳሽቦርድ",
-      "overview": "አጠቃላይ እይታ",
-      "analytics": "ትንታኔ"
+  "Calendar": {
+    "previousMonth": "ያለፈው ወር",
+    "nextMonth": "ቀጣዩ ወር",
+    "selectYear": "ዓመት �ምረጥ",
+    "daysOfWeek": ["እሑድ", "ሰኞ", "ማክሰኞ", "ረቡዕ", "ሐሙስ", "ዓርብ", "ቅዳሜ"]
+  },
+  "ScheduleList": {
+    "title": "ስክድዩሎች",
+    "addButton": "ስክድዩል ጨምር",
+    "noSchedules": "ምንም ስክድዩሎች የሉም።"
+  },
+  "ScheduleItem": {
+    "edit": "አርትዕ",
+    "delete": "ሰርዝ",
+    "scheduleType": {
+      "full": "ሙሉ",
+      "mini": "አጭር"
     },
-    "users": "ተጠቃሚዎች",
-    "products": "ምርቶች",
-    "orders": "ትዕዛዞች",
-    "customers": "ደንበኞች",
-    "activities": "እንቅስቃሴዎች"
+    "daysOfWeek": {
+      "Monday": "ሰኞ",
+      "Tuesday": "ማክሰ",
+      "Wednesday": "ረቡዕ",
+      "Thursday": "ሐሙስ",
+      "Friday": "ዓርብ",
+      "Saturday": "ቅዳሜ",
+      "Sunday": "እሑድ"
+    }
+  },
+  "CreateSchedule": {
+    "title": "ስክድዩል ፍጠር",
+    "updateTitle": "ስክድዩል አሻሽል",
+    "nameLabel": "ስም",
+    "startDateLabel": "የመጀመሪያ ቀን",
+    "endDateLabel": "የመጨረሻ ቀን",
+    "daysLabel": "ቀኖች",
+    "typeLabel": "ዓይነት",
+    "saveButton": "አስቀምጥ",
+    "cancelButton": "ሰርዝ"
+  },
+  "ModalComponent": {
+    "closeButton": "ዝጋ"
   }
 }
