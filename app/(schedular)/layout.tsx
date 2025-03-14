@@ -1,14 +1,11 @@
-import StoreProvider from "@components/schedular/storeProvider";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import SessionWrapper from "@/app/components/schedular/components/common/SessionWrapper";
+import Header from "@/app/components/schedular/components/layout/Header";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      <AppRouterCacheProvider>
-        <StoreProvider>
-          <SessionWrapper>{children}</SessionWrapper>
-        </StoreProvider>
-      </AppRouterCacheProvider>
-    </div>
+    <>
+      <div className="flex h-screen flex-col ">
+        <Header />
+        <div className="grow overflow-y-auto ">{children}</div>
+      </div>
+    </>
   );
 }
