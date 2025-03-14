@@ -4,16 +4,12 @@ import prisma from "@lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  // if (req.method !== "POST") return res.status(405).end();
-
-  //const { token, password } = req.body;
   const { token, password } = await req.json();
   const resetToken = await prisma.passwordResetToken.findFirst({
     where: { token } as any,
   });
 
   if (!resetToken || resetToken.expiresAt < new Date()) {
-    // return res.status(400).json({ message: "Token is invalid or has expired" });
     return NextResponse.json(
       { error: { message: "Token is invalid or has expired" } },
       { status: 400 }

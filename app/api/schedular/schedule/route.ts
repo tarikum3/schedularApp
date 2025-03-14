@@ -6,11 +6,6 @@ import {
 } from "@lib/services/prismaServicesSchedular";
 import { auth } from "@/auth";
 export async function GET(req: NextRequest) {
-  // const session = await auth();
-
-  // if (!session) {
-  //   return NextResponse.json({ message: "Unauthorized" });
-  // }
   const searchParams = req.nextUrl.searchParams;
   const query = Object.fromEntries(searchParams);
   const schedules = await getAllSchedules();
