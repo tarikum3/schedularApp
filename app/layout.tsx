@@ -2,6 +2,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import StoreProvider from "@components/schedular/storeProvider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "@/app/theme";
 import SessionWrapper from "@/app/components/schedular/components/common/SessionWrapper";
 //import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -40,9 +42,11 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-            <StoreProvider>
-              <SessionWrapper>{children}</SessionWrapper>
-            </StoreProvider>
+            <ThemeProvider theme={theme}>
+              <StoreProvider>
+                <SessionWrapper>{children}</SessionWrapper>
+              </StoreProvider>{" "}
+            </ThemeProvider>
           </AppRouterCacheProvider>
         </NextIntlClientProvider>
         {/* <Layout> */}
