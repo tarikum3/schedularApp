@@ -98,7 +98,7 @@
 //                 key={dayItem.day}
 //                 className={`${
 //                   item.days.includes(dayItem.day)
-//                     ? "text-white bg-blue-500"
+//                     ? "text-primary-0 bg-blue-500"
 //                     : "text-blue-500"
 //                 } w-4 h-4 flex items-center justify-center text-center border border-blue-500 text-[10px] font-medium rounded-full`}
 //               >
@@ -240,7 +240,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({
                 key={dayItem.day}
                 className={`${
                   item.days.includes(dayItem.day)
-                    ? "text-white bg-blue-500"
+                    ? "text-primary-0 bg-blue-500"
                     : "text-blue-500"
                 } w-4 h-4 flex items-center justify-center text-center border border-blue-500 text-[10px] font-medium rounded-full`}
               >

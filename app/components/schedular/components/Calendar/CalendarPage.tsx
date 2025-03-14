@@ -12,7 +12,7 @@ const CalendarPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-primary-100 px-8">
+    <div className="flex h-full bg-primary-100 px-8">
       {/* Sidebar */}
       <div
         className={`flex flex-col bg-primary-0 shadow-lg transition-all duration-300 
@@ -33,7 +33,7 @@ const CalendarPage: React.FC = () => {
         {/* Schedule List */}
         <div
           className={`flex-1 overflow-y-auto ${
-            isSidebarOpen ? "block" : "hidden md:block"
+            isSidebarOpen ? "block" : "hidden "
           }`}
         >
           <ScheduleList />

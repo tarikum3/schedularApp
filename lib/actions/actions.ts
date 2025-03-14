@@ -1,7 +1,5 @@
 "use server";
 
-import { TAGS } from "@lib/const";
-
 import {
   createUser,
   createCustomer,
@@ -11,8 +9,7 @@ import { cookies } from "next/headers";
 import { signIn, signOut, auth } from "@/auth";
 import { AuthError } from "next-auth";
 import { z } from "zod";
-import { unstable_cache } from "next/cache";
-import { addComputedCartPrices } from "@/lib/helper";
+
 import { redirect, RedirectType } from "next/navigation";
 
 export async function deleteCookies(cookieName: string) {
@@ -38,6 +35,7 @@ export async function authenticate(
     }
     throw error;
   }
+  redirect("/schedular", RedirectType.replace);
 }
 
 const FormSchema = z.object({

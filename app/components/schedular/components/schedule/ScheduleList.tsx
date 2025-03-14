@@ -17,7 +17,7 @@
 //       <div className="flex justify-end mb-4">
 //         <button
 //           onClick={() => setModalOpen(true)}
-//           className="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-md shadow"
+//           className="px-4 py-2 text-primary-0 bg-green-500 hover:bg-green-600 rounded-md shadow"
 //         >
 //           <AddOutlinedIcon />
 //         </button>
@@ -71,7 +71,7 @@ const ScheduleList = () => {
       <div className="flex justify-end mb-4">
         <button
           onClick={() => setModalOpen(true)}
-          className="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-md shadow"
+          className="px-4 py-2 text-primary-0 bg-green-500 hover:bg-green-600 rounded-md shadow"
         >
           <AddOutlinedIcon />
         </button>

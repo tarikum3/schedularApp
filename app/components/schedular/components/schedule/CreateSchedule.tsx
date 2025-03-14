@@ -300,7 +300,7 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
           variant="h4"
           component="h1"
           gutterBottom
-          sx={{ fontWeight: "bold", color: "primary.main" }}
+          sx={{ fontWeight: "bold" }}
         >
           {item ? t("updateTitle") : t("title")}
         </Typography>
