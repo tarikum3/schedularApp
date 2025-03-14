@@ -10,8 +10,8 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-
-      if (isLoggedIn) return true;
+      console.log("nextUrl ", nextUrl);
+      if (isLoggedIn) return Response.redirect(new URL("/schedular", nextUrl));
       return false; // Redirect unauthenticated users to login page
 
       // return true;

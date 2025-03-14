@@ -35,7 +35,7 @@ export async function authenticate(
     }
     throw error;
   }
-  redirect("/schedular", RedirectType.replace);
+  // redirect("/schedular", RedirectType.replace);
 }
 
 const FormSchema = z.object({
