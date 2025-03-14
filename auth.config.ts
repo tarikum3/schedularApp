@@ -11,7 +11,14 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       console.log("nextUrl ", nextUrl);
-      if (isLoggedIn) return Response.redirect(new URL("/schedular", nextUrl));
+      const isOnloginPage = nextUrl.pathname.startsWith("/login");
+      //if (isLoggedIn) return true;
+      if (isLoggedIn) {
+        if (isOnloginPage)
+          return Response.redirect(new URL("/schedular", nextUrl));
+
+        return true;
+      }
       return false; // Redirect unauthenticated users to login page
 
       // return true;
