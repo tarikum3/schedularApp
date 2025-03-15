@@ -1,4 +1,0 @@
-DROP MATERIALIZED VIEW IF EXISTS order_status_summary;
-DROP MATERIALIZED VIEW IF EXISTS customer_status_summary;
-DROP MATERIALIZED VIEW IF EXISTS daily_new_orders;
-DROP MATERIALIZED VIEW IF EXISTS daily_new_customers;
