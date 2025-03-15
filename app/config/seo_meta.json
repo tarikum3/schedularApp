@@ -1,19 +1,19 @@
 {
-  "title": "Modalinda | Clothing",
-  "titleTemplate": "%s - Modalinda Storefront",
-  "description": "Modalinda - clothing  storefront ",
+  "title": "Schedular ",
+  "titleTemplate": "%s - Schedular ",
+  "description": "Schedular - app ",
   "openGraph": {
-    "title": "Modalinda | Clothing",
-    "description": "Modalinda - clothing  storefront",
+    "title": "Schedular",
+    "description": "Schedular - App",
     "type": "website",
-    "url": "https://modalinda-tarikum3.vercel.app/ ",
-    "site_name": "Modalinda",
+    "url": "https://schedular-app-eight.vercel.app/",
+    "site_name": "Schedular",
     "images": [
       {
         "url": "/card.png",
         "width": "800",
         "height": "600",
-        "alt": "Modalinda"
+        "alt": "Schedular"
       }
     ]
   }
