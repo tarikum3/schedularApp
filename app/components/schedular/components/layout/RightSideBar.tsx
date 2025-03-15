@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import NotificationPanel from "@/app/components/admin/components/notification/NotificationPanel";
+//import NotificationPanel from "@/app/components/admin/components/notification/NotificationPanel";
 import { useUI } from "@/app/components/schedular/components/ui/UIContext";
 const RightSidebar = () => {
   const { displayRightSidebar, closeRightSidebar } = useUI();
@@ -29,9 +29,7 @@ const RightSidebar = () => {
         </button>
 
         {/* Sidebar Content */}
-        <div className="h-full mt-20 ">
-          <NotificationPanel />
-        </div>
+        <div className="h-full mt-20 ">{/* <NotificationPanel /> */}</div>
       </aside>
     </>
   );

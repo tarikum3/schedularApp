@@ -1,9 +1,6 @@
 "use server";
 
-import {
-  createUser,
-  createCustomer,
-} from "@lib/services/prismaServicesSchedular";
+import { createUser } from "@lib/services/prismaServicesSchedular";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { signIn, signOut, auth } from "@/auth";
@@ -91,7 +88,7 @@ export async function register(
       };
     }
     const user = await createUser({ ...validatedFields.data });
-    const customerr = await createCustomer(user);
+
     // await signup({ ...validatedFields.data });
 
     await signIn("credentials", formData);
