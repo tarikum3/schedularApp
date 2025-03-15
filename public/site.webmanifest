@@ -1,7 +1,7 @@
 {
-  "name": "Modalinda | Clothing",
-  "short_name": "Modalinda",
-  "description": "Modalinda - clothing  storefront",
+  "name": "Schedular",
+  "short_name": "Schedular",
+  "description": "Schedular",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#fff",
