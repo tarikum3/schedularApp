@@ -26,7 +26,7 @@ const LoginView: React.FC = () => {
 
       <div className="flex flex-col space-y-4">
         {errorMessage && (
-          <div className="text-red-600 text-sm">{errorMessage}</div>
+          <div className="text-accent-danger-600 text-sm">{errorMessage}</div>
         )}
 
         <Input type="email" id="email" name="email" placeholder="Email" />
@@ -63,7 +63,9 @@ const LoginView: React.FC = () => {
           </span>
         </button>
 
-        {message && <div className="text-red-600 text-sm">{message}</div>}
+        {message && (
+          <div className="text-accent-danger-600 text-sm">{message}</div>
+        )}
 
         <div className="pt-2 text-center text-sm">
           <span className="text-primary-500">Don't have an account?</span>

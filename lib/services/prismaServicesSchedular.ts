@@ -146,14 +146,20 @@ export async function login(data: LoginData) {
   }
 }
 
-export const getDaysByYear = async (year: number) => {
+export const getDaysByYear = async ({
+  year,
+  userId,
+}: {
+  year: number;
+  userId: string;
+}) => {
   await generateDefaultDays(year); // Ensure default days are generated
 
   try {
     const days = await prisma.day.findMany({
       where: { year: year.toString() },
       include: {
-        schedules: true, // Fetch related schedule details
+        schedules: { where: { userId: userId } },
       },
     });
 
@@ -191,7 +197,13 @@ export const generateDefaultDays = async (year?: number): Promise<void> => {
   await prisma.day.createMany({ data: defaultDays });
 };
 
-export const createSchedule = async (scheduleBody: any) => {
+export const createSchedule = async ({
+  scheduleBody,
+  userId,
+}: {
+  scheduleBody: any;
+  userId: string;
+}) => {
   const { startDate, endDate, days, scheduleType, name } = scheduleBody;
 
   await generateDefaultDays(new Date(startDate).getFullYear());
@@ -208,6 +220,7 @@ export const createSchedule = async (scheduleBody: any) => {
     const schedule = await prisma.schedule.create({
       data: {
         name,
+        userId,
         startDate,
         endDate,
         days,

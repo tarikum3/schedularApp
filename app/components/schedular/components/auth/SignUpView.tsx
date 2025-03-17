@@ -32,8 +32,8 @@ const SignUpView: FC = () => {
       )}
       <div className="flex flex-col space-y-4">
         {errorMessage?.message && (
-          // <div className="text-red-800">{errorMessage}</div>
-          <div className="text-red-800">
+          // <div className="text-accent-danger-800">{errorMessage}</div>
+          <div className="text-accent-danger-800">
             {errorMessage?.message ?? "something went wrong"}
           </div>
         )}

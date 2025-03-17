@@ -120,7 +120,7 @@ export default function ProfileComponent() {
 
   // if (isProfileError) {
   //   return (
-  //     <div className="flex justify-center items-center h-screen text-red-600">
+  //     <div className="flex justify-center items-center h-screen text-accent-danger-600">
   //       Error loading profile:{" "}
   //       {(profileError as any)?.data?.message || "Unknown error"}
   //     </div>

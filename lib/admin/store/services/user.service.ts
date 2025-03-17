@@ -34,7 +34,7 @@ export const userApi = serviceApi.injectEndpoints({
         });
 
         return {
-          url: `admin/user?${params.toString()}`,
+          url: `schedular/user?${params.toString()}`,
           method: "GET",
         };
       },
@@ -44,7 +44,7 @@ export const userApi = serviceApi.injectEndpoints({
     // Get User by ID Query (uses the detailed UserDetails type)
     getUserById: builder.query<UserDetails, string>({
       query: (id) => ({
-        url: `admin/user/${id}`,
+        url: `schedular/user/${id}`,
         method: "GET",
       }),
       providesTags: (result, error, id) => [{ type: "User", id }],
@@ -53,7 +53,7 @@ export const userApi = serviceApi.injectEndpoints({
     // Create User Mutation (uses the simpler User type)
     createUser: builder.mutation<User, Prisma.UserCreateInput>({
       query: (user) => ({
-        url: "admin/user",
+        url: "schedular/user",
         method: "POST",
         body: user,
       }),
@@ -67,7 +67,7 @@ export const userApi = serviceApi.injectEndpoints({
           const { id } = user;
 
           return {
-            url: `admin/user/${id}`,
+            url: `schedular/user/${id}`,
             method: "PUT",
             body: user,
           };

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDaysByYear } from "@lib/services/prismaServicesSchedular";
+import { getUserNotifications } from "@lib/services/prismaServices";
 import { auth } from "@/auth";
 export async function GET(req: NextRequest) {
   const session = await auth();
@@ -8,12 +8,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ message: "Unauthorized" });
   }
   const searchParams = req.nextUrl.searchParams;
+  // Map the parameters you need
   const query = Object.fromEntries(searchParams);
-
-  const days = await getDaysByYear({
-    year: query.year as any,
-    userId: session.user.id as any,
-  });
-
-  return NextResponse.json({ data: days });
+  const notifications = await getUserNotifications(
+    session.user.id as any,
+    query
+  );
+  return NextResponse.json({ data: notifications });
 }
+
+//export async function DELETE(req: NextRequest) {}

@@ -4,7 +4,7 @@ export const profileApi = serviceApi.injectEndpoints({
   endpoints: (builder) => ({
     getProfile: builder.query<any, void>({
       query: () => ({
-        url: `admin/profile`,
+        url: `schedular/profile`,
         method: "GET",
       }),
       providesTags: ["Profile"],
@@ -15,7 +15,7 @@ export const profileApi = serviceApi.injectEndpoints({
         let { id } = profile;
 
         return {
-          url: `admin/profile/${id}`,
+          url: `schedular/profile/${id}`,
           method: "PUT",
           body: profile,
         };

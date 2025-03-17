@@ -59,7 +59,7 @@ export default function ForgotPassword() {
           )}
 
           {message && message !== "success" && message !== "loading" && (
-            <div className="text-red-600 text-sm">{message}</div>
+            <div className="text-accent-danger-600 text-sm">{message}</div>
           )}
 
           {message === "success" && (

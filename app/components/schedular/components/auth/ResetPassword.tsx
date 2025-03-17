@@ -84,7 +84,7 @@ export default function ResetPassword() {
         </Button>
 
         {message && message !== "success" && message !== "loading" && (
-          <div className="text-red-600 text-sm">
+          <div className="text-accent-danger-600 text-sm">
             {message}
             <a
               className="text-primary-900 font-bold hover:underline cursor-pointer ml-1"
