@@ -1,7 +1,7 @@
 "use client";
 
 import { Logo, Button, Input } from "@/app/components";
-import { useUI } from "@/app/components/context";
+//import { useUI } from "@/app/components/context";
 import { authenticate } from "@lib/actions/actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { useState } from "react";
@@ -10,7 +10,7 @@ import { signIn } from "next-auth/react";
 import { Google } from "@/app/components/icons";
 
 const LoginView: React.FC = () => {
-  const { setModalView, closeModal } = useUI();
+  // const { setModalView, closeModal } = useUI();
 
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   const [message, setMessage] = useState("");
@@ -18,7 +18,7 @@ const LoginView: React.FC = () => {
   return (
     <form
       action={dispatch}
-      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg bg-primary-100"
+      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg "
     >
       <div className="flex justify-center pb-8">
         <Logo width="64px" height="64px" />
@@ -71,14 +71,16 @@ const LoginView: React.FC = () => {
           <span className="text-primary-500">Don't have an account?</span>
           <a
             className="text-primary-900 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView("SIGNUP_VIEW")}
+            // onClick={() => setModalView("SIGNUP_VIEW")}
+            href="/auth/signup"
           >
             Sign Up
           </a>
           {` or `}
           <a
             className="text-primary-900 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView("FORGOT_VIEW")}
+            //onClick={() => setModalView("FORGOT_VIEW")}
+            href="/auth/forgot"
           >
             Forgot password?
           </a>
