@@ -148,7 +148,7 @@ export const sendScheduleReminderEmail = async (
     <body>
       <div class="email-container">
         <div class="email-header">
-          <img src="${baseUrl}/logo.png" alt="${siteName} Logo" />
+          <img src="${baseUrl}/icon-192x192.png" alt="${siteName} Logo" />
           <h1>Schedule Reminder</h1>
         </div>
         <div class="email-body">
