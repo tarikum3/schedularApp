@@ -48,16 +48,16 @@
 [data-theme="dark"] {
   --tw-bg-opacity: 1;
   --primary-0: rgb(10 30 46 / var(--tw-bg-opacity));
-  --primary-dark-50: rgb(10 30 46 / var(--tw-bg-opacity));
-  --primary-dark-100: rgb(14 41 63 / var(--tw-bg-opacity));
-  --primary-dark-200: rgb(18 52 80 / var(--tw-bg-opacity));
-  --primary-dark-300: rgb(22 63 97 / var(--tw-bg-opacity));
-  --primary-dark-400: rgb(26 74 114 / var(--tw-bg-opacity));
-  --primary-dark-500: rgb(101 164 212 / var(--tw-bg-opacity));
-  --primary-dark-600: rgb(137 185 222 / var(--tw-bg-opacity));
-  --primary-dark-700: rgb(173 206 232 / var(--tw-bg-opacity));
-  --primary-dark-800: rgb(209 227 242 / var(--tw-bg-opacity));
-  --primary-dark-900: rgb(234 242 249 / var(--tw-bg-opacity));
+  --primary-50: rgb(10 30 46 / var(--tw-bg-opacity));
+  --primary-100: rgb(14 41 63 / var(--tw-bg-opacity));
+  --primary-200: rgb(18 52 80 / var(--tw-bg-opacity));
+  --primary-300: rgb(22 63 97 / var(--tw-bg-opacity));
+  --primary-400: rgb(26 74 114 / var(--tw-bg-opacity));
+  --primary-500: rgb(101 164 212 / var(--tw-bg-opacity));
+  --primary-600: rgb(137 185 222 / var(--tw-bg-opacity));
+  --primary-700: rgb(173 206 232 / var(--tw-bg-opacity));
+  --primary-800: rgb(209 227 242 / var(--tw-bg-opacity));
+  --primary-900: rgb(234 242 249 / var(--tw-bg-opacity));
 
   --accent-notification-900: rgb(19 69 68 / var(--tw-bg-opacity));
   --accent-notification-800: rgb(29 89 88 / var(--tw-bg-opacity));

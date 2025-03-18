@@ -16,7 +16,7 @@ const Header = () => {
       <div className={`py-3 lg:px-5 transition-all duration-300 `}>
         <div className="flex items-center justify-between">
           <div className="flex items-center px-8">
-            <Logo className="w-6 h-6" />
+            <Logo className="w-10 h-10" />
           </div>
           <div className="flex items-center space-x-4 px-8 h-full">
             <LanguageSwitcher />

@@ -397,7 +397,7 @@ const Day: React.FC<DayProps> = ({
           !isCurrentMonth
             ? "text-primary-300"
             : isSelectedDay
-            ? "bg-primary-500 text-white font-bold"
+            ? "bg-primary-500 text-primary-0 font-bold"
             : "hover:bg-primary-100"
         }`}
         onClick={handleClick}
@@ -428,7 +428,7 @@ const Day: React.FC<DayProps> = ({
               {schedules.length}
             </button>
             {dropdownOpen && (
-              <div className="absolute left-0 mt-1 w-40 bg-white border border-primary-200 rounded-lg shadow-lg z-10">
+              <div className="absolute left-0 mt-1 w-40 bg-primary-0 border border-primary-200 rounded-lg shadow-lg z-10">
                 <ul>
                   {schedules.map((schedule) => (
                     <ScheduleItem

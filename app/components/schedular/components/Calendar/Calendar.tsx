@@ -290,7 +290,7 @@ const Calendar: React.FC = () => {
 
   const renderHeader = () => {
     return (
-      <div className="flex justify-between items-center p-4 bg-white shadow-md rounded-lg">
+      <div className="flex justify-between items-center p-4">
         <button
           className="text-xl px-2 py-1 bg-primary-200 hover:bg-primary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           onClick={prevMonth}
@@ -305,7 +305,7 @@ const Calendar: React.FC = () => {
           <select
             value={selectOptionValue}
             onChange={(e) => setSelectOptionValue(e.target.value)}
-            className="p-2 border rounded-md bg-primary-50 text-primary-700 focus:ring-2 focus:ring-blue-400"
+            className="p-2 border rounded-md bg-primary-50 text-primary-700 focus:ring-2 focus:ring-primary-400"
             aria-label={t("selectYear")}
           >
             {years.map((option) => (
@@ -343,8 +343,8 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-primary-50 rounded-lg shadow-lg">
-      <div className="w-full max-w-4xl bg-white p-4 rounded-lg shadow-md">
+    <div className="flex flex-col items-center justify-center ">
+      <div className="w-full max-w-4xl bg-primary-0 p-4 rounded-lg shadow-md">
         {renderHeader()}
         {renderDays()}
         <Month
