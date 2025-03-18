@@ -46,7 +46,7 @@ const LanguageSwitcher = () => {
         onClick={() => setIsOpen(!isOpen)}
         aria-haspopup="true"
         aria-expanded={isOpen}
-        className="flex items-center px-4 py-2 border border-primary-300 rounded-lg bg-primary-0 shadow-sm hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="flex items-center px-4 py-2 border border-primary-300 rounded-lg bg-primary-0 shadow-sm hover:bg-primary-100  "
       >
         <img
           src={`/assets/flags/${locale}.png`}
@@ -54,9 +54,7 @@ const LanguageSwitcher = () => {
           className="w-6 h-6 mr-2"
           aria-hidden="true"
         />
-        <span className="uppercase font-semibold text-primary-700">
-          {locale}
-        </span>
+        <span className="uppercase font-semibold ">{locale}</span>
       </button>
 
       {isOpen && (

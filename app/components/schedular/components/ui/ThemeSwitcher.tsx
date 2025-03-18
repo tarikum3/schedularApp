@@ -7,8 +7,9 @@ import { useTheme } from "next-themes";
 const ThemeSwitcherIcon = () => {
   const { theme, setTheme } = useTheme();
   return (
-    <IconButton
-      className="w-10 h-10 border border-zinc-800"
+    <button
+      type="button"
+      className="flex items-center px-4 py-2 border border-primary-300 rounded-lg bg-primary-0 shadow-sm hover:bg-primary-100 "
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}
@@ -18,7 +19,7 @@ const ThemeSwitcherIcon = () => {
       ) : (
         <Sun className="size-6" />
       )}
-    </IconButton>
+    </button>
   );
 };
 

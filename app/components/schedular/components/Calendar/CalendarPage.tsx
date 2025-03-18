@@ -12,10 +12,10 @@ const CalendarPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full max-h-screen bg-primary-0 px-8">
+    <div className="flex h-full max-h-screen justify-between">
       {/* Sidebar */}
       <div
-        className={`flex flex-col bg-primary-0 shadow-lg transition-all duration-300 
+        className={`flex flex-col bg-primary-0  transition-all duration-300 
       ${
         isSidebarOpen ? "w-64 md:w-80" : "w-16"
       } absolute md:relative h-full z-50`}
@@ -41,7 +41,7 @@ const CalendarPage: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 ">
+      <div className="flex-1  ">
         <Calendar />
       </div>
     </div>

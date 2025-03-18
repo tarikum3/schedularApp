@@ -44,6 +44,8 @@ const UserButton = () => {
   return (
     <div className="relative">
       <button
+        type="button"
+        className="flex items-center px-4 py-2 border border-primary-300 rounded-lg bg-primary-0 shadow-sm hover:bg-primary-100 "
         onClick={() => {
           handleDropdown("");
 
