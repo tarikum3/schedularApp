@@ -20,6 +20,7 @@
 // import Box from "@mui/material/Box";
 // import Container from "@mui/material/Container";
 // import Paper from "@mui/material/Paper";
+// import { useTranslations } from "next-intl";
 
 // const scheduleTypeList = ["MEETING", "APPOINTMENT", "PERSONAL"];
 // const daysList = [
@@ -49,10 +50,9 @@
 // };
 
 // const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
+//   const t = useTranslations("CreateSchedule"); // Use translations for this component
 //   const { handleSubmit, control, formState } = useForm({
-//     defaultValues:
-//       // item ? { ...item, startDate: new Date(item.startDate), endDate: new Date(item.endDate) }:
-//       defaultValues,
+//     defaultValues,
 //     mode: "all",
 //     resolver: zodResolver(schema),
 //   });
@@ -63,18 +63,10 @@
 
 //   const handleFormSubmit = async (data: Record<string, any>) => {
 //     try {
-//       console.log("Submitting data...", data);
 //       if (item) {
-//         // Update existing schedule
-//         const response = await updateSchedule({
-//           id: item.id,
-//           ...data,
-//         });
-//         console.log("Schedule updated successfully:", response);
+//         await updateSchedule({ id: item.id, ...data });
 //       } else {
-//         // Create new schedule
-//         const response = await createSchedule(data as any);
-//         console.log("Schedule created successfully:", response);
+//         await createSchedule(data as any);
 //       }
 //     } catch (error) {
 //       console.error("Error submitting data:", error);
@@ -88,9 +80,9 @@
 //           variant="h4"
 //           component="h1"
 //           gutterBottom
-//           sx={{ fontWeight: "bold", color: "primary.main" }}
+//           sx={{ fontWeight: "bold" }}
 //         >
-//           {item ? "Update Schedule" : "Create Schedule"}
+//           {item ? t("updateTitle") : t("title")}
 //         </Typography>
 //         <Box
 //           component="form"
@@ -103,7 +95,7 @@
 //             render={({ field }) => (
 //               <TextField
 //                 {...field}
-//                 label="Schedule Name"
+//                 label={t("nameLabel")}
 //                 variant="outlined"
 //                 error={!!errors.name}
 //                 helperText={errors?.name?.message}
@@ -120,7 +112,7 @@
 //               render={({ field }) => (
 //                 <DateTimePicker
 //                   {...field}
-//                   label="Start Date"
+//                   label={t("startDateLabel")}
 //                   renderInput={(params) => (
 //                     <TextField
 //                       {...params}
@@ -141,7 +133,7 @@
 //               render={({ field }) => (
 //                 <DateTimePicker
 //                   {...field}
-//                   label="End Date"
+//                   label={t("endDateLabel")}
 //                   renderInput={(params) => (
 //                     <TextField
 //                       {...params}
@@ -166,7 +158,7 @@
 //                 renderInput={(params) => (
 //                   <TextField
 //                     {...params}
-//                     label="Schedule Type"
+//                     label={t("typeLabel")}
 //                     variant="outlined"
 //                     fullWidth
 //                     sx={{ mb: 2 }}
@@ -189,7 +181,7 @@
 //                 renderInput={(params) => (
 //                   <TextField
 //                     {...params}
-//                     label="Days"
+//                     label={t("daysLabel")}
 //                     variant="outlined"
 //                     fullWidth
 //                     sx={{ mb: 2 }}
@@ -208,7 +200,7 @@
 //             fullWidth
 //             sx={{ mt: 2 }}
 //           >
-//             {item ? "Update Schedule" : "Create Schedule"}
+//             {item ? t("saveButton") : t("createButton")}
 //           </Button>
 //         </Box>
 //       </Paper>
@@ -295,12 +287,21 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
 
   return (
     <Container maxWidth="md">
-      <Paper elevation={3} sx={{ p: 4, mt: 4, mb: 4 }}>
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          mt: 4,
+          mb: 4,
+          backgroundColor: "var(--primary-50)",
+          borderRadius: "12px",
+        }}
+      >
         <Typography
           variant="h4"
           component="h1"
           gutterBottom
-          sx={{ fontWeight: "bold" }}
+          sx={{ fontWeight: "bold", color: "var(--primary-900)" }}
         >
           {item ? t("updateTitle") : t("title")}
         </Typography>
@@ -418,9 +419,15 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
             color="primary"
             size="large"
             fullWidth
-            sx={{ mt: 2 }}
+            // sx={{
+            //   mt: 2,
+            //   backgroundColor: "var(--primary-500)",
+            //   "&:hover": {
+            //     backgroundColor: "var(--primary-600)",
+            //   },
+            // }}
           >
-            {item ? t("saveButton") : t("createButton")}
+            createButton
           </Button>
         </Box>
       </Paper>
@@ -429,3 +436,22 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
 };
 
 export default CreateSchedule;
+
+{
+  /* <Button
+type="submit"
+variant="contained"
+color="primary"
+size="large"
+fullWidth
+sx={{
+  mt: 2,
+  backgroundColor: "var(--primary-500)",
+  "&:hover": {
+    backgroundColor: "var(--primary-600)",
+  },
+}}
+>
+{item ? t("saveButton") : t("createButton")}
+</Button> */
+}
