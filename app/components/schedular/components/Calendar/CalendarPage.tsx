@@ -12,7 +12,7 @@ const CalendarPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full max-h-screen justify-between">
+    <div className="flex h-full max-h-screen justify-between px-6">
       {/* Sidebar */}
       <div
         className={`flex flex-col bg-primary-0  transition-all duration-300 

@@ -33,7 +33,7 @@ const ScheduleList = () => {
         <ModalComponent
           open={modalOpen}
           onClose={() => setModalOpen(false)}
-          titles={{ title: t("createTitle") }}
+          titles={{ title: t("CreateSchedule") }}
           fullWidth
         >
           <CreateSchedule />

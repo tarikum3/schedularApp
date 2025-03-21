@@ -41,7 +41,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
-          <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          <AppRouterCacheProvider
+          //  options={{ enableCssLayer: true }}
+          >
             <ThemeProvider theme={theme}>
               <StoreProvider>
                 <SessionWrapper>{children}</SessionWrapper>

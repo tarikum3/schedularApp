@@ -35,6 +35,8 @@
   "ScheduleList": {
     "title": "Schedules",
     "addButton": "Add Schedule",
+    "CreateSchedule": "Create Schedule",
+    "UpdateSchedule": "Update Schedule",
     "noSchedules": "No schedules available."
   },
   "ScheduleItem": {
@@ -55,15 +57,29 @@
     }
   },
   "CreateSchedule": {
-    "title": "Create Schedule",
-    "updateTitle": "Update Schedule",
-    "nameLabel": "Name",
-    "startDateLabel": "Start Date",
-    "endDateLabel": "End Date",
-    "daysLabel": "Days",
-    "typeLabel": "Type",
-    "saveButton": "Save",
-    "cancelButton": "Cancel"
+    "CreateSchedule": "Create Schedule",
+    "UpdateSchedule": "Update Schedule",
+    "Name": "Name",
+    "StartDate": "Start Date",
+    "EndDate": "End Date",
+    "Days": "Days",
+    "Type": "Type",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "daysOfWeek": {
+      "Monday": "M",
+      "Tuesday": "T",
+      "Wednesday": "W",
+      "Thursday": "Th",
+      "Friday": "F",
+      "Saturday": "Sa",
+      "Sunday": "Su"
+    },
+    "scheduleType": {
+      "MEETING": "Meeting",
+      "APPOINTMENT": "Appointment",
+      "PERSONAL": "Personal"
+    }
   },
   "ModalComponent": {
     "closeButton": "Close"
