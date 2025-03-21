@@ -56,6 +56,10 @@
       "Sunday": "Su"
     }
   },
+  "Day": {
+    "CreateSchedule": "Create Schedule",
+    "UpdateSchedule": "Update Schedule"
+  },
   "CreateSchedule": {
     "CreateSchedule": "Create Schedule",
     "UpdateSchedule": "Update Schedule",
@@ -67,13 +71,13 @@
     "Save": "Save",
     "Cancel": "Cancel",
     "daysOfWeek": {
-      "Monday": "M",
-      "Tuesday": "T",
-      "Wednesday": "W",
-      "Thursday": "Th",
-      "Friday": "F",
-      "Saturday": "Sa",
-      "Sunday": "Su"
+      "Monday": "Monday",
+      "Tuesday": "Tuesday",
+      "Wednesday": "Wednesday",
+      "Thursday": "Thursday",
+      "Friday": "Friday",
+      "Saturday": "Saturday",
+      "Sunday": "Sunday"
     },
     "scheduleType": {
       "MEETING": "Meeting",

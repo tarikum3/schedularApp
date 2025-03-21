@@ -63,7 +63,7 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
   const { errors } = formState;
   const [createSchedule] = useCreateScheduleMutation();
   const [updateSchedule] = useUpdateScheduleMutation();
-
+  console.log("resuphhjkerrors", errors);
   // Handle form submission
   const handleFormSubmit = async (data: Record<string, any>) => {
     console.log("resuphhjk", "hjk");
@@ -93,93 +93,74 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
   }));
 
   return (
-    <Container maxWidth="md">
-      <Paper
-        elevation={3}
-        sx={{
-          p: 4,
-          mt: 4,
-          mb: 4,
-          backgroundColor: "var(--primary-50)",
-          borderRadius: "12px",
-        }}
+    <div>
+      <form
+        className="w-full text-primary space-y-10 p-5 m-5"
+        onSubmit={handleSubmit(handleFormSubmit)}
       >
-        <Typography
-          variant="h4"
-          component="h1"
-          gutterBottom
-          sx={{ fontWeight: "bold", color: "var(--primary-900)" }}
-        >
-          {item ? t("UpdateSchedule") : t("CreateSchedule")}
-        </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(handleFormSubmit)}
-          sx={{ display: "flex", flexDirection: "column", gap: 3 }}
-        >
-          {/* Name Field */}
+        {/* Name Field */}
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label={t("Name")}
+              variant="outlined"
+              error={!!errors.name}
+              helperText={errors?.name?.message}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+          )}
+        />
+
+        {/* Start Date Field */}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Controller
-            name="name"
+            name="startDate"
             control={control}
             render={({ field }) => (
-              <TextField
+              <DateTimePicker
                 {...field}
-                label={t("Name")}
-                variant="outlined"
-                error={!!errors.name}
-                helperText={errors?.name?.message}
-                fullWidth
-                sx={{ mb: 2 }}
+                label={t("StartDate")}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth
+                    variant="outlined"
+                    sx={{ mb: 2 }}
+                  />
+                )}
               />
             )}
           />
+        </LocalizationProvider>
 
-          {/* Start Date Field */}
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Controller
-              name="startDate"
-              control={control}
-              render={({ field }) => (
-                <DateTimePicker
-                  {...field}
-                  label={t("Start Date")}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      fullWidth
-                      variant="outlined"
-                      sx={{ mb: 2 }}
-                    />
-                  )}
-                />
-              )}
-            />
-          </LocalizationProvider>
+        {/* End Date Field */}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <Controller
+            name="endDate"
+            control={control}
+            render={({ field }) => (
+              <DateTimePicker
+                {...field}
+                label={t("EndDate")}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth
+                    variant="outlined"
+                    sx={{ mb: 2 }}
+                  />
+                )}
+              />
+            )}
+          />
+        </LocalizationProvider>
 
-          {/* End Date Field */}
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Controller
-              name="endDate"
-              control={control}
-              render={({ field }) => (
-                <DateTimePicker
-                  {...field}
-                  label={t("End Date")}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      fullWidth
-                      variant="outlined"
-                      sx={{ mb: 2 }}
-                    />
-                  )}
-                />
-              )}
-            />
-          </LocalizationProvider>
-
-          {/* Schedule Type Field */}
-          {/* <Controller
+        {/* Schedule Type Field */}
+        {/* <Controller
             name="scheduleType"
             control={control}
             render={({ field }) => (
@@ -200,76 +181,76 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
               />
             )}
           /> */}
-          <Controller
-            name="scheduleType"
-            control={control}
-            render={({ field }) => {
-              // Find the selected option based on the field value
-              const selectedOption = translatedScheduleTypes.find(
-                (option) => option.value === field.value
-              );
+        <Controller
+          name="scheduleType"
+          control={control}
+          render={({ field }) => {
+            // Find the selected option based on the field value
+            // const selectedOption = translatedScheduleTypes.find(
+            //   (option) => option.value === field.value
+            // );
 
-              return (
-                <Autocomplete
-                  {...field}
-                  options={translatedScheduleTypes}
-                  getOptionLabel={(option) => option.label}
-                  value={selectedOption || null} // Ensure the value is an object or null
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={t("Type")}
-                      variant="outlined"
-                      fullWidth
-                      sx={{ mb: 2 }}
-                    />
-                  )}
-                  onChange={(_, value) => {
-                    // Update the field value with the selected option's value
-                    field.onChange(value ? value.value : "");
-                  }}
-                />
-              );
-            }}
-          />
-          {/* Days Field */}
-          <Controller
-            name="days"
-            control={control}
-            render={({ field }) => (
+            return (
               <Autocomplete
                 {...field}
-                multiple
-                options={translatedDays}
-                getOptionLabel={(option) => option.label}
+                options={scheduleTypeList}
+                getOptionLabel={(option) => option}
+                //value={selectedOption || null} // Ensure the value is an object or null
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label={t("Days")}
+                    label={t("Type")}
                     variant="outlined"
                     fullWidth
                     sx={{ mb: 2 }}
                   />
                 )}
-                onChange={(_, value) => field.onChange(value.map((v) => v))}
+                onChange={(_, value) => {
+                  // Update the field value with the selected option's value
+                  // field.onChange(value ? value.value : "");
+                  field.onChange(value ? value : "");
+                }}
               />
-            )}
-          />
+            );
+          }}
+        />
+        {/* Days Field */}
+        <Controller
+          name="days"
+          control={control}
+          render={({ field }) => (
+            <Autocomplete
+              {...field}
+              multiple
+              options={daysList}
+              getOptionLabel={(option) => option}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={t("Days")}
+                  variant="outlined"
+                  fullWidth
+                  sx={{ mb: 2 }}
+                />
+              )}
+              onChange={(_, value) => field.onChange(value.map((v) => v))}
+            />
+          )}
+        />
 
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            //color="primary"
-            className="px-4 py-2 text-primary-0 bg-primary-500 hover:bg-primary-600 rounded-md shadow"
-            size="large"
-            fullWidth
-          >
-            {t("Save")}
-          </Button>
-        </Box>
-      </Paper>
-    </Container>
+        {/* Submit Button */}
+        <Button
+          type="submit"
+          variant="contained"
+          //color="primary"
+          className="px-4 py-2 text-primary-0 bg-primary-500 hover:bg-primary-600 rounded-md shadow"
+          size="large"
+          fullWidth
+        >
+          {t("Save")}
+        </Button>
+      </form>
+    </div>
   );
 };
 

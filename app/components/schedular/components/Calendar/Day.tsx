@@ -643,7 +643,7 @@ const Day: React.FC<DayProps> = ({
         <ModalComponent
           open={modalOpen}
           onClose={closeModal}
-          titles={{ title: t("createSchedule") }}
+          titles={{ title: t("CreateSchedule") }}
           fullWidth
         >
           <CreateSchedule />

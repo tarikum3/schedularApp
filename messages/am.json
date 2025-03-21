@@ -56,6 +56,10 @@
       "Sunday": "እሑድ"
     }
   },
+  "Day": {
+    "CreateSchedule": "ስክድዩል ፍጠር",
+    "UpdateSchedule": "ስክድዩል አሻሽል"
+  },
   "CreateSchedule": {
     "CreateSchedule": "ስክድዩል ፍጠር",
     "UpdateSchedule": "ስክድዩል አሻሽል",

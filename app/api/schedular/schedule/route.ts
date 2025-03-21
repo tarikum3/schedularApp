@@ -13,8 +13,16 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const session = await auth();
+
+  if (!session) {
+    return NextResponse.json({ message: "Unauthorized" });
+  }
   const reqData = await req.json();
-  const schedule = await createSchedule(reqData);
+  const schedule = await createSchedule({
+    scheduleBody: reqData,
+    userId: session.user.id as any,
+  });
 
   return NextResponse.json({ data: schedule });
 }
