@@ -44,7 +44,7 @@ export default function ForgotPassword() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="p-2 border border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
+                className="p-2 border border-primary-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
               />
 
               <Button
@@ -59,7 +59,7 @@ export default function ForgotPassword() {
           )}
 
           {message && message !== "success" && message !== "loading" && (
-            <div className="text-red-600 text-sm">{message}</div>
+            <div className="text-accent-danger-600 text-sm">{message}</div>
           )}
 
           {message === "success" && (

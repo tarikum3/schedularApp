@@ -1,7 +1,7 @@
 "use client";
 
 import { Logo, Button, Input } from "@/app/components";
-import { useUI } from "@/app/components/context";
+//import { useUI } from "@/app/components/context";
 import { authenticate } from "@lib/actions/actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { useState } from "react";
@@ -10,7 +10,7 @@ import { signIn } from "next-auth/react";
 import { Google } from "@/app/components/icons";
 
 const LoginView: React.FC = () => {
-  const { setModalView, closeModal } = useUI();
+  // const { setModalView, closeModal } = useUI();
 
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   const [message, setMessage] = useState("");
@@ -18,7 +18,7 @@ const LoginView: React.FC = () => {
   return (
     <form
       action={dispatch}
-      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg bg-primary-100"
+      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg "
     >
       <div className="flex justify-center pb-8">
         <Logo width="64px" height="64px" />
@@ -26,7 +26,7 @@ const LoginView: React.FC = () => {
 
       <div className="flex flex-col space-y-4">
         {errorMessage && (
-          <div className="text-red-600 text-sm">{errorMessage}</div>
+          <div className="text-accent-danger-600 text-sm">{errorMessage}</div>
         )}
 
         <Input type="email" id="email" name="email" placeholder="Email" />
@@ -44,9 +44,9 @@ const LoginView: React.FC = () => {
         </div>
 
         <div className="flex items-center my-6">
-          <hr className="w-full border-gray-300" />
+          <hr className="w-full border-primary-300" />
           <span className="px-3 text-primary-500 bg-primary-100">or</span>
-          <hr className="w-full border-gray-300" />
+          <hr className="w-full border-primary-300" />
         </div>
 
         <button
@@ -63,20 +63,24 @@ const LoginView: React.FC = () => {
           </span>
         </button>
 
-        {message && <div className="text-red-600 text-sm">{message}</div>}
+        {message && (
+          <div className="text-accent-danger-600 text-sm">{message}</div>
+        )}
 
         <div className="pt-2 text-center text-sm">
           <span className="text-primary-500">Don't have an account?</span>
           <a
             className="text-primary-900 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView("SIGNUP_VIEW")}
+            // onClick={() => setModalView("SIGNUP_VIEW")}
+            href="/admin/auth/signup"
           >
             Sign Up
           </a>
           {` or `}
           <a
             className="text-primary-900 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView("FORGOT_VIEW")}
+            //onClick={() => setModalView("FORGOT_VIEW")}
+            href="/admin/auth/forgot"
           >
             Forgot password?
           </a>

@@ -61,7 +61,7 @@ export default function ResetPassword() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter new password"
           required
-          className="p-2 border border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
+          className="p-2 border border-primary-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
         />
         <Input
           type="password"
@@ -71,7 +71,7 @@ export default function ResetPassword() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm new password"
           required
-          className="p-2 border border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
+          className="p-2 border border-primary-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
         />
 
         <Button
@@ -84,7 +84,7 @@ export default function ResetPassword() {
         </Button>
 
         {message && message !== "success" && message !== "loading" && (
-          <div className="text-red-600 text-sm">
+          <div className="text-accent-danger-600 text-sm">
             {message}
             <a
               className="text-primary-900 font-bold hover:underline cursor-pointer ml-1"
