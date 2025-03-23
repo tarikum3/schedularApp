@@ -1,6 +1,5 @@
 "use client";
 
-import IconButton from "@material-ui/core/IconButton";
 import { Moon, Sun, UserIcon } from "@/app/components/icons";
 import { useTheme } from "next-themes";
 

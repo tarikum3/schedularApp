@@ -1,4 +1,4 @@
-// CalendarContext.tsx
+"use client";
 import React, { createContext, useContext, useState } from "react";
 import { format, addMonths, subMonths, setYear } from "date-fns";
 

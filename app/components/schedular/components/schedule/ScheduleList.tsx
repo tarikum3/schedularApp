@@ -14,7 +14,7 @@ const ScheduleList = () => {
 
   return (
     <div className="w-full p-4  h-full overflow-y-clip ">
-      <div className="text-xl font-bold mb-4 text-center">{t("title")}</div>
+      <div className="text-xl font-bold mb-4 text-center"> {t("title")}</div>
       <div className="flex justify-end mb-4">
         <button
           onClick={() => setModalOpen(true)}

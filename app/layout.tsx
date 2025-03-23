@@ -51,9 +51,6 @@ export default async function RootLayout({
             </ThemeProvider>
           </AppRouterCacheProvider>
         </NextIntlClientProvider>
-        {/* <Layout> */}
-        {/* {children} */}
-        {/* </Layout> */}
       </body>
     </html>
   );

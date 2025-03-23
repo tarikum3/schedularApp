@@ -17,9 +17,7 @@ import {
   SchedulePayload,
   Schedule,
 } from "@/lib/admin/store/services/schedule.service";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
+
 import { useTranslations } from "next-intl";
 
 // Define the schedule types and days of the week

@@ -1,7 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
-import Google from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
-import Nodemailer from "next-auth/providers/nodemailer";
+
 export const authConfig = {
   pages: {
     signIn: "/auth/login",
