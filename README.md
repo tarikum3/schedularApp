@@ -1,5 +1,4 @@
-
-Ecommerce
+schedular app
 This is a Next.js project bootstrapped with create-next-app.
 
 🚀 Getting Started
@@ -8,15 +7,19 @@ To run the development server:
 bash
 Copy code
 npm run dev
+
 # or
+
 yarn dev
+
 # or
+
 pnpm dev
+
 # or
+
 bun dev
 Once the server is running, open your browser and navigate to http://localhost:3000 to view your app.
-
-
 
 🛠️ Features
 Font Optimization: Leverages next/font for automatic Google Font optimization.
@@ -37,4 +40,3 @@ Tailwind CSS Documentation: Style your application with Tailwind.
 Deploy your Next.js application seamlessly on Vercel, the official platform from the creators of Next.js.
 
 Follow the Next.js deployment guide for detailed instructions.
-
