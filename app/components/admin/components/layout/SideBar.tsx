@@ -17,6 +17,7 @@ import UserMenu from "@/app/components/admin/components/user/UserMenu";
 import { useTranslations } from "next-intl"; // Import next-intl for localization
 import { useUI } from "@/app/components/admin/components/ui/UIContext"; // Import the UI context
 import CloseIcon from "@mui/icons-material/Close"; // Import CloseIcon
+import { Menu as MenuIcon } from "@mui/icons-material";
 import { Logo } from "@/app/components";
 
 export default function SideBar() {
@@ -117,13 +118,98 @@ export default function SideBar() {
             className=" text-primary-900 hover:text-primary-900 cursor-pointer p-2 hover:bg-primary-100 focus:bg-primary-100 focus:ring-2 focus:ring-primary-100 rounded"
             onClick={closeLeftSidebar}
           >
-            <CloseIcon className="w-6 h-6" />
+            <MenuIcon className="w-6 h-6" />
           </button>
         </div>
 
         {/* Sidebar Content */}
         <div className="mt-1 w-full h-full overflow-y-auto bg-primary-0 p-2">
           <nav>
+            {sideBarConfigs.map((config: any, index: number) => (
+              <div className="my-1" key={index}>
+                {config.type === "divider" ? (
+                  <div className="border-t border-primary-300 my-2" />
+                ) : (
+                  <>
+                    {config.children ? (
+                      <div
+                        className="w-full mx-auto rounded-md cursor-pointer"
+                        onMouseEnter={() => {
+                          setSideBarConfigs((prevConfigs) => {
+                            const updatedConfigs = [...prevConfigs];
+                            updatedConfigs[index].isHovered = true;
+                            return updatedConfigs;
+                          });
+                        }}
+                        onMouseLeave={() => {
+                          setSideBarConfigs((prevConfigs) => {
+                            const updatedConfigs = [...prevConfigs];
+                            updatedConfigs[index].isHovered = false;
+                            return updatedConfigs;
+                          });
+                        }}
+                      >
+                        <button
+                          className={`flex justify-between items-center px-3 py-2 rounded-md w-full transition-colors ${
+                            config.isHovered
+                              ? "bg-primary-600 text-primary-100"
+                              : "hover:bg-primary-500 hover:text-primary-100"
+                          }`}
+                          onClick={() => toggleSubMenu(index)}
+                        >
+                          <div className="flex items-center text-sm font-semibold">
+                            {config.icon}
+                            <span className="ml-2">{config.label}</span>
+                          </div>
+                          <div>
+                            {config.isOpen ? (
+                              <ExpandMoreIcon />
+                            ) : (
+                              <ChevronRightIcon />
+                            )}
+                          </div>
+                        </button>
+                        {config.isOpen && (
+                          <div className="pl-6">
+                            {config.children.map(
+                              (subConfig: any, subIndex: number) => (
+                                <Link href={subConfig.route} key={subIndex}>
+                                  <div
+                                    className={`px-3 py-2 rounded-md transition-colors cursor-pointer text-sm font-medium ${
+                                      pathname === subConfig.route
+                                        ? "bg-primary-700 text-primary-100"
+                                        : "hover:bg-primary-500 hover:text-primary-100"
+                                    }`}
+                                  >
+                                    {subConfig.icon}
+                                    <span className="ml-2">
+                                      {subConfig.label}
+                                    </span>
+                                  </div>
+                                </Link>
+                              )
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <Link href={config.route}>
+                        <div
+                          className={`flex items-center px-3 py-2 rounded-md w-full text-sm font-semibold transition-colors cursor-pointer ${
+                            pathname === config.route
+                              ? "bg-primary-700 text-primary-100"
+                              : "hover:bg-primary-500 hover:text-primary-100"
+                          }`}
+                        >
+                          {config.icon}
+                          <span className="ml-2">{config.label}</span>
+                        </div>
+                      </Link>
+                    )}
+                  </>
+                )}
+              </div>
+            ))}
             {sideBarConfigs.map((config: any, index: number) => (
               <div className="my-1" key={index}>
                 {config.type === "divider" ? (

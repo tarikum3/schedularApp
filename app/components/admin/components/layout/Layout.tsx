@@ -30,19 +30,20 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { displayRightSidebar, displayLeftSidebar } = useUI();
 
   return (
-    <>
+    <div className="">
       <Header />
       <main
-        className={` flex flex-col relative overflow-y-auto ${
+        className={`mt-24 flex flex-col relative overflow-y-auto ${
           displayLeftSidebar ? "lg:ml-[270px]" : "lg:ml-0"
         }`}
       >
         {children}
       </main>
-
+      {/* <RightSideBar />
+      <SideBar /> */}
       {displayRightSidebar && <RightSideBar />}
       {displayLeftSidebar && <SideBar />}
-    </>
+    </div>
   );
 };
 

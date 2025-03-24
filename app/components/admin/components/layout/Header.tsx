@@ -26,7 +26,7 @@ const Header = () => {
   const { displayLeftSidebar, openLeftSidebar } = useUI();
   console.log("displayLeftSidebarrr", displayLeftSidebar);
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 bg-white">
+    <nav className="fixed top-0 left-0 right-0 z-40 bg-primary-0 ">
       <div
         className={`py-3 lg:px-5 transition-all duration-300 ${
           displayLeftSidebar ? "lg:ml-[270px]" : "lg:ml-0"

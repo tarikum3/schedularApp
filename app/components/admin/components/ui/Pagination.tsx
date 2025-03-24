@@ -71,7 +71,7 @@ const Pagination: React.FC<PaginationProps> = ({
           type="number"
           defaultValue={pageSize}
           onChange={(e) => onPageSizeChange(Number(e.target.value))}
-          className="border border-primary-300 rounded p-1 w-16 bg-white"
+          className="border border-primary-300 rounded p-1 w-16 bg-primary-0 "
         />
       </span>
     </div>
