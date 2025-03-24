@@ -49,11 +49,11 @@ function uiReducer(state: State, action: Action): State {
     case "SET_DROPDOWN_VIEW":
       return { ...state, dropDownView: action.view };
     case "OPEN_LEFT_SIDEBAR":
-      return { ...state, displayLeftSidebar: true, displayRightSidebar: false };
+      return { ...state, displayLeftSidebar: true };
     case "CLOSE_LEFT_SIDEBAR":
       return { ...state, displayLeftSidebar: false };
     case "OPEN_RIGHT_SIDEBAR":
-      return { ...state, displayRightSidebar: true, displayLeftSidebar: false };
+      return { ...state, displayRightSidebar: true };
     case "CLOSE_RIGHT_SIDEBAR":
       return { ...state, displayRightSidebar: false };
     default:
