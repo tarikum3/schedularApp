@@ -228,7 +228,7 @@
 //       </div>
 
 //       {/* Table Section */}
-//       <div className="overflow-x-auto bg-white shadow-md rounded-md border border-primary-200 dark:bg-primary-100">
+//       <div className="overflow-x-auto bg-primary-0 shadow-md rounded-md border border-primary-200 dark:bg-primary-100">
 //         <table className="min-w-full table-auto">
 //           {/* Table Head */}
 //           <thead className="bg-primary-300  text-primary-800">
@@ -559,7 +559,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
       </div>
 
       {/* Table Section */}
-      <div className="overflow-x-auto bg-white shadow-md rounded-md border border-primary-200 dark:bg-primary-100">
+      <div className="overflow-x-auto bg-primary-0 shadow-md rounded-md border border-primary-200 dark:bg-primary-100">
         <table className="min-w-full table-auto">
           {/* Table Head */}
           <thead className="bg-primary-300  text-primary-800">

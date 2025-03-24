@@ -45,7 +45,7 @@ const CustomersAnalytics = () => {
 
   return (
     <>
-      <div className="bg-white text-primary-900 border p-8 mx-auto rounded-lg shadow-sm w-full max-w-5xl">
+      <div className="bg-primary-0 text-primary-900 border p-8 mx-auto rounded-lg shadow-sm w-full max-w-5xl">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-primary-900">
             Customers Analytics

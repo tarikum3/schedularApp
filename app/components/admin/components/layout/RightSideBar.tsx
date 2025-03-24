@@ -10,7 +10,7 @@ const RightSidebar = () => {
       {/* Overlay Background */}
       {displayRightSidebar && (
         <div
-          className="fixed inset-0 bg-white opacity-50 z-40"
+          className="fixed inset-0 bg-primary-0 opacity-50 z-40"
           onClick={closeRightSidebar}
         />
       )}
@@ -22,7 +22,7 @@ const RightSidebar = () => {
       >
         {/* Close Button */}
         <button
-          className="absolute top-4 right-4 text-gray-600 hover:text-black"
+          className="absolute top-4 right-4 text-primary-600 hover:text-black"
           onClick={closeRightSidebar}
         >
           ✖

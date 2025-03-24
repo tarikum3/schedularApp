@@ -135,7 +135,7 @@ export default function ProfileComponent() {
       }}
     >
       <div
-        className="max-w-7xl mx-auto p-8 bg-white rounded-xl shadow-2xl"
+        className="max-w-7xl mx-auto p-8 bg-primary-0 rounded-xl shadow-2xl"
         style={{
           boxShadow:
             "0 10px 30px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05)",
@@ -143,7 +143,7 @@ export default function ProfileComponent() {
       >
         <Typography
           variant="h3"
-          className="text-4xl font-bold text-gray-900 mb-8"
+          className="text-4xl font-bold text-primary-900 mb-8"
           style={{
             fontFamily: "'Poppins', sans-serif", // Bold and modern font for headings
           }}
@@ -155,7 +155,7 @@ export default function ProfileComponent() {
           <div className="space-y-6">
             <Typography
               variant="h5"
-              className="text-2xl font-semibold text-gray-800"
+              className="text-2xl font-semibold text-primary-800"
               style={{
                 fontFamily: "'Poppins', sans-serif", // Semi-bold for section headings
               }}
@@ -176,13 +176,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                   />
                 )}
@@ -200,13 +200,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                   />
                 )}
@@ -223,13 +223,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                     disabled
                   />
@@ -247,13 +247,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                   />
                 )}
@@ -265,7 +265,7 @@ export default function ProfileComponent() {
           <div className="space-y-6">
             <Typography
               variant="h5"
-              className="text-2xl font-semibold text-gray-800"
+              className="text-2xl font-semibold text-primary-800"
               style={{
                 fontFamily: "'Poppins', sans-serif", // Semi-bold for section headings
               }}
@@ -285,13 +285,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                   />
                 )}
@@ -308,13 +308,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                   />
                 )}
@@ -331,13 +331,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                   />
                 )}
@@ -354,13 +354,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                   />
                 )}
@@ -377,13 +377,13 @@ export default function ProfileComponent() {
                     fullWidth
                     variant="outlined"
                     size="small"
-                    className="bg-gray-50 rounded-lg"
+                    className="bg-primary-50 rounded-lg"
                     InputProps={{
-                      className: "text-gray-900",
+                      className: "text-primary-900",
                       style: { borderRadius: "12px" },
                     }}
                     InputLabelProps={{
-                      className: "text-gray-700 font-medium", // Medium font for labels
+                      className: "text-primary-700 font-medium", // Medium font for labels
                     }}
                   />
                 )}
@@ -396,7 +396,7 @@ export default function ProfileComponent() {
             <div className="space-y-6">
               <Typography
                 variant="h5"
-                className="text-2xl font-semibold text-gray-800"
+                className="text-2xl font-semibold text-primary-800"
                 style={{
                   fontFamily: "'Poppins', sans-serif", // Semi-bold for section headings
                 }}
@@ -417,13 +417,13 @@ export default function ProfileComponent() {
                       fullWidth
                       variant="outlined"
                       size="small"
-                      className="bg-gray-50 rounded-lg"
+                      className="bg-primary-50 rounded-lg"
                       InputProps={{
-                        className: "text-gray-900",
+                        className: "text-primary-900",
                         style: { borderRadius: "12px" },
                       }}
                       InputLabelProps={{
-                        className: "text-gray-700 font-medium", // Medium font for labels
+                        className: "text-primary-700 font-medium", // Medium font for labels
                       }}
                     />
                   )}
@@ -441,13 +441,13 @@ export default function ProfileComponent() {
                       fullWidth
                       variant="outlined"
                       size="small"
-                      className="bg-gray-50 rounded-lg"
+                      className="bg-primary-50 rounded-lg"
                       InputProps={{
-                        className: "text-gray-900",
+                        className: "text-primary-900",
                         style: { borderRadius: "12px" },
                       }}
                       InputLabelProps={{
-                        className: "text-gray-700 font-medium", // Medium font for labels
+                        className: "text-primary-700 font-medium", // Medium font for labels
                       }}
                     />
                   )}
@@ -461,7 +461,7 @@ export default function ProfileComponent() {
             type="button"
             variant="outlined"
             onClick={() => setShowPasswordFields(!showPasswordFields)}
-            className="w-full md:w-auto text-gray-700 border-gray-300 hover:bg-gray-50 font-medium"
+            className="w-full md:w-auto text-primary-700 border-primary-300 hover:bg-primary-50 font-medium"
           >
             {showPasswordFields ? "Cancel Password Change" : "Change Password"}
           </Button>
@@ -481,7 +481,7 @@ export default function ProfileComponent() {
                 type="button"
                 variant="outlined"
                 onClick={handleCancel}
-                className="text-gray-700 border-gray-300 hover:bg-gray-50 font-semibold py-2 px-6 rounded-lg"
+                className="text-primary-700 border-primary-300 hover:bg-primary-50 font-semibold py-2 px-6 rounded-lg"
               >
                 Cancel
               </Button>

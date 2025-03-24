@@ -8,7 +8,7 @@ const ThemeSwitcherIcon = () => {
   const { theme, setTheme } = useTheme();
   return (
     <IconButton
-      className="w-10 h-10 border border-zinc-800"
+      className="w-10 h-10 border border-primary-800"
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}

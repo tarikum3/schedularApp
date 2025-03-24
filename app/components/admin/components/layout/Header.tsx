@@ -40,7 +40,7 @@ const Header = () => {
                 id="toggleSidebarMobile"
                 aria-expanded="true"
                 aria-controls="sidebar"
-                className="mr-2 text-gray-900 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded"
+                className="mr-2 text-primary-900 hover:text-primary-900 cursor-pointer p-2 hover:bg-primary-100 focus:bg-primary-100 focus:ring-2 focus:ring-primary-100 rounded"
                 onClick={openLeftSidebar} // Toggle the sidebar
               >
                 <MenuIcon className="w-6 h-6" />

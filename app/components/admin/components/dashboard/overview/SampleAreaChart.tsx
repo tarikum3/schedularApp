@@ -1,7 +1,3 @@
-
-
-
-
 "use client";
 import React from "react";
 
@@ -20,10 +16,18 @@ const colors = ["#8884d8", "#82ca9d", "#ffc658"];
 
 const SampleAreaChart = () => {
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
+    <div className="p-6 bg-primary-100 min-h-screen flex justify-center items-center">
       <div className="w-full max-w-3xl">
-        <h2 className="text-xl font-semibold text-center mb-4">Sales Performance</h2>
-        <GenericAreaChart data={sampleData} colors={colors} height={450} grid smooth />
+        <h2 className="text-xl font-semibold text-center mb-4">
+          Sales Performance
+        </h2>
+        <GenericAreaChart
+          data={sampleData}
+          colors={colors}
+          height={450}
+          grid
+          smooth
+        />
       </div>
     </div>
   );

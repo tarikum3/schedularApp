@@ -46,7 +46,7 @@ const LanguageSwitcher = () => {
         onClick={() => setIsOpen(!isOpen)}
         aria-haspopup="true"
         aria-expanded={isOpen}
-        className="flex items-center px-4 py-2 border border-gray-300 rounded-lg bg-white shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="flex items-center px-4 py-2 border border-primary-300 rounded-lg bg-primary-0 shadow-sm hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
         <img
           src={`/assets/flags/${locale}.png`}
@@ -54,7 +54,9 @@ const LanguageSwitcher = () => {
           className="w-6 h-6 mr-2"
           aria-hidden="true"
         />
-        <span className="uppercase font-semibold text-gray-700">{locale}</span>
+        <span className="uppercase font-semibold text-primary-700">
+          {locale}
+        </span>
       </button>
 
       {isOpen && (
@@ -62,7 +64,7 @@ const LanguageSwitcher = () => {
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="language-switcher"
-          className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+          className="absolute left-0 mt-2 w-48 bg-primary-0 border border-primary-200 rounded-lg shadow-lg z-50"
         >
           {languages.map((lng) => (
             <button
@@ -70,7 +72,7 @@ const LanguageSwitcher = () => {
               type="button"
               role="menuitem"
               onClick={() => handleLanguageChange(lng.value)}
-              className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+              className="flex items-center w-full px-4 py-2 text-left hover:bg-primary-100 focus:outline-none focus:bg-primary-100"
             >
               <img
                 src={`/assets/flags/${lng.value}.png`}
@@ -78,7 +80,7 @@ const LanguageSwitcher = () => {
                 className="w-6 h-6 mr-2"
                 aria-hidden="true"
               />
-              <span className="text-gray-700">{lng.label}</span>
+              <span className="text-primary-700">{lng.label}</span>
             </button>
           ))}
         </div>

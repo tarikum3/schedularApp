@@ -61,14 +61,14 @@ const UserView: FC = () => {
             <div className="absolute right-0 w-48 mt-2 origin-top-right rounded-md shadow-lg ">
               <div className="px-2 py-2 bg-primary-100 rounded-md shadow absolute right-0 ">
                 <button
-                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-primary-200 focus:bg-primary-200 focus:outline-none focus:shadow-outline"
                   onClick={() => router.push("/profile")}
                 >
                   {"My profile"}
                 </button>
 
                 <button
-                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-primary-200 focus:bg-primary-200 focus:outline-none focus:shadow-outline"
                   onClick={() => {
                     setTheme(theme === "dark" ? "light" : "dark");
                   }}
@@ -84,7 +84,7 @@ const UserView: FC = () => {
                 </button>
 
                 <button
-                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                  className="block cursor-pointer px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  md:mt-0 hover:text-primary-900 focus:text-primary-900 hover:bg-primary-200 focus:bg-primary-200 focus:outline-none focus:shadow-outline"
                   onClick={async () => {
                     await logOut();
                   }}

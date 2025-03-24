@@ -114,7 +114,7 @@ export default function SideBar() {
             id="toggleSidebarMobile"
             aria-expanded="true"
             aria-controls="sidebar"
-            className=" text-gray-900 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded"
+            className=" text-primary-900 hover:text-primary-900 cursor-pointer p-2 hover:bg-primary-100 focus:bg-primary-100 focus:ring-2 focus:ring-primary-100 rounded"
             onClick={closeLeftSidebar}
           >
             <CloseIcon className="w-6 h-6" />
@@ -122,12 +122,12 @@ export default function SideBar() {
         </div>
 
         {/* Sidebar Content */}
-        <div className="mt-1 w-full h-full overflow-y-auto bg-white p-2">
+        <div className="mt-1 w-full h-full overflow-y-auto bg-primary-0 p-2">
           <nav>
             {sideBarConfigs.map((config: any, index: number) => (
               <div className="my-1" key={index}>
                 {config.type === "divider" ? (
-                  <div className="border-t border-gray-300 my-2" />
+                  <div className="border-t border-primary-300 my-2" />
                 ) : (
                   <>
                     {config.children ? (

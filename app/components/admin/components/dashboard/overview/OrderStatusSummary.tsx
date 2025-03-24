@@ -232,7 +232,7 @@ const OrdersStatusSummary = () => {
 
   // <div className="w-full mt-6  grid grid-cols-2 gap-3 justify-items-center   sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 p-2">
   return (
-    <div className="bg-white text-primary-900  p-8 mx-auto rounded-lg shadow-sm w-full max-w-5xl">
+    <div className="bg-primary-0 text-primary-900  p-8 mx-auto rounded-lg shadow-sm w-full max-w-5xl">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold text-primary-900">
           Orders Status Summary
