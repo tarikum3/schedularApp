@@ -2,7 +2,7 @@ import AnalyticsPage from "@/app/components/admin/components/dashboard/Analytics
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Analytics",
+  title: "analytics",
 };
 
 export default async function Page() {

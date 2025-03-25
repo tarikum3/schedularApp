@@ -2,7 +2,7 @@ import OverViewPage from "@/app/components/admin/components/dashboard/overview/O
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "OverView",
+  title: "Overview",
 };
 
 export default async function Page() {
