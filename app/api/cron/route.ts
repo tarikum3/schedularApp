@@ -1,16 +1,14 @@
-///api/cron
-// import { NextResponse } from "next/server";
-
-// export async function GET() {}
-
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { sendScheduleReminderEmail } from "@/lib/email"; // Adjust the import path
 import prisma from "@lib/prisma";
 
-export async function GET() {
-  if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
-    return res.status(401).end('Unauthorized');
+export async function GET(request: NextRequest) {
+  const authHeader = request.headers.get("authorization");
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response("Unauthorized", {
+      status: 401,
+    });
   }
   try {
     const today = new Date();
