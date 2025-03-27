@@ -32,36 +32,6 @@ export const sendPasswordResetEmail = async (to: string, token: string) => {
   }
 };
 
-// export const sendScheduleReminderEmail = async (
-//   to: string[],
-//   message: string
-// ) => {
-//   const transporter = nodemailer.createTransport({
-//     service: "Gmail",
-//     auth: {
-//       user: process.env.EMAIL_FROM,
-//       pass: process.env.EMAIL_PASSWORD,
-//     },
-//     secure: true, // SSL
-//     port: 465,
-//     logger: true, // Enable detailed logging
-//   });
-
-//   try {
-//     const resend = await transporter.sendMail({
-//       from: process.env.EMAIL_FROM,
-//       to: to.join(", "), // Join the array of emails into a single string
-//       subject: "Schedule Reminder",
-//       html: `<p>${message}</p>`,
-//     });
-//     console.log("Email sent successfully:", resend);
-//     //return NextResponse.json({ success: true, message: "Emails sent successfully" });
-//   } catch (error) {
-//     console.error("Error sending email:", error);
-//     // return NextResponse.json({ success: false, message: "Failed to send emails" }, { status: 500 });
-//   }
-// };
-
 export const sendScheduleReminderEmail = async (
   to: string[],
   message: string

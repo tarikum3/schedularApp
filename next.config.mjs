@@ -1,5 +1,5 @@
-import createNextIntlPlugin from 'next-intl/plugin';
- 
+import createNextIntlPlugin from "next-intl/plugin";
+
 const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -14,7 +14,7 @@ const nextConfig = {
         // hostname: "cdn.shopify.com",
         // pathname: "/s/files/**",
         protocol: "https",
-        hostname: "qvkdnhfbjppmzromhdae.supabase.co",
+        hostname: "nwgwbljftmhlnzdqhysq.supabase.co",
         pathname: "/storage/**",
       },
     ],
