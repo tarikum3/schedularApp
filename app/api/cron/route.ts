@@ -9,6 +9,9 @@ import { sendScheduleReminderEmail } from "@/lib/email"; // Adjust the import pa
 import prisma from "@lib/prisma";
 
 export async function GET() {
+  if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+    return res.status(401).end('Unauthorized');
+  }
   try {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to the start of the day
