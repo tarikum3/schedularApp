@@ -42,6 +42,8 @@
   "ScheduleItem": {
     "edit": "አርትዕ",
     "delete": "ሰርዝ",
+    "CreateSchedule": "ስክድዩል ፍጠር",
+    "UpdateSchedule": "ስክድዩል አሻሽል",
     "scheduleType": {
       "full": "ሙሉ",
       "mini": "አጭር"

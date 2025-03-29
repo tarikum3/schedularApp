@@ -42,6 +42,8 @@
   "ScheduleItem": {
     "edit": "Edit",
     "delete": "Delete",
+    "CreateSchedule": "Create Schedule",
+    "UpdateSchedule": "Update Schedule",
     "scheduleType": {
       "full": "Full",
       "mini": "Mini"
