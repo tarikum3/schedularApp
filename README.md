@@ -1,42 +1,81 @@
-schedular app
-This is a Next.js project bootstrapped with create-next-app.
+Scheduler Application
+Overview
+This is a Next.js-based scheduling application with a comprehensive feature set for managing appointments, user authentication, and data visualization. The application utilizes modern React libraries and integrates with various backend services.
 
-🚀 Getting Started
-To run the development server:
+Key Features
+Core Functionality
+Appointment Management: Comprehensive system for creating and managing appointments
+
+Calendar Integration: Scheduling capabilities with date range selection
+
+User Management
+Authentication: Secure user authentication system
+
+Form Validation: Robust form handling with validation
+
+Data Handling
+State Management: Redux-based state management
+
+Database Integration: Prisma ORM for database operations
+
+UI Components
+Material UI: Comprehensive UI component library
+
+Responsive Design: Tailwind CSS for styling
+
+Theme Support: Dark/light mode theming (next-themes)
+
+Internationalization
+Multi-language support (english and amharic)
+
+Development Setup
+Prerequisites
+Node.js (version compatible with package.json)
+
+PostgreSQL (or other Prisma-supported database)
+
+Optional: Supabase account if using Supabase features
+
+Installation
+Clone the repository
+
+Install dependencies:
 
 bash
-Copy code
-npm run dev
+Copy
+npm install
+Set up environment variables (see .env.example for required variables)
 
-# or
+Run database migrations:
 
-yarn dev
+bash
+Copy
+npx prisma migrate dev
+Scripts
+npm run dev: Start development server
 
-# or
+npm run build: Create production build
 
-pnpm dev
+npm run start: Start production server
 
-# or
+npm run vercel-build: Build command for Vercel deployment (includes Prisma setup)
 
-bun dev
-Once the server is running, open your browser and navigate to http://localhost:3000 to view your app.
+npm run lint: Run ESLint
 
-🛠️ Features
-Font Optimization: Leverages next/font for automatic Google Font optimization.
-Theme Support: Uses next-themes for theme switching.
-Authentication: Integrated with next-auth for secure authentication.
-Database: Configured with Prisma for database ORM and PostgreSQL as the database.
-Utility Libraries: Includes utility packages like lodash, clsx, and zod for a smoother development experience.
-Styling: Styled with tailwindcss for modern, responsive designs.
+Deployment
+The application includes Vercel-specific build scripts and can be deployed to Vercel or other platforms supporting Next.js applications. Ensure database connection strings and authentication providers are properly configured in production environment variables.
 
-📚 Learning Resources
-To learn more about the technologies used in this project, refer to the following resources:
+Technology Stack
+Frontend: Next.js 14, React 18
 
-Next.js Documentation: Explore the features and API of Next.js.
-Next.js Learn: An interactive tutorial for Next.js.
-Prisma Documentation: Learn about Prisma ORM.
-Tailwind CSS Documentation: Style your application with Tailwind.
-🛳️ Deployment
-Deploy your Next.js application seamlessly on Vercel, the official platform from the creators of Next.js.
+Styling: Material UI, Tailwind CSS
 
-Follow the Next.js deployment guide for detailed instructions.
+State Management: Redux Toolkit
+
+Database: Prisma ORM (PostgreSQL recommended)
+
+Authentication: NextAuth.js
+
+Internationalization: next-intl
+
+License
