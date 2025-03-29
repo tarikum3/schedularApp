@@ -80,8 +80,8 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({
     );
 
   return (
-    <div className="max-w-sm mx-auto bg-primary-0 text-primary shadow-sm rounded-lg overflow-hidden mb-3">
-      <div className="flex flex-col sm:flex-row sm:items-center px-3 py-2 border">
+    <div className="max-w-sm mx-auto bg-primary-0 text-primary shadow-sm rounded-lg  mb-3">
+      <div className="w-full max-w-sm flex flex-col sm:flex-row sm:items-center px-3 py-2 border">
         <div className="flex-auto mt-1 sm:mt-0 sm:ml-2 text-center sm:text-left">
           <p className="text-sm text-primary font-medium">{item.name}</p>
           <p className="text-xs leading-tight text-primary-600">
