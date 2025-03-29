@@ -10,9 +10,10 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       console.log("nextUrl ", nextUrl);
       const isOnAuthPage = nextUrl.pathname.startsWith("/auth");
+      const isOnMainPage = nextUrl.pathname.endsWith("/");
       //if (isLoggedIn) return true;
       if (isLoggedIn) {
-        if (isOnAuthPage)
+        if (isOnAuthPage || isOnMainPage)
           return Response.redirect(new URL("/schedular", nextUrl));
 
         return true;
