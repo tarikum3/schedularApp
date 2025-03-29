@@ -29,7 +29,7 @@ const Month: React.FC<MonthProps> = ({
   const startDate = startOfWeek(monthStart);
   const endDate = endOfWeek(monthEnd);
   const days = eachDayOfInterval({ start: startDate, end: endDate });
-
+  console.log("mappedmonth", mappedData);
   return (
     <div>
       <div className="grid grid-cols-7">
