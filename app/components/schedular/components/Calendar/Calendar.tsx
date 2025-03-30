@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React, { useEffect, useState, useCallback, useMemo } from "react";
@@ -73,6 +71,7 @@ const Calendar: React.FC = () => {
       });
       setMappedData(mapped);
     }
+    console.log("mappedmonthdaysData", daysData);
   }, [daysData]);
 
   const handleYearChange = useCallback(
