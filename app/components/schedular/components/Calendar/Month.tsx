@@ -35,7 +35,7 @@ const Month: React.FC<MonthProps> = ({
       <div className="grid grid-cols-7">
         {days.map((day) => {
           const mappeday = format(new Date(day), "yyyy-MM-dd");
-          const schedules = mappedData[mappeday] ?? [];
+          const schedules = mappedData ? mappedData[mappeday] ?? [] : [];
           return (
             <Day
               key={day.toString()}
