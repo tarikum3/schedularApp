@@ -42,6 +42,7 @@
   "ScheduleItem": {
     "edit": "Edit",
     "delete": "Delete",
+    "Save": "Save",
     "CreateSchedule": "Create Schedule",
     "UpdateSchedule": "Update Schedule",
     "scheduleType": {

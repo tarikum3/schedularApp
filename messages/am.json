@@ -42,6 +42,7 @@
   "ScheduleItem": {
     "edit": "አርትዕ",
     "delete": "ሰርዝ",
+    "Save": "አስቀምጥ",
     "CreateSchedule": "ስክድዩል ፍጠር",
     "UpdateSchedule": "ስክድዩል አሻሽል",
     "scheduleType": {

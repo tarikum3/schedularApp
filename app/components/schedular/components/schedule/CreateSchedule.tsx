@@ -480,7 +480,7 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
           size="large"
           fullWidth
         >
-          {item ? t("Update") : t("Save")}
+          {t("Save")}
         </Button>
       </form>
     </div>
