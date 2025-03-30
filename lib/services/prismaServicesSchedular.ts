@@ -163,7 +163,7 @@ export const getDaysByYear = async ({
       },
     });
 
-    return days;
+    return { days };
   } catch (error) {
     throw new Error("Unable to fetch schedues.");
   }
