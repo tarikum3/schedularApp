@@ -5,41 +5,16 @@ import { format, isSameMonth, isSameDay } from "date-fns";
 import dynamic from "next/dynamic";
 import { Schedule } from "@/lib/admin/store/services/schedule.service";
 import { useTranslations } from "next-intl";
+import {
+  ModalSkeleton,
+  CreateScheduleSkeleton,
+  ScheduleItemSkeleton,
+} from "@/app/components/schedular/components/ui/Skeletons";
 
-// Skeleton Loading Components
-// const SkeletonLoading = () => (
-//   <div className="relative p-4 text-center border cursor-pointer transition-all duration-200 bg-primary-100">
-//     <div className="flex flex-col items-center">
-//       {/* Date Skeleton */}
-//       <div className="w-6 h-6 bg-primary-200 rounded-full mb-2 animate-pulse" />
-
-//       {/* Schedule Type Indicators Skeleton */}
-//       <div className="flex -space-x-2.5 mt-1 justify-end">
-//         {[1, 2, 3].map((_, index) => (
-//           <div
-//             key={index}
-//             className="w-5 h-5 bg-primary-200 rounded-full animate-pulse"
-//           />
-//         ))}
-//       </div>
-//     </div>
-
-//     {/* Dropdown Button Skeleton */}
-//     <div className="absolute bottom-1 left-1">
-//       <div className="w-6 h-6 bg-primary-200 rounded-full animate-pulse" />
-//     </div>
-//   </div>
-// );
-
-const ModalSkeleton = () => (
-  <div className="fixed  w-screen h-screen p-4 bg-primary-100 animate-pulse"></div>
-);
 const CreateSchedule = dynamic(
   () => import("@/app/components/schedular/components/schedule/CreateSchedule"),
   {
-    loading: () => (
-      <div className="w-full h-full p-4 bg-primary-100 animate-pulse"></div>
-    ),
+    loading: () => <CreateScheduleSkeleton />,
     ssr: false,
   }
 );
@@ -55,7 +30,7 @@ const ModalComponent = dynamic(
 const ScheduleItem = dynamic(
   () => import("@/app/components/schedular/components/schedule/ScheduleItem"),
   {
-    loading: () => <div className="p-2 bg-primary-100 animate-pulse"></div>,
+    loading: () => <ScheduleItemSkeleton />,
     ssr: false,
   }
 );
