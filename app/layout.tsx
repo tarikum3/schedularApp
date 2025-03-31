@@ -7,7 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import SessionWrapper from "@/app/components/schedular/components/common/SessionWrapper";
 //import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import MuiThemeProvider from "@/app/components/schedular/components/ui/MUIthemeprovider";
+import MuiThemeProvider from "@/app/components/schedular/components/ui/MuiThemeProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
