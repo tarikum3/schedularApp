@@ -2,7 +2,7 @@
 import { FC } from "react";
 
 import { Info } from "@/app/components/icons";
-import { useUI } from "@/app/components/context";
+//import { useUI } from "@/app/components/context";
 import { Logo, Button, Input } from "@/app/components";
 
 import { register } from "@lib/actions/actions";
@@ -11,7 +11,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { useSearchParams } from "next/navigation";
 
 const SignUpView: FC = () => {
-  const { setModalView, closeModal } = useUI();
+  //const { setModalView, closeModal } = useUI();
   const searchParam = useSearchParams();
   // const { notRegistered } = useParams();
   const [errorMessage, dispatch] = useFormState(register, {} as any);
@@ -64,7 +64,8 @@ const SignUpView: FC = () => {
           {` `}
           <a
             className="text-primary-900  font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView("LOGIN_VIEW")}
+            //onClick={() => setModalView("LOGIN_VIEW")}
+            href="/auth/login"
           >
             Log In
           </a>

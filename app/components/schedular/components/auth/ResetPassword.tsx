@@ -1,16 +1,16 @@
 "use client";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Logo, Button, Input } from "@/app/components";
-import { useUI } from "@/app/components/context";
+//import { useUI } from "@/app/components/context";
 
 export default function ResetPassword() {
   const searchParam = useSearchParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const { setModalView } = useUI();
-
+  // const { setModalView } = useUI();
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -30,7 +30,8 @@ export default function ResetPassword() {
 
     if (res.status === 200) {
       setMessage("success");
-      setModalView("LOGIN_VIEW");
+      // setModalView("LOGIN_VIEW");
+      router.push("/auth/login");
     } else {
       if (res.status === 400) {
         setMessage("Token is invalid or has expired");
@@ -88,7 +89,8 @@ export default function ResetPassword() {
             {message}
             <a
               className="text-primary-900 font-bold hover:underline cursor-pointer ml-1"
-              onClick={() => setModalView("FORGOT_VIEW")}
+              //onClick={() => setModalView("FORGOT_VIEW")}
+              href="/auth/forgot"
             >
               resend link
             </a>
