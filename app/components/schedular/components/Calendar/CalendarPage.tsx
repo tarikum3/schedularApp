@@ -4,12 +4,16 @@ import dynamic from "next/dynamic";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Calendar = dynamic(
-  () => import("@components/schedular/components/Calendar/Calendar")
+  () => import("@components/schedular/components/Calendar/Calendar"),
+  {
+    // loading: () => <ScheduleListSkeleton />,
+    ssr: false,
+  }
 );
 
 const ScheduleListSkeleton = () => (
   <div className="w-full p-4  h-full overflow-y-clip">
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <div className="animate-pulse">
         <div className="h-24 bg-primary-200 rounded-lg mb-2"></div>
         <div className="h-full bg-primary-200 rounded-lg"></div>
@@ -68,4 +72,4 @@ const CalendarPage: React.FC = () => {
   );
 };
 
-export default React.memo(CalendarPage);
+export default CalendarPage;
