@@ -3,10 +3,11 @@ import { getLocale, getMessages } from "next-intl/server";
 import StoreProvider from "@components/schedular/storeProvider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "@/app/theme";
+//import theme from "@/app/theme";
 import SessionWrapper from "@/app/components/schedular/components/common/SessionWrapper";
 //import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import MuiThemeProvider from "@/app/components/schedular/components/ui/MUIthemeprovider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -44,11 +45,13 @@ export default async function RootLayout({
           <AppRouterCacheProvider
           //  options={{ enableCssLayer: true }}
           >
-            <ThemeProvider theme={theme}>
-              <StoreProvider>
-                <SessionWrapper>{children}</SessionWrapper>
-              </StoreProvider>{" "}
-            </ThemeProvider>
+            {/* <ThemeProvider theme={theme}> */}
+            <StoreProvider>
+              <SessionWrapper>
+                <MuiThemeProvider>{children}</MuiThemeProvider>
+              </SessionWrapper>
+            </StoreProvider>{" "}
+            {/* </ThemeProvider> */}
           </AppRouterCacheProvider>
         </NextIntlClientProvider>
       </body>
