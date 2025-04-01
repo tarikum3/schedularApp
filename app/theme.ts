@@ -124,9 +124,9 @@ const baseTheme = {
     MuiInputBase: {
       styleOverrides: {
         root: {
-          backgroundColor: COLORS.primary[100],
+          // backgroundColor: COLORS.primary[100],
           borderRadius: "12px",
-          border: `1px solid ${COLORS.primary[500]}`,
+          //  border: `1px solid ${COLORS.primary[500]}`,
           color: COLORS.primary[900],
           padding: "8px 24px",
           width: "100%",
