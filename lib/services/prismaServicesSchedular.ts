@@ -206,8 +206,8 @@ export const createSchedule = async ({
 }) => {
   const { startDate, endDate, days, scheduleType, name } = scheduleBody;
 
-  await generateDefaultDays(new Date(startDate).getFullYear());
-  await generateDefaultDays(new Date(endDate).getFullYear());
+  // await generateDefaultDays(new Date(startDate).getFullYear());
+  // await generateDefaultDays(new Date(endDate).getFullYear());
 
   try {
     const relatedDays = await prisma.day.findMany({
