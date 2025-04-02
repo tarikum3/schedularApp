@@ -45,9 +45,9 @@ interface DayProps {
 }
 
 const scheduleTypeColors = {
-  MEETING: "bg-accent-notification-500",
-  APPOINTMENT: "bg-accent-positive-500",
-  PERSONAL: "bg-accent-warning-500",
+  MEETING: "bg-accent-danger-800",
+  APPOINTMENT: "bg-accent-positive-800",
+  PERSONAL: "bg-accent-warning-800",
 };
 
 const Day: React.FC<DayProps> = ({
