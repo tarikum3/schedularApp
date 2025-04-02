@@ -334,9 +334,10 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
       if (item) {
         res = await updateSchedule({ id: item.id, ...data });
       } else {
-        await createSchedule(data as any);
+        res = await createSchedule(data as any);
       }
-      router.push("/");
+      //router.push("/");
+      window.location.reload();
       console.log("secheduleres", res);
     } catch (error) {
       console.error("Error submitting data:", error);
