@@ -274,7 +274,7 @@ import {
   Schedule,
 } from "@/lib/admin/store/services/schedule.service";
 import { useTranslations } from "next-intl";
-
+import { useRouter } from "next/navigation";
 // Define the schedule types and days of the week
 const scheduleTypeList = ["MEETING", "APPOINTMENT", "PERSONAL"];
 const daysList = [
@@ -321,7 +321,7 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
 
   const [createSchedule] = useCreateScheduleMutation();
   const [updateSchedule] = useUpdateScheduleMutation();
-
+  const router = useRouter();
   // Reset the form when the item changes
   useEffect(() => {
     reset(defaultValues);
@@ -330,11 +330,14 @@ const CreateSchedule: React.FC<{ item?: Schedule }> = ({ item }) => {
   // Handle form submission
   const handleFormSubmit = async (data: Record<string, any>) => {
     try {
+      let res;
       if (item) {
-        await updateSchedule({ id: item.id, ...data });
+        res = await updateSchedule({ id: item.id, ...data });
       } else {
         await createSchedule(data as any);
       }
+      router.push("/");
+      console.log("secheduleres", res);
     } catch (error) {
       console.error("Error submitting data:", error);
     }
