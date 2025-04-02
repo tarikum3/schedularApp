@@ -123,10 +123,21 @@ const Day: React.FC<DayProps> = ({
                 aria-label={`Schedule type: ${type}`}
               />
             ))}
+            {schedules.length > 0 && (
+              <div className="">
+                <button
+                  onClick={toggleDropdown}
+                  className="text-xs text-primary-600 hover:text-primary-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  aria-label={`Toggle dropdown for ${schedules.length} schedules`}
+                >
+                  {schedules.length}
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
-        {schedules.length > 0 && (
+        {/* {schedules.length > 0 && (
           <div className="absolute bottom-1 left-1">
             <button
               onClick={toggleDropdown}
@@ -140,6 +151,12 @@ const Day: React.FC<DayProps> = ({
                 <ul>{dropdownSchedules}</ul>
               </div>
             )}
+          </div>
+        )} */}
+
+        {dropdownOpen && (
+          <div className="absolute left-0 mt-1 w-40 bg-primary-0 border border-primary-200 rounded-lg shadow-lg z-10">
+            <ul>{dropdownSchedules}</ul>
           </div>
         )}
       </div>
