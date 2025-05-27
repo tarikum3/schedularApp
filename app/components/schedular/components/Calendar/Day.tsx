@@ -127,7 +127,7 @@ const Day: React.FC<DayProps> = ({
               <div className="">
                 <button
                   onClick={toggleDropdown}
-                  className="text-xs text-primary-800 hover:text-primary-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-800"
+                  className="text-xs text-primary-200 hover:text-primary-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-200"
                   aria-label={`Toggle dropdown for ${schedules.length} schedules`}
                 >
                   {schedules.length}
