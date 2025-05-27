@@ -18,7 +18,7 @@ const LoginView: React.FC = () => {
   return (
     <form
       action={dispatch}
-      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg border border-primary-500"
+      className="w-80 flex flex-col justify-between p-6 space-y-4 rounded-lg "
     >
       <div className="flex justify-center pb-8">
         <Logo width="64px" height="64px" />

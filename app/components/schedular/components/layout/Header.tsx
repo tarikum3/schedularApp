@@ -1,13 +1,21 @@
 "use client";
 
 import React from "react";
-import { Menu as MenuIcon } from "@mui/icons-material";
-import LanguageSwitcher from "@/app/components/schedular/components/ui/LanguageSwitcher";
-// import NotificationIcon from "@/app/components/admin/components/notification/NotificationIcon";
-import ThemeSwitcher from "@/app/components/schedular/components/ui/ThemeSwitcher";
+
 import { useUI } from "@/app/components/schedular/components/ui/UIContext";
-import UserButton from "@/app/components/schedular/components/User/UserButton";
+
 import { Logo } from "@/app/components";
+import dynamic from "next/dynamic";
+
+const ToolBar = dynamic(
+  () => import("@/app/components/schedular/components/layout/Toolbar"),
+  {
+    loading: () => (
+      <div className="bg-primary-400 flex items-center space-x-4 px-8 size-6"></div>
+    ),
+    ssr: false,
+  }
+);
 const Header = () => {
   const { displayLeftSidebar, openLeftSidebar } = useUI();
   console.log("displayLeftSidebarrr", displayLeftSidebar);
@@ -19,9 +27,10 @@ const Header = () => {
             <Logo className="w-10 h-10" />
           </div>
           <div className="flex items-center space-x-4 px-8 h-full">
-            <LanguageSwitcher />
+            {/* <LanguageSwitcher />
             <ThemeSwitcher />
-            <UserButton />
+            <UserButton /> */}
+            <ToolBar />
           </div>
         </div>
       </div>
