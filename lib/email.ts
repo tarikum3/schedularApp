@@ -36,6 +36,8 @@ export const sendScheduleReminderEmail = async (
   to: string[],
   message: string
 ) => {
+  console.log("process.env.EMAIL_FROM", process.env.EMAIL_FROM);
+  console.log("process.env.EMAIL_PASSWORD", process.env.EMAIL_PASSWORD);
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
