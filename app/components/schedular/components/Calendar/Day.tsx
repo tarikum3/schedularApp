@@ -45,9 +45,9 @@ interface DayProps {
 }
 
 const scheduleTypeColors = {
-  MEETING: "bg-accent-danger-800",
-  APPOINTMENT: "bg-accent-positive-800",
-  PERSONAL: "bg-accent-warning-800",
+  MEETING: "bg-accent-danger-600",
+  APPOINTMENT: "bg-accent-positive-600",
+  PERSONAL: "bg-accent-warning-600",
 };
 
 const Day: React.FC<DayProps> = ({
@@ -127,7 +127,7 @@ const Day: React.FC<DayProps> = ({
               <div className="">
                 <button
                   onClick={toggleDropdown}
-                  className="text-xs text-primary-600 hover:text-primary-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="text-xs text-primary-800 hover:text-primary-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-800"
                   aria-label={`Toggle dropdown for ${schedules.length} schedules`}
                 >
                   {schedules.length}
