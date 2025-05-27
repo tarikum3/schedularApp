@@ -141,27 +141,27 @@ export default function ProfileComponent() {
             "0 10px 30px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05)",
         }}
       >
-        <Typography
-          variant="h3"
+        <h3
+          // variant="h3"
           className="text-4xl font-bold text-primary-900 mb-8"
-          style={{
-            fontFamily: "'Poppins', sans-serif", // Bold and modern font for headings
-          }}
+          // style={{
+          //   fontFamily: "'Poppins', sans-serif", // Bold and modern font for headings
+          // }}
         >
           My Profile
-        </Typography>
+        </h3>
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
           {/* Personal Information Section */}
           <div className="space-y-6">
-            <Typography
-              variant="h5"
+            <h5
+              // variant="h5"
               className="text-2xl font-semibold text-primary-800"
-              style={{
-                fontFamily: "'Poppins', sans-serif", // Semi-bold for section headings
-              }}
+              // style={{
+              //   fontFamily: "'Poppins', sans-serif", // Semi-bold for section headings
+              // }}
             >
               Personal Information
-            </Typography>
+            </h5>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Controller
                 name="firstName"
