@@ -118,7 +118,7 @@ const Day: React.FC<DayProps> = ({
         <div className="flex flex-col items-center ">
           <span className="text-lg font-semibold relative">
             {formattedDate}{" "}
-            <div className="flex -space-x-2.5 mt-1 justify-end absolute left-full bottom-full">
+            <div className="flex -space-x-2.5 mt-1 justify-end absolute left-full bottom-1/2">
               {scheduleTypesPresent.map((type, index) => (
                 <div
                   key={index}
@@ -131,7 +131,7 @@ const Day: React.FC<DayProps> = ({
                 <div className="">
                   <button
                     onClick={toggleDropdown}
-                    className="text-xs text-primary-100 hover:text-primary-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-200"
+                    className="text-xs text-white hover:text-primary-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-200"
                     aria-label={`Toggle dropdown for ${schedules.length} schedules`}
                   >
                     {schedules.length}
