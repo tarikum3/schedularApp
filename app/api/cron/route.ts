@@ -4,6 +4,7 @@ import { sendScheduleReminderEmail } from "@/lib/email"; // Adjust the import pa
 import prisma from "@lib/prisma";
 
 export async function GET(request: NextRequest) {
+  await sendScheduleReminderEmail(["bishawm3@gmail.com"], "test from cron");
   const authHeader = request.headers.get("authorization");
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return new Response("Unauthorized", {

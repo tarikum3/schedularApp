@@ -112,9 +112,9 @@ const Day: React.FC<DayProps> = ({
         aria-label={`Select date ${formattedFullDate}`}
         tabIndex={0}
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center relative">
           <span className="text-lg font-semibold">{formattedDate}</span>
-          <div className="flex -space-x-2.5 mt-1 justify-end">
+          <div className="flex -space-x-2.5 mt-1 justify-end absolute left-full bottom-full">
             {scheduleTypesPresent.map((type, index) => (
               <div
                 key={index}
