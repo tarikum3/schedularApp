@@ -44,16 +44,16 @@ interface DayProps {
   schedules?: Schedule[];
 }
 
-// const scheduleTypeColors = {
-//   MEETING: "bg-accent-danger-600",
-//   APPOINTMENT: "bg-accent-positive-600",
-//   PERSONAL: "bg-accent-warning-600",
-// };
 const scheduleTypeColors = {
-  MEETING: "bg-red-500",
-  APPOINTMENT: "bg-green-500",
-  PERSONAL: "bg-amber-500",
+  MEETING: "bg-accent-danger-400",
+  APPOINTMENT: "bg-accent-positive-400",
+  PERSONAL: "bg-accent-warning-400",
 };
+// const scheduleTypeColors = {
+//   MEETING: "bg-red-400",
+//   APPOINTMENT: "bg-green-500",
+//   PERSONAL: "bg-amber-500",
+// };
 const Day: React.FC<DayProps> = ({
   day,
   monthStart,
