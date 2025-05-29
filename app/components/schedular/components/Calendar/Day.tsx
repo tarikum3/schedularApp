@@ -45,9 +45,9 @@ interface DayProps {
 }
 
 const scheduleTypeColors = {
-  MEETING: "bg-accent-danger-400",
-  APPOINTMENT: "bg-accent-positive-400",
-  PERSONAL: "bg-accent-warning-400",
+  MEETING: "bg-accent-danger-500",
+  APPOINTMENT: "bg-accent-positive-500",
+  PERSONAL: "bg-accent-warning-500",
 };
 // const scheduleTypeColors = {
 //   MEETING: "bg-red-400",
