@@ -118,11 +118,11 @@ const Day: React.FC<DayProps> = ({
         <div className="flex flex-col items-center ">
           <span className="text-lg font-semibold relative">
             {formattedDate}{" "}
-            <div className="flex -space-x-2 mt-1 justify-end absolute left-full bottom-1/2">
+            <div className="flex -space-x-3 mt-1 justify-end absolute left-full bottom-1/2">
               {scheduleTypesPresent.map((type, index) => (
                 <div
                   key={index}
-                  className={`w-5 h-5 rounded-full ${scheduleTypeColors[type]}`}
+                  className={`w-4 h-4 rounded-full ${scheduleTypeColors[type]}`}
                   title={type}
                   aria-label={`Schedule type: ${type}`}
                 />
