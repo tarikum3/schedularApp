@@ -4,6 +4,10 @@ import { sendScheduleReminderEmail } from "@/lib/email"; // Adjust the import pa
 import prisma from "@lib/prisma";
 
 export async function GET(request: NextRequest) {
+  await sendScheduleReminderEmail(
+    ["bishawm3@gmail.com"],
+    `Bearer ${process.env.CRON_SECRET}`
+  );
   const authHeader = request.headers.get("authorization");
   await sendScheduleReminderEmail(
     ["bishawm3@gmail.com"],
