@@ -118,7 +118,7 @@ const Day: React.FC<DayProps> = ({
         <div className="flex flex-col items-center ">
           <span className="text-lg font-semibold relative">
             {formattedDate}{" "}
-            <div className="flex -space-x-2.5 mt-1 justify-end absolute left-full bottom-1/2">
+            <div className="flex -space-x-2 mt-1 justify-end absolute left-full bottom-1/2">
               {scheduleTypesPresent.map((type, index) => (
                 <div
                   key={index}
