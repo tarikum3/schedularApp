@@ -1,6 +1,6 @@
 Scheduler Application
 Overview
-This is a Next.js-based scheduling application with a comprehensive feature set for managing appointments, user authentication, and data visualization. The application utilizes modern React libraries and integrates with various backend services.
+This is a Next.js-based scheduling application with a comprehensive feature set for managing appointments, meeting, and personal schedule. The application utilizes modern React libraries and integrates with various backend services.
 
 Key Features
 Core Functionality
@@ -27,14 +27,6 @@ Theme Support: Dark/light mode theming (next-themes)
 
 Internationalization
 Multi-language support (english and amharic)
-
-Development Setup
-Prerequisites
-Node.js (version compatible with package.json)
-
-PostgreSQL (or other Prisma-supported database)
-
-Optional: Supabase account if using Supabase features
 
 Installation
 Clone the repository
@@ -71,8 +63,6 @@ Frontend: Next.js 14, React 18
 Styling: Material UI, Tailwind CSS
 
 State Management: Redux Toolkit
-
-Database: Prisma ORM (PostgreSQL recommended)
 
 Authentication: NextAuth.js
 
