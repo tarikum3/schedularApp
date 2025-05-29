@@ -44,12 +44,16 @@ interface DayProps {
   schedules?: Schedule[];
 }
 
+// const scheduleTypeColors = {
+//   MEETING: "bg-accent-danger-600",
+//   APPOINTMENT: "bg-accent-positive-600",
+//   PERSONAL: "bg-accent-warning-600",
+// };
 const scheduleTypeColors = {
-  MEETING: "bg-accent-danger-600",
-  APPOINTMENT: "bg-accent-positive-600",
-  PERSONAL: "bg-accent-warning-600",
+  MEETING: "bg-red-500",
+  APPOINTMENT: "bg-green-500",
+  PERSONAL: "bg-amber-500",
 };
-
 const Day: React.FC<DayProps> = ({
   day,
   monthStart,
@@ -112,29 +116,31 @@ const Day: React.FC<DayProps> = ({
         aria-label={`Select date ${formattedFullDate}`}
         tabIndex={0}
       >
-        <div className="flex flex-col items-center relative">
-          <span className="text-lg font-semibold">{formattedDate}</span>
-          <div className="flex -space-x-2.5 mt-1 justify-end absolute left-full bottom-full">
-            {scheduleTypesPresent.map((type, index) => (
-              <div
-                key={index}
-                className={`w-5 h-5 rounded-full ${scheduleTypeColors[type]}`}
-                title={type}
-                aria-label={`Schedule type: ${type}`}
-              />
-            ))}
-            {schedules.length > 0 && (
-              <div className="">
-                <button
-                  onClick={toggleDropdown}
-                  className="text-xs text-primary-200 hover:text-primary-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-200"
-                  aria-label={`Toggle dropdown for ${schedules.length} schedules`}
-                >
-                  {schedules.length}
-                </button>
-              </div>
-            )}
-          </div>
+        <div className="flex flex-col items-center ">
+          <span className="text-lg font-semibold relative">
+            {formattedDate}{" "}
+            <div className="flex -space-x-2.5 mt-1 justify-end absolute left-full bottom-full">
+              {scheduleTypesPresent.map((type, index) => (
+                <div
+                  key={index}
+                  className={`w-5 h-5 rounded-full ${scheduleTypeColors[type]}`}
+                  title={type}
+                  aria-label={`Schedule type: ${type}`}
+                />
+              ))}
+              {schedules.length > 0 && (
+                <div className="">
+                  <button
+                    onClick={toggleDropdown}
+                    className="text-xs text-primary-100 hover:text-primary-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-200"
+                    aria-label={`Toggle dropdown for ${schedules.length} schedules`}
+                  >
+                    {schedules.length}
+                  </button>
+                </div>
+              )}
+            </div>
+          </span>
         </div>
 
         {/* {schedules.length > 0 && (
