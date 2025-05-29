@@ -72,7 +72,6 @@ const Day: React.FC<DayProps> = ({
   const isCurrentMonth = isSameMonth(day, monthStart);
   const isSelectedDay = isSameDay(day, selectedDate);
 
-  // Memoize schedule types to avoid recalculating on every render
   const scheduleTypesPresent = useMemo(() => {
     return Array.from(
       new Set(schedules.map((schedule) => schedule.scheduleType))
