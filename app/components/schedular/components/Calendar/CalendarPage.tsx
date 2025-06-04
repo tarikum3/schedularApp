@@ -2,11 +2,14 @@
 import React, { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import MenuIcon from "@mui/icons-material/Menu";
-import { ScheduleListSkeleton } from "@/app/components/schedular/components/ui/Skeletons";
+import {
+  ScheduleListSkeleton,
+  CalendarSkeleton,
+} from "@/app/components/schedular/components/ui/Skeletons";
 const Calendar = dynamic(
   () => import("@components/schedular/components/Calendar/Calendar"),
   {
-    // loading: () => <ScheduleListSkeleton />,
+    loading: () => <CalendarSkeleton />,
     ssr: false,
   }
 );
