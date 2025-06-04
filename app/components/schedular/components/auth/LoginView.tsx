@@ -29,12 +29,19 @@ const LoginView: React.FC = () => {
           <div className="text-accent-danger-600 text-sm">{errorMessage}</div>
         )}
 
-        <Input type="email" id="email" name="email" placeholder="Email" />
+        <Input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          defaultValue="test@email.com"
+        />
         <Input
           type="password"
           id="password"
           name="password"
           placeholder="Password"
+          defaultValue="9427230912"
         />
 
         <div className="flex justify-center pt-4">
