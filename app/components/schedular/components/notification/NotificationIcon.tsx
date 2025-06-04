@@ -13,7 +13,7 @@ const NotificationIcon = () => {
   } = useGetNotificationsQuery({});
   return (
     <IconButton
-      className="w-10 h-10 "
+      className="w-10 h-10 border border-primary-300 "
       onClick={openRightSidebar}
       //  color="primary"
     >
