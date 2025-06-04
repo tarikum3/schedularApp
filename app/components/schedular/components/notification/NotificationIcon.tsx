@@ -12,21 +12,26 @@ const NotificationIcon = () => {
     isError,
   } = useGetNotificationsQuery({});
   return (
-    <IconButton
-      className="w-10 h-10 border border-primary-300 "
-      onClick={openRightSidebar}
-      //  color="primary"
+    <button
+      type="button"
+      className="flex items-center px-0 py-0 border border-primary-300 rounded-lg bg-primary-0 shadow-sm hover:bg-primary-100  "
     >
-      <Badge
-        color="primary"
-        variant="dot"
-        //invisible={notifications.length === 0}
-        invisible={notificationsData?.pendingCount ? true : false}
+      <IconButton
+        className="w-10 h-10 border border-primary-300 "
+        onClick={openRightSidebar}
+        //  color="primary"
       >
-        {/* {props.children} */}
-        <Notification className=" text-primary-900" />
-      </Badge>
-    </IconButton>
+        <Badge
+          color="primary"
+          variant="dot"
+          //invisible={notifications.length === 0}
+          invisible={notificationsData?.pendingCount ? true : false}
+        >
+          {/* {props.children} */}
+          <Notification className=" text-primary-900" />
+        </Badge>
+      </IconButton>
+    </button>
   );
 };
 
