@@ -28,7 +28,7 @@ export const DayApi = serviceApi.injectEndpoints({
 
         return [];
       },
-      providesTags: ["Day"],
+      providesTags: ["Day", "Schedule"],
     }),
   }),
 });
