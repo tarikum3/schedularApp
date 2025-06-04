@@ -877,7 +877,7 @@ export default function ProfileComponent() {
           </div>
 
           {/* Password Section */}
-          {showPasswordFields && (
+          {showPasswordFields && !profileData.email == "test@email.com" && (
             <div className="space-y-6">
               <Typography
                 variant="h5"
