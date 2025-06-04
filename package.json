@@ -64,6 +64,7 @@
     "eslint-config-next": "14.1.4",
     "prisma": "^6.4.1",
     "tailwindcss": "^3.3.0",
+    "@types/react-virtualized": "^9.22.2",
     "typescript": "^5"
   }
 }
