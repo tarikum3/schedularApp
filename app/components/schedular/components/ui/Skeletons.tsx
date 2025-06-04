@@ -56,3 +56,27 @@ export const UserViewSkeleton = () => (
     </div>
   </div>
 );
+export function RightSideBarSkeleton() {
+  return (
+    <div className="fixed top-0 right-0 w-80 h-full bg-primary-100 animate-pulse border-l border-primary-200">
+      {/* Close button area */}
+      <div className="absolute top-4 right-4 w-6 h-6 bg-primary-200 rounded-full" />
+
+      {/* Content area with top margin */}
+      <div className="h-full mt-20 p-4">
+        {/* Header */}
+        <div className="h-8 bg-primary-200 rounded w-3/4 mb-6" />
+
+        {/* Notification items */}
+        <div className="space-y-4">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="p-3 border-b border-primary-50">
+              <div className="h-4 bg-primary-200 rounded w-full mb-2" />
+              <div className="h-3 bg-primary-200 rounded w-5/6" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
