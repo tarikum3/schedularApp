@@ -128,10 +128,10 @@ const Day: React.FC<DayProps> = ({
                 />
               ))}
               {schedules.length > 0 && (
-                <div className="-mt-3">
+                <div className="-mt-1.5">
                   <button
                     onClick={toggleDropdown}
-                    className="text-xs text-primary-900  cursor-pointer "
+                    className="text-xs text-white  cursor-pointer "
                     aria-label={`Toggle dropdown for ${schedules.length} schedules`}
                   >
                     {schedules.length}
