@@ -7,8 +7,8 @@ import {
   isSunday,
   isWeekend,
 } from "date-fns";
-import { Prisma } from "@prisma/client";
 
+import { NotificationType, NotificationStatus } from "@prisma/client";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 
@@ -327,3 +327,207 @@ export const getAllSchedules = async () => {
     throw new Error("Error fetching schedules");
   }
 };
+
+export async function getUserNotifications(
+  userId: string,
+  options?: {
+    status?: NotificationStatus;
+    page?: number;
+    limit?: number;
+  }
+): Promise<{
+  notifications: any[];
+  total: number;
+  pendingCount: number; // New field
+  page: number;
+  limit: number;
+}> {
+  const { status, page = 1, limit = 10 } = options || {};
+
+  try {
+    const skip = (page - 1) * limit;
+
+    // Execute all database queries in parallel for better performance
+    const [userNotifications, total, pendingCount] = await Promise.all([
+      prisma.userNotification.findMany({
+        where: {
+          userId,
+          ...(status && { status }),
+        },
+        include: {
+          notification: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        skip,
+        take: limit,
+      }),
+      prisma.userNotification.count({
+        where: {
+          userId,
+          ...(status && { status }),
+        },
+      }),
+      // Additional query to get pending notifications count
+      prisma.userNotification.count({
+        where: {
+          userId,
+          status: "PENDING", // Explicitly count only pending notifications
+        },
+      }),
+    ]);
+
+    return {
+      notifications: userNotifications,
+      total,
+      pendingCount, // Include the pending count in response
+      page,
+      limit,
+    };
+  } catch (error) {
+    console.error("Error fetching user notifications:", error);
+    throw new Error("Unable to fetch user notifications.");
+  }
+}
+
+export async function updateUserNotificationsStatus(
+  userId: string,
+  newStatus: NotificationStatus,
+  options?: {
+    page?: number;
+    limit?: number;
+    currentFilterStatus?: NotificationStatus; // Optional filter before update
+  }
+): Promise<{ count: number }> {
+  const { page = 1, limit = 10, currentFilterStatus } = options || {};
+  const skip = (page - 1) * limit;
+
+  try {
+    // First get the notification IDs for the current page
+    const userNotifications = await prisma.userNotification.findMany({
+      where: {
+        userId,
+        ...(currentFilterStatus && { status: currentFilterStatus }),
+      },
+      select: {
+        notificationId: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      skip,
+      take: limit,
+    });
+
+    const notificationIds = userNotifications.map((un) => un.notificationId);
+
+    // Update all matching notifications in a single transaction
+    const result = await prisma.userNotification.updateMany({
+      where: {
+        userId,
+        notificationId: { in: notificationIds },
+      },
+      data: {
+        status: newStatus,
+        // updatedAt: new Date(),
+      },
+    });
+
+    return { count: result.count };
+  } catch (error) {
+    console.error("Error updating user notifications:", error);
+    throw new Error("Unable to update user notifications");
+  }
+}
+export async function updateAllUserNotificationStatus(
+  userId: string,
+  currentStatus: NotificationStatus, // Current status to filter by
+  newStatus: NotificationStatus // New status to set
+) {
+  try {
+    const updatedUserNotifications = await prisma.userNotification.updateMany({
+      where: {
+        userId: userId,
+        status: currentStatus || "PENDING",
+      },
+      data: {
+        status: newStatus || "VIEWED",
+      },
+    });
+
+    return updatedUserNotifications;
+  } catch (error) {
+    console.error("Error updating all user notifications:", error);
+    throw new Error("Unable to update all user notifications.");
+  }
+}
+
+// services/notificationService.ts
+
+export async function updateSingleUserNotification(
+  userId: string,
+  notificationId: string,
+  newStatus: NotificationStatus
+) {
+  try {
+    // Update the UserNotification by its composite key (userId and notificationId)
+    const updatedNotification = await prisma.userNotification.update({
+      where: {
+        userId_notificationId: {
+          userId,
+          notificationId,
+        },
+      },
+      data: {
+        status: newStatus, // Set the new status
+      },
+      include: {
+        notification: true, // Include the associated Notification details
+      },
+    });
+
+    return updatedNotification;
+  } catch (error) {
+    console.error("Error updating user notification:", error);
+    throw new Error("Unable to update user notification.");
+  }
+}
+
+interface CreateNotificationParams {
+  userId: string;
+  title?: string;
+  description?: string;
+  link?: string;
+  type: NotificationType;
+  status?: NotificationStatus; // Optional, defaults to PENDING
+}
+
+export async function createNotification(params: CreateNotificationParams) {
+  const { userId, title, description, link, type, status = "PENDING" } = params;
+
+  try {
+    const notification = await prisma.notification.create({
+      data: {
+        title,
+        description,
+        link,
+        type,
+        userNotifications: {
+          create: {
+            userId,
+            status,
+          },
+        },
+      },
+      include: {
+        userNotifications: true,
+      },
+    });
+
+    return notification;
+  } catch (error) {
+    console.error("Failed to create notification:", error);
+    throw new Error("Notification creation failed");
+  }
+}

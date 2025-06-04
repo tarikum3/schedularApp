@@ -11,6 +11,12 @@ const ThemeSwitcher = lazy(
 const UserButton = lazy(
   () => import("@/app/components/schedular/components/User/UserButton")
 );
+const NotificationIcon = lazy(
+  () =>
+    import(
+      "@/app/components/schedular/components/notification/NotificationIcon"
+    )
+);
 const Toolbar = () => {
   return (
     <div className="flex items-center space-x-4 h-full">
@@ -19,6 +25,9 @@ const Toolbar = () => {
       </Suspense>
       <Suspense fallback={<div className="bg-primary-300 size-6"></div>}>
         <ThemeSwitcher />
+      </Suspense>
+      <Suspense fallback={<div className="bg-primary-300 size-6"></div>}>
+        <NotificationIcon />
       </Suspense>
       <Suspense fallback={<div className="bg-primary-300 size-6"></div>}>
         <UserButton />

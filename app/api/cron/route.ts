@@ -2,17 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { sendScheduleReminderEmail } from "@/lib/email"; // Adjust the import path
 import prisma from "@lib/prisma";
-
+import { createNotification } from "@lib/services/prismaServicesSchedular";
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("Authorization");
 
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (
+    !process.env.CRON_SECRET ||
+    authHeader !== `Bearer ${process.env.CRON_SECRET}`
+  ) {
     return new Response("Unauthorized", {
       status: 401,
     });
   }
   try {
-    await sendScheduleReminderEmail(["bishawm3@gmail.com"], "test from cron2");
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to the start of the day
 
@@ -29,15 +31,23 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    for (const schedule of schedules) {
+      await createNotification({
+        userId: schedule.userId,
+        title: "Schedule Reminder",
+        description: `Your schedule "${schedule.name}" starts today.`,
+        type: schedule.scheduleType,
+        status: "PENDING",
+      });
+    }
     const userEmails = Array.from(
       new Set(schedules.map((schedule) => schedule.user.email))
     );
 
-    // Filter out null values (if any)
     const validUserEmails = userEmails.filter(
       (email): email is string => email !== null
     );
-    // Send emails to all users with schedules starting today
+
     if (userEmails.length > 0) {
       const message = "Your schedule starts today. Don't forget to check it!";
       await sendScheduleReminderEmail(validUserEmails, message);
