@@ -24,11 +24,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <Header />
-      <main
-        className={` flex flex-col relative overflow-y-auto ${
-          displayLeftSidebar ? "lg:ml-[270px]" : "lg:ml-0"
-        }`}
-      >
+      <main className={` flex flex-col relative overflow-y-auto `}>
         {children}
       </main>
       {/* <RightSideBar /> */}
